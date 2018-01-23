@@ -4,3 +4,4 @@ root = true
 charset = utf-8
 indent_style = tab
 trim_trailing_whitespace = true
+indent_size = 3
