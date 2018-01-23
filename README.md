@@ -16,7 +16,7 @@ VE Dictionary là từ điển Anh Việt, dùng để tra các từ tiếng anh
 * Khi tra một từ, gợi ý các từ loại khác liên quan (động từ, danh từ, tính từ...)
 * Khi nhập một từ tiếng anh không có trong từ điển, gợi ý các từ gần giống với từ đã tra
 * Sau mỗi một khoảng thời gian, pop up ở taskbar một từ trong danh sách để học t.a
-
+* Các từ đã tra được lưu vào một tab lịch sử
 ## Design
 
 * Cấu trúc dữ liệu: Sử dụng bảng hash (hay từ điển) để chứa các từ tiếng anh và định nghĩa với
