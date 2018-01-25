@@ -19,9 +19,27 @@ VE Dictionary là từ điển Anh Việt, dùng để tra các từ tiếng anh
 * Các từ đã tra được lưu vào một tab lịch sử
 ## Design
 
-* Cấu trúc dữ liệu: Sử dụng bảng hash (hay từ điển) để chứa các từ tiếng anh và định nghĩa với
-key là từ tiếng anh và value là một kiểu dữ liệu (có thể là 1 bảng hash khác) dùng để chứa
-phần nghĩa. VD:
+### Data structures
+#### Danh sách từ vựng
+* Dictionary:
+	* Đơn giản
+	* Gần như không cần thiết lập vì đã có thư viện built-in sẵn
+	* Tốc độ search rất nhanh, không phụ thuộc vào kích cỡ từ điển (O(1))
+	* Không thể search prefix hiệu quả vì là unordered list
+* Order List + Binary Search:
+	* Đơn giản
+	* Tốc độ search nhanh trong hầu hết trường hợp dù phụ thuộc vào kích cỡ từ điển (O(log n))
+	* Có thể search prefix
+* Prefix Tree:
+	* Phức tạp hơn hai cách trên
+	* Tốc độ search rât nhanh, vì chỉ phụ thuộc vào số ký tự trong 1 từ
+	* Có thể search prefix
+#### Định nghĩa
+Có thể dùng dictionary với cặp (key, value) trong đó key là một thành phần
+trong phần định nghĩa như nghĩa động từ, nghĩa danh từ, vd câu với động từ, vd
+câu với danh từ... Và value là một mảng chứa giá trị tương ứng với mỗi thành
+phần đó, nếu một từ có nhiều nghĩa động từ thì mảng sẽ chứa các từ tiếng việt
+động từ tương ứng. VD:
 ```python
 ve_dictionary_data = {
     'apple': {
@@ -48,7 +66,15 @@ ve_dictionary_data = {
     ...
 }
 ```
-* Dữ liệu: không thể nhập bằng tay từ và định nghĩa của nó vì sẽ rất mất thời gian, với lại
+
+### Dữ liệu
+Không thể nhập bằng tay từ và định nghĩa của nó vì sẽ rất mất thời gian, với lại
 đồ án này chỉ mang tính chất minh họa phục vụ cho môn học chứ không có sử dụng thực tế nên
 các định nghĩa của mỗi từ sẽ được format đơn giản để có thể dùng 1 đoạn script dịch các từ từ danh sách [từ cơ bản này](http://www.greenteapress.com/thinkpython/code/words.txt), và tìm
 các từ ví dụ tương ứng chứa từ đó
+
+## Credit
+Data structures:
+* https://futurice.com/blog/data-structures-for-fast-autocomplete
+* http://igoro.com/archive/efficient-auto-complete-with-a-ternary-search-tree/
+* https://en.wikipedia.org/wiki/Trie
