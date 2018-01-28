@@ -28,8 +28,13 @@ def binary_search(sequence, element):
 		elif sequence[m] > element:
 			max = m - 1
 
-def prefix_search(element, sequence):
-	""" Prefix search using binary search algorithm """
+def prefix_search(element, sequence, recursive=True):
+	"""
+	Prefix search using binary search algorithm
+	recursive=False: if element not found as a prefix of any word in sequence simply return -1
+	recursive=True:  if element not found as a prefix of any word in sequence check if every
+	prefix of that element match any prefix in sequence, if not again return -1
+	"""
 	min = 0
 	max = len(sequence) - 1
 	prefix_index = -1
@@ -37,7 +42,17 @@ def prefix_search(element, sequence):
 		if max < min:
 			if prefix_index != -1:
 				return prefix_index
-			return -1
+			else: # see if every prefix of your own string match any prefix in the list
+				if recursive is True:
+					for i in range(len(element) + 1):
+						temp_index = prefix_search(element[:i], sequence, recursive=False)
+						if temp_index != -1:
+							prefix_index = temp_index
+						else:
+							return prefix_index
+					return -1
+				else:
+					return -1
 		m = (min + max) // 2
 		if sequence[m].startswith(element):
 			prefix_index = m
