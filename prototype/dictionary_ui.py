@@ -1,79 +1,71 @@
 #!/bin/env python
 
-""" Test search prefix using binary search """
+""" DictionaryUI module to run dictionary app in terminal """
 
 import os
 import curses
 
 from spellcheck import SpellCheck
-from search import prefix_search, binary_search
 from util import get_word_list
-
-class Definition(object):
-	""" data structure for definition of a word in dictionary """
-	def __init__(self, word):
-		self.word = word
-		self.verb_meaning = []
-		self.verb_examples = []
-		self.noun_meaning = []
-		self.noun_examples = []
-		self.adj_meaning = []
-		self.adj_examples = []
-		self.adv_meaning = []
-		self.adv_examples = []
-
-	def __str__(self):
-		print('definition of {}:'.format(self.word))
-		print('verb: ')
-		for verb, verb_example in zip(self.verb_meaning, self.verb_examples):
-			print(' ' + verb + "\n" + verb_example)
-		print('noun: ')
-		for noun, noun_example in zip(self.noun_meaning, self.noun_examples):
-			print(' ' + noun + "\n" + noun_example)
-		print('adj: ')
-		for adj, adj_example in zip(self.adj_meaning, self.adj_examples):
-			print(' ' + adj + "\n" + adj_example)
-		print('adv: ')
-		for adv, adv_example in zip(self.adv_meaning, self.adv_examples):
-			print(' ' + adv + "\n" + adv_example)
-
-class Word(object):
-	""" Word is used to store word value (string) and its definition (Definition) """
-	def __init__(self, name, definition=None):
-		self.name = name
-		self.definition = definition
-
-	def __str__(self):
-		print(self.name)
-
-	def get_definition(self):
-		""" return definition of word if it's in the database """
-		return '<Definition of {}>'.format(self.name)
-
-	def print_def(self):
-		print(str(self.definition))
+from word import Word, WordList, Definition
 
 class DictionaryCore(object):
-	""" dictionary implementation. database is a list of words (Word) """
+	"""
+	dictionary implementation.
+	self.words: WordList (subclass of list that hold Word type) of words (Word type)
+	"""
 	def __init__(self, vocabulary):
-		self.data = vocabulary
+		self.words = WordList(vocabulary)
 		self.completion = []
-		self.completion_start_idx = 0
+		self.comp_pos = 0 # first completion index in self.words
 		self.spellcheck = SpellCheck(self.get_wordlist())
 
-	def get_completion_list(self, prefix, max=20):
+	def _search_prefix(self, string, recursive=True):
 		"""
-		get list of n `max` number of suggestions for `prefix` by
-		searching for the longest prefix in self.data that contain `prefix`
+		search words with matching prefix using binary search algorithm
+		recursive=False: if string not found as a prefix of any word in sequence simply return -1
+		recursive=True:  if string not found as a prefix of any word in sequence check if every
+		prefix of that string match any prefix in sequence, if not again return -1
 		"""
-		self.completion_start_idx = prefix_search(prefix, self.data)
-		autocomplete = []
+		min_pos = 0
+		max_pos = len(self.words) - 1
+		prefix_pos = -1
+		while True:
+			if max_pos < min_pos:
+				if prefix_pos != -1:
+					return prefix_pos
+				if recursive is True:
+					for i in range(len(string) + 1):
+						temp_pos = self._search_prefix(string[:i], recursive=False)
+						if temp_pos != -1:
+							prefix_pos = temp_pos
+						else:
+							return prefix_pos
+					return -1
+				return -1
+			cur_pos = (min_pos + max_pos) // 2
+			if self.words[cur_pos].name.startswith(string):
+				prefix_pos = cur_pos
+			if self.words[cur_pos].name < string:
+				min_pos = cur_pos + 1
+			elif self.words[cur_pos].name > string:
+				max_pos = cur_pos - 1
+			elif self.words[cur_pos].name == string:
+				return cur_pos
+
+	def get_completion_list(self, substr, max=20):
+		"""
+		get list of n `max` number of suggestions for `substr` by
+		searching for the longest prefix in self.words[:].name that contain `substr`
+		"""
+		self.comp_pos = self._search_prefix(substr)
+		comp_list = []
 		for i in range(max):
-			if self.completion_start_idx + i < len(self.data):
-				autocomplete.append(self.data[self.completion_start_idx + i].name)
+			if self.comp_pos + i < len(self.words):
+				comp_list.append(self.words[self.comp_pos + i].name)
 			else:
-				return autocomplete
-		return autocomplete
+				return comp_list
+		return comp_list
 
 	def get_related_words(self, word):
 		""" return a list of word similar to the word just entered but not found """
@@ -81,7 +73,7 @@ class DictionaryCore(object):
 
 	def get_wordlist(self):
 		""" return a list of words (string) in the dictionary """
-		return [word.name for word in self.data]
+		return [word.name for word in self.words]
 
 	def add_word(self, word):
 		pass
@@ -297,19 +289,19 @@ class DictionaryUI(DictionaryCore):
 		height, _ = self.win_wordlist.getmaxyx()
 
 		if direction == self.KEY_UP:
-			self.completion_start_idx -= 1
+			self.comp_pos -= 1
 		elif direction == self.KEY_DOWN:
-			self.completion_start_idx += 1
+			self.comp_pos += 1
 
-		self.completion_start_idx = max(self.completion_start_idx, 0)
+		self.comp_pos = max(self.comp_pos, 0)
 		self.completion = self.words[
-				self.completion_start_idx:self.completion_start_idx + height - 2]
+				self.comp_pos:self.comp_pos + height - 2]
 		self.redraw_wordlist()
 
 	def display_definition(self):
 		""" show definition of query after hit ENTER key """
 		self.redraw_definition()
-		if binary_search(self.input_buffer, self.words) == -1:
+		if self.input_buffer not in self.words:
 			self.display_suggested_words()
 		else:
 			self.win_definition.addstr(1, 2, '<Definition of {}>'.format(self.input_buffer))
@@ -331,14 +323,16 @@ class DictionaryUI(DictionaryCore):
 
 def main(stdscr):
 	words = get_word_list()
-	vocabulary = []
-	for word in words:
-		vocabulary.append(Word(word))
+	vocabulary = [Word(word, definition=None) for word in words]
 	program_ui = DictionaryUI(stdscr, vocabulary)
 	program_ui.run()
 
 if __name__ == '__main__':
 	os.environ.setdefault('ESCDELAY', '0') # fix <Esc> key delay in curses
 	curses.wrapper(main)
+
+# TODO:
+# wrapper all window with a window wrapper that only contain border
+# use a 'pad' for wordlist window
 
 # vim: nofoldenable
