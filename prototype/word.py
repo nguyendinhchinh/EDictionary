@@ -36,19 +36,12 @@ class Definition(object):
 		self.adv_examples = []
 
 	def __str__(self):
-		print('definition of {}:'.format(self.word))
-		print('verb: ')
-		for verb, verb_example in zip(self.verb_meaning, self.verb_examples):
-			print(' ' + verb + "\n" + verb_example)
-		print('noun: ')
-		for noun, noun_example in zip(self.noun_meaning, self.noun_examples):
-			print(' ' + noun + "\n" + noun_example)
-		print('adj: ')
-		for adj, adj_example in zip(self.adj_meaning, self.adj_examples):
-			print(' ' + adj + "\n" + adj_example)
-		print('adv: ')
-		for adv, adv_example in zip(self.adv_meaning, self.adv_examples):
-			print(' ' + adv + "\n" + adv_example)
+		return "verb:\n {}\n {}\nnoun\n {}\n {}adj\n {}\n {}adv\n {}\n {}".format(
+				self.verb_meaning, self.verb_examples,
+				self.noun_meaning, self.noun_examples,
+				self.adj_meaning, self.adj_examples,
+				self.adv_meaning, self.adv_examples
+				)
 
 class WordList(list):
 	"""
