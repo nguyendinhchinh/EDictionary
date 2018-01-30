@@ -4,6 +4,7 @@
 
 import os
 import curses
+import textwrap
 
 from spellcheck import SpellCheck
 from util import get_word_list
@@ -285,7 +286,7 @@ class DictionaryUI(DictionaryCore):
 		start = len(self.input_buffer) - (width - 4)
 		if start < 0:
 			start = 0
-		self.win_input.addstr(0, 0, self.input_buffer[start:])
+		self.win_input.addstr(self.input_buffer[start:])
 		self.win_input_wrapper.refresh()
 		self.win_input.refresh()
 
@@ -337,11 +338,10 @@ class DictionaryUI(DictionaryCore):
 		""" display list of word similar to the word just entered but not found """
 		candidates = self.get_related_words(self.input_buffer)
 		height, _ = self.win_def.getmaxyx()
+		self.win_def.addstr('No match found for "{}"'.format(self.input_buffer))
 		if self.input_buffer in candidates: # cant find alternative words for suggestion
-			self.win_def.addstr(0, 0, 'No match found for "{}"'.format(self.input_buffer))
 			return
-		self.win_def.addstr(0, 0,
-				'No match found for "{}". Did you mean:'.format(self.input_buffer))
+		self.win_def.addstr('. Did you mean:')
 		for i, candidate in enumerate(candidates):
 			if 2 + i > height - 2:
 				return
