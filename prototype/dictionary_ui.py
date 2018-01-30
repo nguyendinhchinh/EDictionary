@@ -99,7 +99,7 @@ class DictionaryUI(DictionaryCore):
 	BLACK = curses.COLOR_BLACK
 	WHITE = 15
 
-	def __init__(self, stdscr, vocabulary, wordlist_width=25):
+	def __init__(self, stdscr, vocabulary):
 		super().__init__(vocabulary)
 		curses.use_default_colors() # support transparancy in application
 		self.stdscr = stdscr # main window
@@ -113,43 +113,56 @@ class DictionaryUI(DictionaryCore):
 		curses.init_pair(3, self.YELLOW, -1)
 		curses.init_pair(4, self.BLACK, self.WHITE)
 
+		leftpanel_width = 25
 		# create derived windows
-		input_hwyx = (3, wordlist_width, 0, 0)
-		wordlist_hwyx = (curses.LINES-input_hwyx[0], wordlist_width, input_hwyx[0], 0)
-		definition_hwyx = (curses.LINES, curses.COLS - wordlist_hwyx[1], 0, wordlist_hwyx[1])
+		input_wrapper_hwyx = (3, leftpanel_width, 0, 0)
+		input_hwyx = (input_wrapper_hwyx[0]-2, input_wrapper_hwyx[1]-2, 1, 2)
+		wordlist_wrapper_hwyx = (curses.LINES-input_wrapper_hwyx[0], leftpanel_width,
+				input_wrapper_hwyx[0], 0)
+		wordlist_hwyx = (wordlist_wrapper_hwyx[0]-2, wordlist_wrapper_hwyx[1]-2, 1, 2)
+		def_wrapper_hwyx = (curses.LINES, curses.COLS - wordlist_wrapper_hwyx[1],
+				0, wordlist_wrapper_hwyx[1])
+		def_hwyx = (def_wrapper_hwyx[0]-2, def_wrapper_hwyx[1]-2, 1, 2)
 
-		self.win_input = stdscr.derwin(*input_hwyx)
-		self.win_wordlist = stdscr.derwin(*wordlist_hwyx)
-		self.win_definition = stdscr.derwin(*definition_hwyx)
+		# box drawing window that contain win_input
+		self.win_input_wrapper = stdscr.derwin(*input_wrapper_hwyx)
+		self.win_input = self.win_input_wrapper.derwin(*input_hwyx)
+		self.win_wordlist_wrapper = stdscr.derwin(*wordlist_wrapper_hwyx)
+		self.win_wordlist = self.win_wordlist_wrapper.derwin(*wordlist_hwyx)
+		self.win_def_wrapper = stdscr.derwin(*def_wrapper_hwyx)
+		self.win_def = self.win_def_wrapper.derwin(*def_hwyx)
 
 		self.win_input.keypad(True) # special key will be interpreted by curses
 
 		# set foreground to cyan
-		self.win_input.attrset(curses.color_pair(1))
-		self.win_wordlist.attrset(curses.color_pair(1))
-		self.win_definition.attrset(curses.color_pair(1))
+		self.win_input_wrapper.attrset(curses.color_pair(1))
+		self.win_wordlist_wrapper.attrset(curses.color_pair(1))
+		self.win_def_wrapper.attrset(curses.color_pair(1))
+		self.win_input.attrset(curses.color_pair(3))
+		self.win_wordlist.attrset(curses.color_pair(2))
+		self.win_def.attrset(curses.color_pair(1))
 
 		# # windows size variables
 		# h, w = self.stdscr.getmaxyx()
-		# h_i, w_i = self.win_input.getmaxyx()
-		# h_w, w_w = self.win_wordlist.getmaxyx()
-		# h_d, w_d = self.win_definition.getmaxyx()
+		# h_i, w_i = self.win_input_wrapper.getmaxyx()
+		# h_w, w_w = self.win_wordlist_wrapper.getmaxyx()
+		# h_d, w_d = self.win_def_wrapper.getmaxyx()
 
 		# # # input marker
-		# self.win_input.addch(0, 0, '*', curses.A_REVERSE)
-		# self.win_input.addch(h_i-1, 0, '*', curses.A_REVERSE)
-		# self.win_input.addch(0, w_i-1, '*', curses.A_REVERSE)
-		# self.win_input.insch(h_i-1, w_i-1, '*', curses.A_REVERSE)
+		# self.win_input_wrapper.addch(0, 0, '*', curses.A_REVERSE)
+		# self.win_input_wrapper.addch(h_i-1, 0, '*', curses.A_REVERSE)
+		# self.win_input_wrapper.addch(0, w_i-1, '*', curses.A_REVERSE)
+		# self.win_input_wrapper.insch(h_i-1, w_i-1, '*', curses.A_REVERSE)
 		# # # wordlist marker
-		# self.win_wordlist.addch(0, 0, '*', curses.A_REVERSE)
-		# self.win_wordlist.addch(h_w-1, 0, '*', curses.A_REVERSE)
-		# self.win_wordlist.addch(0, w_w-1, '*', curses.A_REVERSE)
-		# self.win_wordlist.insch(h_w-1, w_w-1, '*', curses.A_REVERSE)
+		# self.win_wordlist_wrapper.addch(0, 0, '*', curses.A_REVERSE)
+		# self.win_wordlist_wrapper.addch(h_w-1, 0, '*', curses.A_REVERSE)
+		# self.win_wordlist_wrapper.addch(0, w_w-1, '*', curses.A_REVERSE)
+		# self.win_wordlist_wrapper.insch(h_w-1, w_w-1, '*', curses.A_REVERSE)
 		# # # definition marker
-		# self.win_definition.addch(0, 0, '*', curses.A_REVERSE)
-		# self.win_definition.addch(h_d-1, 0, '*', curses.A_REVERSE)
-		# self.win_definition.addch(0, w_d-1, '*', curses.A_REVERSE)
-		# self.win_definition.insch(h_d-1, w_d-1, '*', curses.A_REVERSE)
+		# self.win_def_wrapper.addch(0, 0, '*', curses.A_REVERSE)
+		# self.win_def_wrapper.addch(h_d-1, 0, '*', curses.A_REVERSE)
+		# self.win_def_wrapper.addch(0, w_d-1, '*', curses.A_REVERSE)
+		# self.win_def_wrapper.insch(h_d-1, w_d-1, '*', curses.A_REVERSE)
 
 	def run(self):
 		""" run endless loop waiting for user input """
@@ -183,7 +196,7 @@ class DictionaryUI(DictionaryCore):
 
 	def draw_startup_screen(self):
 		""" print startup screen """
-		height, width = self.win_definition.getmaxyx()
+		height, width = self.win_def.getmaxyx()
 		startup_str = [
 				"This is a dictionary prototype",
 				"Type something...",
@@ -214,24 +227,24 @@ class DictionaryUI(DictionaryCore):
 		start_x_1 = (width // 2) - (len(startup_str[1]) // 2 - 1)
 		start_x_2 = (width // 2) - (len(startup_str[2]) // 2 - 1)
 
-		self.win_definition.addstr(start_y, start_x_0, startup_str[0])
-		self.win_definition.addstr(start_y+1, start_x_1, startup_str[1])
-		self.win_definition.addstr(start_y+2, start_x_2, startup_str[2])
-		self.win_definition.refresh()
-		self.win_input.move(1, 2) # init cursor position at startup
+		self.win_def.addstr(start_y, start_x_0, startup_str[0])
+		self.win_def.addstr(start_y+1, start_x_1, startup_str[1])
+		self.win_def.addstr(start_y+2, start_x_2, startup_str[2])
+		self.win_def.refresh()
+		self.win_input.move(0, 0) # init cursor position at startup
 
 		# init wordlist
 		self.redraw_wordlist_on_completion()
 
 	def _print_key(self, key):
 		""" print key for debugging purpose """
-		height, _ = self.win_definition.getmaxyx()
+		height, _ = self.win_def.getmaxyx()
 		if key == "\n":
 			return
 		# clear last key pressed
-		self.win_definition.hline(height - 2, 2, ' ', len('Key pressed: ') + 10)
-		self.win_definition.addstr(height - 2, 2, 'Key pressed: ' + str(key))
-		self.win_definition.refresh()
+		self.win_def.hline(height - 1, 0, ' ', len('Key pressed: ') + 10)
+		self.win_def.addstr(height - 1, 0, 'Key pressed: ' + str(key))
+		self.win_def.refresh()
 
 	def redraw_ui(self):
 		""" redraw the whole window """
@@ -245,33 +258,39 @@ class DictionaryUI(DictionaryCore):
 
 	def redraw_wordlist(self):
 		""" redraw wordlist window """
-		# height, width = self.win_wordlist.getmaxyx()
+		# height, width = self.win_wordlist_wrapper.getmaxyx()
 
 		self.win_wordlist.erase()
-		self.win_wordlist.box()
+		self.win_wordlist_wrapper.erase()
+		self.win_wordlist_wrapper.box()
 		for height, word in enumerate(self.completion):
-			self.win_wordlist.addstr(height + 1, 2, word, curses.color_pair(2))
+			self.win_wordlist.addstr(height, 0, word)
+		self.win_wordlist_wrapper.refresh()
 		self.win_wordlist.refresh()
 
 	def redraw_input(self):
 		""" redraw input bar window """
-		height, width = self.win_input.getmaxyx()
+		height, width = self.win_input_wrapper.getmaxyx()
 
 		self.win_input.erase()
-		self.win_input.box()
+		self.win_input_wrapper.erase()
+		self.win_input_wrapper.box()
 		start = len(self.input_buffer) - (width - 4)
 		if start < 0:
 			start = 0
-		self.win_input.addstr(1, 2, self.input_buffer[start:], curses.color_pair(3))
+		self.win_input.addstr(0, 0, self.input_buffer[start:])
+		self.win_input_wrapper.refresh()
 		self.win_input.refresh()
 
 	def redraw_definition(self):
 		""" redraw definition window """
-		height, width = self.win_definition.getmaxyx()
+		height, width = self.win_def_wrapper.getmaxyx()
 
-		self.win_definition.erase()
-		self.win_definition.box()
-		self.win_definition.refresh()
+		self.win_def.erase()
+		self.win_def_wrapper.erase()
+		self.win_def_wrapper.box()
+		self.win_def.refresh()
+		self.win_def_wrapper.refresh()
 
 	def resize(self):
 		""" handle window size when terminal size change """
@@ -280,13 +299,13 @@ class DictionaryUI(DictionaryCore):
 
 	def redraw_wordlist_on_completion(self):
 		""" update wordlist based on current self.input_buffer """
-		height, _ = self.win_wordlist.getmaxyx()
+		height, _ = self.win_wordlist_wrapper.getmaxyx()
 		self.completion = self.get_completion_list(self.input_buffer, height - 2)
 		self.redraw_wordlist()
 
 	def redraw_wordlist_on_scrolling(self, direction): # temporary
 		""" navigate wordlist by pressing up and down """
-		height, _ = self.win_wordlist.getmaxyx()
+		height, _ = self.win_wordlist_wrapper.getmaxyx()
 
 		if direction == self.KEY_UP:
 			self.comp_pos -= 1
@@ -304,22 +323,22 @@ class DictionaryUI(DictionaryCore):
 		if self.input_buffer not in self.words:
 			self.display_suggested_words()
 		else:
-			self.win_definition.addstr(1, 2, '<Definition of {}>'.format(self.input_buffer))
-		self.win_definition.refresh()
+			self.win_def.addstr(0, 0, '<Definition of {}>'.format(self.input_buffer))
+		self.win_def.refresh()
 
 	def display_suggested_words(self):
 		""" display list of word similar to the word just entered but not found """
 		candidates = self.get_related_words(self.input_buffer)
-		height, _ = self.win_definition.getmaxyx()
+		height, _ = self.win_def.getmaxyx()
 		if self.input_buffer in candidates: # cant find alternative words for suggestion
-			self.win_definition.addstr(1, 2, 'No match found for "{}"'.format(self.input_buffer))
+			self.win_def.addstr(0, 0, 'No match found for "{}"'.format(self.input_buffer))
 			return
-		self.win_definition.addstr(1, 2,
+		self.win_def.addstr(0, 0,
 				'No match found for "{}". Did you mean:'.format(self.input_buffer))
 		for i, candidate in enumerate(candidates):
 			if 2 + i > height - 2:
 				return
-			self.win_definition.addstr(2 + i, 2, ' * ' + candidate)
+			self.win_def.addstr(1 + i, 0, ' * ' + candidate)
 
 def main(stdscr):
 	words = get_word_list()
