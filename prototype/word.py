@@ -5,22 +5,20 @@
 class Word(object):
 	""" Word is used to store word value (string) and its definition (Definition) """
 	def __init__(self, name, definition=None):
-		self.name = name
-		self.definition = definition
+		self._name = name
+		self._definition = definition
 
 	def __str__(self):
-		return 'Word ' + self.name
+		return 'Word ' + self._name
 
 	def __repr__(self):
-		return '(Word {}, Def: {})'.format(self.name, self.definition is not None)
+		return '(Word {}, Def: {})'.format(self._name, self._definition is not None)
 
 	def get_definition(self):
 		""" return definition of word if it's in the database """
-		return '<Definition of {}>'.format(self.name) # placeholder
-
-	def print_def(self):
-		""" print def of Word """
-		print(str(self.definition))
+		if self._definition is None:
+			return '<Definition of {}>'.format(self._name) # placeholder
+		return self._definition
 
 class Definition(object):
 	""" data structure for definition of a word in dictionary """
@@ -74,5 +72,18 @@ class WordList(list):
 		if self._binary_search(word) == -1:
 			return False
 		return True
+
+	def index(self, word):
+		"""
+		override list.index() to return index from `word`
+		which will be searched in WordList[:].name
+		return -1 if `word` not found instead of throwing error
+		"""
+		return self._binary_search(word)
+
+	def definition(self, word):
+		""" return definition of `word` """
+		pos = self.index(word)
+		return self._words[pos].get_definition()
 
 # vim: nofoldenable

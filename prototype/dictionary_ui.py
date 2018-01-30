@@ -75,6 +75,13 @@ class DictionaryCore(object):
 		""" return a list of words (string) in the dictionary """
 		return [word.name for word in self.words]
 
+	def get_definition(self, word):
+		"""
+		get definition from a word (string)
+		return None if word not in database (WordList)
+		"""
+		return self.words.definition(word)
+
 	def add_word(self, word):
 		pass
 
@@ -323,7 +330,7 @@ class DictionaryUI(DictionaryCore):
 		if self.input_buffer not in self.words:
 			self.display_suggested_words()
 		else:
-			self.win_def.addstr(0, 0, '<Definition of {}>'.format(self.input_buffer))
+			self.win_def.addstr(self.get_definition(self.input_buffer))
 		self.win_def.refresh()
 
 	def display_suggested_words(self):
