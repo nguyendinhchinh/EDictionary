@@ -14,13 +14,15 @@ class Word(object):
 	def __repr__(self):
 		return '(Word {}, Def: {})'.format(self._name, self._definition is not None)
 
-	def get_definition(self):
+	@property
+	def definition(self):
 		""" return definition of word if it's in the database """
 		if self._definition is None:
 			return '<Definition of {}>'.format(self._name) # placeholder
 		return self._definition
 
-	def get_name(self):
+	@property
+	def name(self):
 		""" get name value """
 		return self._name
 
@@ -49,27 +51,27 @@ class WordList(list):
 	"""
 	WordList is a list which contain Word data type. The only different is the keyword 'in'
 	use binary search algorithm because WordList element is always sorted and iterate through
-	WordList[:].get_name() instead of WordList[:]
+	WordList[:].name instead of WordList[:]
 	"""
 	def __init__(self, words=None):
 		super().__init__(words)
-		for word in words:
+		for word in words: # TODO: optimize
 			if not isinstance(word, Word):
 				raise TypeError('{} is not type Word'.format(word))
-		self._words = words if words is not None else list()
+		self.words = words if words is not None else list()
 
 	def _binary_search(self, word):
 		min_pos = 0
-		max_pos = len(self._words) - 1
+		max_pos = len(self.words) - 1
 		while True:
 			if max_pos < min_pos:
 				return -1
 			cur_pos = (min_pos + max_pos) // 2
-			if self._words[cur_pos].get_name() == word:
+			if self.words[cur_pos].name == word:
 				return cur_pos
-			elif self._words[cur_pos].get_name() < word:
+			elif self.words[cur_pos].name < word:
 				min_pos = cur_pos + 1
-			elif self._words[cur_pos].get_name() > word:
+			elif self.words[cur_pos].name > word:
 				max_pos = cur_pos - 1
 
 	def __contains__(self, word):
@@ -80,7 +82,7 @@ class WordList(list):
 	def index(self, word):
 		"""
 		override list.index() to return index from `word`
-		which will be searched in WordList[:].get_name()
+		which will be searched in WordList[:].name
 		return -1 if `word` not found instead of throwing error
 		"""
 		return self._binary_search(word)
@@ -88,6 +90,6 @@ class WordList(list):
 	def definition(self, word):
 		""" return definition of `word` """
 		pos = self.index(word)
-		return self._words[pos].get_definition()
+		return self.words[pos].definition
 
 # vim: nofoldenable
