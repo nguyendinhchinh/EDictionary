@@ -20,6 +20,10 @@ class Word(object):
 			return '<Definition of {}>'.format(self._name) # placeholder
 		return self._definition
 
+	def get_name(self):
+		""" get name value """
+		return self._name
+
 class Definition(object):
 	""" data structure for definition of a word in dictionary """
 	def __init__(self, word):
@@ -45,7 +49,7 @@ class WordList(list):
 	"""
 	WordList is a list which contain Word data type. The only different is the keyword 'in'
 	use binary search algorithm because WordList element is always sorted and iterate through
-	WordList[:].name instead of WordList[:]
+	WordList[:].get_name() instead of WordList[:]
 	"""
 	def __init__(self, words=None):
 		super().__init__(words)
@@ -61,11 +65,11 @@ class WordList(list):
 			if max_pos < min_pos:
 				return -1
 			cur_pos = (min_pos + max_pos) // 2
-			if self._words[cur_pos].name == word:
+			if self._words[cur_pos].get_name() == word:
 				return cur_pos
-			elif self._words[cur_pos].name < word:
+			elif self._words[cur_pos].get_name() < word:
 				min_pos = cur_pos + 1
-			elif self._words[cur_pos].name > word:
+			elif self._words[cur_pos].get_name() > word:
 				max_pos = cur_pos - 1
 
 	def __contains__(self, word):
@@ -76,7 +80,7 @@ class WordList(list):
 	def index(self, word):
 		"""
 		override list.index() to return index from `word`
-		which will be searched in WordList[:].name
+		which will be searched in WordList[:].get_name()
 		return -1 if `word` not found instead of throwing error
 		"""
 		return self._binary_search(word)

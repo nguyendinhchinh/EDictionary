@@ -45,25 +45,25 @@ class DictionaryCore(object):
 					return -1
 				return -1
 			cur_pos = (min_pos + max_pos) // 2
-			if self.words[cur_pos].name.startswith(string):
+			if self.words[cur_pos].get_name().startswith(string):
 				prefix_pos = cur_pos
-			if self.words[cur_pos].name < string:
+			if self.words[cur_pos].get_name() < string:
 				min_pos = cur_pos + 1
-			elif self.words[cur_pos].name > string:
+			elif self.words[cur_pos].get_name() > string:
 				max_pos = cur_pos - 1
-			elif self.words[cur_pos].name == string:
+			elif self.words[cur_pos].get_name() == string:
 				return cur_pos
 
 	def get_completion_list(self, substr, max=20):
 		"""
 		get list of n `max` number of suggestions for `substr` by
-		searching for the longest prefix in self.words[:].name that contain `substr`
+		searching for the longest prefix in self.words[:].get_name() that contain `substr`
 		"""
 		self.comp_pos = self._search_prefix(substr)
 		comp_list = []
 		for i in range(max):
 			if self.comp_pos + i < len(self.words):
-				comp_list.append(self.words[self.comp_pos + i].name)
+				comp_list.append(self.words[self.comp_pos + i].get_name())
 			else:
 				return comp_list
 		return comp_list
@@ -74,7 +74,7 @@ class DictionaryCore(object):
 
 	def get_wordlist(self):
 		""" return a list of words (string) in the dictionary """
-		return [word.name for word in self.words]
+		return [word.get_name() for word in self.words]
 
 	def get_definition(self, word):
 		"""
