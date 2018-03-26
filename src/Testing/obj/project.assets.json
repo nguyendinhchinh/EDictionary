@@ -668,8 +668,8 @@
     },
     "Util/1.0.0": {
       "type": "project",
-      "path": "../SpellCheck/Util.csproj",
-      "msbuildProject": "../SpellCheck/Util.csproj"
+      "path": "../Util/Util.csproj",
+      "msbuildProject": "../Util/Util.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -711,8 +711,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "E:\\Program Files\\Project\\VE-Dictionary\\src\\SpellCheck\\Util.csproj": {
-              "projectPath": "E:\\Program Files\\Project\\VE-Dictionary\\src\\SpellCheck\\Util.csproj"
+            "E:\\Program Files\\Project\\VE-Dictionary\\src\\Util\\Util.csproj": {
+              "projectPath": "E:\\Program Files\\Project\\VE-Dictionary\\src\\Util\\Util.csproj"
             }
           }
         }
