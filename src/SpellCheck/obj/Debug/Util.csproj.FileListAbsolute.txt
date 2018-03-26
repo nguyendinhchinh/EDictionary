@@ -1,0 +1,12 @@
+E:\Program Files\Project\EnglishDictionary\SpellCheck\obj\Debug\Util.csproj.CoreCompileInputs.cache
+E:\Program Files\Project\EnglishDictionary\SpellCheck\obj\Debug\SpellCheck.dll
+E:\Program Files\Project\EnglishDictionary\SpellCheck\obj\Debug\SpellCheck.pdb
+E:\Program Files\Project\EnglishDictionary\SpellCheck\bin\Debug\SpellCheck.dll
+E:\Program Files\Project\EnglishDictionary\SpellCheck\bin\Debug\SpellCheck.pdb
+E:\Program Files\Project\EnglishDictionary\SpellCheck\obj\Debug\Util.csprojResolveAssemblyReference.cache
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\bin\Debug\SpellCheck.dll
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\bin\Debug\SpellCheck.pdb
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\obj\Debug\Util.csprojResolveAssemblyReference.cache
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\obj\Debug\Util.csproj.CoreCompileInputs.cache
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\obj\Debug\SpellCheck.dll
+E:\Program Files\Project\VE-Dictionary\src\SpellCheck\obj\Debug\SpellCheck.pdb
