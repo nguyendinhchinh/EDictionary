@@ -1,2 +1,4 @@
 .git
 .vs
+Debug/
+Release/
