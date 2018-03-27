@@ -686,11 +686,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Program Files\\Project\\VE-Dictionary\\src\\Testing\\Testing.csproj",
+      "projectUniqueName": "E:\\Program Files\\Project\\E-Dictionary\\src\\Testing\\Testing.csproj",
       "projectName": "Testing",
-      "projectPath": "E:\\Program Files\\Project\\VE-Dictionary\\src\\Testing\\Testing.csproj",
+      "projectPath": "E:\\Program Files\\Project\\E-Dictionary\\src\\Testing\\Testing.csproj",
       "packagesPath": "C:\\Users\\Near\\.nuget\\packages\\",
-      "outputPath": "E:\\Program Files\\Project\\VE-Dictionary\\src\\Testing\\obj\\",
+      "outputPath": "E:\\Program Files\\Project\\E-Dictionary\\src\\Testing\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
@@ -711,8 +711,8 @@
       "frameworks": {
         "netcoreapp2.0": {
           "projectReferences": {
-            "E:\\Program Files\\Project\\VE-Dictionary\\src\\Util\\Util.csproj": {
-              "projectPath": "E:\\Program Files\\Project\\VE-Dictionary\\src\\Util\\Util.csproj"
+            "E:\\Program Files\\Project\\E-Dictionary\\src\\Util\\Util.csproj": {
+              "projectPath": "E:\\Program Files\\Project\\E-Dictionary\\src\\Util\\Util.csproj"
             }
           }
         }
