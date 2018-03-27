@@ -18,15 +18,18 @@ namespace Util
 
 		private static HashSet<string> ReadWordList()
 		{
-			string WordListFile = System.IO.Path.GetFullPath(@".\words_alpha.txt");
-
-			if (!File.Exists(WordListFile))
+			// temp path [WIP]
+			string executePath = System.AppDomain.CurrentDomain.BaseDirectory;
+			string wordlistPath = Path.GetFullPath(
+					Path.Combine(executePath, @"..\..\..\..\Util\vocabulary.txt")); // called from Testing
+			
+			if (!File.Exists(wordlistPath))
 			{
 				throw new Exception("Cannot find vocabulary text file");
 			}
 
 			return new HashSet<string>(
-					from line in File.ReadLines(WordListFile) select line);
+					from line in File.ReadLines(wordlistPath) select line);
 		}
 
 		public static IEnumerable<string> Edits1(string word)
