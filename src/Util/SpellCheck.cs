@@ -11,25 +11,15 @@ namespace Util
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 		private static Func<string, bool> IsValidWord = word => vocabulary.Contains(word) ? true : false;
 
-		static SpellCheck() // static constructor
+		public static void GetVocabulary(string vocabularyPath)
 		{
-			vocabulary = ReadWordList();
-		}
-
-		private static HashSet<string> ReadWordList()
-		{
-			// temp path [WIP]
-			string executePath = System.AppDomain.CurrentDomain.BaseDirectory;
-			string wordlistPath = Path.GetFullPath(
-					Path.Combine(executePath, @"..\..\..\..\Util\vocabulary.txt")); // called from Testing
-			
-			if (!File.Exists(wordlistPath))
+			if (!File.Exists(vocabularyPath))
 			{
 				throw new Exception("Cannot find vocabulary text file");
 			}
 
-			return new HashSet<string>(
-					from line in File.ReadLines(wordlistPath) select line);
+			vocabulary = new HashSet<string>(
+					from line in File.ReadLines(vocabularyPath) select line);
 		}
 
 		public static IEnumerable<string> Edits1(string word)
