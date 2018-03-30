@@ -2,3 +2,9 @@
 .vs
 Debug/
 Release/
+
+*.json
+*.ogg
+
+packages/
+!packages/repositories.config

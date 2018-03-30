@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Dictionary.Properties
+namespace EDictionary.Core.Properties
 {
 
 

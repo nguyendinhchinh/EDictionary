@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Util
+namespace EDictionary.Core.Utilities
 {
 	static public class SpellCheck
 	{
@@ -11,6 +11,9 @@ namespace Util
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 		private static Func<string, bool> IsValidWord = word => vocabulary.Contains(word) ? true : false;
 
+		/// <summary>
+		/// initialize vocabulary for SpellCheck class
+		/// </summary>
 		public static void GetVocabulary(string vocabularyPath)
 		{
 			if (!File.Exists(vocabularyPath))
@@ -22,6 +25,11 @@ namespace Util
 					from line in File.ReadLines(vocabularyPath) select line);
 		}
 
+		/// <summary>
+		/// Return an IEnumarable of words (valid or not) that are one edit away from the given word
+		/// <para/>
+		/// Example: 'strike' would return {'trike', 'tsrike', 'atrike', 'astrike', ...}
+		/// </summary>
 		public static IEnumerable<string> Edits1(string word)
 		{
 			var splits = from i in Enumerable.Range(0, word.Length)
@@ -50,6 +58,10 @@ namespace Util
 				.Union(inserts);
 		}
 
+		/// <summary>
+		/// Return an IEnumarable of words that are two edits away from the given word
+		/// See Edits1(string)
+		/// </summary>
 		private static IEnumerable<string> Edits2(string word)
 		{
 			return (
@@ -59,12 +71,18 @@ namespace Util
 					).Distinct();
 		}
 
+		/// <summary>
+		/// return a list of valid words from another wordlist
+		/// </summary>
 		private static IEnumerable<string> Known(IEnumerable<string> words)
 		{
 			return words.Where(word => IsValidWord(word));
 		}
 
-		private static IEnumerable<string> Candidates(string word)
+		/// <summary>
+		/// return a list of candidates for the wrong spelling word
+		/// </summary>
+		public static IEnumerable<string> Candidates(string word)
 		{
 			var candidates = new[] {
 					Known(new[] {word}),
@@ -88,12 +106,6 @@ namespace Util
 				}
 				Console.WriteLine();
 			}
-		}
-
-		// for testing only
-		public static void Main()
-		{
-			ReadFromStdIn();
 		}
 	}
 }
