@@ -9,32 +9,20 @@ namespace EDictionary.Core.Models
 {
 	public class Word
 	{
-		[JsonProperty(PropertyName = "keyword")]
 		public string Keyword { get; set; }
-
-		[JsonProperty(PropertyName = "key_word")]
 		public string[] OtherKeywords { get; set; }
-
-		[JsonProperty(PropertyName = "word")]
-		public string Name { get; set; }
-
-		[JsonProperty(PropertyName = "wordform")]
+		public string word { get; set; }
 		public string Wordform { get; set; }
-
-		[JsonProperty(PropertyName = "pronunciations")]
 		public Pronunciations Pronunciations { get; set; }
-
-		[JsonProperty(PropertyName = "preference")]
-		public Preference[] Preferences { get; set; }
-
-		[JsonProperty(PropertyName = "definitions_examples")]
-		public DefGroup[] DefinitionsExamples { get; set; }
-
-		[JsonProperty(PropertyName = "extra_examples")]
+		public Reference[] References { get; set; }
+		public DefinitionGroup[] DefinitionsExamples { get; set; }
 		public string[] ExtraExamples { get; set; }
-
-		[JsonProperty(PropertyName = "idioms")]
 		public Idiom[] Idioms { get; set; }
+
+		public override string ToString()
+		{
+			return String.Format("{0}, {1}", word, Wordform);
+		}
 	}
 
 	public class Pronunciations
@@ -53,23 +41,23 @@ namespace EDictionary.Core.Models
 	public class Britain: Geo {}
 	public class America: Geo {}
 
-	public class DefGroup
+	public class DefinitionGroup
 	{
 		public string Namespace { get; set; }
-		public Def[] Definitions { get; set; }
+		public Definition[] Definitions { get; set; }
 	}
 
-	public class Def
+	public class Definition
 	{
 		public string Property { get; set; }
 		public string Label { get; set; }
 		public string Refer { get; set; }
-		public Preference[] Preferences { get; set; }
-		public string Definition { get; set; }
+		public Reference[] References { get; set; }
+		public string definition { get; set; }
 		public string[] Examples { get; set; }
 	}
 
-	public class Preference
+	public class Reference
 	{
 		public string Keyword { get; set; }
 		public string Text { get; set; }
@@ -77,7 +65,7 @@ namespace EDictionary.Core.Models
 
 	public class Idiom
 	{
-		public string Name { get; set; }
-		public Def[] Definitions { get; set; } // Idiom Definitions dont have Property
+		public string idiom { get; set; }
+		public Definition[] Definitions { get; set; } // Idiom Definitions dont have Property
 	}
 }
