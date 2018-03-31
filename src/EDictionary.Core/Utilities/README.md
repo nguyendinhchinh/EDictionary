@@ -1,10 +1,10 @@
 ## Table of Contents
 
 * SpellCheck
-	* [SpellCheck.Candidates()](https://github.com/NearHuscarl/E-Dictionary/src/EDictionary.Core/Utilities/README.md#spellcheckcandidatesword)
-	* [SpellCheck.ReadFromStdIn()](https://github.com/NearHuscarl/E-Dictionary/src/EDictionary.Core/Utilities/README.md#spellcheckreadfromstdin)
+	* [SpellCheck.Candidates()](https://github.com/NearHuscarl/E-Dictionary/tree/master/src/EDictionary.Core/Utilities#spellcheckcandidatesword)
+	* [SpellCheck.ReadFromStdIn()](https://github.com/NearHuscarl/E-Dictionary/tree/master/src/EDictionary.Core/Utilities#spellcheckreadfromstdin)
 * JsonHelper
-	* [JsonHelper.Deserialize(strJson)](https://github.com/NearHuscarl/E-Dictionary/src/EDictionary.Core/Utilities/README.md#jsonhelperdeserializestrjson)
+	* [JsonHelper.Deserialize(strJson)](https://github.com/NearHuscarl/E-Dictionary/tree/master/src/EDictionary.Core/Utilities#jsonhelperdeserializestrjson)
 
 ## Functions
 
