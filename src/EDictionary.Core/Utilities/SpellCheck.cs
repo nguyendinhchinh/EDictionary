@@ -7,12 +7,12 @@ namespace EDictionary.Core.Utilities
 {
 	static public class SpellCheck
 	{
-		public static HashSet<string> vocabulary;
+		public static HashSet<string> Vocabulary { get; set; }
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
 		private static Func<string, bool> IsValidWord = word => vocabulary.Contains(word) ? true : false;
 
 		/// <summary>
-		/// initialize vocabulary for SpellCheck class
+		/// initialize Vocabulary for SpellCheck class
 		/// </summary>
 		public static void GetVocabulary(string vocabularyPath)
 		{
@@ -21,7 +21,7 @@ namespace EDictionary.Core.Utilities
 				throw new Exception("Cannot find vocabulary text file");
 			}
 
-			vocabulary = new HashSet<string>(
+			Vocabulary = new HashSet<string>(
 					from line in File.ReadLines(vocabularyPath) select line);
 		}
 
