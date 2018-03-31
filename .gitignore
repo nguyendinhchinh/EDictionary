@@ -8,3 +8,4 @@ Release/
 
 packages/
 !packages/repositories.config
+StyleCop.Cache
