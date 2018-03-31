@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Models
 {
-	class Pronunciation
+	public class Idiom
 	{
+		public string idiom { get; set; }
+		public Definition[] Definitions { get; set; } // Idiom Definitions dont have Property
 	}
 }

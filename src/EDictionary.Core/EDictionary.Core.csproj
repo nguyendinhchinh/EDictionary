@@ -51,7 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Pronunciation.cs" />
+    <Compile Include="Models\Definition.cs" />
+    <Compile Include="Models\DefinitionGroup.cs" />
+    <Compile Include="Models\Idiom.cs" />
+    <Compile Include="Models\Pronunciations.cs" />
+    <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Presenters\DataAccess.cs" />
     <Compile Include="Presenters\EDictionaryLib.cs" />
