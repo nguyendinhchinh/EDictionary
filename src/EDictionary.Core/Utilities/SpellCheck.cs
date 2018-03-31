@@ -94,7 +94,7 @@ namespace EDictionary.Core.Utilities
 			return candidates;
 		}
 
-		private static void ReadFromStdIn()
+		public static void ReadFromStdIn()
 		{
 			string word;
 
