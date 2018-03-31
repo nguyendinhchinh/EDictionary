@@ -1,0 +1,3 @@
+[submodule "src/EDictionary/Data/raw"]
+	path = src/EDictionary/Data/raw
+	url = https://github.com/NearHuscarl/oxford-dictionary-data
