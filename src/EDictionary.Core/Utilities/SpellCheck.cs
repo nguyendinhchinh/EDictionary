@@ -9,7 +9,7 @@ namespace EDictionary.Core.Utilities
 	{
 		public static HashSet<string> Vocabulary { get; set; }
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-		private static Func<string, bool> IsValidWord = word => vocabulary.Contains(word) ? true : false;
+		private static Func<string, bool> IsValidWord = word => Vocabulary.Contains(word) ? true : false;
 
 		/// <summary>
 		/// initialize Vocabulary for SpellCheck class
