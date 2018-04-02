@@ -16,5 +16,10 @@ namespace EDictionary.Core.Views
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void grpIndex_Enter(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
