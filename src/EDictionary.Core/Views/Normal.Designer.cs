@@ -30,9 +30,13 @@
 		{
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.grpIndex = new System.Windows.Forms.GroupBox();
-            this.grpResults = new System.Windows.Forms.GroupBox();
+            this.txtIndex = new System.Windows.Forms.TextBox();
             this.pnlDefiniton = new System.Windows.Forms.Panel();
+            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.txtDefinition = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
+            this.grpIndex.SuspendLayout();
+            this.pnlDefiniton.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtSearch
@@ -46,28 +50,48 @@
             // 
             // grpIndex
             // 
-            this.grpIndex.Location = new System.Drawing.Point(23, 111);
+            this.grpIndex.Controls.Add(this.txtIndex);
+            this.grpIndex.Location = new System.Drawing.Point(23, 101);
             this.grpIndex.Name = "grpIndex";
-            this.grpIndex.Size = new System.Drawing.Size(198, 248);
+            this.grpIndex.Size = new System.Drawing.Size(198, 441);
             this.grpIndex.TabIndex = 1;
             this.grpIndex.TabStop = false;
             this.grpIndex.Text = "Index";
+            this.grpIndex.Enter += new System.EventHandler(this.grpIndex_Enter);
             // 
-            // grpResults
+            // txtIndex
             // 
-            this.grpResults.Location = new System.Drawing.Point(23, 398);
-            this.grpResults.Name = "grpResults";
-            this.grpResults.Size = new System.Drawing.Size(200, 144);
-            this.grpResults.TabIndex = 2;
-            this.grpResults.TabStop = false;
-            this.grpResults.Text = "Results";
+            this.txtIndex.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtIndex.Location = new System.Drawing.Point(3, 18);
+            this.txtIndex.Multiline = true;
+            this.txtIndex.Name = "txtIndex";
+            this.txtIndex.Size = new System.Drawing.Size(192, 420);
+            this.txtIndex.TabIndex = 0;
             // 
             // pnlDefiniton
             // 
+            this.pnlDefiniton.Controls.Add(this.vScrollBar1);
+            this.pnlDefiniton.Controls.Add(this.txtDefinition);
             this.pnlDefiniton.Location = new System.Drawing.Point(265, 111);
             this.pnlDefiniton.Name = "pnlDefiniton";
             this.pnlDefiniton.Size = new System.Drawing.Size(769, 431);
             this.pnlDefiniton.TabIndex = 3;
+            // 
+            // vScrollBar1
+            // 
+            this.vScrollBar1.Location = new System.Drawing.Point(744, 4);
+            this.vScrollBar1.Name = "vScrollBar1";
+            this.vScrollBar1.Size = new System.Drawing.Size(22, 424);
+            this.vScrollBar1.TabIndex = 1;
+            // 
+            // txtDefinition
+            // 
+            this.txtDefinition.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDefinition.Location = new System.Drawing.Point(0, 0);
+            this.txtDefinition.Multiline = true;
+            this.txtDefinition.Name = "txtDefinition";
+            this.txtDefinition.Size = new System.Drawing.Size(769, 431);
+            this.txtDefinition.TabIndex = 0;
             // 
             // btnBack
             // 
@@ -86,12 +110,16 @@
             this.ClientSize = new System.Drawing.Size(1067, 554);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlDefiniton);
-            this.Controls.Add(this.grpResults);
             this.Controls.Add(this.grpIndex);
             this.Controls.Add(this.txtSearch);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Normal";
             this.Text = "Normal";
+            this.Load += new System.EventHandler(this.Normal_Load);
+            this.grpIndex.ResumeLayout(false);
+            this.grpIndex.PerformLayout();
+            this.pnlDefiniton.ResumeLayout(false);
+            this.pnlDefiniton.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -101,8 +129,10 @@
 
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.GroupBox grpIndex;
-        private System.Windows.Forms.GroupBox grpResults;
         private System.Windows.Forms.Panel pnlDefiniton;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.TextBox txtIndex;
+        private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.TextBox txtDefinition;
     }
 }
