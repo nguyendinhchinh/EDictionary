@@ -39,6 +39,7 @@ namespace EDictionary.Core.Presenters
 			if (dbConnection.State != ConnectionState.Open)
 				dbConnection.Open();
 		}
+
 		private static void CloseConnection()
 		{
 			if (dbConnection.State != ConnectionState.Closed)
@@ -64,6 +65,7 @@ namespace EDictionary.Core.Presenters
 				CloseConnection();
 			}
 		}
+
 		public static void Insert(string wordJsonStr)
 		{
 			try
