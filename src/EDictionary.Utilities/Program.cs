@@ -23,8 +23,9 @@ namespace EDictionary.Utilities
 			foreach (string filePath in filePaths)
 			{
 				string word = filePath.Split('\\').Last().Split('.').First();
-				Console.WriteLine($"Insert {word} into table...");
 				string jsonStr = File.ReadAllText(filePath);
+
+				Console.WriteLine($"Insert {word} into table...");
 				DataAccess.Insert(jsonStr);
 			}
 		}
