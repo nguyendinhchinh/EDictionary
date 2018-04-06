@@ -19,23 +19,26 @@ namespace EDictionary.Core.Views
 			InitializeComponent();
 		}
 
-        private void grpIndex_Enter(object sender, EventArgs e)
-        {
+		private void grpIndex_Enter(object sender, EventArgs e)
+		{
 
-        }
+		}
 
-        private void Normal_Load(object sender, EventArgs e)
-        {
+		private void Normal_Load(object sender, EventArgs e)
+		{
 
-        }
+		}
 
-        private string WordID;
-        string wordID
-        {
-            get
-            {
-                return txtSearch.Text;
-            }
-        }
-    }
+		public string WordID
+		{
+			get
+			{
+				return txtSearch.Text;
+			}
+			set
+			{
+
+			}
+		}
+	}
 }

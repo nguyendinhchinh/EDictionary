@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Presenters
 {
-	interface IEDictionary 
+	interface IEDictionary
 	{
-        string wordID { get; set; }
+		string WordID { get; set; }
 	}
 }
