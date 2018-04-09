@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EDictionary.Core.Presenters;
+using EDictionary.Core.Utilities;
 
 namespace EDictionary.Core.Views
 {
@@ -22,19 +23,59 @@ namespace EDictionary.Core.Views
 			eDictionaryLib = new EDictionaryLib(this);
 		}
 
+#region get set
 		public string WordID
 		{
 			get
 			{
-				return lbIndex.GetItemText(lbIndex.SelectedItem);
+				return lbxIndex.GetItemText(lbxIndex.SelectedItem);
 			}
 		}
 
+		public string Input
+		{
+			get
+			{
+				return txtSearch.Text;
+			}
+			set
+			{
+				txtSearch.Text = value;
+			}
+		}
 		public List<string> WordList
 		{
 			set
 			{
-				lbIndex.DataSource = value;
+				lbxIndex.DataSource = value;
+			}
+			get
+			{
+				return (List<string>)lbxIndex.DataSource;
+			}
+		}
+
+		public int SelectedIndex
+		{
+			get
+			{
+				return lbxIndex.SelectedIndex;
+			}
+			set
+			{
+				lbxIndex.SelectedIndex = value;
+			}
+		}
+
+		public int TopIndex
+		{
+			get
+			{
+				return lbxIndex.TopIndex;
+			}
+			set
+			{
+				lbxIndex.TopIndex = value;
 			}
 		}
 
@@ -45,6 +86,7 @@ namespace EDictionary.Core.Views
 				txtDefinition.Text = value;
 			}
 		}
+#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
 		{
@@ -54,6 +96,11 @@ namespace EDictionary.Core.Views
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.GetDefinition(WordID);
+		}
+
+		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+		{
+			eDictionaryLib.UpdateWordlistCurrentIndex();
 		}
 	}
 }
