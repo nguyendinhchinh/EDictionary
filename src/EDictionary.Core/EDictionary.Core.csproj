@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\WordTable.cs" />
     <Compile Include="Models\Definition.cs" />
     <Compile Include="Models\DefinitionGroup.cs" />
     <Compile Include="Models\Idiom.cs" />
