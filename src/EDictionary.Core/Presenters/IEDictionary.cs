@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Presenters
 {
-	interface IEDictionary
+	public interface IEDictionary
 	{
-		string WordID { get; set; }
+		string WordID { get; }
+		string Definition { set; }
+		List<string> WordList { set; }
+		// List<string> Candidates { set; }
 	}
 }
