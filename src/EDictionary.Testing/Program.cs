@@ -48,8 +48,8 @@ namespace EDictionary.Testing
 
 		static void Main(string[] args)
 		{
-			/* TestSpellCheck(); */
-			TestJsonHelper();
+			TestSpellCheck();
+			/* TestJsonHelper(); */
 		}
 	}
 }

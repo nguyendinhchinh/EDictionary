@@ -55,5 +55,15 @@ namespace EDictionary.Core.Presenters
 				eDictionaryView.Definition = word.ToString();
 			}
 		}
+
+		public void UpdateWordlistCurrentIndex()
+		{
+			eDictionaryView.SelectedIndex = Search.Prefix(eDictionaryView.Input, eDictionaryView.WordList);
+
+			if (eDictionaryView.TopIndex != eDictionaryView.SelectedIndex)
+			{
+				eDictionaryView.TopIndex = eDictionaryView.SelectedIndex;
+			}
+		}
 	}
 }

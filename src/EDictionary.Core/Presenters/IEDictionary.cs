@@ -10,8 +10,12 @@ namespace EDictionary.Core.Presenters
 	public interface IEDictionary
 	{
 		string WordID { get; }
+		string Input { get; set; }
 		string Definition { set; }
-		List<string> WordList { set; }
-		// List<string> Candidates { set; }
+
+		int TopIndex { get; set; }
+		int SelectedIndex { get; set; }
+
+		List<string> WordList { get; set; }
 	}
 }

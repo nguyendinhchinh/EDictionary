@@ -87,6 +87,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\JsonHelper.cs" />
+    <Compile Include="Utilities\Search.cs" />
     <Compile Include="Utilities\SpellCheck.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
     <Compile Include="Views\Mini.cs">
