@@ -8,18 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.Models;
+using EDictionary.Core.Data;
 
 namespace EDictionary.Core.Presenters
 {
 	public static class DataAccess
 	{
 		private static readonly string saveDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\EDictionary\Data");
-		private static readonly string savePath =  Path.GetFullPath($"{saveDir}\\words.sqlite");
+		private static readonly string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
 		private static readonly string connectionStr = $"Data Source={savePath};Version=3;";
 
-		private static readonly string tablename = "wordlist";
-		private static readonly string insertQuery = $"INSERT INTO {tablename} (WordID, Definition) VALUES (@wordID, @definition)";
-		private static readonly string createTableQuery = $"CREATE TABLE IF NOT EXISTS {tablename} (WordID NVARCHAR, Definition NVARCHAR)";
+		private static readonly string insertQuery = $"INSERT INTO {WordTable.TableName} (WordID, Definition) VALUES (@wordID, @definition)";
+		private static readonly string createTableQuery = $"CREATE TABLE IF NOT EXISTS {WordTable.TableName} (WordID NVARCHAR, Definition NVARCHAR)";
+		private static readonly string selectDefinitionQuery = $"SELECT * FROM {WordTable.TableName} WHERE {WordTable.WordID} = @wordID";
+		private static readonly string selectWordListQuery = $"SELECT {WordTable.WordID} FROM {WordTable.TableName}";
 
 		private static SQLiteConnection dbConnection;
 
@@ -76,8 +78,8 @@ namespace EDictionary.Core.Presenters
 
 					Word word = JsonHelper.Deserialize(wordJsonStr);
 
-					command.Parameters.Add(new SQLiteParameter() {ParameterName = "@wordID",     Value = word.Keyword});
-					command.Parameters.Add(new SQLiteParameter() {ParameterName = "@definition", Value = wordJsonStr});
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = word.Keyword });
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
 
 					command.ExecuteNonQuery();
 				}
@@ -92,5 +94,78 @@ namespace EDictionary.Core.Presenters
 				CloseConnection();
 			}
 		}
+
+		public static Word LookUp(string wordID)
+		{
+			string definition;
+
+			try
+			{
+				List<string> results = new List<string>();
+				using (SQLiteCommand command = new SQLiteCommand(selectDefinitionQuery, dbConnection))
+				{
+					OpenConnection();
+
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID });
+					using (SQLiteCommand fmd = dbConnection.CreateCommand())
+					{
+						command.CommandType = CommandType.Text;
+						SQLiteDataReader reader = command.ExecuteReader();
+
+						while (reader.Read())
+						{
+							results.Add(Convert.ToString(reader[WordTable.Definition]));
+						}
+						definition = results[0];
+
+						return JsonHelper.Deserialize(definition);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				/* LogWriter.Instance.WriteLine(String.Format("Error occured at SaveVocable in DataBaseAccess:\n{0}", ex.Message)); */
+				/* return new Result<int>(ex.Message, "", Status.Error, ex); */
+				return null;
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
+
+		public static List<string> GetWordList()
+		{
+			try
+			{
+				List<string> results = new List<string>();
+				using (SQLiteCommand command = new SQLiteCommand(selectWordListQuery, dbConnection))
+				{
+					OpenConnection();
+					using (SQLiteCommand fmd = dbConnection.CreateCommand())
+					{
+						command.CommandType = CommandType.Text;
+						SQLiteDataReader reader = command.ExecuteReader();
+
+						while (reader.Read())
+						{
+							results.Add(Convert.ToString(reader[WordTable.WordID]));
+						}
+						return results;
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				/* LogWriter.Instance.WriteLine(String.Format("Error occured at SaveVocable in DataBaseAccess:\n{0}", ex.Message)); */
+				/* return new Result<int>(ex.Message, "", Status.Error, ex); */
+				return null;
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
+
 	}
 }

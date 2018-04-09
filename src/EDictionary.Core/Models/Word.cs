@@ -18,5 +18,7 @@ namespace EDictionary.Core.Models
 		{
 			return String.Format("{0}, {1}", word, Wordform);
 		}
+
+		
 	}
 }
