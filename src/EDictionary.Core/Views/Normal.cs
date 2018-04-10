@@ -17,12 +17,12 @@ namespace EDictionary.Core.Views
 	{
 		private EDictionaryLib eDictionaryLib;
 
-		public Normal()
-		{
-			InitializeComponent();
-			eDictionaryLib = new EDictionaryLib(this);
-		}
+        public Normal()
+        {
+            InitializeComponent();
+            eDictionaryLib = new EDictionaryLib(this);
 
+        }
 #region get set
 		public string WordID
 		{
@@ -102,5 +102,21 @@ namespace EDictionary.Core.Views
 		{
 			eDictionaryLib.UpdateWordlistCurrentIndex();
 		}
-	}
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            eDictionaryLib.GetDefinition(WordID);
+        }
+
+        private void txtDefinition_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+    }
 }
