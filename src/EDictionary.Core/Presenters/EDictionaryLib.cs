@@ -11,13 +11,13 @@ namespace EDictionary.Core.Presenters
 {
 	public class EDictionaryLib
 	{
-		private IEDictionary eDictionaryView;
+		private IEDictionary view;
 		public bool IsActiveTextbox { get; set; } = true;
 
 		public EDictionaryLib(IEDictionary view)
 		{
 			DataAccess.Create();
-			eDictionaryView = view;
+			this.view = view;
 		}
 
 		public void InitWordList()
@@ -27,9 +27,15 @@ namespace EDictionary.Core.Presenters
 			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
 			words.Sort();
 
-			eDictionaryView.WordList = words;
+			view.WordList = words;
 
-			SpellCheck.GetVocabulary(eDictionaryView.WordList);
+			SpellCheck.GetVocabulary(view.WordList);
+		}
+
+		public string CorrectWord(string word)
+		{
+			IEnumerable<string> candidates = SpellCheck.Candidates(word);
+			return String.Join(Environment.NewLine, candidates);
 		}
 
 		/// <summary>
@@ -37,44 +43,34 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void GetDefinition(string wordStr)
 		{
+			Word word = DataAccess.LookUp(wordStr);
 			string wordID = wordStr.AppendWordNumber();
-			Word word = DataAccess.LookUp(wordID);
+
+			word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
 
 			if (word == null)
 			{
-				// some word have multiple form like "truck_1" (noun) and "truck_2" (verb)
-				word = DataAccess.LookUp(wordID);
-
-				if (word == null)
-				{
-					IEnumerable<string> candidates = SpellCheck.Candidates(eDictionaryView.Input);
-
-					eDictionaryView.Definition = String.Join(Environment.NewLine, candidates);
-				}
-				else
-				{
-					eDictionaryView.Definition = word.ToString();
-				}
+				view.Definition = CorrectWord(view.Input);
 			}
 			else
 			{
-				eDictionaryView.Definition = word.ToString();
+				view.Definition = word.ToString();
 			}
 		}
 
 		public void UpdateWordlistCurrentIndex()
 		{
-			eDictionaryView.SelectedIndex = Search.Prefix(eDictionaryView.Input, eDictionaryView.WordList);
+			view.SelectedIndex = Search.Prefix(view.Input, view.WordList);
 
-			if (eDictionaryView.TopIndex != eDictionaryView.SelectedIndex)
+			if (view.TopIndex != view.SelectedIndex)
 			{
-				eDictionaryView.TopIndex = eDictionaryView.SelectedIndex;
+				view.TopIndex = view.SelectedIndex;
 			}
 		}
 
 		public void SelectItem(int index)
 		{
-			eDictionaryView.SelectedIndex = index;
+			view.SelectedIndex = index;
 		}
 	}
 }
