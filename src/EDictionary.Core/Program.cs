@@ -16,7 +16,7 @@ namespace EDictionary.Core
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Views.Normal());
+			Application.Run(new Views.frmNormal());
 		}
 	}
 }

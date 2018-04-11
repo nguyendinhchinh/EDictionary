@@ -1,6 +1,6 @@
 namespace EDictionary.Core.Views
 {
-	partial class Normal
+	partial class frmNormal
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,12 +28,11 @@ namespace EDictionary.Core.Views
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Normal));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNormal));
             this.grpIndex = new System.Windows.Forms.GroupBox();
             this.lbxIndex = new System.Windows.Forms.ListBox();
             this.pnlDefiniton = new System.Windows.Forms.Panel();
             this.rtxDefinition = new System.Windows.Forms.RichTextBox();
-            this.txtDefinition = new System.Windows.Forms.TextBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearch = new System.Windows.Forms.TextBox();
@@ -90,21 +89,6 @@ namespace EDictionary.Core.Views
             this.rtxDefinition.TabIndex = 0;
             this.rtxDefinition.Text = "";
             // 
-            // txtDefinition
-            // 
-            this.txtDefinition.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDefinition.Location = new System.Drawing.Point(592, 11);
-            this.txtDefinition.Margin = new System.Windows.Forms.Padding(2);
-            this.txtDefinition.Multiline = true;
-            this.txtDefinition.Name = "txtDefinition";
-            this.txtDefinition.ReadOnly = true;
-            this.txtDefinition.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtDefinition.Size = new System.Drawing.Size(63, 29);
-            this.txtDefinition.TabIndex = 3;
-            this.txtDefinition.TextChanged += new System.EventHandler(this.txtDefinition_TextChanged);
-            // 
             // btnBack
             // 
             this.btnBack.ImageAlign = System.Drawing.ContentAlignment.TopRight;
@@ -121,9 +105,9 @@ namespace EDictionary.Core.Views
             this.btnSearch.BackColor = System.Drawing.Color.White;
             this.btnSearch.ForeColor = System.Drawing.Color.White;
             this.btnSearch.Image = ((System.Drawing.Image)(resources.GetObject("btnSearch.Image")));
-            this.btnSearch.Location = new System.Drawing.Point(190, 45);
+            this.btnSearch.Location = new System.Drawing.Point(134, 45);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(36, 24);
+            this.btnSearch.Size = new System.Drawing.Size(29, 24);
             this.btnSearch.TabIndex = 2;
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -134,30 +118,29 @@ namespace EDictionary.Core.Views
             this.txtSearch.Margin = new System.Windows.Forms.Padding(2);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(144, 23);
+            this.txtSearch.Size = new System.Drawing.Size(112, 23);
             this.txtSearch.TabIndex = 0;
-            this.txtSearch.Text = "Search";
+            this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
             this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
             // 
-            // Normal
+            // frmNormal
             // 
             this.AcceptButton = this.btnSearch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(819, 486);
-            this.Controls.Add(this.txtDefinition);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.pnlDefiniton);
             this.Controls.Add(this.grpIndex);
             this.Controls.Add(this.txtSearch);
-            this.Name = "Normal";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "frmNormal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Normal";
+            this.Text = "E-Dictionary";
             this.Load += new System.EventHandler(this.Normal_Load);
             this.grpIndex.ResumeLayout(false);
             this.pnlDefiniton.ResumeLayout(false);
-            this.pnlDefiniton.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,7 +152,6 @@ namespace EDictionary.Core.Views
         private System.Windows.Forms.GroupBox grpIndex;
         private System.Windows.Forms.Panel pnlDefiniton;
         private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.TextBox txtDefinition;
 		private System.Windows.Forms.ListBox lbxIndex;
 		private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.RichTextBox rtxDefinition;

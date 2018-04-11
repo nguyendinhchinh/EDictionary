@@ -9,7 +9,6 @@ namespace EDictionary.Core.Presenters
 {
 	public interface IEDictionary
 	{
-		string WordID { get; }
 		string Input { get; set; }
 		string Definition { set; }
 

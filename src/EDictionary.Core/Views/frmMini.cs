@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace EDictionary.Core.Views
 {
-	public partial class Popup : Form
+	public partial class frmMini : Form
 	{
-		public Popup()
+		public frmMini()
 		{
 			InitializeComponent();
 		}
