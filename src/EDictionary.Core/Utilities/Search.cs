@@ -1,3 +1,4 @@
+using EDictionary.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,24 +19,25 @@ namespace EDictionary.Core.Utilities
 		{
 			int minPos = 0;
 			int maxPos = sequence.Count - 1;
-			int prefixIndex = -1;
+			int prefixPos = -1;
 
 			while (true)
 			{
 				if (maxPos < minPos)
 				{
-					if (prefixIndex != -1)
-						return prefixIndex;
+					if (prefixPos != -1)
+						return prefixPos;
 
-					if (recursive == true)
+					if (recursive)
 						foreach (var i in Enumerable.Range(0, element.Length + 1))
 						{
-							int tempIndex = Prefix(element.Substring(0, i), sequence, recursive=false);
+							int pos = Prefix(element.Substring(0, i), sequence, recursive=false);
 
-							if (tempIndex != -1)
-								prefixIndex = tempIndex;
+							if (pos != -1)
+								prefixPos = pos;
 							else
-								return prefixIndex;
+								return prefixPos;
+
 							return -1;
 						}
 
@@ -43,14 +45,15 @@ namespace EDictionary.Core.Utilities
 				}
 
 				int curPos = (int)((minPos + maxPos) / 2);
+				string currentWord = sequence[curPos];
 
-				if (sequence[curPos].StartsWith(element))
-					prefixIndex = curPos;
+				if (currentWord.StartsWith(element))
+					prefixPos = curPos;
 
-				if (sequence[curPos].CompareTo(element) < 0)
+				if (currentWord.CompareTo(element) < 0)
 					minPos = curPos + 1;
 
-				else if (sequence[curPos].CompareTo(element) > 0)
+				else if (currentWord.CompareTo(element) > 0)
 					maxPos = curPos - 1;
 
 				else // sequence[curPos] == element
