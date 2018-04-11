@@ -13,25 +13,17 @@ using EDictionary.Core.Utilities;
 
 namespace EDictionary.Core.Views
 {
-	public partial class Normal : Form, IEDictionary
+	public partial class frmNormal : Form, IEDictionary
 	{
 		private EDictionaryLib eDictionaryLib;
 
-		public Normal()
+		public frmNormal()
 		{
 			InitializeComponent();
 			eDictionaryLib = new EDictionaryLib(this);
 		}
 
 	#region get set
-		public string WordID
-		{
-			get
-			{
-				return lbxIndex.GetItemText(lbxIndex.SelectedItem);
-			}
-		}
-
 		public string Input
 		{
 			get
@@ -95,18 +87,31 @@ namespace EDictionary.Core.Views
 
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
-			eDictionaryLib.GetDefinition(WordID);
+			eDictionaryLib.GetDefinition(Input);
 		}
 
 		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         { 
             if (e.KeyCode == Keys.Enter)
             {
-                eDictionaryLib.GetDefinition(Input);
+                if (eDictionaryLib.IsActiveTextbox)
+                    eDictionaryLib.GetDefinition(Input);
+                else
+                    eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
+            }
+
+            else if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
+            {
+                eDictionaryLib.UpdateWordlistCurrentIndex();
+            }
+
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                eDictionaryLib.IsActiveTextbox = false;
             }
             else
             {
-                eDictionaryLib.UpdateWordlistCurrentIndex();
+                eDictionaryLib.IsActiveTextbox = true;
             }
         }
 
@@ -122,9 +127,21 @@ namespace EDictionary.Core.Views
 
         private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            eDictionaryLib.GetDefinition(WordID);
+            eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
         }
 
-      
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                SelectedIndex--;
+                eDictionaryLib.SelectItem(SelectedIndex);
+            }
+            if (e.KeyCode == Keys.Down)
+            {
+                SelectedIndex++;
+                eDictionaryLib.SelectItem(SelectedIndex);
+            }
+        }
     }
 }
