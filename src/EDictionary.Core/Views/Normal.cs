@@ -23,7 +23,7 @@ namespace EDictionary.Core.Views
 			eDictionaryLib = new EDictionaryLib(this);
 		}
 
-		#region get set
+	#region get set
 		public string WordID
 		{
 			get
@@ -86,7 +86,7 @@ namespace EDictionary.Core.Views
 				txtDefinition.Text = value;
 			}
 		}
-		#endregion
+	#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
 		{
@@ -101,11 +101,6 @@ namespace EDictionary.Core.Views
 		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
 		{
 			eDictionaryLib.UpdateWordlistCurrentIndex();
-		}
-
-		private void btnBack_Click(object sender, EventArgs e)
-		{
-
 		}
 
 		private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
