@@ -22,6 +22,7 @@ namespace EDictionary.Core.Presenters
 		{
 			List<string> words = DataAccess.GetWordList();
 			eDictionaryView.WordList = words;
+			SpellCheck.GetVocabulary(eDictionaryView.WordList);
 		}
 
 		/// <summary>
@@ -38,12 +39,9 @@ namespace EDictionary.Core.Presenters
 
 				if (word == null)
 				{
-					IEnumerable<string> candidates = SpellCheck.Candidates(word.word);
+					IEnumerable<string> candidates = SpellCheck.Candidates(eDictionaryView.Input);
 
-					foreach (var candidate in candidates)
-					{
-						eDictionaryView.Definition = candidate;
-					}
+					eDictionaryView.Definition = String.Join(Environment.NewLine, candidates);
 				}
 				else
 				{
