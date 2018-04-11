@@ -9,20 +9,14 @@ namespace EDictionary.Core.Utilities
 	{
 		public static HashSet<string> Vocabulary { get; set; }
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-		private static Func<string, bool> IsValidWord = word => Vocabulary.Contains(word) ? true : false;
+		private static Func<string, bool> IsValidWord = word => Vocabulary.Contains(word);
 
 		/// <summary>
 		/// initialize Vocabulary for SpellCheck class
 		/// </summary>
-		public static void GetVocabulary(string vocabularyPath)
+		public static void GetVocabulary(IEnumerable<string> wordList)
 		{
-			if (!File.Exists(vocabularyPath))
-			{
-				throw new Exception("Cannot find vocabulary text file");
-			}
-
-			Vocabulary = new HashSet<string>(
-					from line in File.ReadLines(vocabularyPath) select line);
+			Vocabulary = new HashSet<string>(wordList);
 		}
 
 		/// <summary>
