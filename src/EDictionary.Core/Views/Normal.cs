@@ -17,13 +17,13 @@ namespace EDictionary.Core.Views
 	{
 		private EDictionaryLib eDictionaryLib;
 
-        public Normal()
-        {
-            InitializeComponent();
-            eDictionaryLib = new EDictionaryLib(this);
+		public Normal()
+		{
+			InitializeComponent();
+			eDictionaryLib = new EDictionaryLib(this);
+		}
 
-        }
-#region get set
+	#region get set
 		public string WordID
 		{
 			get
@@ -83,10 +83,10 @@ namespace EDictionary.Core.Views
 		{
 			set
 			{
-				txtDefinition.Text = value;
+                rtxDefinition.Text = value;
 			}
 		}
-#endregion
+	#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
 		{
@@ -99,19 +99,20 @@ namespace EDictionary.Core.Views
 		}
 
 		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-		{
-			eDictionaryLib.UpdateWordlistCurrentIndex();
-		}
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-
+        { 
+            if (e.KeyCode == Keys.Enter)
+            {
+                eDictionaryLib.GetDefinition(Input);
+            }
+            else
+            {
+                eDictionaryLib.UpdateWordlistCurrentIndex();
+            }
         }
 
         private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (txtSearch.Text != null)
-                eDictionaryLib.GetDefinition(WordID);
+      
         }
 
         private void txtDefinition_TextChanged(object sender, EventArgs e)
@@ -121,11 +122,9 @@ namespace EDictionary.Core.Views
 
         private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            int index = this.lbxIndex.IndexFromPoint(e.Location);
-            if (index != System.Windows.Forms.ListBox.NoMatches)
-            {
-                MessageBox.Show(index.ToString());
-            }
+            eDictionaryLib.GetDefinition(WordID);
         }
+
+      
     }
 }

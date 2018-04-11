@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Text;
 
 namespace EDictionary.Core.Models
 {
@@ -16,9 +18,18 @@ namespace EDictionary.Core.Models
 
 		public override string ToString()
 		{
-			return String.Format("{0}, {1}", word, Wordform);
-		}
+			StringBuilder builder = new StringBuilder();
 
-		
+			builder.AppendLine(word);
+			builder.AppendLine(Pronunciations.ToString());
+
+			if (References != null)
+				builder.AppendLine("    " + string.Join(", ", References.Select(x => x.ToString())));
+
+			builder.AppendLine(string.Join(Environment.NewLine, DefinitionsExamples.Select(x => x.ToString())));
+			builder.AppendLine(string.Join(Environment.NewLine + "* ", ExtraExamples));
+
+			return builder.ToString();
+		}
 	}
 }
