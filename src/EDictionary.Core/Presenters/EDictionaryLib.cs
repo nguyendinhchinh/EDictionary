@@ -1,3 +1,4 @@
+using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
@@ -11,7 +12,7 @@ namespace EDictionary.Core.Presenters
 	public class EDictionaryLib
 	{
 		private IEDictionary eDictionaryView;
-        public bool IsActiveTextbox { get; set; } = true;
+		public bool IsActiveTextbox { get; set; } = true;
 
 		public EDictionaryLib(IEDictionary view)
 		{
@@ -22,8 +23,13 @@ namespace EDictionary.Core.Presenters
 		public void InitWordList()
 		{
 			List<string> words = DataAccess.GetWordList();
-            eDictionaryView.WordList = words.Select(x => x.Replace('_', ' ')).ToList();
-            SpellCheck.GetVocabulary(eDictionaryView.WordList);
+			
+			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
+			words.Sort();
+
+			eDictionaryView.WordList = words;
+
+			SpellCheck.GetVocabulary(eDictionaryView.WordList);
 		}
 
 		/// <summary>
@@ -31,13 +37,13 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void GetDefinition(string wordStr)
 		{
-            string wordID = wordStr.Replace(" ", "_");
+			string wordID = wordStr.AppendWordNumber();
 			Word word = DataAccess.LookUp(wordID);
 
 			if (word == null)
 			{
 				// some word have multiple form like "truck_1" (noun) and "truck_2" (verb)
-				word = DataAccess.LookUp(wordID + " 1");
+				word = DataAccess.LookUp(wordID);
 
 				if (word == null)
 				{
@@ -64,13 +70,11 @@ namespace EDictionary.Core.Presenters
 			{
 				eDictionaryView.TopIndex = eDictionaryView.SelectedIndex;
 			}
-
-
 		}
 
-        public void SelectItem(int index)
-        {
-            eDictionaryView.SelectedIndex = index;
-        }
+		public void SelectItem(int index)
+		{
+			eDictionaryView.SelectedIndex = index;
+		}
 	}
 }
