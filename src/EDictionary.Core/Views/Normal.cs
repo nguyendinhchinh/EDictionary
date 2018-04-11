@@ -110,7 +110,8 @@ namespace EDictionary.Core.Views
 
         private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
         {
-            eDictionaryLib.GetDefinition(WordID);
+            if (txtSearch.Text != null)
+                eDictionaryLib.GetDefinition(WordID);
         }
 
         private void txtDefinition_TextChanged(object sender, EventArgs e)
@@ -118,5 +119,13 @@ namespace EDictionary.Core.Views
 
         }
 
+        private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.lbxIndex.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                MessageBox.Show(index.ToString());
+            }
+        }
     }
 }
