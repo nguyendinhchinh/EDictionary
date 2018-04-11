@@ -61,9 +61,10 @@ namespace EDictionary.Core.Views
             this.lbxIndex.FormattingEnabled = true;
             this.lbxIndex.Location = new System.Drawing.Point(2, 15);
             this.lbxIndex.Name = "lbxIndex";
-            this.lbxIndex.Size = new System.Drawing.Size(144, 377);
+            this.lbxIndex.Size = new System.Drawing.Size(144, 368);
             this.lbxIndex.TabIndex = 5;
             this.lbxIndex.SelectedIndexChanged += new System.EventHandler(this.lbxIndex_SelectedIndexChanged);
+            this.lbxIndex.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbxIndex_MouseDoubleClick);
             // 
             // pnlDefiniton
             // 

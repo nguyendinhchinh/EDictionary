@@ -39,7 +39,7 @@ namespace EDictionary.Core.Presenters
 				if (word == null)
 				{
 					IEnumerable<string> candidates = SpellCheck.Candidates(word.word);
-
+               
 					foreach (var candidate in candidates)
 					{
 						eDictionaryView.Definition = candidate;
