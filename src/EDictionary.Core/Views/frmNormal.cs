@@ -105,9 +105,9 @@ namespace EDictionary.Core.Views
 			if (e.KeyCode == Keys.Enter)
 			{
 				if (eDictionaryLib.IsActiveTextbox)
-					eDictionaryLib.GetDefinition(Input);
+					eDictionaryLib.GoToDefinition(Input);
 				else
-					eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
+					eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
 			}
 
 			else if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
@@ -137,7 +137,7 @@ namespace EDictionary.Core.Views
 
 		private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
+			eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
 		}
 
 		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
@@ -152,15 +152,21 @@ namespace EDictionary.Core.Views
 				SelectedIndex++;
 				eDictionaryLib.SelectItem(SelectedIndex);
 			}
-			else if (e.KeyCode == Keys.Enter)
-			{
-				eDictionaryLib.GetDefinition(Input);
-			}
 		}
 
 		private void rtxDefinition_DoubleClick(object sender, EventArgs e)
 		{
-			eDictionaryLib.GetDefinition(SelectedWord);
+			eDictionaryLib.GoToDefinition(SelectedWord);
+		}
+
+		private void btnNextHistory_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.NextHistory();
+		}
+
+		private void btnPrevHistory_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.PreviousHistory();
 		}
 	}
 }
