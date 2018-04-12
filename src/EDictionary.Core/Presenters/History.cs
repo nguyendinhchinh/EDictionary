@@ -7,30 +7,58 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Presenters
 {
-	public static class History
+	public class History<T>
 	{
-		public static List<string> history { get; set; }
-		public static List<string> upHistory { get; set; }
+		private List<T> history;
 
-
-		public static void Add(string wordID)
+		private int currentIndex = -1;
+		public T Current
 		{
-			history.Add(wordID);
+			get
+			{
+				return history[currentIndex];
+			}
 		}
 
-		public static string Pop()
+		public History()
 		{
-			return history.Pop();
+			history = new List<T> {};
 		}
 
-		public static void AddLink(string wordID)
+		/// <summary>
+		/// add history item at the next index and truncate the rest
+		/// </summary>
+		public void Add(T item)
 		{
-			upHistory.Add(wordID);
+			if (currentIndex + 1 <= history.Count - 1)
+			{
+				history.Insert(currentIndex + 1, item);
+			}
+			else
+			{
+				history.Add(item);
+			}
+
+			currentIndex++;
+			history = history.Take(currentIndex + 1).ToList();
 		}
 
-		public static string PopLink()
+		public T Previous()
 		{
-			return upHistory.Pop();
+			if (currentIndex > 0)
+			{
+				return history[--currentIndex];
+			}
+			return history[0];
+		}
+
+		public T Next()
+		{
+			if (currentIndex < history.Count - 1)
+			{
+				return history[++currentIndex];
+			}
+			return history[history.Count - 1];
 		}
 	}
 }

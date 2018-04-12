@@ -14,6 +14,9 @@ namespace EDictionary.Core.Presenters
 		private IEDictionary view;
 		public bool IsActiveTextbox { get; set; } = true;
 
+		private History<string> history = new History<string>();
+		private Word word; // current word
+
 		public EDictionaryLib(IEDictionary view)
 		{
 			DataAccess.Create();
@@ -41,10 +44,10 @@ namespace EDictionary.Core.Presenters
 		/// <summary>
 		/// Print all info about a word on view
 		/// </summary>
-		public void GetDefinition(string wordStr, bool isLink=false)
+		public void GetDefinition(string wordStr)
 		{
 			string wordID = wordStr.AppendWordNumber();
-			Word word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
+			word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
 
 			if (word == null)
 			{
@@ -53,18 +56,24 @@ namespace EDictionary.Core.Presenters
 			else
 			{
 				view.Definition = word.ToString();
+			}
+		}
 
-                if (isLink)
-                    History.AddLink(word.Keyword);
-                else
-                    History.Add(word.Keyword);
-            }
-        }
+		public void GoToDefinition(string wordStr)
+		{
+			GetDefinition(wordStr);
+			history.Add(word.Keyword);
+		}
 
-        public void GoTo(string wordStr)
-        {
-            GetDefinition(wordStr, true);
-        }
+		public void NextHistory()
+		{
+			GetDefinition(history.Next());
+		}
+
+		public void PreviousHistory()
+		{
+			GetDefinition(history.Previous());
+		}
 
 		public void UpdateWordlistCurrentIndex()
 		{
