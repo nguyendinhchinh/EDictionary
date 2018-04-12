@@ -28,7 +28,7 @@ namespace EDictionary.Core.Views
 		{
 			get
 			{
-				return txtSearch.Text;
+				return txtSearch.Text.ToLower();
 			}
 			set
 			{
@@ -78,6 +78,14 @@ namespace EDictionary.Core.Views
                 rtxDefinition.Text = value;
 			}
 		}
+
+        public string SelectedWord
+        {
+            get
+            {
+                return rtxDefinition.SelectedText.Trim();
+            }
+        }
 	#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
@@ -137,11 +145,20 @@ namespace EDictionary.Core.Views
                 SelectedIndex--;
                 eDictionaryLib.SelectItem(SelectedIndex);
             }
-            if (e.KeyCode == Keys.Down)
+            else if (e.KeyCode == Keys.Down)
             {
                 SelectedIndex++;
                 eDictionaryLib.SelectItem(SelectedIndex);
             }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                eDictionaryLib.GetDefinition(Input);
+            }
+        }
+
+        private void rtxDefinition_DoubleClick(object sender, EventArgs e)
+        {
+            eDictionaryLib.GetDefinition(SelectedWord);
         }
     }
 }

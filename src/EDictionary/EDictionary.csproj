@@ -50,7 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Enter_Small.png" />
-    <Content Include="Data\vocabulary.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -41,12 +41,10 @@ namespace EDictionary.Core.Presenters
 		/// <summary>
 		/// Print all info about a word on view
 		/// </summary>
-		public void GetDefinition(string wordStr)
+		public void GetDefinition(string wordStr, bool isLink=false)
 		{
-			Word word = DataAccess.LookUp(wordStr);
 			string wordID = wordStr.AppendWordNumber();
-
-			word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
+			Word word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
 
 			if (word == null)
 			{
@@ -55,8 +53,18 @@ namespace EDictionary.Core.Presenters
 			else
 			{
 				view.Definition = word.ToString();
-			}
-		}
+
+                if (isLink)
+                    History.AddLink(word.Keyword);
+                else
+                    History.Add(word.Keyword);
+            }
+        }
+
+        public void GoTo(string wordStr)
+        {
+            GetDefinition(wordStr, true);
+        }
 
 		public void UpdateWordlistCurrentIndex()
 		{
