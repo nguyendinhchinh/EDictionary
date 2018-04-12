@@ -35,7 +35,7 @@ namespace EDictionary.Core.Models
 				builder.AppendLine("    " + string.Join(Environment.NewLine + "    ", Examples));
 
 			if (References != null)
-				builder.AppendLine("    " + string.Join(", ", References.Select(x => x.ToString())));
+				builder.Append("    " + string.Join(", ", References.Select(x => x.ToString())));
 
 			return builder.ToString();
 		}
