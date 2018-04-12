@@ -12,8 +12,10 @@ namespace EDictionary.Core.Models
 		public override string ToString()
 		{
 			StringBuilder builder = new StringBuilder();
+
 			builder.AppendLine(">> " + Namespace);
 			builder.Append(string.Join(Environment.NewLine, Definitions.Select(x => x.ToString())));
+
 			return builder.ToString();
 		}
 	}
