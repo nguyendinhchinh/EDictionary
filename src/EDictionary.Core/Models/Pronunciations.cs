@@ -11,10 +11,12 @@ namespace EDictionary.Core.Models
 		public override string ToString()
 		{
 			StringBuilder builder = new StringBuilder();
+
 			builder.Append(Britain.Prefix + " ");
 			builder.AppendLine(Britain.Ipa);
 			builder.Append(America.Prefix + " ");
 			builder.AppendLine(America.Ipa);
+
 			return builder.ToString();
 		}
 	}

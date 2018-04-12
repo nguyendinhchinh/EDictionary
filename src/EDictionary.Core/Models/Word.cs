@@ -28,6 +28,8 @@ namespace EDictionary.Core.Models
 
 			builder.AppendLine(string.Join(Environment.NewLine, DefinitionsExamples.Select(x => x.ToString())));
 			builder.AppendLine(string.Join(Environment.NewLine + "* ", ExtraExamples));
+			builder.AppendLine();
+			builder.Append(string.Join("", Idioms.Select(x => x.ToString())));
 
 			return builder.ToString();
 		}
