@@ -23,7 +23,8 @@ namespace EDictionary.Core.Views
 			eDictionaryLib = new EDictionaryLib(this);
 		}
 
-	#region get set
+		#region get set
+
 		public string Input
 		{
 			get
@@ -75,18 +76,19 @@ namespace EDictionary.Core.Views
 		{
 			set
 			{
-                rtxDefinition.Text = value;
+				rtxDefinition.Text = value;
 			}
 		}
 
-        public string SelectedWord
-        {
-            get
-            {
-                return rtxDefinition.SelectedText.Trim();
-            }
-        }
-	#endregion
+		public string SelectedWord
+		{
+			get
+			{
+				return rtxDefinition.SelectedText.Trim();
+			}
+		}
+
+		#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
 		{
@@ -99,66 +101,66 @@ namespace EDictionary.Core.Views
 		}
 
 		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-        { 
-            if (e.KeyCode == Keys.Enter)
-            {
-                if (eDictionaryLib.IsActiveTextbox)
-                    eDictionaryLib.GetDefinition(Input);
-                else
-                    eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
-            }
+		{ 
+			if (e.KeyCode == Keys.Enter)
+			{
+				if (eDictionaryLib.IsActiveTextbox)
+					eDictionaryLib.GetDefinition(Input);
+				else
+					eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
+			}
 
-            else if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
-            {
-                eDictionaryLib.UpdateWordlistCurrentIndex();
-            }
+			else if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
+			{
+				eDictionaryLib.UpdateWordlistCurrentIndex();
+			}
 
-            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
-            {
-                eDictionaryLib.IsActiveTextbox = false;
-            }
-            else
-            {
-                eDictionaryLib.IsActiveTextbox = true;
-            }
-        }
+			if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+			{
+				eDictionaryLib.IsActiveTextbox = false;
+			}
+			else
+			{
+				eDictionaryLib.IsActiveTextbox = true;
+			}
+		}
 
-        private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
-        {
-      
-        }
+		private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
+		{
 
-        private void txtDefinition_TextChanged(object sender, EventArgs e)
-        {
+		}
 
-        }
+		private void txtDefinition_TextChanged(object sender, EventArgs e)
+		{
 
-        private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
-        }
+		}
 
-        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up)
-            {
-                SelectedIndex--;
-                eDictionaryLib.SelectItem(SelectedIndex);
-            }
-            else if (e.KeyCode == Keys.Down)
-            {
-                SelectedIndex++;
-                eDictionaryLib.SelectItem(SelectedIndex);
-            }
-            else if (e.KeyCode == Keys.Enter)
-            {
-                eDictionaryLib.GetDefinition(Input);
-            }
-        }
+		private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
+		{
+			eDictionaryLib.GetDefinition(WordList[SelectedIndex]);
+		}
 
-        private void rtxDefinition_DoubleClick(object sender, EventArgs e)
-        {
-            eDictionaryLib.GetDefinition(SelectedWord);
-        }
-    }
+		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Up)
+			{
+				SelectedIndex--;
+				eDictionaryLib.SelectItem(SelectedIndex);
+			}
+			else if (e.KeyCode == Keys.Down)
+			{
+				SelectedIndex++;
+				eDictionaryLib.SelectItem(SelectedIndex);
+			}
+			else if (e.KeyCode == Keys.Enter)
+			{
+				eDictionaryLib.GetDefinition(Input);
+			}
+		}
+
+		private void rtxDefinition_DoubleClick(object sender, EventArgs e)
+		{
+			eDictionaryLib.GetDefinition(SelectedWord);
+		}
+	}
 }
