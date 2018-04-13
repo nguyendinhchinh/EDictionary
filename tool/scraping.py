@@ -51,7 +51,7 @@ LOG = settup_logger('info', LOG_PATH, level=logging.INFO)
 def get_not_found_words():
 	""" return a dictionary of not found words (in oxford diciontary) """
 	path = os.path.join(os.getcwd(), NOT_FOUND_WORDS_FILE)
-	return read(path, isdict=True)
+	return read(path, type="dict")
 
 def get_downloaded_words():
 	""" get a list of json files to determine which words

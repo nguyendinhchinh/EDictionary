@@ -1,7 +1,11 @@
+using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
+using EDictionary.Core.Presenters;
 using EDictionary.Core.Utilities;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace EDictionary.Testing
 {
@@ -16,7 +20,11 @@ namespace EDictionary.Testing
 			SrcPath = Path.GetFullPath(Path.Combine(ExecutePath, @"..\..\..\"));
 
 			string wordlistPath = Path.Combine(SrcPath, @"EDictionary\Data\vocabulary.txt");
-			SpellCheck.GetVocabulary(wordlistPath);
+
+			List<string> words = DataAccess.GetWordList();
+
+			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
+			SpellCheck.GetVocabulary(words);
 		}
 
 		static void TestSpellCheck()
