@@ -47,7 +47,10 @@ namespace EDictionary.Core.Presenters
 		public void GetDefinition(string wordStr)
 		{
 			string wordID = wordStr.AppendWordNumber();
-			word = DataAccess.LookUp(wordStr) ?? DataAccess.LookUp(wordID);
+			word = DataAccess.LookUp(wordStr)
+				?? DataAccess.LookUp(wordStr.AppendWordNumber(1))
+				?? DataAccess.LookUp(wordStr.AppendWordNumber(2))
+				?? DataAccess.LookUp(wordStr.AppendWordNumber(3));
 
 			if (word == null)
 			{
