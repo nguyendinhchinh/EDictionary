@@ -5,6 +5,7 @@ Release/
 
 *.json
 *.ogg
+*.pyc
 
 packages/
 !packages/repositories.config
