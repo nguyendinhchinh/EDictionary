@@ -19,23 +19,12 @@ namespace EDictionary.Core.Models
 			StringBuilder builder = new StringBuilder();
 
 			builder.Append("  ");
-
-			if (Label != null)
-				builder.Append(Label + " ");
-
-			if (Refer != null)
-				builder.Append(Refer + " ");
-
-			if (Property != null)
-				builder.Append(Property + " ");
-
+			builder.AppendIfExists(Label + " ");
+			builder.AppendIfExists(Refer + " ");
+			builder.AppendIfExists(Property + " ");
 			builder.AppendLine(definition);
-
-			if (Examples != null)
-				builder.AppendLine("    " + string.Join(Environment.NewLine + "    ", Examples));
-
-			if (References != null)
-				builder.Append("    " + string.Join(", ", References.Select(x => x.ToString())));
+			builder.AppendExamples(Examples);
+			builder.AppendReferences(References);
 
 			return builder.ToString();
 		}

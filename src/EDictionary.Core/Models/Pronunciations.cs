@@ -1,3 +1,4 @@
+using EDictionary.Core.Extensions;
 using System;
 using System.Text;
 
@@ -12,10 +13,10 @@ namespace EDictionary.Core.Models
 		{
 			StringBuilder builder = new StringBuilder();
 
-			builder.Append(Britain.Prefix + " ");
-			builder.AppendLine(Britain.Ipa);
-			builder.Append(America.Prefix + " ");
-			builder.AppendLine(America.Ipa);
+			builder.AppendIfExists(Britain.Prefix + " ");
+			builder.AppendLineIfExists(Britain.Ipa);
+			builder.AppendIfExists(America.Prefix + " ");
+			builder.AppendLineIfExists(America.Ipa);
 
 			return builder.ToString();
 		}
