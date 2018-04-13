@@ -14,7 +14,7 @@ namespace EDictionary.Core.Presenters
 {
 	public static class DataAccess
 	{
-		private static readonly string saveDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\EDictionary\Data");
+		private static readonly string saveDir = AppDomain.CurrentDomain.BaseDirectory;
 		private static readonly string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
 		private static readonly string connectionStr = $"Data Source={savePath};Version=3;";
 
