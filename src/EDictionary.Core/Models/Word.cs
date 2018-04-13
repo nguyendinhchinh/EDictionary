@@ -1,3 +1,4 @@
+using EDictionary.Core.Extensions;
 using System;
 using System.Linq;
 using System.Text;
@@ -20,16 +21,12 @@ namespace EDictionary.Core.Models
 		{
 			StringBuilder builder = new StringBuilder();
 
-			builder.AppendLine(word);
+			builder.AppendLineIfExists(word);
 			builder.AppendLine(Pronunciations.ToString());
-
-			if (References != null)
-				builder.AppendLine("    " + string.Join(", ", References.Select(x => x.ToString())));
-
-			builder.AppendLine(string.Join(Environment.NewLine, DefinitionsExamples.Select(x => x.ToString())));
-			builder.AppendLine(string.Join(Environment.NewLine + "* ", ExtraExamples));
-			builder.AppendLine();
-			builder.Append(string.Join("", Idioms.Select(x => x.ToString())));
+			builder.AppendReferences(References);
+			builder.AppendDefinitionsExamples(DefinitionsExamples);
+			builder.AppendExtraExamples(ExtraExamples);
+			builder.AppendIdioms(Idioms);
 
 			return builder.ToString();
 		}

@@ -1,3 +1,4 @@
+using EDictionary.Core.Extensions;
 using System;
 using System.Linq;
 using System.Text;
@@ -13,8 +14,8 @@ namespace EDictionary.Core.Models
 		{
 			StringBuilder builder = new StringBuilder();
 
-			builder.AppendLine(">> " + Namespace);
-			builder.Append(string.Join(Environment.NewLine, Definitions.Select(x => x.ToString())));
+			builder.AppendLineIfExists(">> " + Namespace);
+			builder.AppendDefinitions(Definitions);
 
 			return builder.ToString();
 		}
