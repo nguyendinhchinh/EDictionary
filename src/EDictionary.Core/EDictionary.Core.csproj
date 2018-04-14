@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\WordTable.cs" />
+    <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\StringBuilderExtension.cs" />
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Models\Definition.cs" />

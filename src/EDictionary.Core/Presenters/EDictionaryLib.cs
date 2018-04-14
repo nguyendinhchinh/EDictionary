@@ -27,11 +27,7 @@ namespace EDictionary.Core.Presenters
 		{
 			List<string> words = DataAccess.GetWordList();
 			
-			words = words
-				.Select(x => x.StripWordNumber())
-				.Distinct()
-				.ToList();
-
+			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
 			words.Sort();
 
 			view.WordList = words;

@@ -19,11 +19,11 @@ namespace EDictionary.Testing
 			ExecutePath = System.AppDomain.CurrentDomain.BaseDirectory;
 			SrcPath = Path.GetFullPath(Path.Combine(ExecutePath, @"..\..\..\"));
 
-			List<string> words = DataAccess.GetWordList()
-				.Select(x => x.StripWordNumber())
-				.Distinct()
-				.ToList();
+			string wordlistPath = Path.Combine(SrcPath, @"EDictionary\Data\vocabulary.txt");
 
+			List<string> words = DataAccess.GetWordList();
+
+			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
 			SpellCheck.GetVocabulary(words);
 		}
 
