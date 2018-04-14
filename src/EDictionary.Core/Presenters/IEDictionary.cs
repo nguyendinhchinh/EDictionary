@@ -17,5 +17,8 @@ namespace EDictionary.Core.Presenters
 		int SelectedIndex { get; set; }
 
 		List<string> WordList { get; set; }
+
+		bool IsNextHistoryEnabled { get; set; }
+		bool IsPrevHistoryEnabled { get; set; }
 	}
 }

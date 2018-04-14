@@ -68,24 +68,26 @@ namespace EDictionary.Core.Presenters
 			UpdateHistory();
 		}
 
-		public bool IsLastInHistory()
-		{ 
-			return history.IsLast;
-		}
-
-		public bool IsFirstInHistory()
-		{
-			return history.IsFirst;
-		}
-
 		public void NextHistory()
 		{
 			GetDefinition(history.Next());
+
+			if (!history.IsFirst)
+				view.IsPrevHistoryEnabled = true;
+
+			if (history.IsLast)
+				view.IsNextHistoryEnabled = false;
 		}
 
 		public void PreviousHistory()
 		{
 			GetDefinition(history.Previous());
+
+			if (!history.IsLast)
+				view.IsNextHistoryEnabled = true;
+
+			if (history.IsFirst)
+				view.IsPrevHistoryEnabled = false;
 		}
 
 		public void UpdateWordlistCurrentIndex()
