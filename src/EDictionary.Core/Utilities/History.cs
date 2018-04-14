@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EDictionary.Core.Presenters
+namespace EDictionary.Core.Utilities
 {
 	public class History<T>
 	{
@@ -16,7 +16,10 @@ namespace EDictionary.Core.Presenters
 		{
 			get
 			{
-				return history[currentIndex];
+                if (currentIndex != -1)
+                    return history[currentIndex];
+                else
+                    return default(T);
 			}
 		}
 
@@ -60,5 +63,24 @@ namespace EDictionary.Core.Presenters
 			}
 			return history[history.Count - 1];
 		}
-	}
+
+        public T PreviousItem()
+        {
+            if (currentIndex > 0)
+            {
+                return history[currentIndex - 1];
+            }
+            return history[0];
+        }
+
+        public T NextItem()
+        {
+            if (currentIndex < history.Count - 1)
+            {
+                return history[currentIndex + 1];
+            }
+            return history[history.Count - 1];
+        }
+
+    }
 }
