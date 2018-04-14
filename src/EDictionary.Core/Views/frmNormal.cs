@@ -149,16 +149,6 @@ namespace EDictionary.Core.Views
 			}
 		}
 
-		private void lbxIndex_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void txtDefinition_TextChanged(object sender, EventArgs e)
-		{
-
-		}
-
 		private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
