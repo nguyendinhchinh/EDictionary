@@ -88,6 +88,30 @@ namespace EDictionary.Core.Views
 			}
 		}
 
+		public bool IsNextHistoryEnabled
+		{
+			get
+			{
+				return btnNextHistory.Enabled;
+			}
+			set
+			{
+				btnNextHistory.Enabled = value;
+			}
+		}
+
+		public bool IsPrevHistoryEnabled
+		{
+			get
+			{
+				return btnPrevHistory.Enabled;
+			}
+			set
+			{
+				btnPrevHistory.Enabled = value;
+			}
+		}
+
 		#endregion
 
 		private void Normal_Load(object sender, EventArgs e)
@@ -162,23 +186,11 @@ namespace EDictionary.Core.Views
 		private void btnNextHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.NextHistory();
-
-			if (!eDictionaryLib.IsFirstInHistory())
-				btnPrevHistory.Enabled = true;
-
-			if (eDictionaryLib.IsLastInHistory())
-				btnNextHistory.Enabled = false;
 		}
 
 		private void btnPrevHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.PreviousHistory();
-
-			if (!eDictionaryLib.IsLastInHistory())
-				btnNextHistory.Enabled = true;
-
-			if (eDictionaryLib.IsFirstInHistory())
-				btnPrevHistory.Enabled = false;
 		}
 	}
 }
