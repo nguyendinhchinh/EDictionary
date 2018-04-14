@@ -16,12 +16,22 @@ namespace EDictionary.Core.Models
 
 		public Dictionary()
 		{
-			SpellCheck.GetVocabulary(GetWordList());
+			SpellCheck.GetVocabulary(GetDistinctWordList());
 		}
 
 		public List<string> GetWordList()
 		{
 			return dataAccess.GetWordList();
+		}
+
+		public List<string> GetDistinctWordList()
+		{
+			List<string> words = GetWordList();
+
+			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
+			words.Sort();
+
+			return words;
 		}
 
 		public Word Search(string word)

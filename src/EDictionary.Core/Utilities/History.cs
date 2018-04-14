@@ -10,22 +10,38 @@ namespace EDictionary.Core.Utilities
 	public class History<T>
 	{
 		private List<T> history;
-
 		private int currentIndex = -1;
+
 		public T Current
 		{
 			get
 			{
-                if (currentIndex != -1)
-                    return history[currentIndex];
-                else
-                    return default(T);
+				if (currentIndex != -1)
+					return history[currentIndex];
+				else
+					return default(T);
+			}
+		}
+
+		public bool IsFirst
+		{
+			get
+			{
+				return currentIndex == 0;
+			}
+		}
+
+		public bool IsLast
+		{
+			get
+			{
+				return currentIndex == history.Count - 1;
 			}
 		}
 
 		public History()
 		{
-			history = new List<T> {};
+			history = new List<T> { };
 		}
 
 		/// <summary>
@@ -49,38 +65,17 @@ namespace EDictionary.Core.Utilities
 		public T Previous()
 		{
 			if (currentIndex > 0)
-			{
 				return history[--currentIndex];
-			}
+
 			return history[0];
 		}
 
 		public T Next()
 		{
 			if (currentIndex < history.Count - 1)
-			{
 				return history[++currentIndex];
-			}
+
 			return history[history.Count - 1];
 		}
-
-        public T PreviousItem()
-        {
-            if (currentIndex > 0)
-            {
-                return history[currentIndex - 1];
-            }
-            return history[0];
-        }
-
-        public T NextItem()
-        {
-            if (currentIndex < history.Count - 1)
-            {
-                return history[currentIndex + 1];
-            }
-            return history[history.Count - 1];
-        }
-
-    }
+	}
 }
