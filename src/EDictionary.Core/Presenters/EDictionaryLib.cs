@@ -14,30 +14,28 @@ namespace EDictionary.Core.Presenters
 		private IEDictionary view;
 		public bool IsActiveTextbox { get; set; } = true;
 
+		private Dictionary dictionary = new Dictionary();
 		private History<string> history = new History<string>();
 		private Word word; // current word
 
 		public EDictionaryLib(IEDictionary view)
 		{
-			DataAccess.Create();
 			this.view = view;
 		}
 
 		public void InitWordList()
 		{
-			List<string> words = DataAccess.GetWordList();
+			List<string> words = dictionary.GetWordList();
 			
 			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
 			words.Sort();
 
 			view.WordList = words;
-
-			SpellCheck.GetVocabulary(view.WordList);
 		}
 
 		public string CorrectWord(string word)
 		{
-			IEnumerable<string> candidates = SpellCheck.Candidates(word);
+			IEnumerable<string> candidates = dictionary.Similar(word);
 			return String.Join(Environment.NewLine, candidates);
 		}
 
@@ -47,10 +45,7 @@ namespace EDictionary.Core.Presenters
 		public void GetDefinition(string wordStr)
 		{
 			string wordID = wordStr.AppendWordNumber();
-			word = DataAccess.LookUp(wordStr)
-				?? DataAccess.LookUp(wordStr.AppendWordNumber(1))
-				?? DataAccess.LookUp(wordStr.AppendWordNumber(2))
-				?? DataAccess.LookUp(wordStr.AppendWordNumber(3));
+			word = dictionary.Search(wordStr);
 
 			if (word == null)
 			{
@@ -65,7 +60,11 @@ namespace EDictionary.Core.Presenters
 		public void GoToDefinition(string wordStr)
 		{
 			GetDefinition(wordStr);
-            if (word.Keyword != history.Current)
+
+			if (word == null)
+				return;
+
+			if (word.Keyword != history.Current)
 			    history.Add(word.Keyword);
 		}
 

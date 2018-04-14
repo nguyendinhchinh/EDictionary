@@ -80,11 +80,12 @@
     <Compile Include="Extensions\StringExtension.cs" />
     <Compile Include="Models\Definition.cs" />
     <Compile Include="Models\DefinitionGroup.cs" />
+    <Compile Include="Models\Dictionary.cs" />
     <Compile Include="Models\Idiom.cs" />
     <Compile Include="Models\Pronunciations.cs" />
     <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\Word.cs" />
-    <Compile Include="Presenters\DataAccess.cs" />
+    <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Presenters\EDictionaryLib.cs" />
     <Compile Include="Utilities\History.cs" />
     <Compile Include="Presenters\IEDictionary.cs" />
