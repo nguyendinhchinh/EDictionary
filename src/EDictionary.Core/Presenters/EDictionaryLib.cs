@@ -25,12 +25,7 @@ namespace EDictionary.Core.Presenters
 
 		public void InitWordList()
 		{
-			List<string> words = dictionary.GetWordList();
-			
-			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
-			words.Sort();
-
-			view.WordList = words;
+			view.WordList = dictionary.GetDistinctWordList();
 		}
 
 		public string CorrectWord(string word)
@@ -47,14 +42,14 @@ namespace EDictionary.Core.Presenters
 			string wordID = wordStr.AppendWordNumber();
 			word = dictionary.Search(wordStr);
 
-			if (word == null)
-			{
-				view.Definition = CorrectWord(view.Input);
-			}
-			else
-			{
+			if (word != null)
 				view.Definition = word.ToString();
-			}
+		}
+
+		private void UpdateHistory()
+		{
+			if (word != null && word.Keyword != history.Current)
+				history.Add(word.Keyword);
 		}
 
 		public void GoToDefinition(string wordStr)
@@ -62,10 +57,25 @@ namespace EDictionary.Core.Presenters
 			GetDefinition(wordStr);
 
 			if (word == null)
-				return;
+				view.Definition = CorrectWord(view.Input);
 
-			if (word.Keyword != history.Current)
-			    history.Add(word.Keyword);
+			UpdateHistory();
+		}
+
+		public void JumpToDefinition(string wordStr)
+		{
+			GetDefinition(wordStr);
+			UpdateHistory();
+		}
+
+		public bool IsLastInHistory()
+		{ 
+			return history.IsLast;
+		}
+
+		public bool IsFirstInHistory()
+		{
+			return history.IsFirst;
 		}
 
 		public void NextHistory()
