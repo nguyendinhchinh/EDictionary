@@ -15,6 +15,7 @@ namespace EDictionary.Core.Presenters
 		private IEDictionary view;
 		public bool IsActiveTextbox { get; set; } = true;
 
+		private IStemmer stemmer = new EnglishStemmer();
 		private Dictionary dictionary = new Dictionary();
 		private History<string> history = new History<string>();
 		private Word word; // current word
@@ -36,15 +37,16 @@ namespace EDictionary.Core.Presenters
 		}
 
 		/// <summary>
-		/// Print all info about a word on view
+		/// Return Word object from data layer lookup
 		/// </summary>
-		public void GetDefinition(string wordStr)
+		public string GetDefinition(string wordStr)
 		{
-			string wordID = wordStr.AppendWordNumber();
 			word = dictionary.Search(wordStr);
 
 			if (word != null)
-				view.Definition = word.ToString();
+				return word.ToString();
+
+			return null;
 		}
 
 		private void UpdateHistory()
@@ -59,10 +61,8 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void GoToDefinition(string wordStr)
 		{
-			GetDefinition(wordStr);
-
-			if (word == null)
-				view.Definition = CorrectWord(view.Input);
+			view.Definition = GetDefinition(wordStr)
+				?? CorrectWord(view.Input);
 
 			UpdateHistory();
 		}
@@ -73,14 +73,8 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void JumpToDefinition(string wordStr)
 		{
-			GetDefinition(wordStr);
-
-			if (word == null)
-			{
-				var stemmer = new EnglishStemmer();
-
-				GetDefinition(stemmer.Stem(wordStr));
-			}
+			view.Definition = GetDefinition(wordStr)
+				?? GetDefinition(stemmer.Stem(wordStr));
 
 			UpdateHistory();
 		}
