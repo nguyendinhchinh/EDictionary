@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary", "EDictionary\EDictionary.csproj", "{3EC4B517-33CF-41AD-8BC5-818A0F3AD114}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Core", "EDictionary.Core\EDictionary.Core.csproj", "{91213B83-105A-4B03-9C21-F995386034A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Testing", "EDictionary.Testing\EDictionary.Testing.csproj", "{3E52506A-57FA-47D3-8002-19FF077D9683}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Utilities", "EDictionary.Utilities\EDictionary.Utilities.csproj", "{1376D7F1-6BBF-4C84-B419-4AE3F072B58F}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "EDictionary.Setup", "EDictionary.Setup\EDictionary.Setup.vdproj", "{FDF43A6E-BA81-49E4-9A3A-5F9441DA2BF8}"
 EndProject
@@ -31,10 +29,6 @@ Global
 		{3E52506A-57FA-47D3-8002-19FF077D9683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E52506A-57FA-47D3-8002-19FF077D9683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E52506A-57FA-47D3-8002-19FF077D9683}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1376D7F1-6BBF-4C84-B419-4AE3F072B58F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1376D7F1-6BBF-4C84-B419-4AE3F072B58F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1376D7F1-6BBF-4C84-B419-4AE3F072B58F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1376D7F1-6BBF-4C84-B419-4AE3F072B58F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FDF43A6E-BA81-49E4-9A3A-5F9441DA2BF8}.Debug|Any CPU.ActiveCfg = Debug
 		{FDF43A6E-BA81-49E4-9A3A-5F9441DA2BF8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection

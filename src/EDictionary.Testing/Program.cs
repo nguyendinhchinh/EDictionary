@@ -1,7 +1,4 @@
-using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
-using EDictionary.Core.Presenters;
-using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,40 +8,43 @@ namespace EDictionary.Testing
 {
 	class Program
 	{
-		public static string ExecutePath { get; set; }
-		public static string SrcPath { get; set; }
+		private static Dictionary dictionary;
 
 		static Program()
 		{
-			ExecutePath = System.AppDomain.CurrentDomain.BaseDirectory;
-			SrcPath = Path.GetFullPath(Path.Combine(ExecutePath, @"..\..\..\"));
-
-			string wordlistPath = Path.Combine(SrcPath, @"EDictionary\Data\vocabulary.txt");
-
-			List<string> words = DataAccess.GetWordList();
-
-			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
-			SpellCheck.GetVocabulary(words);
+			dictionary = new Dictionary();
 		}
 
 		static void TestSpellCheck()
 		{
-			SpellCheck.ReadFromStdIn();
-		}
+			string name;
+			IEnumerable<string> candidates;
 
-		static void TestJsonHelper()
-		{
-			string strWord;
-			Word word;
-
-			while (!string.IsNullOrEmpty(strWord = Console.ReadLine().Trim()))
+			while (!string.IsNullOrEmpty(name = Console.ReadLine().Trim()))
 			{
 				try
 				{
-					string jsonPath = Path.Combine(SrcPath, String.Format(@"EDictionary\Data\raw\data\words\{0}.json", strWord));
-					string strJson = File.ReadAllText(jsonPath);
+					candidates = dictionary.Similar(name);
+					foreach (var candidate in candidates)
+						Console.WriteLine(candidate);
+				}
+				catch (System.IO.FileNotFoundException)
+				{
+					Console.Error.WriteLine("Word not found");
+				}
+			}
+		}
 
-					word = JsonHelper.Deserialize(strJson);
+		static void TestLookUp()
+		{
+			string name;
+			Word word;
+
+			while (!string.IsNullOrEmpty(name = Console.ReadLine().Trim()))
+			{
+				try
+				{
+					word = dictionary.Search(name);
 					Console.WriteLine(word.ToString());
 				}
 				catch (System.IO.FileNotFoundException)
@@ -57,7 +57,7 @@ namespace EDictionary.Testing
 		static void Main(string[] args)
 		{
 			TestSpellCheck();
-			/* TestJsonHelper(); */
+			// TestLookUp();
 		}
 	}
 }

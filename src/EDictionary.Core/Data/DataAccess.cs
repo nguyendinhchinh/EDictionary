@@ -10,23 +10,22 @@ using EDictionary.Core.Utilities;
 using EDictionary.Core.Models;
 using EDictionary.Core.Data;
 
-namespace EDictionary.Core.Presenters
+namespace EDictionary.Core.Data
 {
-	public static class DataAccess
+	public class DataAccess
 	{
-		private static readonly string saveDir = AppDomain.CurrentDomain.BaseDirectory;
-		private static readonly string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
-		private static readonly string connectionStr = $"Data Source={savePath};Version=3;";
+		private readonly static string saveDir = AppDomain.CurrentDomain.BaseDirectory;
+		private readonly static string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
+		private readonly string connectionStr = $"Data Source={savePath};Version=3;";
 
-		private static readonly string insertQuery = $"INSERT INTO {WordTable.TableName} (WordID, Definition) VALUES (@wordID, @definition)";
-		private static readonly string createTableQuery = $"CREATE TABLE IF NOT EXISTS {WordTable.TableName} (WordID NVARCHAR, Definition NVARCHAR)";
-		private static readonly string selectDefinitionQuery = $"SELECT * FROM {WordTable.TableName} WHERE {WordTable.WordID} = @wordID";
-		private static readonly string selectWordListQuery = $"SELECT {WordTable.WordID} FROM {WordTable.TableName}";
+		private readonly string insertQuery = $"INSERT INTO {WordTable.TableName} (WordID, Definition) VALUES (@wordID, @definition)";
+		private readonly string createTableQuery = $"CREATE TABLE IF NOT EXISTS {WordTable.TableName} (WordID NVARCHAR, Definition NVARCHAR)";
+		private readonly string selectDefinitionQuery = $"SELECT * FROM {WordTable.TableName} WHERE {WordTable.WordID} = @wordID";
+		private readonly string selectWordListQuery = $"SELECT {WordTable.WordID} FROM {WordTable.TableName}";
 
-		private static SQLiteConnection dbConnection;
+		private SQLiteConnection dbConnection;
 
-		// Static class dont have constructor :(
-		public static void Create()
+		public DataAccess()
 		{
 			if (!File.Exists(savePath))
 			{
@@ -36,19 +35,19 @@ namespace EDictionary.Core.Presenters
 			CreateTable();
 		}
 
-		private static void OpenConnection()
+		private void OpenConnection()
 		{
 			if (dbConnection.State != ConnectionState.Open)
 				dbConnection.Open();
 		}
 
-		private static void CloseConnection()
+		private void CloseConnection()
 		{
 			if (dbConnection.State != ConnectionState.Closed)
 				dbConnection.Close();
 		}
 
-		public static void CreateTable()
+		public void CreateTable()
 		{
 			try
 			{
@@ -68,7 +67,7 @@ namespace EDictionary.Core.Presenters
 			}
 		}
 
-		public static void Insert(string wordJsonStr)
+		public void Insert(string wordJsonStr)
 		{
 			try
 			{
@@ -95,7 +94,7 @@ namespace EDictionary.Core.Presenters
 			}
 		}
 
-		public static Word LookUp(string wordID)
+		public Word LookUp(string wordID)
 		{
 			string definition;
 
@@ -134,7 +133,7 @@ namespace EDictionary.Core.Presenters
 			}
 		}
 
-		public static List<string> GetWordList()
+		public List<string> GetWordList()
 		{
 			try
 			{
