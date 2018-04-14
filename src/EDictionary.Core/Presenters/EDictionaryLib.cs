@@ -65,7 +65,8 @@ namespace EDictionary.Core.Presenters
 		public void GoToDefinition(string wordStr)
 		{
 			GetDefinition(wordStr);
-			history.Add(word.Keyword);
+            if (word.Keyword != history.Current)
+			    history.Add(word.Keyword);
 		}
 
 		public void NextHistory()
