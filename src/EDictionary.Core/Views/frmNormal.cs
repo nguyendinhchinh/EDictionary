@@ -156,17 +156,29 @@ namespace EDictionary.Core.Views
 
 		private void rtxDefinition_DoubleClick(object sender, EventArgs e)
 		{
-			eDictionaryLib.GoToDefinition(SelectedWord);
+			eDictionaryLib.JumpToDefinition(SelectedWord);
 		}
 
 		private void btnNextHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.NextHistory();
+
+			if (!eDictionaryLib.IsFirstInHistory())
+				btnPrevHistory.Enabled = true;
+
+			if (eDictionaryLib.IsLastInHistory())
+				btnNextHistory.Enabled = false;
 		}
 
 		private void btnPrevHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.PreviousHistory();
+
+			if (!eDictionaryLib.IsLastInHistory())
+				btnNextHistory.Enabled = true;
+
+			if (eDictionaryLib.IsFirstInHistory())
+				btnPrevHistory.Enabled = false;
 		}
 	}
 }
