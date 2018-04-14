@@ -84,7 +84,7 @@ namespace EDictionary.Core.Views
 		{
 			get
 			{
-				return rtxDefinition.SelectedText.Trim();
+				return rtxDefinition.SelectedText.Trim().ToLower();
 			}
 		}
 
@@ -117,11 +117,6 @@ namespace EDictionary.Core.Views
 		private void Normal_Load(object sender, EventArgs e)
 		{
 			eDictionaryLib.InitWordList();
-		}
-
-		private void btnSearch_Click(object sender, EventArgs e)
-		{
-			eDictionaryLib.GetDefinition(Input);
 		}
 
 		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
@@ -158,13 +153,11 @@ namespace EDictionary.Core.Views
 		{
 			if (e.KeyCode == Keys.Up)
 			{
-				SelectedIndex--;
-				eDictionaryLib.SelectItem(SelectedIndex);
+				eDictionaryLib.SelectItem(--SelectedIndex);
 			}
 			else if (e.KeyCode == Keys.Down)
 			{
-				SelectedIndex++;
-				eDictionaryLib.SelectItem(SelectedIndex);
+				eDictionaryLib.SelectItem(++SelectedIndex);
 			}
 		}
 
@@ -181,6 +174,11 @@ namespace EDictionary.Core.Views
 		private void btnPrevHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.PreviousHistory();
+		}
+
+		private void btnSearch_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.GoToDefinition(Input);
 		}
 	}
 }

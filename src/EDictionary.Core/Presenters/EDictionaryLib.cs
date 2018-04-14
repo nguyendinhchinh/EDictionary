@@ -61,9 +61,10 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void GoToDefinition(string wordStr)
 		{
-			view.Definition = GetDefinition(wordStr)
+			string definition = GetDefinition(wordStr)
 				?? CorrectWord(view.Input);
 
+			view.Definition = definition;
 			UpdateHistory();
 		}
 
@@ -73,8 +74,11 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public void JumpToDefinition(string wordStr)
 		{
-			view.Definition = GetDefinition(wordStr)
+			string definition = GetDefinition(wordStr)
 				?? GetDefinition(stemmer.Stem(wordStr));
+
+			if (definition != null)
+				view.Definition = definition;
 
 			UpdateHistory();
 		}
