@@ -1,6 +1,7 @@
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
+using Iveonik.Stemmers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,10 @@ namespace EDictionary.Core.Presenters
 				history.Add(word.Keyword);
 		}
 
+		/// <summary>
+		/// Called on enter or doubleclick event on wordlist
+		/// Run spellcheck for similar word when word not found
+		/// </summary>
 		public void GoToDefinition(string wordStr)
 		{
 			GetDefinition(wordStr);
@@ -62,9 +67,21 @@ namespace EDictionary.Core.Presenters
 			UpdateHistory();
 		}
 
+		/// <summary>
+		/// Called when select highlight word in defintion window
+		/// Stem a word when word not found instead of running spellcheck
+		/// </summary>
 		public void JumpToDefinition(string wordStr)
 		{
 			GetDefinition(wordStr);
+
+			if (word == null)
+			{
+				var stemmer = new EnglishStemmer();
+
+				GetDefinition(stemmer.Stem(wordStr));
+			}
+
 			UpdateHistory();
 		}
 
