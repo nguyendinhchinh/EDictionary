@@ -45,6 +45,10 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NVorbis, Version=0.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.8.4.0\lib\NVorbis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="StemmersNet, Version=1.1.1.0, Culture=neutral, PublicKeyToken=5b16b226aedf3c3b, processorArchitecture=MSIL">
       <HintPath>..\packages\StemmersNet.1.1.1.0\lib\net20\StemmersNet.dll</HintPath>
     </Reference>
@@ -90,6 +94,7 @@
     <Compile Include="Models\Word.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Presenters\EDictionaryLib.cs" />
+    <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\History.cs" />
     <Compile Include="Presenters\IEDictionary.cs" />
     <Compile Include="Program.cs" />
@@ -158,6 +163,17 @@
   <ItemGroup>
     <None Include="Resources\Search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -167,10 +183,19 @@
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.108.0\build\net46\System.Data.SQLite.Core.targets'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>set db_path="$(SolutionDir)EDictionary\Data\words.sqlite"
+    <PostBuildEvent>set audio_path="$(SolutionDir)EDictionary\Data\audio"
+set sqlite_path="$(SolutionDir)\EDictionary\Data\words.sqlite"
 
-if not exist "$(TargetDir)\words.sqlite" (
-   copy %25db_path%25 "$(TargetDir)"
-)</PostBuildEvent>
+if not exist "$(TargetDir)words.sqlite" (
+   copy %25sqlite_path%25 "$(TargetDir)"
+)
+
+if not exist "$(TargetDir)audio" (
+   mkdir "$(TargetDir)audio"
+   copy %25audio_path%25 "$(TargetDir)audio"
+)
+
+
+</PostBuildEvent>
   </PropertyGroup>
 </Project>

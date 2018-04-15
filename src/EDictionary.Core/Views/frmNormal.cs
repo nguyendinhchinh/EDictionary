@@ -180,5 +180,15 @@ namespace EDictionary.Core.Views
 		{
 			eDictionaryLib.GoToDefinition(Input);
 		}
+
+		private void btnAmerica_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.PlayAmericaAudio();
+		}
+
+		private void btnBritian_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.PlayBritianAudio();
+		}
 	}
 }
