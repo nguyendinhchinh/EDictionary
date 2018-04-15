@@ -114,5 +114,15 @@ namespace EDictionary.Core.Presenters
 		{
 			view.SelectedIndex = index;
 		}
+
+		public void PlayAmericaAudio()
+		{
+			dictionary.PlayAudio(Dictionary.Geo.America);
+		}
+
+		public void PlayBritianAudio()
+		{
+			dictionary.PlayAudio(Dictionary.Geo.Britian);
+		}
 	}
 }
