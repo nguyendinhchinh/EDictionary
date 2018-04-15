@@ -41,12 +41,7 @@ namespace EDictionary.Core.Presenters
 		/// </summary>
 		public string GetDefinition(string wordStr)
 		{
-			word = dictionary.Search(wordStr);
-
-			if (word != null)
-				return word.ToString();
-
-			return null;
+			return dictionary.Search(wordStr)?.ToString();
 		}
 
 		private void UpdateHistory()
