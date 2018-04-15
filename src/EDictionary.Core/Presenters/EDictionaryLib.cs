@@ -18,7 +18,6 @@ namespace EDictionary.Core.Presenters
 		private IStemmer stemmer = new EnglishStemmer();
 		private Dictionary dictionary = new Dictionary();
 		private History<string> history = new History<string>();
-		private Word word; // current word
 
 		public EDictionaryLib(IEDictionary view)
 		{
@@ -46,8 +45,8 @@ namespace EDictionary.Core.Presenters
 
 		private void UpdateHistory()
 		{
-			if (word != null && word.Keyword != history.Current)
-				history.Add(word.Keyword);
+			if (dictionary.currentWord != null && dictionary.currentWord.Keyword != history.Current)
+				history.Add(dictionary.currentWord.Keyword);
 		}
 
 		/// <summary>
@@ -80,7 +79,7 @@ namespace EDictionary.Core.Presenters
 
 		public void NextHistory()
 		{
-			GetDefinition(history.Next());
+			view.Definition = GetDefinition(history.Next());
 
 			if (!history.IsFirst)
 				view.IsPrevHistoryEnabled = true;
@@ -91,7 +90,7 @@ namespace EDictionary.Core.Presenters
 
 		public void PreviousHistory()
 		{
-			GetDefinition(history.Previous());
+			view.Definition = GetDefinition(history.Previous());
 
 			if (!history.IsLast)
 				view.IsNextHistoryEnabled = true;

@@ -180,7 +180,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>set audio_path="$(SolutionDir)EDictionary\Data\audio"
-set sqlite_path="$(SolutionDir)\EDictionary\Data\words.sqlite"
+set sqlite_path="$(SolutionDir)EDictionary\Data\words.sqlite"
 
 if not exist "$(TargetDir)words.sqlite" (
    copy %25sqlite_path%25 "$(TargetDir)"
@@ -189,9 +189,6 @@ if not exist "$(TargetDir)words.sqlite" (
 if not exist "$(TargetDir)audio" (
    mkdir "$(TargetDir)audio"
    copy %25audio_path%25 "$(TargetDir)audio"
-)
-
-
-</PostBuildEvent>
+)</PostBuildEvent>
   </PropertyGroup>
 </Project>
