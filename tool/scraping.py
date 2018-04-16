@@ -116,21 +116,6 @@ def download_audios(word):
 		except urllib.error.HTTPError: # 'ginkgo': audio urls are available but not valid
 			update_corrupted_words(word + ':audio')
 
-def remove_urls(word):
-	""" replace word urls with audio filenames """
-	for i, _ in enumerate(word['pronunciations']):
-		url = word['pronunciations'][i]['url']
-
-		try:
-			filename = url.rsplit('/', 1)[1]
-			word['pronunciations'][i]['filename'] = filename
-		except AttributeError: # NoneType has no attribute 'rsplit'
-			word['pronunciations'][i]['filename'] = None
-		finally:
-			word['pronunciations'][i].pop('url', None)
-
-	return word
-
 @timer
 def extract_data(word):
 	""" get word info using api and save data in filesystem
@@ -175,7 +160,6 @@ def extract_data(word):
 			LOG.info("Downloading audio file of '%s'...", word)
 
 			download_audios(data)
-		data = remove_urls(data)
 
 		# save word information (definitions, examples, idioms,...)
 		print("saving '{}' in json format to {}...".format(word, DEF_PATH))
