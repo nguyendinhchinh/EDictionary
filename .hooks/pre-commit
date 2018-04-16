@@ -1,0 +1,15 @@
+#!/bin/sh
+
+source '.hooks/version.sh'
+
+# Pass if version aren't defined
+[ "$CURRENT_VERSION" ] || exit 0
+
+echo
+echo "NOTICE ** Updating README.md with latest version ${CURRENT_VERSION}"
+echo "          The change will be staged for commit..."
+echo
+
+sed -i "s/$VERSION_REGEX/${CURRENT_VERSION}/g" README.md
+
+git add README.md

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+source '.hooks/version.sh'
+
+ERROR_MSG="Aborting commit. Your commit message is missing version number"
+
+if ! grep -iq "^$VERSION_REGEX: " "$1"; then
+	echo
+	echo "$ERROR_MSG" >&2
+	echo
+	exit 1
+fi
