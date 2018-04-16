@@ -42,9 +42,10 @@ def modify(word):
 		url = word['pronunciations'][i]['url']
 
 		try:
-			filename = url.rsplit('/', 1)[1]
+			ogg_file = url.rsplit('/', 1)[1]
+			mp3_file = ogg_file.split('.')[0] + '.mp3'
 
-			word['pronunciations'][i]['filename'] = filename
+			word['pronunciations'][i]['filename'] = mp3_file
 			word['pronunciations'][i].pop('url', None)
 		except AttributeError: # NoneType has no attribute 'rsplit'
 			pass
