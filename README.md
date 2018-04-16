@@ -1,4 +1,8 @@
 # VE Dictionary
+
+[![BSD 3-Clause License](https://img.shields.io/badge/License-BSD_3--Clauses-blue.svg?longCache=true)](https://github.com/NearHuscarl/E-Dictionary/blob/master/LICENSE.md)
+[![Version](https://img.shields.io/badge/Version-0.0.1-green.svg?longCache=true)](https://github.com/NearHuscarl/E-Dictionary/releases)
+
 Đồ án môn lập trình trực quan, trường đại học CNTT
 
 # Roadmap
