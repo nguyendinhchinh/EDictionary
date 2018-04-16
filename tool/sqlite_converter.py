@@ -1,12 +1,21 @@
 #!/bin/env python
 
-""" convert word data in json format to sqlite database """
+"""
+Convert word data in json format to sqlite database
+
+Some different before and after insert into db. See modify()
+
+	* Change 'url' key to 'filename' in pronunciation which contain the filename
+	only and trim the rest of the url
+
+	* Change filename extension from ogg to mp3 (.NET cant play ogg natively)
+"""
 
 import json
 import os
 import sqlite3
 
-DB_PATH = os.path.join(os.getcwd(), '..\src\EDictionary\Data\words.sqlite')
+DB_PATH = os.path.join(os.getcwd(), 'words.sqlite')
 JSON_PATH = os.path.join(os.getcwd(), 'data\words')
 
 CONNECTION = sqlite3.connect(DB_PATH)
@@ -26,6 +35,21 @@ def get_word(path):
 def uglify(data):
 	""" return a string of compressed json text """
 	return json.dumps(data, separators=(',', ':'))
+
+def modify(word):
+	""" replace word urls with audio filenames """
+	for i, _ in enumerate(word['pronunciations']):
+		url = word['pronunciations'][i]['url']
+
+		try:
+			filename = url.rsplit('/', 1)[1]
+
+			word['pronunciations'][i]['filename'] = filename
+			word['pronunciations'][i].pop('url', None)
+		except AttributeError: # NoneType has no attribute 'rsplit'
+			pass
+
+	return word
 
 def create_table():
 	""" create table if not exists """
@@ -52,7 +76,7 @@ def to_sqlite():
 			path = os.path.join(JSON_PATH, file)
 			json = readjson(path)
 
-			insert(json)
+			insert(modify(json))
 
 	CONNECTION.commit()
 
