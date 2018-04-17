@@ -7,7 +7,6 @@ source '.hooks/version.sh'
 
 echo
 echo "NOTICE ** Updating README.md with latest version ${CURRENT_VERSION}"
-echo "          The change will be staged for commit..."
 echo
 
 # git add README.md
