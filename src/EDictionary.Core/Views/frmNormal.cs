@@ -119,17 +119,31 @@ namespace EDictionary.Core.Views
 			eDictionaryLib.InitWordList();
 		}
 
-		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
-		{ 
+		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+		{
 			if (e.KeyCode == Keys.Enter)
 			{
 				if (eDictionaryLib.IsActiveTextbox)
 					eDictionaryLib.GoToDefinition(Input);
 				else
 					eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
+
+				e.SuppressKeyPress = true;
 			}
 
-			else if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
+			if (e.KeyCode == Keys.Up)
+			{
+				eDictionaryLib.SelectItem(--SelectedIndex);
+			}
+			else if (e.KeyCode == Keys.Down)
+			{
+				eDictionaryLib.SelectItem(++SelectedIndex);
+			}
+		}
+
+		private void txtSearch_KeyUp(object sender, KeyEventArgs e)
+		{ 
+			if (e.KeyCode != Keys.Up && e.KeyCode != Keys.Down)
 			{
 				eDictionaryLib.UpdateWordlistCurrentIndex();
 			}
@@ -144,21 +158,14 @@ namespace EDictionary.Core.Views
 			}
 		}
 
+		private void btnSearch_Click(object sender, EventArgs e)
+		{
+			eDictionaryLib.GoToDefinition(Input);
+		}
+
 		private void lbxIndex_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
 			eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
-		}
-
-		private void txtSearch_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.Up)
-			{
-				eDictionaryLib.SelectItem(--SelectedIndex);
-			}
-			else if (e.KeyCode == Keys.Down)
-			{
-				eDictionaryLib.SelectItem(++SelectedIndex);
-			}
 		}
 
 		private void rtxDefinition_DoubleClick(object sender, EventArgs e)
@@ -174,11 +181,6 @@ namespace EDictionary.Core.Views
 		private void btnPrevHistory_Click(object sender, EventArgs e)
 		{
 			eDictionaryLib.PreviousHistory();
-		}
-
-		private void btnSearch_Click(object sender, EventArgs e)
-		{
-			eDictionaryLib.GoToDefinition(Input);
 		}
 
 		private void btnAmerica_Click(object sender, EventArgs e)
