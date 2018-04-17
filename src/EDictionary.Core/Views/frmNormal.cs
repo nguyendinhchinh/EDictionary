@@ -128,7 +128,7 @@ namespace EDictionary.Core.Views
 				else
 					eDictionaryLib.GoToDefinition(WordList[SelectedIndex]);
 
-				e.SuppressKeyPress = true;
+				e.SuppressKeyPress = true; // suppress beeping sound when enter
 			}
 
 			if (e.KeyCode == Keys.Up)
