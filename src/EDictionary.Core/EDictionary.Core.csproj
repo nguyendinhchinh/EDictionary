@@ -103,6 +103,7 @@
     <Compile Include="Utilities\JsonHelper.cs" />
     <Compile Include="Utilities\Search.cs" />
     <Compile Include="Utilities\SpellCheck.cs" />
+    <Compile Include="Utilities\Stemmer.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
     <Compile Include="Views\frmMini.cs">
       <SubType>Form</SubType>

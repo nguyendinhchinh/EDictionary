@@ -1,7 +1,6 @@
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
-using Iveonik.Stemmers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,6 @@ namespace EDictionary.Core.Presenters
 		private IEDictionary view;
 		public bool IsActiveTextbox { get; set; } = true;
 
-		private IStemmer stemmer = new EnglishStemmer();
 		private Dictionary dictionary = new Dictionary();
 		private History<string> history = new History<string>();
 
@@ -56,6 +54,7 @@ namespace EDictionary.Core.Presenters
 		public void GoToDefinition(string wordStr)
 		{
 			string definition = GetDefinition(wordStr)
+				?? GetDefinition(Stemmer.Stem(wordStr))
 				?? CorrectWord(view.Input);
 
 			view.Definition = definition;
@@ -69,7 +68,7 @@ namespace EDictionary.Core.Presenters
 		public void JumpToDefinition(string wordStr)
 		{
 			string definition = GetDefinition(wordStr)
-				?? GetDefinition(stemmer.Stem(wordStr));
+				?? GetDefinition(Stemmer.Stem(wordStr));
 
 			if (definition != null)
 				view.Definition = definition;
