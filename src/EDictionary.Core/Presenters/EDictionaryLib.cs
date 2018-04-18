@@ -115,12 +115,12 @@ namespace EDictionary.Core.Presenters
 
 		public void PlayAmericaAudio()
 		{
-			dictionary.PlayAudio(Dictionary.Geo.America);
+			dictionary.PlayAudio(Dialect.NamE);
 		}
 
 		public void PlayBritianAudio()
 		{
-			dictionary.PlayAudio(Dictionary.Geo.Britian);
+			dictionary.PlayAudio(Dialect.BrE);
 		}
 	}
 }

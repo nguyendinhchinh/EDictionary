@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Models
 {
+	public enum Dialect
+	{
+		NamE,
+		BrE,
+	}
+
 	public class Dictionary
 	{
-		public enum Geo
-		{
-			America,
-			Britian,
-		}
-
 		private readonly string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 		private DataAccess dataAccess = new DataAccess();
 		public Word currentWord { get; set; }
@@ -63,16 +63,16 @@ namespace EDictionary.Core.Models
 			return url.Split('/').Last();
 		}
 
-		public void PlayAudio(Geo geo)
+		public void PlayAudio(Dialect dialect)
 		{
 			string filename = null;
 			string audioFile;
 
-			if (geo == Geo.America)
+			if (dialect == Dialect.NamE)
 			{
 				filename = ExtractFilename(currentWord.Pronunciations.America.Url);
 			}
-			else if (geo == Geo.Britian)
+			else if (dialect == Dialect.BrE)
 			{
 				filename = ExtractFilename(currentWord.Pronunciations.Britain.Url);
 			}
