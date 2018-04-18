@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EDictionary.Core.Presenters;
 using EDictionary.Core.Utilities;
+using EDictionary.Core.Extensions;
 
 namespace EDictionary.Core.Views
 {
@@ -56,7 +57,7 @@ namespace EDictionary.Core.Views
 			}
 			set
 			{
-				lbxIndex.SelectedIndex = value;
+				lbxIndex.SelectedIndex = value.Clamp(0, WordList.Count - 1);
 			}
 		}
 
