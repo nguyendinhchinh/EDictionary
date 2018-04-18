@@ -83,10 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\WordTable.cs" />
-    <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\StringBuilderExtension.cs" />
-    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\Definition.cs" />
     <Compile Include="Models\DefinitionGroup.cs" />
     <Compile Include="Models\Dictionary.cs" />

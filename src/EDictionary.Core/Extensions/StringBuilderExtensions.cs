@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.Models;
+using EDictionary.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Extensions
 {
-	public static class StringBuilderExtension
+	public static class StringBuilderExtensions
 	{
 		public static StringBuilder AppendReferences(this StringBuilder builder, Reference[] references)
 		{

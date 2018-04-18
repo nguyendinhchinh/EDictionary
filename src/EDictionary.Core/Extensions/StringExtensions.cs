@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.Extensions
 {
-	public static class StringExtension
+	public static class StringExtensions
 	{
 		/// <summary>
 		/// "time_1" -> "time"
