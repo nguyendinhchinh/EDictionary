@@ -7,11 +7,11 @@ namespace EDictionary.Core.Models
 {
 	public class Word
 	{
-		public string Keyword { get; set; }
+		public string Id { get; set; }
 		public string[] OtherKeywords { get; set; }
-		public string word { get; set; }
+		public string Name { get; set; }
 		public string Wordform { get; set; }
-		public Pronunciations Pronunciations { get; set; }
+		public Pronunciation[] Pronunciations { get; set; }
 		public Reference[] References { get; set; }
 		public DefinitionGroup[] DefinitionsExamples { get; set; }
 		public string[] ExtraExamples { get; set; }
@@ -21,10 +21,10 @@ namespace EDictionary.Core.Models
 		{
 			StringBuilder builder = new StringBuilder();
 
-			builder.AppendLineIfExists(word);
-			builder.AppendLine(Pronunciations.ToString());
+			builder.AppendLineIfExists(Name);
+			builder.AppendObjs(Pronunciations);
 			builder.AppendReferences(References);
-			builder.AppendDefinitionsExamples(DefinitionsExamples);
+			builder.AppendObjs(DefinitionsExamples);
 			builder.AppendExtraExamples(ExtraExamples);
 			builder.AppendIdioms(Idioms);
 

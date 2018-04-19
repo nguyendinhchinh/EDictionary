@@ -4,12 +4,12 @@ namespace EDictionary.Core.Models
 {
 	public class Reference
 	{
-		public string Keyword { get; set; }
-		public string Text { get; set; }
+		public string Id { get; set; }
+		public string Name { get; set; }
 
 		public override string ToString()
 		{
-			return Text;
+			return Name;
 		}
 	}
 }
