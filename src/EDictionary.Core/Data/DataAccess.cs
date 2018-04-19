@@ -77,7 +77,7 @@ namespace EDictionary.Core.Data
 
 					Word word = JsonHelper.Deserialize(wordJsonStr);
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = word.Keyword });
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = word.Id });
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
 
 					command.ExecuteNonQuery();

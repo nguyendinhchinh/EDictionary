@@ -11,7 +11,7 @@ namespace EDictionary.Core.Models
 		public string Label { get; set; }
 		public string Refer { get; set; }
 		public Reference[] References { get; set; }
-		public string definition { get; set; }
+		public string Description { get; set; }
 		public string[] Examples { get; set; }
 
 		public override string ToString()
@@ -22,7 +22,7 @@ namespace EDictionary.Core.Models
 			builder.AppendIfExists(Label + " ");
 			builder.AppendIfExists(Refer + " ");
 			builder.AppendIfExists(Property + " ");
-			builder.AppendLine(definition);
+			builder.AppendLine(Description);
 			builder.AppendExamples(Examples);
 			builder.AppendReferences(References);
 

@@ -13,7 +13,7 @@ namespace EDictionary.Core.Models
 {
 	public enum Dialect
 	{
-		NamE,
+		NAmE,
 		BrE,
 	}
 
@@ -58,9 +58,14 @@ namespace EDictionary.Core.Models
 			return SpellCheck.Candidates(word);
 		}
 
-		private string ExtractFilename(string url)
+		public string GetFilename(Dialect dialect)
 		{
-			return url.Split('/').Last();
+			var result = currentWord.Pronunciations
+				.Where(x => x.Prefix == dialect.ToString())
+				.Select(x => x.Filename)
+				.ToList();
+
+			return result[0];
 		}
 
 		public void PlayAudio(Dialect dialect)
@@ -68,15 +73,7 @@ namespace EDictionary.Core.Models
 			string filename = null;
 			string audioFile;
 
-			if (dialect == Dialect.NamE)
-			{
-				filename = ExtractFilename(currentWord.Pronunciations.America.Url);
-			}
-			else if (dialect == Dialect.BrE)
-			{
-				filename = ExtractFilename(currentWord.Pronunciations.Britain.Url);
-			}
-
+			filename = GetFilename(dialect);
 			audioFile = Path.Combine(audioPath, filename);
 
 			Audio.Play(audioFile);

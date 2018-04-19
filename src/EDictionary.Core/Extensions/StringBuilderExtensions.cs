@@ -38,6 +38,12 @@ namespace EDictionary.Core.Extensions
 
 			return builder;
 		}
+		public static StringBuilder AppendObjs<T>(this StringBuilder builder, T[] objects)
+		{
+			builder.Append(string.Join(Environment.NewLine, objects.Select(x => x.ToString())));
+
+			return builder;
+		}
 
 		public static StringBuilder AppendDefinitions(this StringBuilder builder, Definition[] definitions)
 		{

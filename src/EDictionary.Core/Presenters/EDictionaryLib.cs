@@ -43,8 +43,8 @@ namespace EDictionary.Core.Presenters
 
 		private void UpdateHistory()
 		{
-			if (dictionary.currentWord != null && dictionary.currentWord.Keyword != history.Current)
-				history.Add(dictionary.currentWord.Keyword);
+			if (dictionary.currentWord != null && dictionary.currentWord.Id != history.Current)
+				history.Add(dictionary.currentWord.Id);
 		}
 
 		/// <summary>
@@ -115,7 +115,7 @@ namespace EDictionary.Core.Presenters
 
 		public void PlayAmericaAudio()
 		{
-			dictionary.PlayAudio(Dialect.NamE);
+			dictionary.PlayAudio(Dialect.NAmE);
 		}
 
 		public void PlayBritianAudio()

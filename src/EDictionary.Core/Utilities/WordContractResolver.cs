@@ -11,9 +11,7 @@ namespace EDictionary.Core.Utilities
 		{
 			PropertyMappings = new Dictionary<string, string> 
 			{
-				{"OtherKeywords", "other_keyword"},
-				{"References", "reference"},
-				{"DefinitionsExamples", "definitions_examples"},
+				{"DefinitionsExamples", "definitions"},
 				{"ExtraExamples", "extra_examples"},
 			};
 		}
