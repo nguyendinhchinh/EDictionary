@@ -22,10 +22,11 @@ namespace EDictionary.Core.Models
 		private readonly string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 		private DataAccess dataAccess = new DataAccess();
 		public Word currentWord { get; set; }
+		public List<string> Wordlist { get; set; }
 
 		public Dictionary()
 		{
-			SpellCheck.GetVocabulary(GetDistinctWordList());
+			Wordlist = GetDistinctWordList();
 		}
 
 		public List<string> GetWordList()
@@ -37,7 +38,11 @@ namespace EDictionary.Core.Models
 		{
 			List<string> words = GetWordList();
 
-			words = words.Select(x => x.StripWordNumber()).Distinct().ToList();
+			words = words
+				.Select(x => x.StripWordNumber())
+				.Distinct()
+				.ToList();
+
 			words.Sort();
 
 			return words;
@@ -51,11 +56,6 @@ namespace EDictionary.Core.Models
 				?? dataAccess.LookUp(word.AppendWordNumber(3));
 
 			return currentWord;
-		}
-
-		public IEnumerable<string> Similar(string word)
-		{
-			return SpellCheck.Candidates(word);
 		}
 
 		public string GetFilename(Dialect dialect)

@@ -13,7 +13,7 @@ namespace EDictionary.Core.Presenters
 		string Definition { set; }
 		string SelectedWord { get; }
 
-		int TopIndex { get; set; }
+		//int TopIndex { get; set; }
 		int SelectedIndex { get; set; }
 
 		List<string> WordList { get; set; }

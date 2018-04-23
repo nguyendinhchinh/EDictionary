@@ -1,0 +1,9 @@
+﻿<Application x:Class="EDictionary.Core.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:EDictionary.Core"
+				 xmlns:modelns="clr-namespace:EDictionary.Core.Models"
+             StartupUri="Views/frmNormal.xaml">
+    <Application.Resources>
+    </Application.Resources>
+</Application>

@@ -27,12 +27,6 @@ namespace EDictionary.Core.Presenters
 			view.WordList = dictionary.GetDistinctWordList();
 		}
 
-		public string CorrectWord(string word)
-		{
-			IEnumerable<string> candidates = dictionary.Similar(word);
-			return String.Join(Environment.NewLine, candidates);
-		}
-
 		/// <summary>
 		/// Return Word object from data layer lookup
 		/// </summary>
@@ -51,15 +45,15 @@ namespace EDictionary.Core.Presenters
 		/// Called on enter or doubleclick event on wordlist
 		/// Run spellcheck for similar word when word not found
 		/// </summary>
-		public void GoToDefinition(string wordStr)
-		{
-			string definition = GetDefinition(wordStr)
-				?? GetDefinition(Stemmer.Stem(wordStr))
-				?? CorrectWord(view.Input);
+		// public void GoToDefinition(string wordStr)
+		// {
+		// 	string definition = GetDefinition(wordStr)
+		// 		?? GetDefinition(Stemmer.Stem(wordStr))
+		// 		?? CorrectWord(view.Input);
 
-			view.Definition = definition;
-			UpdateHistory();
-		}
+		// 	view.Definition = definition;
+		// 	UpdateHistory();
+		// }
 
 		/// <summary>
 		/// Called when select highlight word in defintion window
@@ -102,9 +96,9 @@ namespace EDictionary.Core.Presenters
 		{
 			view.SelectedIndex = Search.Prefix(view.Input, view.WordList);
 
-			if (view.TopIndex != view.SelectedIndex)
+			if (view.SelectedIndex != view.SelectedIndex)
 			{
-				view.TopIndex = view.SelectedIndex;
+				view.SelectedIndex = view.SelectedIndex;
 			}
 		}
 
