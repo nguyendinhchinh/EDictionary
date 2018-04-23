@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.Extensions;
+using EDictionary.Core.Extensions;
 using EDictionary.Core.Presenters;
 using EDictionary.Core.ViewModels;
 using System;

@@ -1,4 +1,5 @@
-﻿using EDictionary.Core.Commands;
+using EDictionary.Core.Commands;
+using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
@@ -15,7 +16,9 @@ namespace EDictionary.Core.ViewModels
 	{
 		#region Fields
 
+		private Dictionary dictionary { get; set; }
 		private History<string> history;
+		private string currentWord;
 		private Word word;
 		private int selectedIndex;
 		private string definition;
@@ -24,8 +27,29 @@ namespace EDictionary.Core.ViewModels
 
 		#region Properties
 
-		public Dictionary Dictionary { get; set; }
-		public string CurrentWord { get; set; }
+		public List<string> Wordlist
+		{
+			get
+			{
+				return dictionary.Wordlist;
+			}
+		}
+
+		public string CurrentWord
+		{
+			get
+			{
+				return currentWord;
+			}
+			set
+			{
+				if (value != currentWord)
+				{
+					currentWord = value;
+					UpdateWordlistIndex();
+				}
+			}
+		}
 
 		public int SelectedIndex
 		{
@@ -38,7 +62,7 @@ namespace EDictionary.Core.ViewModels
 			{
 				if (value != selectedIndex)
 				{
-					selectedIndex = value;
+					selectedIndex = value.Clamp(0, Wordlist.Count - 1);
 					NotifyPropertyChanged("SelectedIndex");
 				}
 			}
@@ -67,10 +91,10 @@ namespace EDictionary.Core.ViewModels
 
 		public EDictionaryViewModel()
 		{
-			Dictionary = new Dictionary();
+			dictionary = new Dictionary();
 			history = new History<string>();
 
-			SpellCheck.GetVocabulary(Dictionary.Wordlist);
+			SpellCheck.GetVocabulary(Wordlist);
 
 			GoToDefinitionCommand = new GoToDefinitionCommand(this);
 			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
@@ -114,7 +138,7 @@ namespace EDictionary.Core.ViewModels
 
 		public void UpdateWordlistIndex()
 		{
-			SelectedIndex = Search.Prefix(CurrentWord, Dictionary.Wordlist);
+			SelectedIndex = Search.Prefix(CurrentWord, Wordlist);
 		}
 
 		public string CorrectWord(string word)
@@ -132,13 +156,13 @@ namespace EDictionary.Core.ViewModels
 		/// </summary>
 		private string GetDefinition(string wordStr)
 		{
-			return Dictionary.Search(wordStr)?.ToString();
+			return dictionary.Search(wordStr)?.ToString();
 		}
 
 		private void UpdateHistory()
 		{
-			if (Dictionary.currentWord != null && Dictionary.currentWord.Id != history.Current)
-				history.Add(Dictionary.currentWord.Id);
+			if (dictionary.currentWord != null && dictionary.currentWord.Id != history.Current)
+				history.Add(dictionary.currentWord.Id);
 		}
 
 		#endregion
