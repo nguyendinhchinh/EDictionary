@@ -3,7 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EDictionary.Core"
 				 xmlns:modelns="clr-namespace:EDictionary.Core.Models"
+				 xmlns:custom="clr-namespace:EDictionary.Core.Controls"
              StartupUri="Views/frmNormal.xaml">
-    <Application.Resources>
-    </Application.Resources>
+	<Application.Resources>
+		<Style TargetType="custom:AutoScrollListView">
+			<Style.Triggers>
+				<Trigger Property="IsMouseOver" Value="True">
+					<Setter Property="Cursor" Value="Hand"/>
+				</Trigger>
+			</Style.Triggers>
+		</Style>
+	</Application.Resources>
 </Application>

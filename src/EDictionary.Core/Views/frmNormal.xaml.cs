@@ -1,5 +1,4 @@
 using EDictionary.Core.Extensions;
-using EDictionary.Core.Presenters;
 using EDictionary.Core.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -21,16 +20,14 @@ namespace EDictionary.Core.Views
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class frmNormal : Window, IEDictionary
+	public partial class frmNormal : Window
 	{
-		private EDictionaryLib eDictionaryLib;
-
 		public frmNormal()
 		{
 			InitializeComponent();
 			DataContext = new EDictionaryViewModel();
 		}
-
+		// MVP - Model, View, Presenter
 		#region get set
 
 		public string Input

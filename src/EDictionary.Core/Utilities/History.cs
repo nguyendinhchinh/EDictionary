@@ -62,20 +62,20 @@ namespace EDictionary.Core.Utilities
 			history = history.Take(currentIndex + 1).ToList();
 		}
 
-		public T Previous()
+		public void Previous(ref T item)
 		{
 			if (currentIndex > 0)
-				return history[--currentIndex];
-
-			return history[0];
+				item = history[--currentIndex];
+			else
+				item = history[0];
 		}
 
-		public T Next()
+		public void Next(ref T item)
 		{
 			if (currentIndex < history.Count - 1)
-				return history[++currentIndex];
-
-			return history[history.Count - 1];
+				item = history[++currentIndex];
+			else
+				item = history[history.Count - 1];
 		}
 	}
 }

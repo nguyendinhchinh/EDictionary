@@ -8,25 +8,35 @@ using System.Windows.Input;
 
 namespace EDictionary.Core.Commands
 {
-	class JumpToDefinitionCommand : ICommand
+	public class PreviousHistoryCommand : ICommand
 	{
 		private EDictionaryViewModel viewModel;
 
-		public JumpToDefinitionCommand(EDictionaryViewModel viewModel)
+		public PreviousHistoryCommand(EDictionaryViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}
 
-		public event EventHandler CanExecuteChanged;
+		public event EventHandler CanExecuteChanged
+		{
+			add
+			{
+				CommandManager.RequerySuggested += value;
+			}
+			remove
+			{
+				CommandManager.RequerySuggested -= value;
+			}
+		}
 
 		public bool CanExecute(object parameter)
 		{
-			return viewModel.CanJumpToDefinition();
+			return viewModel.CanGoToPreviousHistory();
 		}
 
 		public void Execute(object parameter)
 		{
-			viewModel.JumpToDefinition();
+			viewModel.PreviousHistory();
 		}
 	}
 }

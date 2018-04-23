@@ -114,6 +114,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\GoToDefinitionCommand.cs" />
     <Compile Include="Commands\JumpToDefinitionCommand.cs" />
+    <Compile Include="Commands\PreviousHistoryCommand.cs" />
+    <Compile Include="Commands\NextHistoryCommand.cs" />
     <Compile Include="Commands\UpdateWordlistIndexCommand.cs" />
     <Compile Include="Controls\AutoScrollListBox.cs" />
     <Compile Include="Data\DataAccess.cs" />
@@ -151,8 +153,6 @@
     <Compile Include="Models\Pronunciation.cs" />
     <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\Word.cs" />
-    <Compile Include="Presenters\EDictionaryLib.cs" />
-    <Compile Include="Presenters\IEDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

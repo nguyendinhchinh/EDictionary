@@ -17,9 +17,8 @@ namespace EDictionary.Core.ViewModels
 		#region Fields
 
 		private Dictionary dictionary { get; set; }
-		private History<string> history;
+		private History<Word> history;
 		private string currentWord;
-		private Word word;
 		private int selectedIndex;
 		private string definition;
 
@@ -85,19 +84,23 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
+		public string SelectedWord { get; set; }
+
 		#endregion
-		
+
 		#region Constructor
 
 		public EDictionaryViewModel()
 		{
 			dictionary = new Dictionary();
-			history = new History<string>();
+			history = new History<Word>();
 
 			SpellCheck.GetVocabulary(Wordlist);
 
 			GoToDefinitionCommand = new GoToDefinitionCommand(this);
 			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
+			NextHistoryCommand = new NextHistoryCommand(this);
+			PreviousHistoryCommand = new PreviousHistoryCommand(this);
 		}
 
 		#endregion
@@ -132,6 +135,18 @@ namespace EDictionary.Core.ViewModels
 			private set;
 		}
 
+		public ICommand NextHistoryCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand PreviousHistoryCommand
+		{
+			get;
+			private set;
+		}
+
 		#endregion
 
 		#region Wordlist
@@ -159,10 +174,10 @@ namespace EDictionary.Core.ViewModels
 			return dictionary.Search(wordStr)?.ToString();
 		}
 
-		private void UpdateHistory()
+		private void UpdateHistory(Word word)
 		{
-			if (dictionary.currentWord != null && dictionary.currentWord.Id != history.Current)
-				history.Add(dictionary.currentWord.Id);
+			if (word != null && word != history.Current)
+				history.Add(word);
 		}
 
 		#endregion
@@ -175,11 +190,13 @@ namespace EDictionary.Core.ViewModels
 		/// </summary>
 		public void GoToDefinition()
 		{
-			Definition = GetDefinition(CurrentWord)
+			Word word = dictionary.Search(CurrentWord);
+
+			Definition = word?.ToString()
 				?? GetDefinition(Stemmer.Stem(CurrentWord))
 				?? CorrectWord(CurrentWord);
 
-			UpdateHistory();
+			UpdateHistory(word);
 		}
 
 		public bool CanGoToDefinition()
@@ -198,18 +215,20 @@ namespace EDictionary.Core.ViewModels
 		/// Called when select highlight word in definition window
 		/// Stem a word when word not found instead of running spellcheck
 		/// </summary>
-		public void JumpToDefinition(string word)
+		public void JumpToDefinition()
 		{
-			string definition = GetDefinition(word)
-				?? GetDefinition(Stemmer.Stem(word));
+			Word word = dictionary.Search(SelectedWord);
+
+			string definition = word?.ToString()
+				?? GetDefinition(Stemmer.Stem(SelectedWord));
 
 			if (definition != null)
 				Definition = definition;
 
-			UpdateHistory();
+			UpdateHistory(word);
 		}
 
-		public bool CanJumpToDefinition(string word)
+		public bool CanJumpToDefinition()
 		{
 			if (string.IsNullOrEmpty(Definition))
 				return false;
@@ -223,20 +242,26 @@ namespace EDictionary.Core.ViewModels
 
 		public void NextHistory()
 		{
-			Definition = GetDefinition(history.Next());
+			Word word = null;
+
+			history.Next(ref word);
+			Definition = word?.ToString();
 		}
 
 		public void PreviousHistory()
 		{
-			Definition = GetDefinition(history.Previous());
+			Word word = null;
+
+			history.Previous(ref word);
+			Definition = word?.ToString();
 		}
 
-		public bool CanPressNextHistory()
+		public bool CanGoToNextHistory()
 		{
 			return !history.IsLast;
 		}
 
-		public bool CanPressPreviousHistory()
+		public bool CanGoToPreviousHistory()
 		{
 			return !history.IsFirst;
 		}

@@ -21,7 +21,6 @@ namespace EDictionary.Core.Models
 	{
 		private readonly string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 		private DataAccess dataAccess = new DataAccess();
-		public Word currentWord { get; set; }
 		public List<string> Wordlist { get; set; }
 
 		public Dictionary()
@@ -50,17 +49,15 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			currentWord = dataAccess.LookUp(word)
+			return dataAccess.LookUp(word)
 				?? dataAccess.LookUp(word.AppendWordNumber(1))
 				?? dataAccess.LookUp(word.AppendWordNumber(2))
 				?? dataAccess.LookUp(word.AppendWordNumber(3));
-
-			return currentWord;
 		}
 
-		public string GetFilename(Dialect dialect)
+		public string GetFilename(Word word, Dialect dialect)
 		{
-			var result = currentWord.Pronunciations
+			var result = word.Pronunciations
 				.Where(x => x.Prefix == dialect.ToString())
 				.Select(x => x.Filename)
 				.ToList();
@@ -68,12 +65,12 @@ namespace EDictionary.Core.Models
 			return result[0];
 		}
 
-		public void PlayAudio(Dialect dialect)
+		public void PlayAudio(Word word, Dialect dialect)
 		{
 			string filename = null;
 			string audioFile;
 
-			filename = GetFilename(dialect);
+			filename = GetFilename(word, dialect);
 			audioFile = Path.Combine(audioPath, filename);
 
 			Audio.Play(audioFile);

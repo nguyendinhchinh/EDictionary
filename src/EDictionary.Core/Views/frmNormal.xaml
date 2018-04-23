@@ -8,31 +8,17 @@
 		  xmlns:custom="clr-namespace:EDictionary.Core.Controls"
 		  mc:Ignorable="d"
 	Title="MainWindow" Height="433.603" Width="679.412">
-	<Grid>
+	<Grid> <!-- Source, Target -->
 		<TextBox x:Name="txtSearch" Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="22" Margin="28,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92">
 			<TextBox.InputBindings>
 				<KeyBinding Command="{Binding GoToDefinitionCommand}" Key="Enter"/>
-				<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>
 				<!-- <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
 			</TextBox.InputBindings>
 		</TextBox>
 		<Button x:Name="btnSearch" Command="{Binding GoToDefinitionCommand}" Content="Q" HorizontalAlignment="Left" Margin="125,55,0,0" VerticalAlignment="Top" Width="22" Height="22"/>
-		<Button x:Name="btnPrevHistory" Content="&lt;" HorizontalAlignment="Left" Margin="174,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-2.227,-0.318"/>
-		<Button x:Name="btnNextHistory" Content="&gt;" HorizontalAlignment="Left" Margin="201,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-3.955,-0.455"/>
-		<custom:AutoScrollListView x:Name="lbxIndex" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemsSource="{Binding Wordlist}" HorizontalAlignment="Left" Height="268" Margin="28,92,0,0" VerticalAlignment="Top" Width="120">
-			<ListBox.Style>
-				<Style TargetType="ListView">
-					<Style.Triggers>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Cursor" Value="Hand"/>
-						</Trigger>
-					</Style.Triggers>
-				</Style>
-			</ListBox.Style>
-			<ListBox.BindingGroup>
-				<BindingGroup/>
-			</ListBox.BindingGroup>
-		</custom:AutoScrollListView>
+		<Button x:Name="btnPrevHistory" Command="{Binding PreviousHistoryCommand}" Content="&lt;" HorizontalAlignment="Left" Margin="174,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-2.227,-0.318"/>
+		<Button x:Name="btnNextHistory" Command="{Binding NextHistoryCommand}" Content="&gt;" HorizontalAlignment="Left" Margin="201,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-3.955,-0.455"/>
+		<custom:AutoScrollListView x:Name="lbxIndex" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemsSource="{Binding Wordlist}" HorizontalAlignment="Left" Height="268" Margin="28,92,0,0" VerticalAlignment="Top" Width="120"/>
 		<toolkit:RichTextBox x:Name="rtxDefinition" Text="{Binding Definition}" HorizontalAlignment="Left" Height="267" Margin="174,93,0,0" VerticalAlignment="Top" Width="463" FontSize="10" FontFamily="Leelawadee UI">
 			<toolkit:RichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />

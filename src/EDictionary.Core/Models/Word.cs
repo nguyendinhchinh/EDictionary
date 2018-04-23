@@ -30,5 +30,16 @@ namespace EDictionary.Core.Models
 
 			return builder.ToString();
 		}
+
+		public override bool Equals(object obj)
+		{
+			Word word = obj as Word;
+
+			if (this.Id == word.Id)
+			{
+				return true;
+			}
+			return false;
+		}
 	}
 }
