@@ -12,6 +12,8 @@ namespace EDictionary.Core.Utilities
 		private List<T> history;
 		private int currentIndex = -1;
 
+		#region Properties
+
 		public T Current
 		{
 			get
@@ -38,6 +40,16 @@ namespace EDictionary.Core.Utilities
 				return currentIndex == history.Count - 1;
 			}
 		}
+
+		public int Count
+		{
+			get
+			{
+				return history.Count;
+			}
+		}
+
+		#endregion
 
 		public History()
 		{

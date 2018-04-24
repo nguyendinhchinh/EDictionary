@@ -5,6 +5,7 @@ Release/
 
 *.json
 *.ogg
+*.mp3
 *.pyc
 *.log
 

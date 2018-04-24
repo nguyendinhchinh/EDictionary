@@ -258,11 +258,17 @@ namespace EDictionary.Core.ViewModels
 
 		public bool CanGoToNextHistory()
 		{
+			if (history.Count == 0)
+				return false;
+
 			return !history.IsLast;
 		}
 
 		public bool CanGoToPreviousHistory()
 		{
+			if (history.Count == 0)
+				return false;
+
 			return !history.IsFirst;
 		}
 
