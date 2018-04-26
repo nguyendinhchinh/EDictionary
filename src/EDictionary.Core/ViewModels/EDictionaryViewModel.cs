@@ -245,7 +245,7 @@ namespace EDictionary.Core.ViewModels
 			Word word = null;
 
 			history.Next(ref word);
-			Definition = word?.ToString();
+			Definition = word.ToString();
 		}
 
 		public void PreviousHistory()
@@ -253,7 +253,7 @@ namespace EDictionary.Core.ViewModels
 			Word word = null;
 
 			history.Previous(ref word);
-			Definition = word?.ToString();
+			Definition = word.ToString();
 		}
 
 		public bool CanGoToNextHistory()
