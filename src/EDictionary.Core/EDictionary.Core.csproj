@@ -36,6 +36,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\E-Dictionary.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -76,6 +80,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -183,13 +188,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\DownArrow.png" />
     <Resource Include="Resources\E-Dictionary.ico" />
     <Resource Include="Resources\LeftArrow.png" />
     <Resource Include="Resources\RightArrow.png" />
-    <Resource Include="Resources\Search.png" />
-    <Resource Include="Resources\SearchSmall.png" />
-    <Resource Include="Resources\UpArrow.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="WMPLib">
@@ -201,6 +202,15 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\united-kingdom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\united-states.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.108.0\build\net451\System.Data.SQLite.Core.targets')" />
