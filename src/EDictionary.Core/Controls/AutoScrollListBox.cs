@@ -9,40 +9,40 @@ using System.Windows.Media;
 
 namespace EDictionary.Core.Controls
 {
-	 public class AutoScrollListView : ListView
-	 {
-		  protected override void OnSelectionChanged(SelectionChangedEventArgs e)
-		  {
-				if (e.AddedItems != null)
+    public class AutoScrollListView : ListView
+    {
+		protected override void OnSelectionChanged(SelectionChangedEventArgs e)
+		{
+			if (e.AddedItems != null)
+			{
+				ScrollViewer scrollViewer = GetChildOfType<ScrollViewer>(this);
+
+				if (scrollViewer != null)
 				{
-					 ScrollViewer scrollViewer = GetChildOfType<ScrollViewer>(this);
+					var selectedItem = e.AddedItems[0];
 
-					 if (scrollViewer != null)
-					 {
-						  var selectedItem = e.AddedItems[0];
-
-						  scrollViewer.ScrollToBottom();
-						  this.ScrollIntoView(selectedItem);
-					 }
+					scrollViewer.ScrollToBottom();
+					this.ScrollIntoView(selectedItem);
 				}
+			}
 
-				base.OnSelectionChanged(e);
-		  }
+			base.OnSelectionChanged(e);
+		}
 
-		  private static T GetChildOfType<T>(DependencyObject depObj) where T : DependencyObject
-		  {
-				if (depObj == null)
-					 return null;
-
-				for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
-				{
-					 var child = VisualTreeHelper.GetChild(depObj, i);
-
-					 var result = (child as T) ?? GetChildOfType<T>(child);
-					 if (result != null)
-						  return result;
-				}
+		private static T GetChildOfType<T>(DependencyObject depObj) where T : DependencyObject
+		{
+			if (depObj == null)
 				return null;
-		  }
-	 }
+
+			for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+			{
+				var child = VisualTreeHelper.GetChild(depObj, i);
+
+				var result = (child as T) ?? GetChildOfType<T>(child);
+				if (result != null)
+					return result;
+			}
+			return null;
+		}
+	}
 }
