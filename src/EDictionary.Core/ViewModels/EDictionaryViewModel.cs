@@ -19,7 +19,7 @@ namespace EDictionary.Core.ViewModels
 		private Dictionary dictionary { get; set; }
 		private History<Word> history;
 		private string currentWord;
-		private int selectedIndex;
+		private int topIndex;
 		private string definition;
 
 		#endregion
@@ -38,31 +38,30 @@ namespace EDictionary.Core.ViewModels
 		{
 			get
 			{
-				return currentWord;
+				return currentWord.Trim().ToLower();
 			}
 			set
 			{
 				if (value != currentWord)
 				{
 					currentWord = value;
-					UpdateWordlistIndex();
+					UpdateWordlistTopIndex();
 				}
 			}
 		}
 
-		public int SelectedIndex
+		public int TopIndex
 		{
 			get
 			{
-				return selectedIndex;
+				return topIndex;
 			}
-
 			set
 			{
-				if (value != selectedIndex)
+				if (value != topIndex)
 				{
-					selectedIndex = value.Clamp(0, Wordlist.Count - 1);
-					NotifyPropertyChanged("SelectedIndex");
+					topIndex = value.Clamp(0, Wordlist.Count - 1);
+					NotifyPropertyChanged("TopIndex");
 				}
 			}
 		}
@@ -151,9 +150,9 @@ namespace EDictionary.Core.ViewModels
 
 		#region Wordlist
 
-		public void UpdateWordlistIndex()
+		public void UpdateWordlistTopIndex()
 		{
-			SelectedIndex = Search.Prefix(CurrentWord, Wordlist);
+			TopIndex = Search.Prefix(CurrentWord, Wordlist);
 		}
 
 		public string CorrectWord(string word)

@@ -5,7 +5,7 @@
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	  xmlns:local="clr-namespace:EDictionary.Core"
 				 xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-				 xmlns:custom="clr-namespace:EDictionary.Core.Controls"
+				 xmlns:control="clr-namespace:EDictionary.Core.Controls"
 				 mc:Ignorable="d"
 	 Title="MainWindow" Height="433.603" Width="679.412" 
 	 Icon="../Resources/E-Dictionary.ico"
@@ -18,7 +18,7 @@
 			         Style="{StaticResource Flat}"
 			         Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
 			         HorizontalAlignment="Left" 
-			         Height="22" Margin="28,55,0,0" 
+			         Height="22" Margin="28,55,0,0"
 			         TextWrapping="Wrap" VerticalAlignment="Top"
 			         Width="92"
 			         Foreground="#bdc3c7"
@@ -48,7 +48,8 @@
 				<Image Source="../Resources/RightArrow.png"/>
 			</Button.Content>
 		</Button>
-		<custom:AutoScrollListView x:Name="lbxIndex"
+		<control:TopIndexListView x:Name="lbxIndex"
+										  TopIndex="{Binding TopIndex}"
 		                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 		                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
 		                           Style="{StaticResource AutoScrollListView}"
@@ -64,7 +65,7 @@
 			<ListBox.BindingGroup>
 				<BindingGroup/>
 			</ListBox.BindingGroup>
-		</custom:AutoScrollListView>
+		</control:TopIndexListView>
 		<toolkit:RichTextBox x:Name="rtxDefinition"
 		                     Style="{StaticResource Flat}"
 		                     Text="{Binding Definition}" 

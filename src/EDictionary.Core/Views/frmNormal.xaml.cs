@@ -27,6 +27,8 @@ namespace EDictionary.Core.Views
 			InitializeComponent();
 			DataContext = new EDictionaryViewModel();
 		}
+
+
 		// MVP - Model, View, Presenter
 		#region get set
 
