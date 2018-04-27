@@ -9,19 +9,33 @@
 				 mc:Ignorable="d"
 	 Title="MainWindow" Height="433.603" Width="679.412" 
 	 Icon="../Resources/E-Dictionary.ico"
-	 Background="#34495e">
+	 Background="#2c3e50">
 
-	<Grid>
-		<TextBox x:Name="txtSearch" Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="22" Margin="28,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92">
-			<TextBox.InputBindings>
-				<KeyBinding Command="{Binding GoToDefinitionCommand}" Key="Enter"/>
-				<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>
-				<!-- <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
-			</TextBox.InputBindings>
-		</TextBox>
+	<Grid Margin="0,0,-0.2,-20">
+		<StackPanel>
+			<TextBox x:Name="txtSearch"
+			         Padding="5"
+			         Style="{StaticResource Flat}"
+			         Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+			         HorizontalAlignment="Left" 
+			         Height="22" Margin="28,55,0,0" 
+			         TextWrapping="Wrap" VerticalAlignment="Top"
+			         Width="92"
+			         Foreground="#bdc3c7"
+			         Background="#374d64"
+			         FontSize="10"
+			         FontWeight="Medium">
+				<TextBox.InputBindings>
+					<KeyBinding Command="{Binding GoToDefinitionCommand}" Key="Enter"/>
+					<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>
+					<!-- <KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/> -->
+				</TextBox.InputBindings>
+			</TextBox>
+		</StackPanel>
+		
 		<Button x:Name="btnSearch" Command="{Binding GoToDefinitionCommand}" Style="{StaticResource btnSearch}" HorizontalAlignment="Left" Margin="125,55,0,0" VerticalAlignment="Top" Width="22" Height="22">
 			<Button.Content>
-				<Image Source="../Resources/Search.png"/>
+				<Image Source="../Resources/search.png"/>
 			</Button.Content>
 		</Button>
 		<Button x:Name="btnPrevHistory" Command="{Binding PreviousHistoryCommand}" Style="{StaticResource btnHistory}" HorizontalAlignment="Left" Margin="174,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-2.227,-0.318 ">
@@ -34,21 +48,33 @@
 				<Image Source="../Resources/RightArrow.png"/>
 			</Button.Content>
 		</Button>
-		<custom:AutoScrollListView x:Name="lbxIndex" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" ItemsSource="{Binding Wordlist}" HorizontalAlignment="Left" Height="268" Margin="28,92,0,0" VerticalAlignment="Top" Width="120">
-			<ListBox.Style>
-				<Style TargetType="ListView">
-					<Style.Triggers>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Cursor" Value="Hand"/>
-						</Trigger>
-					</Style.Triggers>
-				</Style>
-			</ListBox.Style>
+		<custom:AutoScrollListView x:Name="lbxIndex"
+		                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+		                           ScrollViewer.VerticalScrollBarVisibility="Disabled"
+		                           Style="{StaticResource AutoScrollListView}"
+		                           SelectedIndex="{Binding SelectedIndex, Mode=TwoWay}" 
+		                           ItemsSource="{Binding Wordlist}" HorizontalAlignment="Left" 
+		                           Height="281" Margin="28,94,0,0" 
+		                           VerticalAlignment="Top" 
+		                           Width="120" 
+		                           Background="#374d64"
+		                           Foreground="#bdc3c7"
+		                           FontSize="12"
+		                           FontWeight="Medium">
 			<ListBox.BindingGroup>
 				<BindingGroup/>
 			</ListBox.BindingGroup>
 		</custom:AutoScrollListView>
-		<toolkit:RichTextBox x:Name="rtxDefinition" Text="{Binding Definition}" HorizontalAlignment="Left" Height="267" Margin="174,93,0,0" VerticalAlignment="Top" Width="463" FontSize="10" FontFamily="Leelawadee UI">
+		<toolkit:RichTextBox x:Name="rtxDefinition"
+		                     Style="{StaticResource Flat}"
+		                     Text="{Binding Definition}" 
+		                     HorizontalAlignment="Left" 
+		                     Height="281" Margin="174,94,0,0"
+		                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+		                     VerticalAlignment="Top" Width="463" 
+		                     FontSize="10" FontFamily="Leelawadee UI" 
+		                     Foreground="#bdc3c7"
+		                     Background="#374d64">
 			<toolkit:RichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />
 			</toolkit:RichTextBox.TextFormatter>
@@ -56,12 +82,12 @@
 		</toolkit:RichTextBox>
 		<Button x:Name="btnAmerica" Style="{StaticResource btnAmerica}" HorizontalAlignment="Left" Margin="242,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-0.455,-0.273">
 			<Button.Content>
-				<Image Source="../Resources/united-states.png"/>
+				<Image Source="../Resources/america.png"/>
 			</Button.Content>
 		</Button>
 		<Button x:Name="btnBritian" Style="{StaticResource btnBritian}" HorizontalAlignment="Left" Margin="269,55,0,0" VerticalAlignment="Top" Width="22" Height="22" RenderTransformOrigin="-1.318,0" BorderThickness="0" BorderBrush="{x:Null}">
 			<Button.Content>
-				<Image Source="../Resources/united-kingdom.png"/>
+				<Image Source="../Resources/united.png"/>
 			</Button.Content>
 		</Button>
 	</Grid>
