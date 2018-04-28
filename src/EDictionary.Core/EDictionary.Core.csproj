@@ -124,6 +124,7 @@
     <Compile Include="Commands\UpdateWordlistIndexCommand.cs" />
     <Compile Include="Controls\TopIndexlListBox.cs" />
     <Compile Include="Data\DataAccess.cs" />
+    <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\WordTable.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtensions.cs" />
