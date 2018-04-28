@@ -12,16 +12,11 @@ using EDictionary.Core.Data;
 
 namespace EDictionary.Core.Data
 {
-	public class DataAccess
+	public partial class DataAccess
 	{
 		private readonly static string saveDir = AppDomain.CurrentDomain.BaseDirectory;
 		private readonly static string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
 		private readonly string connectionStr = $"Data Source={savePath};Version=3;";
-
-		private readonly string insertQuery = $"INSERT INTO {WordTable.TableName} (WordID, Definition) VALUES (@wordID, @definition)";
-		private readonly string createTableQuery = $"CREATE TABLE IF NOT EXISTS {WordTable.TableName} (WordID NVARCHAR, Definition NVARCHAR)";
-		private readonly string selectDefinitionQuery = $"SELECT * FROM {WordTable.TableName} WHERE {WordTable.WordID} = @wordID";
-		private readonly string selectWordListQuery = $"SELECT {WordTable.WordID} FROM {WordTable.TableName}";
 
 		private SQLiteConnection dbConnection;
 

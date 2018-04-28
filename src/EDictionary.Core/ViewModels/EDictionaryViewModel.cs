@@ -26,6 +26,10 @@ namespace EDictionary.Core.ViewModels
 
 		#region Properties
 
+		public double WindowMinimumHeight { get; set; } = 350;
+
+		public double WindowMinimumWidth { get; set; } = 450;
+
 		public List<string> Wordlist
 		{
 			get
