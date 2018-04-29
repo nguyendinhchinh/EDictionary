@@ -25,19 +25,20 @@ namespace EDictionary.Core.Models
 
 		public Dictionary()
 		{
-			Wordlist = GetDistinctWordList();
+			Wordlist = GetWordList();
 		}
 
 		public List<string> GetWordList()
 		{
-			return dataAccess.GetWordList();
-		}
+			Result<List<string>> result = dataAccess.GetWordList();
 
-		public List<string> GetDistinctWordList()
-		{
-			List<string> words = GetWordList();
+			if (result.Status != Status.Success)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at GetWordList in class Dictionary: {result.Message}");
+				return null;
+			}
 
-			words = words
+			List<string> words = result.Data
 				.Select(x => x.StripWordNumber())
 				.Distinct()
 				.ToList();
@@ -49,10 +50,26 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			return dataAccess.LookUp(word)
-				?? dataAccess.LookUp(word.AppendWordNumber(1))
-				?? dataAccess.LookUp(word.AppendWordNumber(2))
-				?? dataAccess.LookUp(word.AppendWordNumber(3));
+			Result<Word> result = dataAccess.LookUp(word);
+
+			if (result.Status != Status.Success)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
+				return null;
+			}
+
+			if (result.Data == null)
+			{
+				result = dataAccess.LookUpSimilar(word);
+
+				if (result.Status != Status.Success)
+				{
+					LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
+					return null;
+				}
+			}
+
+			return result.Data;
 		}
 
 		public string GetFilename(Word word, Dialect dialect)
