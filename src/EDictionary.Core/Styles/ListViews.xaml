@@ -11,7 +11,7 @@
 		<Setter Property="MinHeight" Value="280"/>
 		<Setter Property="Background" Value="{StaticResource GrayBlue}"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
-
+		
 		<!--<Sett-->
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
@@ -21,10 +21,10 @@
 		
 	</Style>
 
-	<Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+	<Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
 		<Setter Property="Template">
 			<Setter.Value>
-				<ControlTemplate TargetType="ListBoxItem">
+				<ControlTemplate TargetType="ListViewItem">
 					<Border Name="_Border"
 					        Padding="2"
 					        SnapsToDevicePixels="true">
