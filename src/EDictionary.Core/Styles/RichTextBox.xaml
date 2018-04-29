@@ -11,6 +11,8 @@
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 		<Setter Property="Background" Value="{StaticResource GrayBlue}"/>
 		<Setter Property="IsReadOnly" Value="True"/>
+		<Setter Property="SelectionBrush" Value="{StaticResource Cyan}"/>
+		<Setter Property="SelectionOpacity" Value="0.65" />
 
 	</Style>
 </ResourceDictionary>
