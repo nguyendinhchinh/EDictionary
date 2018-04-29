@@ -9,4 +9,5 @@ echo
 echo "NOTICE ** Updating README.md with latest version ${CURRENT_VERSION}"
 echo
 
-# git add README.md
+git add README.md
+git add setup.cfg

@@ -1,7 +1,7 @@
 # VE Dictionary
 
 [![BSD 3-Clause License](https://img.shields.io/badge/License-BSD_3--Clauses-blue.svg?longCache=true)](https://github.com/NearHuscarl/E-Dictionary/blob/master/LICENSE.md)
-[![Version](https://img.shields.io/badge/Version-1.2.3-green.svg?longCache=true)](https://github.com/NearHuscarl/E-Dictionary/releases)
+[![Version](https://img.shields.io/badge/Version-1.2.4-green.svg?longCache=true)](https://github.com/NearHuscarl/E-Dictionary/releases)
 
 Đồ án môn lập trình trực quan, trường đại học CNTT
 
