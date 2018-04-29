@@ -138,6 +138,8 @@
     <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\History.cs" />
     <Compile Include="Utilities\JsonHelper.cs" />
+    <Compile Include="Utilities\LogWriter.cs" />
+    <Compile Include="Utilities\Result.cs" />
     <Compile Include="Utilities\Search.cs" />
     <Compile Include="Utilities\SpellCheck.cs" />
     <Compile Include="Utilities\Stemmer.cs" />

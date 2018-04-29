@@ -42,7 +42,7 @@ namespace EDictionary.Core.Data
 				dbConnection.Close();
 		}
 
-		public void CreateTable()
+		public Result CreateTable()
 		{
 			try
 			{
@@ -50,11 +50,13 @@ namespace EDictionary.Core.Data
 				{
 					OpenConnection();
 					command.ExecuteNonQuery();
+
+					return new Result(message:"", innerMessage:"", status:Status.Success);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				// TODO
+				return new Result(message:exception.Message, status:Status.Error, exception:exception);
 			}
 			finally
 			{
@@ -62,7 +64,7 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public void Insert(string wordJsonStr)
+		public Result Insert(string wordJsonStr)
 		{
 			try
 			{
@@ -76,12 +78,14 @@ namespace EDictionary.Core.Data
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
 
 					command.ExecuteNonQuery();
+
+					return new Result(message:"", innerMessage:"", status:Status.Success);
 				}
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				/* LogWriter.Instance.WriteLine(String.Format("Error occured at SaveVocable in DataBaseAccess:\n{0}", ex.Message)); */
-				/* return new Result<int>(ex.Message, "", Status.Error, ex); */
+				LogWriter.Instance.WriteLine($"Error occured at Insert in DataAccess:\n{exception.Message}");
+				return new Result(message:exception.Message, status:Status.Error, exception:exception);
 			}
 			finally
 			{
@@ -89,18 +93,18 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public Word LookUp(string wordID)
+		public Result<Word> LookUpSimilar(string wordID)
 		{
 			string definition;
 
 			try
 			{
 				List<string> results = new List<string>();
-				using (SQLiteCommand command = new SQLiteCommand(selectDefinitionQuery, dbConnection))
+				using (SQLiteCommand command = new SQLiteCommand(globSelectQuery, dbConnection))
 				{
 					OpenConnection();
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID });
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID + "_?"});
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
 						command.CommandType = CommandType.Text;
@@ -110,17 +114,27 @@ namespace EDictionary.Core.Data
 						{
 							results.Add(Convert.ToString(reader[WordTable.Definition]));
 						}
-						definition = results[0];
 
-						return JsonHelper.Deserialize(definition);
+						definition = results.ElementAtOrDefault(0);
+						Word word = null;
+
+						if (definition != null)
+							word = JsonHelper.Deserialize(definition);
+
+						return new Result<Word>(data:word, message:"", status:Status.Success);
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				/* LogWriter.Instance.WriteLine(String.Format("Error occured at SaveVocable in DataBaseAccess:\n{0}", ex.Message)); */
-				/* return new Result<int>(ex.Message, "", Status.Error, ex); */
-				return null;
+				LogWriter.Instance.WriteLine($"Error occured at LookUp in DataAccess:\n{exception.Message}");
+				
+				return new Result<Word>(
+						message:exception.Message,
+						innerMessage:"",
+						status:Status.Error,
+						exception:exception
+						);
 			}
 			finally
 			{
@@ -128,7 +142,56 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public List<string> GetWordList()
+		public Result<Word> LookUp(string wordID)
+		{
+			string definition;
+
+			try
+			{
+				List<string> results = new List<string>();
+				using (SQLiteCommand command = new SQLiteCommand(selectQuery, dbConnection))
+				{
+					OpenConnection();
+
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID});
+					using (SQLiteCommand fmd = dbConnection.CreateCommand())
+					{
+						command.CommandType = CommandType.Text;
+						SQLiteDataReader reader = command.ExecuteReader();
+
+						while (reader.Read())
+						{
+							results.Add(Convert.ToString(reader[WordTable.Definition]));
+						}
+
+						definition = results.ElementAtOrDefault(0);
+						Word word = null;
+
+						if (definition != null)
+							word = JsonHelper.Deserialize(definition);
+
+						return new Result<Word>(data:word, message:"", status:Status.Success);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at LookUp in DataAccess:\n{exception.Message}");
+				
+				return new Result<Word>(
+						message:exception.Message,
+						innerMessage:"",
+						status:Status.Error,
+						exception:exception
+						);
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
+
+		public Result<List<string>> GetWordList()
 		{
 			try
 			{
@@ -145,21 +208,25 @@ namespace EDictionary.Core.Data
 						{
 							results.Add(Convert.ToString(reader[WordTable.WordID]));
 						}
-						return results;
+						return new Result<List<string>>(data:results, message:"", status:Status.Success);
 					}
 				}
 			}
-			catch (Exception ex)
+			catch (Exception exception)
 			{
-				/* LogWriter.Instance.WriteLine(String.Format("Error occured at SaveVocable in DataBaseAccess:\n{0}", ex.Message)); */
-				/* return new Result<int>(ex.Message, "", Status.Error, ex); */
-				return null;
+				LogWriter.Instance.WriteLine($"Error occured at GetWordList in DataAccess:\n{exception.Message}");
+
+				return new Result<List<string>>(
+						message:exception.Message,
+						innerMessage:"",
+						status:Status.Error,
+						exception:exception
+						);
 			}
 			finally
 			{
 				CloseConnection();
 			}
 		}
-
 	}
 }
