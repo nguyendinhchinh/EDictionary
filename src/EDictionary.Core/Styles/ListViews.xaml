@@ -11,33 +11,33 @@
 		<Setter Property="MinHeight" Value="280"/>
 		<Setter Property="Background" Value="{StaticResource GrayBlue}"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
-		
+		<Style.Resources>
+			<Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="ListViewItem">
+							<Border Name="_Border"
+							        Padding="2"
+							        SnapsToDevicePixels="true">
+								<ContentPresenter />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsSelected" Value="true">
+									<Setter TargetName="_Border" Property="Background" Value="{StaticResource Cyan}"/>
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+		</Style.Resources>
+
 		<!--<Sett-->
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Cursor" Value="Hand"/>
 			</Trigger>
 		</Style.Triggers>
-		
-	</Style>
 
-	<Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="ListViewItem">
-					<Border Name="_Border"
-					        Padding="2"
-					        SnapsToDevicePixels="true">
-						<ContentPresenter />
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsSelected" Value="true">
-							<Setter TargetName="_Border" Property="Background" Value="{StaticResource Cyan}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
 	</Style>
-
 </ResourceDictionary>
