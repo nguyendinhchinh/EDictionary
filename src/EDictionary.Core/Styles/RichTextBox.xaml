@@ -1,11 +1,9 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 						  xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-                    xmlns:local="clr-namespace:EDictionary.Core.Styles">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
 	<Style TargetType="{x:Type toolkit:RichTextBox}" BasedOn="{StaticResource BaseStyle}">
 
-		<!--<Setter Property="FontSize" Value="{StaticResource FontSizeLarge}" />
-		<Setter Property="FontFamily" Value="{StaticResource LatoRegular}" />-->
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
 		<Setter Property="VerticalAlignment" Value="Stretch"/>

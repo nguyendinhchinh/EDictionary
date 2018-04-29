@@ -3,9 +3,8 @@
 		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		  xmlns:local="clr-namespace:EDictionary.Core"
 		  xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-		  xmlns:control="clr-namespace:EDictionary.Core.Controls"
+		  xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 		  mc:Ignorable="d"
 		  Title="MainWindow"
 		  Icon="../Resources/E-Dictionary.ico"
@@ -104,16 +103,16 @@
 			</Button>
 		</StackPanel>
 
-		<toolkit:RichTextBox 
+		<control:SelectionRichTextBox
 				x:Name="rtxDefinition" 
 				Text="{Binding Definition}"
 		   	Grid.Row="3" Grid.Column="1"
 				Margin="0, 10, 10, 10"
-				Height="Auto">
-			<toolkit:RichTextBox.TextFormatter>
+				Height="Auto" MouseDoubleClick="rtxDefinition_MouseDoubleClick">
+			<control:SelectionRichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />
-			</toolkit:RichTextBox.TextFormatter>
+			</control:SelectionRichTextBox.TextFormatter>
 			<FlowDocument/>
-		</toolkit:RichTextBox>
+		</control:SelectionRichTextBox>
 	</Grid>
 </Window>

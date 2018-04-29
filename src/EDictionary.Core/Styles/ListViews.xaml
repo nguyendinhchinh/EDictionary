@@ -1,10 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						  xmlns:control="clr-namespace:EDictionary.Core.Controls"
-                    xmlns:local="clr-namespace:EDictionary.Core.Styles">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-
-	<Style TargetType="control:TopIndexListView" BasedOn="{StaticResource BaseStyle}">
+	<Style TargetType="ListView" BasedOn="{StaticResource BaseStyle}">
 
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>

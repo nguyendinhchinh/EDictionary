@@ -7,11 +7,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace EDictionary.Core.Controls
+namespace EDictionary.Controls
 {
 	public class TopIndexListView : ListView
 	{
 		// https://www.wpftutorial.net/DependencyProperties.html
+
+		public TopIndexListView()
+		{
+			// Use base class style
+			SetResourceReference(StyleProperty, typeof(ListView));
+		}
 
 		public static readonly DependencyProperty TopIndexProperty = DependencyProperty.Register(
 				"TopIndex",
