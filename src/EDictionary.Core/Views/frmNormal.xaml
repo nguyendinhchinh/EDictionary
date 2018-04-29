@@ -108,7 +108,7 @@
 				Text="{Binding Definition}"
 		   	Grid.Row="3" Grid.Column="1"
 				Margin="0, 10, 10, 10"
-				Height="Auto" MouseDoubleClick="rtxDefinition_MouseDoubleClick">
+				Height="Auto">
 			<control:SelectionRichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />
 			</control:SelectionRichTextBox.TextFormatter>
