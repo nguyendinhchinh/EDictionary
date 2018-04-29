@@ -18,8 +18,9 @@ namespace EDictionary.Core.ViewModels
 
 		private Dictionary dictionary { get; set; }
 		private History<Word> history;
-		private string currentWord;
 		private int topIndex;
+		private string currentWord;
+		private string selectedWord;
 		private string definition;
 
 		#endregion
@@ -35,6 +36,22 @@ namespace EDictionary.Core.ViewModels
 			get
 			{
 				return dictionary.Wordlist;
+			}
+		}
+
+		public int TopIndex
+		{
+			get
+			{
+				return topIndex;
+			}
+			set
+			{
+				if (value != topIndex)
+				{
+					topIndex = value.Clamp(0, Wordlist.Count - 1);
+					NotifyPropertyChanged("TopIndex");
+				}
 			}
 		}
 
@@ -54,18 +71,17 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
-		public int TopIndex
+		public string SelectedWord
 		{
 			get
 			{
-				return topIndex;
+				return selectedWord;
 			}
 			set
 			{
-				if (value != topIndex)
+				if (value != definition)
 				{
-					topIndex = value.Clamp(0, Wordlist.Count - 1);
-					NotifyPropertyChanged("TopIndex");
+					selectedWord = value;
 				}
 			}
 		}
@@ -87,8 +103,6 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
-		public string SelectedWord { get; set; }
-
 		#endregion
 
 		#region Constructor
@@ -101,6 +115,7 @@ namespace EDictionary.Core.ViewModels
 			SpellCheck.GetVocabulary(Wordlist);
 
 			GoToDefinitionCommand = new GoToDefinitionCommand(this);
+			JumpToDefinitionCommand = new JumpToDefinitionCommand(this);
 			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
 			NextHistoryCommand = new NextHistoryCommand(this);
 			PreviousHistoryCommand = new PreviousHistoryCommand(this);
@@ -127,6 +142,12 @@ namespace EDictionary.Core.ViewModels
 		#region Commands
 
 		public ICommand GoToDefinitionCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand JumpToDefinitionCommand
 		{
 			get;
 			private set;

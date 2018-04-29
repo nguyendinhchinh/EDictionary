@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.ViewModels;
+using EDictionary.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +17,17 @@ namespace EDictionary.Core.Commands
 			this.viewModel = viewModel;
 		}
 
-		public event EventHandler CanExecuteChanged;
+		public event EventHandler CanExecuteChanged
+		{
+			add
+			{
+				CommandManager.RequerySuggested += value;
+			}
+			remove
+			{
+				CommandManager.RequerySuggested -= value;
+			}
+		}
 
 		public bool CanExecute(object parameter)
 		{

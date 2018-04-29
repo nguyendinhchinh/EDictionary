@@ -104,14 +104,21 @@
 		</StackPanel>
 
 		<control:SelectionRichTextBox
-				x:Name="rtxDefinition" 
+				x:Name="rtxDefinition"
+			   SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 				Text="{Binding Definition}"
 		   	Grid.Row="3" Grid.Column="1"
 				Margin="0, 10, 10, 10"
 				Height="Auto">
+			
 			<control:SelectionRichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />
 			</control:SelectionRichTextBox.TextFormatter>
+			
+			<control:SelectionRichTextBox.InputBindings>
+				<MouseBinding Gesture="LeftDoubleClick" Command="{Binding JumpToDefinitionCommand}" />
+			</control:SelectionRichTextBox.InputBindings>
+			
 			<FlowDocument/>
 		</control:SelectionRichTextBox>
 	</Grid>
