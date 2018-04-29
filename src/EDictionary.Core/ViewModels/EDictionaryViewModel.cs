@@ -75,7 +75,7 @@ namespace EDictionary.Core.ViewModels
 		{
 			get
 			{
-				return selectedWord;
+				return selectedWord.ToLower();
 			}
 			set
 			{
@@ -254,7 +254,7 @@ namespace EDictionary.Core.ViewModels
 
 		public bool CanJumpToDefinition()
 		{
-			if (string.IsNullOrEmpty(Definition))
+			if (string.IsNullOrEmpty(CurrentWord))
 				return false;
 
 			return true;
