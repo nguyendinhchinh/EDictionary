@@ -56,7 +56,6 @@
 		
 			<control:TopIndexListView
 			x:Name="lbxIndex"
-			ItemContainerStyle="{DynamicResource ResourceKey=ListViewItemStyle}"
 			TopIndex="{Binding TopIndex}"
 			ItemsSource="{Binding Wordlist}"
 		   Grid.Row="3" Grid.Column="0"

@@ -12,7 +12,7 @@
 		<Setter Property="Background" Value="{StaticResource GrayBlue}"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 		<Style.Resources>
-			<Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+			<Style TargetType="ListViewItem">
 				<Setter Property="Template">
 					<Setter.Value>
 						<ControlTemplate TargetType="ListViewItem">
