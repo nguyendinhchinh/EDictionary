@@ -1,5 +1,3 @@
-using System;
-
 namespace EDictionary.Core.Models
 {
 	public class Reference

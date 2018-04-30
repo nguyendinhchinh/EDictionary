@@ -4,11 +4,8 @@ using System.Data.SQLite;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.Models;
-using EDictionary.Core.Data;
 
 namespace EDictionary.Core.Data
 {

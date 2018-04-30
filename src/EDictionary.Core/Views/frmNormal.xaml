@@ -1,22 +1,23 @@
-<Window x:Class="EDictionary.Core.Views.frmNormal"
-		  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-		  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		  xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-		  xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
-		  mc:Ignorable="d"
-		  Title="MainWindow"
-		  Icon="../Resources/E-Dictionary.ico"
-		  Background="{StaticResource DarkBlue}"
-		  WindowStartupLocation="CenterScreen"
-	     MinHeight="{Binding WindowMinimumHeight}"
-	     MinWidth="{Binding WindowMinimumWidth}"
-		  ResizeMode="CanResizeWithGrip"
-		  AllowsTransparency="True"
-		  Height="450"	
-		  Width="650" 
-		  WindowStyle="None">
+<Window
+	x:Class="EDictionary.Core.Views.frmNormal"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+	mc:Ignorable="d"
+	Title="MainWindow"
+	Icon="../Resources/E-Dictionary.ico"
+	Background="{StaticResource DarkBlue}"
+	WindowStartupLocation="CenterScreen"
+	MinHeight="{Binding WindowMinimumHeight}"
+	MinWidth="{Binding WindowMinimumWidth}"
+	ResizeMode="CanResizeWithGrip"
+	AllowsTransparency="True"
+	Height="450"	
+	Width="650" 
+	WindowStyle="None">
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -32,9 +33,9 @@
 
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5 0 0 0">
 			<TextBox x:Name="txtSearch"
-			         Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-						Margin="0,0,5,0"
-						VerticalAlignment="Center">
+				Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+				Margin="0,0,5,0"
+				VerticalAlignment="Center">
 
 				<TextBox.InputBindings>
 					<KeyBinding Command="{Binding GoToDefinitionCommand}" Key="Enter"/>
@@ -45,32 +46,32 @@
 			</TextBox>
 
 			<Button x:Name="btnSearch"
-				  Command="{Binding GoToDefinitionCommand}"
-				  Style="{StaticResource btnSearch}"
-				  Margin="0,0,0,0">
+				Command="{Binding GoToDefinitionCommand}"
+				Style="{StaticResource btnSearch}"
+				Margin="0,0,0,0">
 				<Button.Content>
 					<Image Source="../Resources/search.png"/>
 				</Button.Content>
 			</Button>
 		</StackPanel>
-		
-			<control:TopIndexListView
+
+		<control:TopIndexListView
 			x:Name="lbxIndex"
 			TopIndex="{Binding TopIndex}"
 			ItemsSource="{Binding Wordlist}"
-		   Grid.Row="3" Grid.Column="0"
+			Grid.Row="3" Grid.Column="0"
 			Margin="0, 10, 0, 10">
-				<ListBox.BindingGroup>
-					<BindingGroup/>
-				</ListBox.BindingGroup>
-			</control:TopIndexListView>
+			<ListBox.BindingGroup>
+				<BindingGroup/>
+			</ListBox.BindingGroup>
+		</control:TopIndexListView>
 
 		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
 			<Button
 				x:Name="btnPrevHistory"
 				Command="{Binding PreviousHistoryCommand}"
 				Style="{StaticResource btnHistory}"
-			   Margin="0, 0, 0, 0"
+				Margin="0, 0, 0, 0"
 				RenderTransformOrigin="-2.227,-0.318 ">
 				<Button.Content>
 					<Image Source="../Resources/LeftArrow.png"/>
@@ -78,25 +79,25 @@
 			</Button>
 
 			<Button x:Name="btnNextHistory"
-					  Command="{Binding NextHistoryCommand}"
-					  Style="{StaticResource btnHistory}"
-					  Margin="10, 0, 0, 0"
-					  RenderTransformOrigin="-3.955,-0.455">
+				Command="{Binding NextHistoryCommand}"
+				Style="{StaticResource btnHistory}"
+				Margin="10, 0, 0, 0"
+				RenderTransformOrigin="-3.955,-0.455">
 				<Button.Content>
 					<Image Source="../Resources/RightArrow.png"/>
 				</Button.Content>
 			</Button>
 
 			<Button x:Name="btnAmerica" Style="{StaticResource btnAmerica}"
-				  Margin="30, 0, 0, 0"
-				  RenderTransformOrigin="-0.455,-0.273">
+				Margin="30, 0, 0, 0"
+				RenderTransformOrigin="-0.455,-0.273">
 				<Button.Content>
 					<Image Source="../Resources/america.png"/>
 				</Button.Content>
 			</Button>
 			<Button x:Name="btnBritian" Style="{StaticResource btnBritian}"
-					  Margin="10, 0, 10, 0"
-					  RenderTransformOrigin="-1.318,0">
+				Margin="10, 0, 10, 0"
+				RenderTransformOrigin="-1.318,0">
 				<Button.Content>
 					<Image Source="../Resources/united.png"/>
 				</Button.Content>
@@ -104,21 +105,21 @@
 		</StackPanel>
 
 		<control:SelectionRichTextBox
-				x:Name="rtxDefinition"
-			   SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
-				Text="{Binding Definition}"
-		   	Grid.Row="3" Grid.Column="1"
-				Margin="0, 10, 10, 10"
-				Height="Auto">
-			
+			x:Name="rtxDefinition"
+			SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
+			Text="{Binding Definition}"
+			Grid.Row="3" Grid.Column="1"
+			Margin="0, 10, 10, 10"
+			Height="Auto">
+
 			<control:SelectionRichTextBox.TextFormatter>
 				<toolkit:PlainTextFormatter />
 			</control:SelectionRichTextBox.TextFormatter>
-			
+
 			<control:SelectionRichTextBox.InputBindings>
 				<MouseBinding Gesture="LeftDoubleClick" Command="{Binding JumpToDefinitionCommand}" />
 			</control:SelectionRichTextBox.InputBindings>
-			
+
 			<FlowDocument/>
 		</control:SelectionRichTextBox>
 	</Grid>

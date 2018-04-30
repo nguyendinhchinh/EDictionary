@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:EDictionary.Core.Styles">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 	<SolidColorBrush x:Key="LightRed" Color="#e74c3c"/>
 	<SolidColorBrush x:Key="Red" Color="#c0392b"/>

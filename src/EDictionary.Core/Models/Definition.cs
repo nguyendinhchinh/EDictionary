@@ -1,6 +1,4 @@
 using EDictionary.Core.Extensions;
-using System;
-using System.Linq;
 using System.Text;
 
 namespace EDictionary.Core.Models
