@@ -4,20 +4,22 @@ using System.Windows.Media;
 
 namespace EDictionary.Controls
 {
-	public class TopIndexListView : ListView
+	public class ExpandedListView : ListView
 	{
 		// https://www.wpftutorial.net/DependencyProperties.html
 
-		public TopIndexListView()
+		public ExpandedListView()
 		{
 			// Use base class style
 			SetResourceReference(StyleProperty, typeof(ListView));
 		}
 
+		#region TopIndex DP
+
 		public static readonly DependencyProperty TopIndexProperty = DependencyProperty.Register(
 				"TopIndex",
 				typeof(int),
-				typeof(TopIndexListView),
+				typeof(ExpandedListView),
 				new FrameworkPropertyMetadata(-1,
 					OnTopIndexChangedProperty,
 					OnCoerceTopIndexProperty)
@@ -37,7 +39,7 @@ namespace EDictionary.Controls
 
 		private static void OnTopIndexChangedProperty(DependencyObject source, DependencyPropertyChangedEventArgs e)
 		{
-			TopIndexListView listView = source as TopIndexListView;
+			ExpandedListView listView = source as ExpandedListView;
 
 			if (listView.Items.Count == 0)
 			{
@@ -55,7 +57,7 @@ namespace EDictionary.Controls
 
 		private static object OnCoerceTopIndexProperty(DependencyObject sender, object data)
 		{
-			TopIndexListView listView = sender as TopIndexListView;
+			ExpandedListView listView = sender as ExpandedListView;
 			int topIndex = (int)data;
 
 			if (topIndex > listView.Items.Count - 1)
@@ -66,6 +68,8 @@ namespace EDictionary.Controls
 
 			return topIndex;
 		}
+
+		#endregion
 
 		private static T GetChildOfType<T>(DependencyObject depObj) where T : DependencyObject
 		{

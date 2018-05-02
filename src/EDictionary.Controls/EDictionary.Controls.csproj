@@ -63,8 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectionRichTextBox.cs" />
-    <Compile Include="TopIndexlListView.cs" />
+    <Compile Include="ExpandedRichTextBox.cs" />
+    <Compile Include="ExpandedListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

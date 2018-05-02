@@ -15,7 +15,7 @@ namespace EDictionary.Core.ViewModels
 
 		private Dictionary dictionary { get; set; }
 		private History<Word> history;
-		private int topIndex;
+		private int wordListTopIndex;
 		private string currentWord;
 		private string selectedWord;
 		private string definition;
@@ -36,18 +36,18 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
-		public int TopIndex
+		public int WordListTopIndex
 		{
 			get
 			{
-				return topIndex;
+				return wordListTopIndex;
 			}
 			set
 			{
-				if (value != topIndex)
+				if (value != wordListTopIndex)
 				{
-					topIndex = value.Clamp(0, Wordlist.Count - 1);
-					NotifyPropertyChanged("TopIndex");
+					wordListTopIndex = value;
+					NotifyPropertyChanged("WordListTopIndex");
 				}
 			}
 		}
@@ -174,7 +174,7 @@ namespace EDictionary.Core.ViewModels
 
 		public void UpdateWordlistTopIndex()
 		{
-			TopIndex = Search.Prefix(CurrentWord, Wordlist);
+			WordListTopIndex = Search.Prefix(CurrentWord, Wordlist);
 		}
 
 		public string CorrectWord(string word)
@@ -185,7 +185,7 @@ namespace EDictionary.Core.ViewModels
 
 		#endregion
 
-		#region definition utils
+		#region Definition Utils
 
 		/// <summary>
 		/// Return Word object from data layer lookup

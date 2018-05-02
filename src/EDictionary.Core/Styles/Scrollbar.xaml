@@ -10,8 +10,7 @@
 					<Border x:Name="rectangle"
 										  SnapsToDevicePixels="True"
 										  Background="{StaticResource Gray}"
-										  CornerRadius="3"
-										  Height="100"
+										  Height="30"
 										  Width="{TemplateBinding Width}"/>
 				</ControlTemplate>
 			</Setter.Value>

@@ -1,19 +1,22 @@
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using Xceed.Wpf.Toolkit;
 
 namespace EDictionary.Controls
 {
-	public class SelectionRichTextBox : RichTextBox
+	public class ExpandedRichTextBox : Xceed.Wpf.Toolkit.RichTextBox
 	{
-		public SelectionRichTextBox()
+		public ExpandedRichTextBox()
 		{
 			// Use base class style
-			SetResourceReference(StyleProperty, typeof(RichTextBox));
+			SetResourceReference(StyleProperty, typeof(Xceed.Wpf.Toolkit.RichTextBox));
 		}
 
+		#region SelectedWord DP
 		/// <summary>
 		/// RichTextBox in WPF toolkit have Selection property. But it's readonly and due
 		/// to WPF limitation, it cannot be binded even with OneWayToSource mode. SelectedText
@@ -23,7 +26,7 @@ namespace EDictionary.Controls
 			DependencyProperty.Register(
 					"SelectedWord",
 					typeof(string),
-					typeof(SelectionRichTextBox),
+					typeof(ExpandedRichTextBox),
 					new PropertyMetadata("")
 					);
 
@@ -38,6 +41,8 @@ namespace EDictionary.Controls
 				SetValue(SelectedWordProperty, value);
 			}
 		}
+
+		#endregion
 
 		protected override void OnMouseUp(MouseButtonEventArgs e)
 		{
@@ -56,6 +61,14 @@ namespace EDictionary.Controls
 				.ToArray());
 
 			base.OnMouseUp(e);
+		}
+
+		protected override void OnTextChanged(TextChangedEventArgs e)
+		{
+			// Scroll to top when get new definition
+			ScrollToHome();
+
+			base.OnTextChanged(e);
 		}
 	}
 }
