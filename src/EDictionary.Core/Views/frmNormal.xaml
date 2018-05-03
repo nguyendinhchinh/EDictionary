@@ -19,6 +19,10 @@
 	Width="650" 
 	WindowStyle="None">
 
+	<WindowChrome.WindowChrome>
+		<WindowChrome GlassFrameThickness="0"/>
+	</WindowChrome.WindowChrome>
+
 	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>
