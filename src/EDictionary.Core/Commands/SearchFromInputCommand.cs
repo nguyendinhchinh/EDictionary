@@ -1,14 +1,14 @@
-using EDictionary.Core.ViewModels;
+﻿using EDictionary.Core.ViewModels;
 using System;
 using System.Windows.Input;
 
 namespace EDictionary.Core.Commands
 {
-	class JumpToDefinitionCommand : ICommand
+	public class SearchFromInputCommand : ICommand
 	{
 		private EDictionaryViewModel viewModel;
 
-		public JumpToDefinitionCommand(EDictionaryViewModel viewModel)
+		public SearchFromInputCommand(EDictionaryViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}
@@ -27,12 +27,12 @@ namespace EDictionary.Core.Commands
 
 		public bool CanExecute(object parameter)
 		{
-			return viewModel.CanJumpToDefinition();
+			return viewModel.CanSearchFromInput();
 		}
 
 		public void Execute(object parameter)
 		{
-			viewModel.JumpToDefinition();
+			viewModel.SearchFromInput();
 		}
 	}
 }

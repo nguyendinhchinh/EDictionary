@@ -1,14 +1,15 @@
-﻿using EDictionary.Core.ViewModels;
+﻿using EDictionary.Core.Models;
+using EDictionary.Core.ViewModels;
 using System;
 using System.Windows.Input;
 
 namespace EDictionary.Core.Commands
 {
-	public class GoToDefinitionCommand : ICommand
+	public class PlayNAmEAudioCommand : ICommand
 	{
 		private EDictionaryViewModel viewModel;
 
-		public GoToDefinitionCommand(EDictionaryViewModel viewModel)
+		public PlayNAmEAudioCommand(EDictionaryViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}
@@ -27,12 +28,12 @@ namespace EDictionary.Core.Commands
 
 		public bool CanExecute(object parameter)
 		{
-			return viewModel.CanGoToDefinition();
+			return viewModel.CanPlayAudio();
 		}
 
 		public void Execute(object parameter)
 		{
-			viewModel.GoToDefinition();
+			viewModel.PlayAudio(Dialect.NAmE);
 		}
 	}
 }

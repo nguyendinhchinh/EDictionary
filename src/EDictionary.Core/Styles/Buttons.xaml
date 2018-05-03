@@ -1,63 +1,123 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-		<Style TargetType="Button" x:Key="ButtonBaseStyle">
-			
-			<!-- fix button color when hovering -->
-			<Setter Property="Button.Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type Button}">
-						<Border Background="{TemplateBinding Background}">
-							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						</Border>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
+	<Style TargetType="Button" x:Key="ButtonBaseStyle">
 
-			<Setter Property="BorderBrush" Value="{x:Null}"/>
-			<Setter Property="Width" Value="22"/>
-			<Setter Property="Height" Value="22"/>
+		<!-- fix button color when hovering -->
+		<Setter Property="Button.Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Border Background="{TemplateBinding Background}">
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Setter Property="BorderBrush" Value="{x:Null}"/>
+		<Setter Property="Width" Value="22"/>
+		<Setter Property="Height" Value="22"/>
 
 	</Style>
 
-		<Style TargetType="Button" x:Key="btnAmerica" BasedOn="{StaticResource ButtonBaseStyle}">
-			<Setter Property="Background" Value="{StaticResource LightRed}"/>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="{StaticResource Red}"/>
-				</Trigger>
-				<Trigger Property="Button.IsPressed" Value="True">
-					<Setter Property="Control.Background" Value="{StaticResource LightRed}"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
+	<Style TargetType="Button" x:Key="btnNAmE" BasedOn="{StaticResource ButtonBaseStyle}">
+		 
+		<Setter Property="Background" Value="{StaticResource LightRed}"/>
 
-		<Style TargetType="Button" x:Key="btnBritian" BasedOn="{StaticResource ButtonBaseStyle}">
-			<Setter Property="Background" Value="{StaticResource LightBlue}"/>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="{StaticResource Blue}"/>
-				</Trigger>
-				<Trigger Property="Button.IsPressed" Value="True">
-					<Setter Property="Control.Background" Value="{StaticResource LightBlue}"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="../Resources/america.png"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
 
-		<Style TargetType="Button" x:Key="btnHistory" BasedOn="{StaticResource ButtonBaseStyle}">
-			<Setter Property="Background" Value="{StaticResource LightGray}"/>
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="{StaticResource Gray}"/>
-				</Trigger>
-				<Trigger Property="Button.IsPressed" Value="True">
-					<Setter Property="Control.Background" Value="{StaticResource LightGray}"/>
-				</Trigger>
-			</Style.Triggers>
-		</Style>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Background" Value="{StaticResource Red}"/>
+			</Trigger>
+			<Trigger Property="Button.IsPressed" Value="True">
+				<Setter Property="Control.Background" Value="{StaticResource LightRed}"/>
+			</Trigger>
+		</Style.Triggers>
+		 
+	</Style>
+
+	<Style TargetType="Button" x:Key="btnBrE" BasedOn="{StaticResource ButtonBaseStyle}">
+
+		<Setter Property="Background" Value="{StaticResource LightBlue}"/>
+
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="../Resources/united.png"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Background" Value="{StaticResource Blue}"/>
+			</Trigger>
+			<Trigger Property="Button.IsPressed" Value="True">
+				<Setter Property="Control.Background" Value="{StaticResource LightBlue}"/>
+			</Trigger>
+		</Style.Triggers>
+		 
+	</Style>
+
+	<Style TargetType="Button" x:Key="ButtonHistory" BasedOn="{StaticResource ButtonBaseStyle}">
+
+		<Setter Property="Background" Value="{StaticResource LightGray}"/>
+
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Background" Value="{StaticResource Gray}"/>
+			</Trigger>
+			<Trigger Property="Button.IsPressed" Value="True">
+				<Setter Property="Control.Background" Value="{StaticResource LightGray}"/>
+			</Trigger>
+		</Style.Triggers>
+		 
+	</Style>
+
+	<Style TargetType="Button" x:Key="btnNextHistory" BasedOn="{StaticResource ButtonHistory}">
+
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="../Resources/RightArrow.png"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
+	<Style TargetType="Button" x:Key="btnPrevHistory" BasedOn="{StaticResource ButtonHistory}">
+
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="../Resources/LeftArrow.png"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
+	</Style>
+
 
 	<Style TargetType="Button" x:Key="btnSearch" BasedOn="{StaticResource ButtonBaseStyle}">
+		 
 		<Setter Property="Background" Value="{StaticResource LightYellow}"/>
+
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<Image Source="../Resources/search.png"/>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Background" Value="{StaticResource Yellow}"/>
@@ -66,6 +126,7 @@
 				<Setter Property="Control.Background" Value="{StaticResource LightYellow}"/>
 			</Trigger>
 		</Style.Triggers>
+		 
 	</Style>
-	
+
 </ResourceDictionary>

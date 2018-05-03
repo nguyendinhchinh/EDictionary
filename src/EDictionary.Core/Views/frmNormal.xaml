@@ -42,7 +42,7 @@
 				VerticalAlignment="Center">
 
 				<TextBox.InputBindings>
-					<KeyBinding Command="{Binding GoToDefinitionCommand}" Key="Enter"/>
+					<KeyBinding Command="{Binding SearchFromInputCommand}" Key="Enter"/>
 					<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>
 
 					<KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/>
@@ -50,62 +50,56 @@
 			</TextBox>
 
 			<Button x:Name="btnSearch"
-				Command="{Binding GoToDefinitionCommand}"
+				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
 				Margin="0,0,0,0">
-				<Button.Content>
-					<Image Source="../Resources/search.png"/>
-				</Button.Content>
 			</Button>
 		</StackPanel>
 
 		<control:ExpandedListView
 			x:Name="lbxIndex"
 			TopIndex="{Binding WordListTopIndex}"
+			SelectedItem="{Binding HighlightedWord}"
 			ItemsSource="{Binding Wordlist}"
 			Grid.Row="3" Grid.Column="0"
 			Margin="0, 10, 0, 10">
-			<ListBox.BindingGroup>
-				<BindingGroup/>
-			</ListBox.BindingGroup>
+
+			<!--<control:ExpandedListView.InputBindings>
+				<MouseBinding
+							MouseAction="LeftDoubleClick"
+							Command="{Binding SearchFromHighlightCommand}" />
+			</control:ExpandedListView.InputBindings>-->
 		</control:ExpandedListView>
 
 		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
+
 			<Button
 				x:Name="btnPrevHistory"
 				Command="{Binding PreviousHistoryCommand}"
-				Style="{StaticResource btnHistory}"
+				Style="{StaticResource btnPrevHistory}"
 				Margin="0, 0, 0, 0"
 				RenderTransformOrigin="-2.227,-0.318 ">
-				<Button.Content>
-					<Image Source="../Resources/LeftArrow.png"/>
-				</Button.Content>
 			</Button>
 
 			<Button x:Name="btnNextHistory"
 				Command="{Binding NextHistoryCommand}"
-				Style="{StaticResource btnHistory}"
+				Style="{StaticResource btnNextHistory}"
 				Margin="10, 0, 0, 0"
 				RenderTransformOrigin="-3.955,-0.455">
-				<Button.Content>
-					<Image Source="../Resources/RightArrow.png"/>
-				</Button.Content>
 			</Button>
 
-			<Button x:Name="btnAmerica" Style="{StaticResource btnAmerica}"
+			<Button x:Name="btnNAmE" Style="{StaticResource btnNAmE}"
+				Command="{Binding PlayNAmEAudioCommand}"
 				Margin="30, 0, 0, 0"
-				RenderTransformOrigin="-0.455,-0.273">
-				<Button.Content>
-					<Image Source="../Resources/america.png"/>
-				</Button.Content>
+				RenderTransformOrigin="0,0">
 			</Button>
-			<Button x:Name="btnBritian" Style="{StaticResource btnBritian}"
+
+			<Button x:Name="btnBrE" Style="{StaticResource btnBrE}"
+				Command="{Binding PlayBrEAudioCommand}"
 				Margin="10, 0, 10, 0"
-				RenderTransformOrigin="-1.318,0">
-				<Button.Content>
-					<Image Source="../Resources/united.png"/>
-				</Button.Content>
+				RenderTransformOrigin="0,0">
 			</Button>
+				
 		</StackPanel>
 
 		<control:ExpandedRichTextBox
@@ -121,7 +115,9 @@
 			</control:ExpandedRichTextBox.TextFormatter>
 
 			<control:ExpandedRichTextBox.InputBindings>
-				<MouseBinding Gesture="LeftDoubleClick" Command="{Binding JumpToDefinitionCommand}" />
+				<MouseBinding
+							Gesture="LeftDoubleClick"
+							Command="{Binding SearchFromSelectionCommand}" />
 			</control:ExpandedRichTextBox.InputBindings>
 
 			<FlowDocument/>

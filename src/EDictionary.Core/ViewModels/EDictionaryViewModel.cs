@@ -1,5 +1,4 @@
 using EDictionary.Core.Commands;
-using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
@@ -17,6 +16,7 @@ namespace EDictionary.Core.ViewModels
 		private History<Word> history;
 		private int wordListTopIndex;
 		private string currentWord;
+		private string highlightedWord;
 		private string selectedWord;
 		private string definition;
 
@@ -68,6 +68,22 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
+		public string HighlightedWord
+		{
+			get
+			{
+				return highlightedWord;
+			}
+			set
+			{
+				if (value != highlightedWord)
+				{
+					highlightedWord = value;
+					SearchFromHighlight();
+				}
+			}
+		}
+
 		public string SelectedWord
 		{
 			get
@@ -111,9 +127,14 @@ namespace EDictionary.Core.ViewModels
 
 			SpellCheck.GetVocabulary(Wordlist);
 
-			GoToDefinitionCommand = new GoToDefinitionCommand(this);
-			JumpToDefinitionCommand = new JumpToDefinitionCommand(this);
+			SearchFromInputCommand = new SearchFromInputCommand(this);
+			SearchFromSelectionCommand = new SearchFromSelectionCommand(this);
+			SearchFromHighlightCommand = new SearchFromHighlightCommand(this);
 			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
+
+			PlayNAmEAudioCommand = new PlayNAmEAudioCommand(this);
+			PlayBrEAudioCommand = new PlayBrEAudioCommand(this);
+
 			NextHistoryCommand = new NextHistoryCommand(this);
 			PreviousHistoryCommand = new PreviousHistoryCommand(this);
 		}
@@ -138,19 +159,37 @@ namespace EDictionary.Core.ViewModels
 
 		#region Commands
 
-		public ICommand GoToDefinitionCommand
+		public ICommand SearchFromInputCommand
 		{
 			get;
 			private set;
 		}
 
-		public ICommand JumpToDefinitionCommand
+		public ICommand SearchFromSelectionCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand SearchFromHighlightCommand
 		{
 			get;
 			private set;
 		}
 
 		public ICommand UpdateWordlistIndexCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand PlayNAmEAudioCommand
+		{
+			get;
+			private set;
+		}
+
+		public ICommand PlayBrEAudioCommand
 		{
 			get;
 			private set;
@@ -203,24 +242,24 @@ namespace EDictionary.Core.ViewModels
 
 		#endregion
 
-		#region GoToDefinition
+		#region SearchFromInput
 
 		/// <summary>
 		/// Called on enter or doubleclick event on wordlist
 		/// Run spellcheck for similar word when word not found
 		/// </summary>
-		public void GoToDefinition()
+		public void SearchFromInput()
 		{
 			Word word = dictionary.Search(CurrentWord);
 
-			Definition = word?.ToString()
+			Definition = GetDefinition(CurrentWord)
 				?? GetDefinition(Stemmer.Stem(CurrentWord))
 				?? CorrectWord(CurrentWord);
 
 			UpdateHistory(word);
 		}
 
-		public bool CanGoToDefinition()
+		public bool CanSearchFromInput()
 		{
 			if (string.IsNullOrEmpty(CurrentWord))
 				return false;
@@ -230,13 +269,13 @@ namespace EDictionary.Core.ViewModels
 
 		#endregion
 
-		#region JumpToDefinition
+		#region SearchFromSelection
 
 		/// <summary>
 		/// Called when select highlight word in definition window
 		/// Stem a word when word not found instead of running spellcheck
 		/// </summary>
-		public void JumpToDefinition()
+		public void SearchFromSelection()
 		{
 			Word word = dictionary.Search(SelectedWord);
 
@@ -249,15 +288,40 @@ namespace EDictionary.Core.ViewModels
 			UpdateHistory(word);
 		}
 
-		public bool CanJumpToDefinition()
+		public bool CanSearchFromSelection()
 		{
-			if (string.IsNullOrEmpty(CurrentWord))
+			if (string.IsNullOrEmpty(Definition))
 				return false;
 
 			return true;
 		}
 
-	   #endregion
+		#endregion
+
+		#region SearchFromHighlight
+
+		/// <summary>
+		/// Called when double click highlighted word in listview
+		/// Therefore, there is no need to run stemmer or spellcheck
+		/// </summary>
+		public void SearchFromHighlight()
+		{
+			Word word = dictionary.Search(HighlightedWord);
+
+			string definition = word?.ToString();
+
+			if (definition != null)
+				Definition = definition;
+
+			UpdateHistory(word);
+		}
+
+		public bool CanSearchFromHighlight()
+		{
+			return true;
+		}
+
+		#endregion
 
 		#region History
 
@@ -291,6 +355,23 @@ namespace EDictionary.Core.ViewModels
 				return false;
 
 			return !history.IsFirst;
+		}
+
+		#endregion
+
+		#region PlayAudio
+
+		public void PlayAudio(Dialect dialect)
+		{
+			dictionary.PlayAudio(history.Current, dialect);
+		}
+
+		public bool CanPlayAudio()
+		{
+			if (string.IsNullOrEmpty(Definition))
+				return false;
+
+			return true;
 		}
 
 		#endregion

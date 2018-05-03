@@ -117,8 +117,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\GoToDefinitionCommand.cs" />
-    <Compile Include="Commands\JumpToDefinitionCommand.cs" />
+    <Compile Include="Commands\PlayBrEAudioCommand.cs" />
+    <Compile Include="Commands\PlayNAmEAudioCommand.cs" />
+    <Compile Include="Commands\SearchFromHighlightCommand.cs" />
+    <Compile Include="Commands\SearchFromInputCommand.cs" />
+    <Compile Include="Commands\SearchFromSelectionCommand.cs" />
     <Compile Include="Commands\PreviousHistoryCommand.cs" />
     <Compile Include="Commands\NextHistoryCommand.cs" />
     <Compile Include="Commands\UpdateWordlistIndexCommand.cs" />
