@@ -145,7 +145,8 @@
     <Compile Include="Utilities\SpellCheck.cs" />
     <Compile Include="Utilities\Stemmer.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
-    <Compile Include="ViewModels\EDictionaryViewModel.cs" />
+    <Compile Include="ViewModels\IMainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

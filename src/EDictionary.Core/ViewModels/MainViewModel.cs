@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels
 {
-	public class EDictionaryViewModel : INotifyPropertyChanged
+	public class MainViewModel : IMainViewModel, INotifyPropertyChanged
 	{
 		#region Fields
 
@@ -120,7 +120,7 @@ namespace EDictionary.Core.ViewModels
 
 		#region Constructor
 
-		public EDictionaryViewModel()
+		public MainViewModel()
 		{
 			dictionary = new Dictionary();
 			history = new History<Word>();

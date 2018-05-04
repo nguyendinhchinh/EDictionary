@@ -6,9 +6,9 @@ namespace EDictionary.Core.Commands
 {
 	public class NextHistoryCommand : ICommand
 	{
-		private EDictionaryViewModel viewModel;
+		private MainViewModel viewModel;
 
-		public NextHistoryCommand(EDictionaryViewModel viewModel)
+		public NextHistoryCommand(MainViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}

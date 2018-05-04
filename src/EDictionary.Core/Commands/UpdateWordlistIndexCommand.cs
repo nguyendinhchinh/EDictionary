@@ -6,9 +6,9 @@ namespace EDictionary.Core.Commands
 {
 	public class UpdateWordlistIndexCommand : ICommand
 	{
-		private EDictionaryViewModel viewModel;
+		private MainViewModel viewModel;
 
-		public UpdateWordlistIndexCommand(EDictionaryViewModel viewModel)
+		public UpdateWordlistIndexCommand(MainViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}

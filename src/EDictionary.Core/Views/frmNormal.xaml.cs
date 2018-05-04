@@ -11,7 +11,7 @@ namespace EDictionary.Core.Views
 		public frmNormal()
 		{
 			InitializeComponent();
-			DataContext = new EDictionaryViewModel();
+			DataContext = new MainViewModel();
 		}
 	}
 }

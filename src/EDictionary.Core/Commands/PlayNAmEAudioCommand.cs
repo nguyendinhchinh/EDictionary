@@ -7,9 +7,9 @@ namespace EDictionary.Core.Commands
 {
 	public class PlayNAmEAudioCommand : ICommand
 	{
-		private EDictionaryViewModel viewModel;
+		private MainViewModel viewModel;
 
-		public PlayNAmEAudioCommand(EDictionaryViewModel viewModel)
+		public PlayNAmEAudioCommand(MainViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}

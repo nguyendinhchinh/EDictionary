@@ -6,9 +6,9 @@ namespace EDictionary.Core.Commands
 {
 	public class SearchFromSelectionCommand : ICommand
 	{
-		private EDictionaryViewModel viewModel;
+		private MainViewModel viewModel;
 
-		public SearchFromSelectionCommand(EDictionaryViewModel viewModel)
+		public SearchFromSelectionCommand(MainViewModel viewModel)
 		{
 			this.viewModel = viewModel;
 		}

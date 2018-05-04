@@ -35,10 +35,10 @@
 			<ColumnDefinition MinWidth ="250" Width="*"/>
 		</Grid.ColumnDefinitions>
 
-		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="5 0 0 0">
+		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 			<TextBox x:Name="txtSearch"
 				Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-				Margin="0,0,5,0"
+				Margin="10,0,0,0"
 				VerticalAlignment="Center">
 
 				<TextBox.InputBindings>
@@ -52,32 +52,44 @@
 			<Button x:Name="btnSearch"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
-				Margin="0,0,0,0">
+				Margin="5,0,0,0">
 			</Button>
 		</StackPanel>
 
-		<control:ExpandedListView
-			x:Name="lbxIndex"
-			TopIndex="{Binding WordListTopIndex}"
-			SelectedItem="{Binding HighlightedWord}"
-			ItemsSource="{Binding Wordlist}"
-			Grid.Row="3" Grid.Column="0"
-			Margin="0, 10, 0, 10">
+		<Grid Grid.Row="3" Grid.Column="0" Margin="10,0,10,10">
 
-			<!--<control:ExpandedListView.InputBindings>
+			<Grid.RowDefinitions> <!-- Make bottom listview fix height -->
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+				
+			<control:ExpandedListView x:Name="lbxWordList"
+				Grid.Row="0"
+				TopIndex="{Binding WordListTopIndex}"
+				SelectedItem="{Binding HighlightedWord}"
+				ItemsSource="{Binding Wordlist}"
+				Margin="0, 10, 0, 10">
+
+				<!--<control:ExpandedListView.InputBindings>
 				<MouseBinding
 							MouseAction="LeftDoubleClick"
 							Command="{Binding SearchFromHighlightCommand}" />
 			</control:ExpandedListView.InputBindings>-->
-		</control:ExpandedListView>
+			</control:ExpandedListView>
 
-		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0,0,0,0">
+			<control:ExpandedListView x:Name="lbxOtherResult"
+				Grid.Row="1"
+				Height="100"
+				VerticalAlignment="Bottom">
+			</control:ExpandedListView>
+		</Grid>
 
-			<Button
-				x:Name="btnPrevHistory"
+
+		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,10,0">
+
+			<Button x:Name="btnPrevHistory"
 				Command="{Binding PreviousHistoryCommand}"
 				Style="{StaticResource btnPrevHistory}"
-				Margin="0, 0, 0, 0"
 				RenderTransformOrigin="-2.227,-0.318 ">
 			</Button>
 
@@ -88,26 +100,27 @@
 				RenderTransformOrigin="-3.955,-0.455">
 			</Button>
 
-			<Button x:Name="btnNAmE" Style="{StaticResource btnNAmE}"
+			<Button x:Name="btnNAmE"
 				Command="{Binding PlayNAmEAudioCommand}"
+				Style="{StaticResource btnNAmE}"
 				Margin="30, 0, 0, 0"
 				RenderTransformOrigin="0,0">
 			</Button>
 
-			<Button x:Name="btnBrE" Style="{StaticResource btnBrE}"
+			<Button x:Name="btnBrE"
 				Command="{Binding PlayBrEAudioCommand}"
+				Style="{StaticResource btnBrE}"
 				Margin="10, 0, 10, 0"
 				RenderTransformOrigin="0,0">
 			</Button>
 				
 		</StackPanel>
 
-		<control:ExpandedRichTextBox
-			x:Name="rtxDefinition"
+		<control:ExpandedRichTextBox x:Name="rtxDefinition"
+			Grid.Row="3" Grid.Column="1"
 			SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 			Text="{Binding Definition}"
-			Grid.Row="3" Grid.Column="1"
-			Margin="0, 10, 10, 10"
+			Margin="10, 10, 10, 10"
 			Height="Auto">
 
 			<control:ExpandedRichTextBox.TextFormatter>

@@ -71,12 +71,10 @@ namespace EDictionary.Core.Models
 
 		public string GetFilename(Word word, Dialect dialect)
 		{
-			var result = word.Pronunciations
+			return word.Pronunciations
 				.Where(x => x.Prefix == dialect.ToString())
 				.Select(x => x.Filename)
-				.ToList();
-
-			return result[0];
+				.First();
 		}
 
 		public void PlayAudio(Word word, Dialect dialect)
