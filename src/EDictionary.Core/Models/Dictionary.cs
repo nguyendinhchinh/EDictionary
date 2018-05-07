@@ -1,6 +1,7 @@
 using EDictionary.Core.Data;
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Utilities;
+using EDictionary.Vendors.RTF;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -86,6 +87,27 @@ namespace EDictionary.Core.Models
 			audioFile = Path.Combine(audioPath, filename);
 
 			Audio.Play(audioFile);
+		}
+
+		public string GetSuggestions(string wrongWord, IEnumerable<string> candidates)
+		{
+			RTFBuilder builder = new RTFBuilder();
+
+			builder.AppendLine();
+			builder.FontSize(30).Append("No match for ");
+			builder.ForeColor(ColorPicker.Color("LightRed"));
+			builder.FontSize(30).Append($"\"{wrongWord}\"");
+			builder.FontSize(30).AppendLine(" in the dictionary");
+			builder.AppendLine();
+
+			builder.FontSize(20).AppendLine("Did you mean:");
+			foreach (var candidate in candidates)
+			{
+				builder.ForeColor(ColorPicker.Color("LightCyan"));
+				builder.AppendLine(" • " + candidate);
+			}
+
+			return builder.ToString();
 		}
 	}
 }

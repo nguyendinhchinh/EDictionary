@@ -2,6 +2,7 @@
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
 using System;
+using System.Collections;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
@@ -41,7 +42,7 @@ namespace EDictionary.Core.Extensions
 
 			builder.FontSize(25);
 			builder.ForeColor(ColorPicker.Color("Cyan"));
-			builder.Append("  " + wordform);
+			builder.AppendLine("  " + wordform);
 
 			builder.AppendLine();
 

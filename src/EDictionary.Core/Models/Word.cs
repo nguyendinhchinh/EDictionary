@@ -16,7 +16,7 @@ namespace EDictionary.Core.Models
 		public string[] ExtraExamples { get; set; }
 		public Idiom[] Idioms { get; set; }
 
-		public override string ToString()
+		public string ToRTFString()
 		{
 			RTFBuilder builder = new RTFBuilder();
 

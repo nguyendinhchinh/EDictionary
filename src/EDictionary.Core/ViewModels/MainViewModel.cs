@@ -219,7 +219,8 @@ namespace EDictionary.Core.ViewModels
 		public string CorrectWord(string word)
 		{
 			IEnumerable<string> candidates = SpellCheck.Candidates(word);
-			return String.Join(Environment.NewLine, candidates);
+
+			return dictionary.GetSuggestions(word, candidates);
 		}
 
 		#endregion
@@ -231,7 +232,7 @@ namespace EDictionary.Core.ViewModels
 		/// </summary>
 		private string GetDefinition(string wordStr)
 		{
-			return dictionary.Search(wordStr)?.ToString();
+			return dictionary.Search(wordStr)?.ToRTFString();
 		}
 
 		private void UpdateHistory(Word word)
@@ -279,7 +280,7 @@ namespace EDictionary.Core.ViewModels
 		{
 			Word word = dictionary.Search(SelectedWord);
 
-			string definition = word?.ToString()
+			string definition = word?.ToRTFString()
 				?? GetDefinition(Stemmer.Stem(SelectedWord));
 
 			if (definition != null)
@@ -308,7 +309,7 @@ namespace EDictionary.Core.ViewModels
 		{
 			Word word = dictionary.Search(HighlightedWord);
 
-			string definition = word?.ToString();
+			string definition = word?.ToRTFString();
 
 			if (definition != null)
 				Definition = definition;
@@ -330,7 +331,7 @@ namespace EDictionary.Core.ViewModels
 			Word word = null;
 
 			history.Next(ref word);
-			Definition = word.ToString();
+			Definition = word.ToRTFString();
 		}
 
 		public void PreviousHistory()
@@ -338,7 +339,7 @@ namespace EDictionary.Core.ViewModels
 			Word word = null;
 
 			history.Previous(ref word);
-			Definition = word.ToString();
+			Definition = word.ToRTFString();
 		}
 
 		public bool CanGoToNextHistory()
