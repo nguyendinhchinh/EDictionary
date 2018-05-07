@@ -1,5 +1,5 @@
 using EDictionary.Core.Extensions;
-using System.Text;
+using EDictionary.Vendors.RTF;
 
 namespace EDictionary.Core.Models
 {
@@ -8,15 +8,5 @@ namespace EDictionary.Core.Models
 		public string Prefix { get; set; }
 		public string Ipa { get; set; }
 		public string Filename { get; set; }
-
-		public override string ToString()
-		{
-			StringBuilder builder = new StringBuilder();
-
-			builder.AppendIfExists(Prefix + " ");
-			builder.AppendLineIfExists(Ipa);
-
-			return builder.ToString();
-		}
 	}
 }

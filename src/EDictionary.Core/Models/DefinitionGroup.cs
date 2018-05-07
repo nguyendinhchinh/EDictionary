@@ -1,5 +1,5 @@
 using EDictionary.Core.Extensions;
-using System.Text;
+using EDictionary.Vendors.RTF;
 
 namespace EDictionary.Core.Models
 {
@@ -7,15 +7,5 @@ namespace EDictionary.Core.Models
 	{
 		public string Namespace { get; set; }
 		public Definition[] Definitions { get; set; }
-
-		public override string ToString()
-		{
-			StringBuilder builder = new StringBuilder();
-
-			builder.AppendLineIfExists(">> " + Namespace);
-			builder.AppendDefinitions(Definitions);
-
-			return builder.ToString();
-		}
 	}
 }

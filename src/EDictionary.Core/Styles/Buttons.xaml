@@ -106,7 +106,6 @@
 
 	</Style>
 
-
 	<Style TargetType="Button" x:Key="btnSearch" BasedOn="{StaticResource ButtonBaseStyle}">
 		 
 		<Setter Property="Background" Value="{StaticResource LightYellow}"/>

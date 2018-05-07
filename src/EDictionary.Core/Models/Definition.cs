@@ -1,5 +1,5 @@
 using EDictionary.Core.Extensions;
-using System.Text;
+using EDictionary.Vendors.RTF;
 
 namespace EDictionary.Core.Models
 {
@@ -11,20 +11,5 @@ namespace EDictionary.Core.Models
 		public Reference[] References { get; set; }
 		public string Description { get; set; }
 		public string[] Examples { get; set; }
-
-		public override string ToString()
-		{
-			StringBuilder builder = new StringBuilder();
-
-			builder.Append("  ");
-			builder.AppendIfExists(Label + " ");
-			builder.AppendIfExists(Refer + " ");
-			builder.AppendIfExists(Property + " ");
-			builder.AppendLine(Description);
-			builder.AppendExamples(Examples);
-			builder.AppendReferences(References);
-
-			return builder.ToString();
-		}
 	}
 }

@@ -129,7 +129,7 @@
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\WordTable.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\RTFBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -137,6 +137,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Audio.cs" />
+    <Compile Include="Utilities\ColorPicker.cs" />
     <Compile Include="Utilities\History.cs" />
     <Compile Include="Utilities\JsonHelper.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
@@ -249,6 +250,10 @@
     <ProjectReference Include="..\EDictionary.Controls\EDictionary.Controls.csproj">
       <Project>{638f4620-a06a-4eba-966b-98dfdd30daa1}</Project>
       <Name>EDictionary.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EDictionary.Vendors\EDictionary.Vendors.csproj">
+      <Project>{587def9d-5d87-44bb-8db2-771ebefee97c}</Project>
+      <Name>EDictionary.Vendors</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

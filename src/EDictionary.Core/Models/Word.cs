@@ -1,5 +1,6 @@
 using EDictionary.Core.Extensions;
-using System.Text;
+using EDictionary.Vendors.RTF;
+using System.Drawing;
 
 namespace EDictionary.Core.Models
 {
@@ -17,12 +18,12 @@ namespace EDictionary.Core.Models
 
 		public override string ToString()
 		{
-			StringBuilder builder = new StringBuilder();
+			RTFBuilder builder = new RTFBuilder();
 
-			builder.AppendLineIfExists(Name);
-			builder.AppendObjs(Pronunciations);
+			builder.AppendTitle(Name, Wordform);
+			builder.AppendPronunciation(Pronunciations);
 			builder.AppendReferences(References);
-			builder.AppendObjs(DefinitionsExamples);
+			builder.AppendDefinitionGroups(DefinitionsExamples);
 			builder.AppendExtraExamples(ExtraExamples);
 			builder.AppendIdioms(Idioms);
 
@@ -38,6 +39,11 @@ namespace EDictionary.Core.Models
 				return true;
 			}
 			return false;
+		}
+
+		public override int GetHashCode()
+		{
+			return this.Id.GetHashCode();
 		}
 	}
 }
