@@ -12,8 +12,8 @@
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
 	ResizeMode="CanResizeWithGrip"
-	Height="450"	
-	Width="650" 
+	Height="460"
+	Width="650"
 	>
 
 	<Window.Resources>
@@ -21,7 +21,7 @@
 		<SolidColorBrush x:Key="CaptionColor" Color="White" />
 	</Window.Resources>
 
-	<Grid>
+	<Grid Loaded="Grid_Loaded">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>
 			<RowDefinition Height="50"/>
@@ -41,7 +41,7 @@
 
 				<TextBox.InputBindings>
 					<KeyBinding Command="{Binding SearchFromInputCommand}" Key="Enter"/>
-					<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>
+					<!--<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>-->
 
 					<KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/>
 				</TextBox.InputBindings>
@@ -66,7 +66,7 @@
 				Grid.Row="0"
 				TopIndex="{Binding WordListTopIndex}"
 				SelectedItem="{Binding HighlightedWord}"
-				ItemsSource="{Binding Wordlist}"
+				ItemsSource="{Binding WordList}"
 				Margin="0, 10, 0, 10">
 
 				<!--<control:ExpandedListView.InputBindings>
@@ -78,7 +78,9 @@
 
 			<control:ExpandedListView x:Name="lbxOtherResult"
 				Grid.Row="1"
-				Height="100"
+				SelectedItem="{Binding HighlightedOtherResult}"
+				ItemsSource="{Binding OtherResults}"
+				Height="65"
 				VerticalAlignment="Bottom">
 			</control:ExpandedListView>
 		</Grid>

@@ -11,6 +11,7 @@ namespace EDictionary.Core.Utilities
 		{
 			PropertyMappings = new Dictionary<string, string> 
 			{
+				{"Similars", "similar"},
 				{"DefinitionsExamples", "definitions"},
 				{"ExtraExamples", "extra_examples"},
 			};

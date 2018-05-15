@@ -34,14 +34,14 @@ namespace EDictionary.Core.Utilities
 							else
 								return prefixPos;
 
-							return -1;
+							//return -1;
 						}
 
 					return -1;
 				}
 
 				int curPos = (int)((minPos + maxPos) / 2);
-				string currentWord = sequence[curPos];
+				string currentWord = sequence[curPos].ToLower();
 
 				if (currentWord.StartsWith(element))
 					prefixPos = curPos;

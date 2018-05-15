@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.Models;
+using EDictionary.Core.Extensions;
 
 namespace EDictionary.Core.Data
 {
@@ -70,8 +71,14 @@ namespace EDictionary.Core.Data
 					OpenConnection();
 
 					Word word = JsonHelper.Deserialize(wordJsonStr);
+					string wordNumber = word.Id.MatchRegex("[0-9]");
+					string wordName = word.Name;
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = word.Id });
+					if (wordNumber != null)
+						wordName += " " + wordNumber;
+
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = word.Id });
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@name", Value = wordName }); // TODO: Test
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
 
 					command.ExecuteNonQuery();
@@ -90,18 +97,18 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public Result<Word> LookUpSimilar(string wordID)
+		public Result<Word> SelectDefinitionFrom(string wordID)
 		{
 			string definition;
 
 			try
 			{
 				List<string> results = new List<string>();
-				using (SQLiteCommand command = new SQLiteCommand(globSelectQuery, dbConnection))
+				using (SQLiteCommand command = new SQLiteCommand(selectDefinitionFromQuery, dbConnection))
 				{
 					OpenConnection();
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID + "_?"});
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = wordID});
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
 						command.CommandType = CommandType.Text;
@@ -109,7 +116,7 @@ namespace EDictionary.Core.Data
 
 						while (reader.Read())
 						{
-							results.Add(Convert.ToString(reader[WordTable.Definition]));
+							results.Add(Convert.ToString(reader[DictionaryTable.Definition]));
 						}
 
 						definition = results.ElementAtOrDefault(0);
@@ -139,61 +146,12 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public Result<Word> LookUp(string wordID)
-		{
-			string definition;
-
-			try
-			{
-				List<string> results = new List<string>();
-				using (SQLiteCommand command = new SQLiteCommand(selectQuery, dbConnection))
-				{
-					OpenConnection();
-
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@wordID", Value = wordID});
-					using (SQLiteCommand fmd = dbConnection.CreateCommand())
-					{
-						command.CommandType = CommandType.Text;
-						SQLiteDataReader reader = command.ExecuteReader();
-
-						while (reader.Read())
-						{
-							results.Add(Convert.ToString(reader[WordTable.Definition]));
-						}
-
-						definition = results.ElementAtOrDefault(0);
-						Word word = null;
-
-						if (definition != null)
-							word = JsonHelper.Deserialize(definition);
-
-						return new Result<Word>(data:word, message:"", status:Status.Success);
-					}
-				}
-			}
-			catch (Exception exception)
-			{
-				LogWriter.Instance.WriteLine($"Error occured at LookUp in DataAccess:\n{exception.Message}");
-				
-				return new Result<Word>(
-						message:exception.Message,
-						innerMessage:"",
-						status:Status.Error,
-						exception:exception
-						);
-			}
-			finally
-			{
-				CloseConnection();
-			}
-		}
-
-		public Result<List<string>> GetWordList()
+		public Result<List<string>> SelectID()
 		{
 			try
 			{
 				List<string> results = new List<string>();
-				using (SQLiteCommand command = new SQLiteCommand(selectWordListQuery, dbConnection))
+				using (SQLiteCommand command = new SQLiteCommand(selectIDQuery, dbConnection))
 				{
 					OpenConnection();
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
@@ -203,7 +161,7 @@ namespace EDictionary.Core.Data
 
 						while (reader.Read())
 						{
-							results.Add(Convert.ToString(reader[WordTable.WordID]));
+							results.Add(Convert.ToString(reader[DictionaryTable.ID]));
 						}
 						return new Result<List<string>>(data:results, message:"", status:Status.Success);
 					}
@@ -211,13 +169,91 @@ namespace EDictionary.Core.Data
 			}
 			catch (Exception exception)
 			{
-				LogWriter.Instance.WriteLine($"Error occured at GetWordList in DataAccess:\n{exception.Message}");
+				LogWriter.Instance.WriteLine($"Error occured at SelectID in DataAccess:\n{exception.Message}");
 
 				return new Result<List<string>>(
 						message:exception.Message,
 						innerMessage:"",
 						status:Status.Error,
 						exception:exception
+						);
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
+
+		public Result<List<string>> SelectName()
+		{
+			try
+			{
+				List<string> results = new List<string>();
+				using (SQLiteCommand command = new SQLiteCommand(selectNameQuery, dbConnection))
+				{
+					OpenConnection();
+					using (SQLiteCommand fmd = dbConnection.CreateCommand())
+					{
+						command.CommandType = CommandType.Text;
+						SQLiteDataReader reader = command.ExecuteReader();
+
+						while (reader.Read())
+						{
+							results.Add(Convert.ToString(reader[DictionaryTable.Name]));
+						}
+						return new Result<List<string>>(data: results, message: "", status: Status.Success);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at SelectName in DataAccess:\n{exception.Message}");
+
+				return new Result<List<string>>(
+						message: exception.Message,
+						innerMessage: "",
+						status: Status.Error,
+						exception: exception
+						);
+			}
+			finally
+			{
+				CloseConnection();
+			}
+		}
+
+		public Result<Dictionary<string, string>> SelectIDAndName()
+		{
+			try
+			{
+				Dictionary<string, string> results = new Dictionary<string, string>();
+				using (SQLiteCommand command = new SQLiteCommand(selectIDAndNameQuery, dbConnection))
+				{
+					OpenConnection();
+					using (SQLiteCommand fmd = dbConnection.CreateCommand())
+					{
+						command.CommandType = CommandType.Text;
+						SQLiteDataReader reader = command.ExecuteReader();
+
+						while (reader.Read())
+						{
+							results.Add(
+								Convert.ToString(reader[DictionaryTable.ID]),
+								Convert.ToString(reader[DictionaryTable.Name]));
+						}
+						return new Result<Dictionary<string, string>>(data: results, message: "", status: Status.Success);
+					}
+				}
+			}
+			catch (Exception exception)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at SelectIDAndName in DataAccess:\n{exception.Message}");
+
+				return new Result<Dictionary<string, string>>(
+						message: exception.Message,
+						innerMessage: "",
+						status: Status.Error,
+						exception: exception
 						);
 			}
 			finally

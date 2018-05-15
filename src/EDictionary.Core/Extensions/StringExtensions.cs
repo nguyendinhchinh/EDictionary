@@ -5,19 +5,17 @@ namespace EDictionary.Core.Extensions
 	public static class StringExtensions
 	{
 		/// <summary>
-		/// "time_1" -> "time"
+		/// return regex match of str with pattern
 		/// </summary>
-		public static string StripWordNumber(this string str)
+		/// <param name="str">string to apply regex search on</param>
+		/// <param name="pattern">regex pattern</param>
+		/// <returns></returns>
+		public static string MatchRegex(this string str, string pattern)
 		{
-			return Regex.Replace(str, @"_[0-9]$", string.Empty);
-		}
+			Regex regexPattern = new Regex(pattern);
+			var result = regexPattern.Match(str);
 
-		/// <summary>
-		/// "time" -> "time_1" (by default)
-		/// </summary>
-		public static string AppendWordNumber(this string str, int wordIDNumber = 1)
-		{
-			return str + $"_{wordIDNumber}";
+			return result.Value;
 		}
 	}
 }

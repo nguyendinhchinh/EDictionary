@@ -16,6 +16,9 @@ namespace EDictionary.Core.Utilities
 		public static void GetVocabulary(IEnumerable<string> wordList)
 		{
 			Vocabulary = new HashSet<string>(wordList);
+
+			foreach (var word in wordList)
+				Vocabulary.Add(word.ToLower());
 		}
 
 		/// <summary>

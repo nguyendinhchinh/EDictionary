@@ -18,6 +18,9 @@ def mkdir(path):
 def touch(path, content=''):
 	""" create new file like a boss """
 	dirname = os.path.dirname(path)
+	if not dirname:
+		dirname = os.getcwd()
+
 	mkdir(dirname)
 	with open(path, 'w') as file:
 		file.write(content)

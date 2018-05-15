@@ -7,7 +7,7 @@ namespace EDictionary.Core.Models
 	public class Word
 	{
 		public string Id { get; set; }
-		public string[] OtherKeywords { get; set; }
+		public string[] Similars { get; set; }
 		public string Name { get; set; }
 		public string Wordform { get; set; }
 		public Pronunciation[] Pronunciations { get; set; }

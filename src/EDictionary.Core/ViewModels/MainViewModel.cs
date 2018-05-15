@@ -1,9 +1,11 @@
-using EDictionary.Core.Commands;
+﻿using EDictionary.Core.Commands;
+using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels
@@ -19,6 +21,8 @@ namespace EDictionary.Core.ViewModels
 		private string highlightedWord;
 		private string selectedWord;
 		private string definition;
+		private Dictionary<string, string> otherResultNameToID;
+		private string highlightedOtherResult;
 
 		#endregion
 
@@ -28,11 +32,11 @@ namespace EDictionary.Core.ViewModels
 
 		public double WindowMinimumWidth { get; set; } = 450;
 
-		public List<string> Wordlist
+		public List<string> WordList
 		{
 			get
 			{
-				return dictionary.Wordlist;
+				return dictionary.WordList;
 			}
 		}
 
@@ -116,6 +120,33 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
+		public List<string> OtherResults
+		{
+			get
+			{
+				return otherResultNameToID.Keys.ToList();
+			}
+		}
+
+		public string HighlightedOtherResult
+		{
+			get
+			{
+				return highlightedOtherResult;
+			}
+			set
+			{
+				if (value == null)
+					return;
+
+				if (value != highlightedOtherResult)
+				{
+					highlightedOtherResult = value;
+					SearchHighlightedOtherResult();
+				}
+			}
+		}
+
 		#endregion
 
 		#region Constructor
@@ -124,8 +155,9 @@ namespace EDictionary.Core.ViewModels
 		{
 			dictionary = new Dictionary();
 			history = new History<Word>();
+			otherResultNameToID = new Dictionary<string, string>();
 
-			SpellCheck.GetVocabulary(Wordlist);
+			SpellCheck.GetVocabulary(WordList);
 
 			SearchFromInputCommand = new SearchFromInputCommand(this);
 			SearchFromSelectionCommand = new SearchFromSelectionCommand(this);
@@ -213,7 +245,7 @@ namespace EDictionary.Core.ViewModels
 
 		public void UpdateWordlistTopIndex()
 		{
-			WordListTopIndex = Search.Prefix(CurrentWord, Wordlist);
+			WordListTopIndex = Search.Prefix(CurrentWord, WordList);
 		}
 
 		public string CorrectWord(string word)
@@ -227,18 +259,12 @@ namespace EDictionary.Core.ViewModels
 
 		#region Definition Utils
 
-		/// <summary>
-		/// Return Word object from data layer lookup
-		/// </summary>
-		private string GetDefinition(string wordStr)
-		{
-			return dictionary.Search(wordStr)?.ToRTFString();
-		}
-
 		private void UpdateHistory(Word word)
 		{
 			if (word != null && word != history.Current)
 				history.Add(word);
+
+			UpdateOtherResultList();
 		}
 
 		#endregion
@@ -253,9 +279,20 @@ namespace EDictionary.Core.ViewModels
 		{
 			Word word = dictionary.Search(CurrentWord);
 
-			Definition = GetDefinition(CurrentWord)
-				?? GetDefinition(Stemmer.Stem(CurrentWord))
-				?? CorrectWord(CurrentWord);
+			if (word == null)
+			{
+				var stemmedWord = Stemmer.Stem(CurrentWord);
+
+				if (CurrentWord != stemmedWord)
+					word = dictionary.Search(stemmedWord);
+			}
+
+			if (word != null)
+			{
+				Definition = word.ToRTFString();
+			}
+			else
+				Definition = CorrectWord(CurrentWord);
 
 			UpdateHistory(word);
 		}
@@ -280,11 +317,16 @@ namespace EDictionary.Core.ViewModels
 		{
 			Word word = dictionary.Search(SelectedWord);
 
-			string definition = word?.ToRTFString()
-				?? GetDefinition(Stemmer.Stem(SelectedWord));
+			if (word == null)
+			{
+				var stemmedWord = Stemmer.Stem(CurrentWord);
 
-			if (definition != null)
-				Definition = definition;
+				if (CurrentWord != stemmedWord)
+					word = dictionary.Search(stemmedWord);
+			}
+
+			if (word != null)
+				Definition = word.ToRTFString();
 
 			UpdateHistory(word);
 		}
@@ -309,10 +351,8 @@ namespace EDictionary.Core.ViewModels
 		{
 			Word word = dictionary.Search(HighlightedWord);
 
-			string definition = word?.ToRTFString();
-
-			if (definition != null)
-				Definition = definition;
+			if (word != null)
+				Definition = word.ToRTFString();
 
 			UpdateHistory(word);
 		}
@@ -373,6 +413,36 @@ namespace EDictionary.Core.ViewModels
 				return false;
 
 			return true;
+		}
+
+		#endregion
+
+		#region OtherResult
+
+		public void UpdateOtherResultList()
+		{
+			Word word = history.Current;
+
+			if (word.Similars == null)
+				return;
+
+			otherResultNameToID.Clear();
+
+			foreach (var similarWord in word.Similars)
+			{
+				otherResultNameToID.Add(similarWord.Replace('_', ' '), similarWord);
+			}
+			NotifyPropertyChanged("OtherResults");
+		}
+
+		public void SearchHighlightedOtherResult()
+		{
+			Word word = dictionary.SearchID(otherResultNameToID[HighlightedOtherResult]);
+
+			if (word != null)
+				Definition = word.ToRTFString();
+
+			UpdateHistory(word);
 		}
 
 		#endregion

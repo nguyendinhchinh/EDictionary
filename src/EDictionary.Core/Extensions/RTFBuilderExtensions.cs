@@ -11,26 +11,6 @@ namespace EDictionary.Core.Extensions
 {
 	public static class RTFBuilderExtensions
 	{
-		public static RTFBuilder AppendIfExists(this RTFBuilder builder, string value)
-		{
-			if (value != null)
-			{
-				builder.Append(value);
-			}
-
-			return builder;
-		}
-
-		public static RTFBuilder AppendLineIfExists(this RTFBuilder builder, string value)
-		{
-			if (value != null)
-			{
-				builder.AppendLine(value);
-			}
-
-			return builder;
-		}
-
 		public static RTFBuilder AppendTitle(this RTFBuilder builder, string word, string wordform)
 		{
 			builder.AppendLine();

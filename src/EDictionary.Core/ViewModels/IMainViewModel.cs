@@ -11,12 +11,15 @@ namespace EDictionary.Core.ViewModels
 		double WindowMinimumHeight { get; set; }
 		double WindowMinimumWidth { get; set; }
 
-		List<string> Wordlist { get; }
+		List<string> WordList { get; }
 		int WordListTopIndex { get; set; }
 
 		string CurrentWord { get; set; }
 		string HighlightedWord { get; set; }
 		string SelectedWord { get; set; }
 		string Definition { get; set; }
+
+		List<string> OtherResults { get; }
+		string HighlightedOtherResult { get; set; }
 	}
 }
