@@ -36,7 +36,7 @@
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 			<TextBox x:Name="txtSearch"
 				Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
-				Margin="10,0,0,0"
+				Margin="10,0,-1,0"
 				VerticalAlignment="Center">
 
 				<TextBox.InputBindings>
@@ -50,8 +50,8 @@
 			<Button x:Name="btnSearch"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
-				Margin="5,0,0,0">
-			</Button>
+				Margin="0,9" RenderTransformOrigin="0.364,0.591"/>
+
 		</StackPanel>
 
 		<Grid Grid.Row="3" Grid.Column="0" Margin="10,0,10,10">
