@@ -133,7 +133,8 @@
 			<FlowDocument/>
 		</control:ExpandedRichTextBox>
 
-		<Label x:Name="Logo" Content="Free English Ditionary" Grid.Column="3" Width="259" FontSize="25" FontFamily="Segoe UI Semilight" Foreground="#FFECF0F1" RenderTransformOrigin="0.411,1.266" Grid.RowSpan="3" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="82.8,0,166.2,39.6"/>
-	    <Image x:Name="Icon" Source="../Resources/E-Dictionary.ico" HorizontalAlignment="Left" Height="35" Margin="0,-25,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.502,1.694" Grid.ColumnSpan="3"/>
+		<Label x:Name="Logo" Content="Free English Ditionary" Grid.Column="3" Width="259" FontSize="25" FontFamily="Segoe UI Semilight" Foreground="#bdc3c7" RenderTransformOrigin="0.411,1.266" Grid.RowSpan="3" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Margin="82.8,0,166.2,39.6"/>
+	  <Image x:Name="Icon" Source="../Resources/E-Dictionary.ico" HorizontalAlignment="Left" Height="35" Margin="0,-25,0,0" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.502,1.694" Grid.ColumnSpan="3"/>
+		<Label x:Name="Title" Content="E-Dictionary" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,-25,0,0" FontSize="15" Foreground="#FFBDC3C7"/>
 	</Grid>
 </simply:FlatWindow>
