@@ -253,9 +253,6 @@
     <Resource Include="Resources\united.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\search.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EDictionary.Controls\EDictionary.Controls.csproj">
       <Project>{638f4620-a06a-4eba-966b-98dfdd30daa1}</Project>
       <Name>EDictionary.Controls</Name>
@@ -265,7 +262,9 @@
       <Name>EDictionary.Vendors</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\search.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"
