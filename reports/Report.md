@@ -16,47 +16,107 @@
 * Con người 
 # Chương 2. Phân tích yêu cầu phần mềm và mô hình hoá    
 ## Yêu cầu phần mềm 
-### Yêu cầu chức năng 
+### Yêu cầu chức năng
 * Bảng tổng hợp và định danh các yêu cầu:   
 
-| Định danh  | Độ ưu tiên  |Mô tả yêu cầu                                                                         |
-|------------|-------------|--------------------------------------------------------------------------------------|
-| Yêu cầu 1  |             |Đọc dữ liệu từ database về thông tin các từ                                           |
-| Yêu cầu 2  |             |Tìm kiếm từ vựng trong database của phần mềm                                          |
-| Yêu cầu 3  |             |Hiển thị định nghĩa của từ khi người dùng tra từ                                      |
-| Yêu cầu 4  |             |Phát âm từ vựng đã tra theo Anh–Anh và Anh-Mỹ                                         |
-| Yêu cầu 5  |             |Khi tra một từ, gợi ý các từ loại khác liên quan (động từ, danh từ, tính từ...)       |
-| Yêu cầu 6  |             |Autocomplete phần đuôi khi gõ phần đầu của từ cần tra                                 |
-| Yêu cầu 7  |             |Khi nhập một từ tiếng anh không có trong từ điển, gợi ý các từ gần giống với từ đã tra|
-| Yêu cầu 8  |             |Các từ đã tra được lưu vào một tab lịch sử                                            |
-| Yêu cầu 9  |             |Chọn từ trong danh sách từ hiển thị ngay định nghĩa của từ                            |
-| Yêu cầu 10 |             |Click vào một từ trong phần định nghĩa để dẫn đến định nghĩa của từ đó                |
+| Định danh  |     Hàm     | Độ ưu tiên  | Mô tả yêu cầu                                                          |
+|------------|-------------|-------------|------------------------------------------------------------------------|
+| Yêu cầu 1  |             |             |Đọc dữ liệu từ database về thông tin các từ                             |   
+| Yêu cầu 2  |             |             |Tìm kiếm từ vựng trong database của phần mềm                            |   
+| Yêu cầu 3  |             |             |Hiển thị định nghĩa của từ khi người dùng tra từ                        |   
+| Yêu cầu 4  |             |             |Phát âm từ vựng đã tra theo Anh–Anh và Anh-Mỹ                           |   
+| Yêu cầu 5  |             |             |Khi tra một từ, gợi ý các từ loại khác liên quan (động từ, danh từ, tính từ...)|
+| Yêu cầu 6  |             |             |Autocomplete phần đuôi khi gõ phần đầu của từ cần tra                   |   
+| Yêu cầu 7  |             |             |Khi nhập một từ tiếng anh không có trong từ điển, gợi ý các từ gần giống với từ đã tra|
+| Yêu cầu 8  |             |             |Các từ đã tra được lưu vào một tab lịch sử                              |   
+| Yêu cầu 9  |             |             |Chọn từ trong danh sách từ hiển thị ngay định nghĩa của từ              |
+| Yêu cầu 10 |             |             |Click vào một từ trong phần định nghĩa để dẫn đến định nghĩa của từ đó  |
 ### Yêu cầu phi chức năng 
 
 |   Định danh	|   Độ ưu tiên	|   Mô tả yêu cầu	|
-|---	        |---	        |---	            |
+|---------------|---	        |---	            |
 |   	        |   	        |   	            |
 |   	        |   	        |   	            |
 |   	        |   	        |   	            |
 
 ### Bảng FURPS
 
-| Tiêu chí chất lượng  |  Mô tả                                                                                                 |
-|---                   |---                                                                                                     |
-| Functionality        | •	Chương trình hướng tới phục vụ người dùng đơn lẻ và hoàn toàn miễn phí                              |
-| Usability            | •	Giao diện được thiết kể phẳng, hiện đại, đơn giản và dễ sử dụng, Chức năng tra cứu từ điển thông minh, tiện dụng, Cung cấp kèm theo tài liệu hướng dẫn và chức năng của chương trình                                                              |
-| Reliability          | •	Chương trình lấy dữ liệu từ nguồn tin cậy (Oxford Learners Dictionaries) và được cập nhật liên tục  |
-| Performance          | •	Việc tra cứu từ nhanh và chính xác, cách sắp xếp định nghĩa  dễ hiểu và khoa học                    |
-| Supportability       | •	Database được tổ chức ở dạng chuẩn, sắp xếp khoa học                                                |
+| Tiêu chí chất lượng  |  Mô tả                                                                                     |
+|----------------------|--------------------------------------------------------------------------------------------|
+| Functionality        | •	Chương trình hướng tới phục vụ người dùng đơn lẻ và hoàn toàn miễn phí                  |
+| Usability            | •	Giao diện được thiết kể phẳng, hiện đại, đơn giản và dễ sử dụng, Chức năng tra cứu từ điển thông minh, tiện dụng, Cung cấp kèm theo tài liệu hướng dẫn và chức năng của chương trình|
+| Reliability          | •	Chương trình lấy dữ liệu từ nguồn tin cậy (Oxford Learners Dictionaries) và được cập nhật liên tục|
+| Performance          | •	Việc tra cứu từ nhanh và chính xác, cách sắp xếp định nghĩa  dễ hiểu và khoa học        |
+| Supportability       | •	Database được tổ chức ở dạng chuẩn, sắp xếp khoa học                                    |
 
 ## Mô Hình hoá 
 ### Các trường hợp sử dụng thông thường 
 
 |  Use Case | Tên         | Mô tả                           | Yêu cầu liên quan         |
 |---        |---          |---                              |---                        |
-| UC 1      | Tra cứu từ  | Tra cứu định nghĩa từ, phát âm  | Search, SpellCheck, Audio  |
+| UC 1      | Tra cứu từ  | Tra cứu định nghĩa từ, phát âm  | Search, SpellCheck, Audio |
 |           |             |                                 |                           |
 |           |             |                                 |                           |
 
 #### Use case 1 (Tra cứu từ) 
 ![alt text](https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.15752-9/32550241_656380638037814_973409897611788288_n.png?_nc_cat=0&_nc_eui2=AeEnVgEJX5A1aPRIa7Dk4ZQ7Ckxw8EgF9CSdSKyKqfDaFpyVkq6cwX0YR6fd_q-tt3sdfBzp5gSIpmuXFxT8yUm4jg8qU1wIbgyfP6g6l8iymQ&oh=6409cc9389ba2fffc4702d90e68c4192&oe=5B780998)
+### Mô hình thực thể - mối quan hệ 
+
+# Chương 3. Thiết kế 
+## Thiết kế kiến trúc phần mềm 
+Chương trình sẽ được thiết kế theo mô hình kiến trúc MVVM:
+* View: Là phần giao diện của ứng dụng để hiển thị dữ liệu và nhận tương tác của người dùng. Một điểm khác biệt so với các ứng dụng truyền thống là View trong mô hình này tích cực hơn. Nó có khả năng thực hiện các hành vi và phản hồi lại người dùng thông qua tính năng binding, command.
+* View Model: Lớp trung gian giữa View và Model. ViewModel có thể được xem là thành phần thay thế cho Controller trong mô hình MVC. Nó chứa các mã lệnh cần thiết để thực hiện data binding, command. 
+* Model: Là các đối tượng giúp truy xuất và thao tác trên dữ liệu thực sự.
+
+![alt text](https://scontent.fsgn5-4.fna.fbcdn.net/v/t1.15752-9/32762652_656808434661701_4704287531963777024_n.png?_nc_cat=0&_nc_eui2=AeFeiPapcFCPWJ4SxSr68lj-kmHz00e13wH9N38rIzSYjo7V9M5Kf4VXIMHmlyZ5b4-GAZ4d2FTHxxF9h9k6MrGy3pPqnSgL3Wku_4BAzdifOA&oh=ea4be55b99e4cff5116794033767a41a&oe=5B9048EB)
+## Thiết kế dữ liệu 
+### Tổng quan 
+![alt text](https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/32901750_656814607994417_3674429974397321216_n.png?_nc_cat=0&oh=780c5ed9f1d125aec7ea6178f38462f0&oe=5B91EA96)
+### Cách tạo database
+* Tổ chức dữ liệu theo SQLite. Lí do nhóm chọn SQLite là: …..
+    * Việc tổ chức dữ liệu cho từ điển khá quan trọng, và hơn hết là làm sao tổ chức thuận lợi cho    quá trình tìm kiếm. Do đó nhóm thực hiện đã chọn cách tổ chức theo SQLite trên nền Json
+    * Cấu trúc SQLite : được tổ chức với cặp (WordID,Definition)
+        * WorID: Là từ mà người dùng muốn tra
+        * Definition: là một mảng(1 file Json) chứa giá trị tương ứng với mỗi thành phần đó bao gồm: ID, Similar, Pronunciation, references,      definitions, extra_example, idioms,other_results(Phân tích).
+    * Cách tạo file Json: Dùng python script scrap dữ liệu trên trang oxford và chuyển dữ liệu vào file Json
+    ```python
+    def save(word, path):
+	""" write data to path in json format with filename is word id """
+	if word is not None:
+		filename = word['id']
+		cache_path = os.path.join(path, filename + '.json')
+		touch(cache_path)
+
+		with open(cache_path, 'w') as file:
+			json.dump(word, file, separators=(',', ':')) # minify
+    ```
+    * Giải thích chi tiết cách lấy dữ liệu:
+    * Dữ liệu sẽ được sắp xếp như thế này: 
+
+    ![alt text][logo]
+
+    [logo]:https://lh3.googleusercontent.com/iMpWdP00qERdQfgBbDGv13C2pmTPVfWsC372XsOMlAn-7xjYfAl8IhlKFPqmqmhR_g636kXT1Mn_f8mJuef4u23hyEIbhfr1d4I24g_4E3rKGIPznUCYEqhvsfj9vbvdhH1v_jfOMqbjqQmOm5vA6S2DhGEjKZPkJkiBQqGJkQ95OlcC-GDjaAS24HBOaLfuvxOUaVeiCI2uSQOI5Pxw-aCngI4N2uoyF1gl3JWCPjaY8b3NMZO5NNv8WTD7-DsVlEUy16556RftPdk8zAhDvk2YKBkeKqZwjNVoh6wm3PxIj16_iwmEy08p5jdb4DIzCxNxEukwu66LNkmNgbnnGS2ysWRQDK39UPdCNknsCmQ98jWCAl7eSuHoPbgwR-qJK5KCmnMR9n4So5DO-TZAS3BEPpMjd54eydXfEGZvzBr08v1Ou7LahQk2ABAocItaaP5-BMBA7MV9Io7k9dFyZN1mEZSKjscSikPXE47nxds8_RAqIcP2TR1p5C9suQeGyV0T0g9lh5JiZeWSYwDDqLI7IcDgYZvlX44I9IQIVshfNTocspnh58weT1gDUvBQA_otl9MJbNEQ5d9aL5JqawTAjYFjWu_sTfWkeLU=w144-h203-no
+    
+    * Giải thích (lấy ví dụ là từ letter):
+        * id: từ vựng (ví dụ: letter_1 (noun))
+        * similar: các loại từ khác liên quan (động từ, danh từ, tính từ) (ví dụ: letter_2 (verb))
+        * pronunciatons: phát âm theo Anh-Anh và Anh-Mỹ, đường dẫn file audio
+        * references
+        * definitions: bao gồm tất cả các định nghĩa của 1 từ và ví dụ của từng định nghĩa đó 
+            * Ví dụ: 
+                * Định nghĩa: a message that is written down or printed on paper and usually put in an envelope and sent to somebody
+                * Ví dụ của định nghĩa: a business/thank-you, etc. letter
+        * extra_examples: Là phần ví dụ bổ sung cho từ
+            * Ví dụ:
+                * A letter headed ‘Advertising Mania’ appeared in the paper.
+                * Apart from the occasional letter, they had not been in touch for years.
+                * Fill in the form in block letters.
+        * idioms: bao gồm các thành ngữ và định nghĩa, ví dụ cho mỗi thành ngữ đó
+            * Ví dụ:
+                * Thành ngữ: the letter of the law
+                * Định nghĩa cho thành ngữ:  the exact words of a law or rule rather than its general meaning
+                * Ví dụ cho thành ngữ: They insist on sticking to the letter of the law
+        * other_results: bao gồm các từ liên quan đi kèm với từ    
+## Thiết kế giao diện và thành phần xử lí của giao diện
+## Tổng thể về giao diện hệ thống 
