@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>EDictionary.Core</RootNamespace>
-    <AssemblyName>EDictionary.Core</AssemblyName>
+    <AssemblyName>EDictionary</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -216,6 +216,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Deployment\PostBuild.ps1" />
     <None Include="packages.config" />
@@ -247,12 +248,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\america.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\united.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EDictionary.Controls\EDictionary.Controls.csproj">
       <Project>{638f4620-a06a-4eba-966b-98dfdd30daa1}</Project>
       <Name>EDictionary.Controls</Name>
@@ -263,7 +258,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\search.png" />
+    <Resource Include="Resources\British.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\America.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

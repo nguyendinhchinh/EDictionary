@@ -51,7 +51,7 @@
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Image Source="../Resources/united.png"/>
+					<Image Source="../Resources/British.png"/>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
@@ -69,14 +69,14 @@
 
 	<Style TargetType="Button" x:Key="ButtonHistory" BasedOn="{StaticResource ButtonBaseStyle}">
 
-		<Setter Property="Background" Value="{StaticResource LightGray}"/>
+		<Setter Property="Background" Value="{StaticResource LightMagenta}"/>
 
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
-				<Setter Property="Background" Value="{StaticResource Gray}"/>
+				<Setter Property="Background" Value="{StaticResource Magenta}"/>
 			</Trigger>
 			<Trigger Property="Button.IsPressed" Value="True">
-				<Setter Property="Control.Background" Value="{StaticResource LightGray}"/>
+				<Setter Property="Control.Background" Value="{StaticResource LightMagenta}"/>
 			</Trigger>
 		</Style.Triggers>
 		 
@@ -113,7 +113,7 @@
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Image Source="../Resources/search.png"/>
+					<Image Source="../Resources/Search.png"/>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
