@@ -28,17 +28,39 @@
 		<Setter Property="ContentTemplate">
 			<Setter.Value>
 				<DataTemplate>
-					<Image Source="../Resources/america.png"/>
+					<Image Source="../Resources/America.png"/>
 				</DataTemplate>
 			</Setter.Value>
 		</Setter>
 
+		 
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
 				<Setter Property="Background" Value="{StaticResource Red}"/>
+					 
+				<Setter Property="ContentTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<Image Source="../Resources/AmericaHovered.png"/>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+
 			</Trigger>
+
+				
 			<Trigger Property="Button.IsPressed" Value="True">
+					 
 				<Setter Property="Control.Background" Value="{StaticResource LightRed}"/>
+					 
+				<Setter Property="ContentTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<Image Source="../Resources/America.png"/>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+					 
 			</Trigger>
 		</Style.Triggers>
 		 
@@ -56,12 +78,35 @@
 			</Setter.Value>
 		</Setter>
 
+		 
 		<Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="True">
+					 
 				<Setter Property="Background" Value="{StaticResource Blue}"/>
+
+				<Setter Property="ContentTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<Image Source="../Resources/BritishHovered.png"/>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+					 
 			</Trigger>
+
+				
 			<Trigger Property="Button.IsPressed" Value="True">
+					 
 				<Setter Property="Control.Background" Value="{StaticResource LightBlue}"/>
+
+				<Setter Property="ContentTemplate">
+					<Setter.Value>
+						<DataTemplate>
+							<Image Source="../Resources/British.png"/>
+						</DataTemplate>
+					</Setter.Value>
+				</Setter>
+					 
 			</Trigger>
 		</Style.Triggers>
 		 

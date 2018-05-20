@@ -266,6 +266,12 @@
   <ItemGroup>
     <Resource Include="Resources\Search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AmericaHovered.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BritishHovered.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>powershell -ExecutionPolicy RemoteSigned -NoLogo -NonInteractive -Command ".'$(ProjectDir)Deployment\PostBuild.ps1' -SolutionDir '$(SolutionDir)' -TargetDir '$(TargetDir)'"

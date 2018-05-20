@@ -73,9 +73,29 @@ namespace EDictionary.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap AmericaHovered {
+            get {
+                object obj = ResourceManager.GetObject("AmericaHovered", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap British {
             get {
                 object obj = ResourceManager.GetObject("British", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BritishHovered {
+            get {
+                object obj = ResourceManager.GetObject("BritishHovered", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
