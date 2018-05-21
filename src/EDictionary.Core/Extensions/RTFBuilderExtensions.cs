@@ -47,6 +47,9 @@ namespace EDictionary.Core.Extensions
 		{
 			foreach (var pron in prons)
 			{
+				if (pron.Prefix == null || pron.Ipa == null)
+					continue;
+
 				builder.ForeColor(ColorPicker.Color("LightMagenta"));
 				builder.FontStyle(System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic);
 				builder.Append(pron.Prefix);

@@ -174,7 +174,7 @@ def extract_data(word):
 		update_corrupted_words(word)
 		return (3, None)
 	else:
-		return (0, data['similar'])
+		return (0, data['similars'])
 
 def scrap(words, *, reference=True, force=False):
 	""" scrap list of words

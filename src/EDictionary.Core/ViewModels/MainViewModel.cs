@@ -261,7 +261,10 @@ namespace EDictionary.Core.ViewModels
 
 		private void UpdateHistory(Word word)
 		{
-			if (word != null && word != history.Current)
+			if (word == null)
+				return;
+
+			if (word != history.Current)
 				history.Add(word);
 
 			UpdateOtherResultList();

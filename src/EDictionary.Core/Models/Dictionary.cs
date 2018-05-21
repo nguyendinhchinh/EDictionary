@@ -69,9 +69,12 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			if (!WordList.Contains(word))
+			var wordIndex = WordList.FindIndex(x => x.Equals(word, StringComparison.OrdinalIgnoreCase));
+
+			if (wordIndex == -1)
 				return null;
 
+			word = WordList[wordIndex];
 			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word][0]);
 
 			if (result.Status != Status.Success)
