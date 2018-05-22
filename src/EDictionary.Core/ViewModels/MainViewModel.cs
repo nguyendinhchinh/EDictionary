@@ -1,6 +1,4 @@
-﻿using EDictionary.Core.Commands;
-using EDictionary.Core.Extensions;
-using EDictionary.Core.Models;
+﻿using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -159,16 +157,16 @@ namespace EDictionary.Core.ViewModels
 
 			SpellCheck.GetVocabulary(WordList);
 
-			SearchFromInputCommand = new SearchFromInputCommand(this);
-			SearchFromSelectionCommand = new SearchFromSelectionCommand(this);
-			SearchFromHighlightCommand = new SearchFromHighlightCommand(this);
-			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
+			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
+			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
+			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight, CanSearchFromHighlight);
+			UpdateWordlistIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
 
-			PlayNAmEAudioCommand = new PlayNAmEAudioCommand(this);
-			PlayBrEAudioCommand = new PlayBrEAudioCommand(this);
+			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
+			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);
 
-			NextHistoryCommand = new NextHistoryCommand(this);
-			PreviousHistoryCommand = new PreviousHistoryCommand(this);
+			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
+			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
 		}
 
 		#endregion
@@ -405,9 +403,14 @@ namespace EDictionary.Core.ViewModels
 
 		#region PlayAudio
 
-		public void PlayAudio(Dialect dialect)
+		public void PlayBrEAudio()
 		{
-			dictionary.PlayAudio(history.Current, dialect);
+			dictionary.PlayAudio(history.Current, Dialect.BrE);
+		}
+
+		public void PlayNAmEAudio()
+		{
+			dictionary.PlayAudio(history.Current, Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()
