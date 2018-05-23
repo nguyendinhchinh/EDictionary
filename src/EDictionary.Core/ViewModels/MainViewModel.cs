@@ -314,6 +314,9 @@ namespace EDictionary.Core.ViewModels
 
 			history.Next(ref word);
 			Definition = word.ToRTFString();
+
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
+			NextHistoryCommand.RaiseCanExecuteChanged();
 		}
 
 		public void PreviousHistory()
@@ -322,6 +325,9 @@ namespace EDictionary.Core.ViewModels
 
 			history.Previous(ref word);
 			Definition = word.ToRTFString();
+
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
+			NextHistoryCommand.RaiseCanExecuteChanged();
 		}
 
 		public bool CanGoToNextHistory()
