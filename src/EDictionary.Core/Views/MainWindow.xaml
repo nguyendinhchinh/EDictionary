@@ -1,5 +1,5 @@
 <simply:FlatWindow
-	x:Class="EDictionary.Core.Views.frmNormal"
+	x:Class="EDictionary.Core.Views.MainWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,7 +21,7 @@
 		<SolidColorBrush x:Key="CaptionColor" Color="White" />
 	</Window.Resources>
 
-	<Grid Loaded="Grid_Loaded">
+	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>
 			<RowDefinition Height="50"/>
@@ -50,7 +50,7 @@
 			<Button x:Name="btnSearch"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
-				Margin="0,9" RenderTransformOrigin="0.364,0.591"/>
+				Margin="0,9" RenderTransformOrigin="0.364,0.591" MouseEnter="btnSearch_MouseEnter"/>
 
 		</StackPanel>
 
@@ -113,6 +113,18 @@
 				Style="{StaticResource btnBrE}"
 				Margin="10, 0, 10, 0"
 				RenderTransformOrigin="0,0">
+			</Button>
+
+			<Button
+					 Style="{StaticResource ButtonBaseStyle}"
+					 Content="S"
+					 Command="{Binding OpenSettingCommand}">
+			</Button>
+
+			<Button
+					 Style="{StaticResource ButtonBaseStyle}"
+					 Content="A"
+					 Command="{Binding OpenAboutCommand}">
 			</Button>
 
 		</StackPanel>

@@ -165,6 +165,9 @@ namespace EDictionary.Core.ViewModels
 
 			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
 			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
+
+			OpenSettingCommand = new DelegateCommand(OpenSettings);
+			OpenAboutCommand = new DelegateCommand(OpenAbout);
 		}
 
 		#endregion
@@ -179,6 +182,22 @@ namespace EDictionary.Core.ViewModels
 		public DelegateCommand PlayBrEAudioCommand { get; private set; }
 		public DelegateCommand NextHistoryCommand { get; private set; }
 		public DelegateCommand PreviousHistoryCommand { get; private set; }
+		public DelegateCommand OpenSettingCommand { get; private set; }
+		public DelegateCommand OpenAboutCommand { get; private set; }
+
+		#endregion
+
+		#region Open Windows
+
+		private void OpenSettings()
+		{
+			ShowSettingsWindowAction.Invoke();
+		}
+
+		private void OpenAbout()
+		{
+			ShowAboutWindowAction.Invoke();
+		}
 
 		#endregion
 

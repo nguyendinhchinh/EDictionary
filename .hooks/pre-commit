@@ -11,3 +11,4 @@ echo
 
 git add README.md
 git add setup.cfg
+git add src/EDictionary.Core/Properties/AssemblyInfo.cs
