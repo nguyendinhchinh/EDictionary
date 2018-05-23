@@ -1,0 +1,53 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace EDictionary.Core.ViewModels
+{
+	/// <summary>
+	/// https://stackoverflow.com/a/36151255/9449426
+	/// </summary>
+	public abstract class ViewModelBase : INotifyPropertyChanged
+	{
+		#region INotifyPropertyChanged Implementation
+
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		/// <summary>
+		/// Notify the view that the property propertyName value has changed
+		/// 
+		/// the [CallerMemberName] attribute is not required, but it will allow to
+		/// write: OnPropertyChanged(); instead of OnPropertyChanged("SomeProperty");
+		/// </summary>
+		/// <param name="propertyName"></param>
+		protected virtual void NotifyPropertyChanged([CallerMemberName] string propertyName=null)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+
+		protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+		{
+			if (EqualityComparer<T>.Default.Equals(storage, value))
+				return false;
+
+			storage = value;
+
+			return true;
+		}
+		protected virtual bool SetPropertyAndNotify<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
+		{
+			var result = SetProperty(ref storage, value);
+
+			this.NotifyPropertyChanged(propertyName);
+
+			return result;
+		}
+
+		#endregion
+	}
+}

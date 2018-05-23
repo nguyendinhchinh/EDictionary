@@ -149,6 +149,7 @@
     <Compile Include="Utilities\WordContractResolver.cs" />
     <Compile Include="ViewModels\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -193,7 +194,7 @@
   <ItemGroup>
     <Compile Include="Models\Definition.cs" />
     <Compile Include="Models\DefinitionGroup.cs" />
-    <Compile Include="Models\Dictionary.cs" />
+    <Compile Include="Models\EDict.cs" />
     <Compile Include="Models\Idiom.cs" />
     <Compile Include="Models\Pronunciation.cs" />
     <Compile Include="Models\Reference.cs" />

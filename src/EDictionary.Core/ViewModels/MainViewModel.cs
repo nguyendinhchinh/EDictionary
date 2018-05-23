@@ -4,15 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels
 {
-	public class MainViewModel : IMainViewModel, INotifyPropertyChanged
+	public class MainViewModel : ViewModelBase, IMainViewModel
 	{
 		#region Fields
 
-		private Dictionary dictionary { get; set; }
+		private EDict dictionary { get; set; }
 		private History<Word> history;
 		private int wordListTopIndex;
 		private string currentWord;
@@ -46,11 +45,7 @@ namespace EDictionary.Core.ViewModels
 			}
 			set
 			{
-				if (value != wordListTopIndex)
-				{
-					wordListTopIndex = value;
-					NotifyPropertyChanged("WordListTopIndex");
-				}
+				SetPropertyAndNotify(ref wordListTopIndex, value);
 			}
 		}
 
@@ -62,11 +57,9 @@ namespace EDictionary.Core.ViewModels
 			}
 			set
 			{
-				if (value != currentWord)
+				if (SetProperty(ref currentWord, value))
 				{
-					currentWord = value;
 					UpdateWordlistTopIndex();
-
 					SearchFromInputCommand.RaiseCanExecuteChanged();
 				}
 			}
@@ -80,9 +73,8 @@ namespace EDictionary.Core.ViewModels
 			}
 			set
 			{
-				if (value != highlightedWord)
+				if (SetProperty(ref highlightedWord, value))
 				{
-					highlightedWord = value;
 					SearchFromHighlight();
 				}
 			}
@@ -96,10 +88,7 @@ namespace EDictionary.Core.ViewModels
 			}
 			set
 			{
-				if (value != definition)
-				{
-					selectedWord = value;
-				}
+				SetProperty(ref selectedWord, value);
 			}
 		}
 
@@ -112,11 +101,8 @@ namespace EDictionary.Core.ViewModels
 
 			set
 			{
-				if (value != definition)
+				if (SetPropertyAndNotify(ref definition, value))
 				{
-					definition = value;
-					NotifyPropertyChanged("Definition");
-
 					SearchFromSelectionCommand.RaiseCanExecuteChanged();
 					PlayBrEAudioCommand.RaiseCanExecuteChanged();
 					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
@@ -143,9 +129,8 @@ namespace EDictionary.Core.ViewModels
 				if (value == null)
 					return;
 
-				if (value != highlightedOtherResult)
+				if (SetProperty(ref highlightedOtherResult, value))
 				{
-					highlightedOtherResult = value;
 					SearchHighlightedOtherResult();
 				}
 			}
@@ -153,11 +138,18 @@ namespace EDictionary.Core.ViewModels
 
 		#endregion
 
+		#region Actions
+
+		public Action ShowSettingsWindowAction { get; set; }
+		public Action ShowAboutWindowAction { get; set; }
+
+		#endregion
+
 		#region Constructor
 
 		public MainViewModel()
 		{
-			dictionary = new Dictionary();
+			dictionary = new EDict();
 			history = new History<Word>();
 			otherResultNameToID = new Dictionary<string, string>();
 
@@ -173,22 +165,6 @@ namespace EDictionary.Core.ViewModels
 
 			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
 			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
-		}
-
-		#endregion
-
-		#region INotifyPropertyChanged Implementation
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		private void NotifyPropertyChanged(string propertyName)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-
-			if (handler != null)
-			{
-				handler(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 
 		#endregion
