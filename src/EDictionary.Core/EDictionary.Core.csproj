@@ -123,14 +123,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Commands\PlayBrEAudioCommand.cs" />
-    <Compile Include="Commands\PlayNAmEAudioCommand.cs" />
-    <Compile Include="Commands\SearchFromHighlightCommand.cs" />
-    <Compile Include="Commands\SearchFromInputCommand.cs" />
-    <Compile Include="Commands\SearchFromSelectionCommand.cs" />
-    <Compile Include="Commands\PreviousHistoryCommand.cs" />
-    <Compile Include="Commands\NextHistoryCommand.cs" />
-    <Compile Include="Commands\UpdateWordlistIndexCommand.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\DictionaryTable.cs" />
@@ -146,6 +138,7 @@
     </Compile>
     <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\ColorPicker.cs" />
+    <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Utilities\History.cs" />
     <Compile Include="Utilities\JsonHelper.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
