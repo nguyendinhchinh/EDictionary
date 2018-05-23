@@ -19,18 +19,17 @@
 ### Yêu cầu chức năng
 * Bảng tổng hợp và định danh các yêu cầu:   
 
-| Định danh  |     Hàm     | Độ ưu tiên  | Mô tả yêu cầu                                                          |
-|------------|-------------|-------------|------------------------------------------------------------------------|
-| Yêu cầu 1  |             |             |Đọc dữ liệu từ database về thông tin các từ                             |   
-| Yêu cầu 2  |             |             |Tìm kiếm từ vựng trong database của phần mềm                            |   
-| Yêu cầu 3  |             |             |Hiển thị định nghĩa của từ khi người dùng tra từ                        |   
-| Yêu cầu 4  |             |             |Phát âm từ vựng đã tra theo Anh–Anh và Anh-Mỹ                           |   
-| Yêu cầu 5  |             |             |Khi tra một từ, gợi ý các từ loại khác liên quan (động từ, danh từ, tính từ...)|
-| Yêu cầu 6  |             |             |Autocomplete phần đuôi khi gõ phần đầu của từ cần tra                   |   
-| Yêu cầu 7  |             |             |Khi nhập một từ tiếng anh không có trong từ điển, gợi ý các từ gần giống với từ đã tra|
-| Yêu cầu 8  |             |             |Các từ đã tra được lưu vào một tab lịch sử                              |   
-| Yêu cầu 9  |             |             |Chọn từ trong danh sách từ hiển thị ngay định nghĩa của từ              |
-| Yêu cầu 10 |             |             |Click vào một từ trong phần định nghĩa để dẫn đến định nghĩa của từ đó  |
+| Định danh  |               Hàm                  | Độ ưu tiên  | Mô tả yêu cầu                                                          |
+|:----------:|------------------------------------|:-----------:|------------------------------------------------------------------------|  
+| Yêu cầu 1  | SelectDefinitionFrom(string wordID)|    5        |Tìm kiếm từ vựng trong database của phần mềm                            |   
+| Yêu cầu 2  | SearchFromInput()                  |    5        |Hiển thị định nghĩa của từ khi người dùng tra từ                        |   
+| Yêu cầu 3  | PlayAudio()                        |    4        |Phát âm từ vựng đã tra theo Anh–Anh và Anh-Mỹ                           |   
+| Yêu cầu 4  | UpdateOtherResultList()            |    4        |Khi tra một từ, gợi ý các từ loại khác liên quan (động từ, danh từ, tính từ...)|
+| Yêu cầu 5  | UpdateWordlistTopIndex()           |    3        |Autocomplete phần đuôi khi gõ phần đầu của từ cần tra                   |   
+| Yêu cầu 6  | CorrectWord()                      |    3        |Khi nhập một từ tiếng anh không có trong từ điển, gợi ý các từ gần giống với từ đã tra|
+| Yêu cầu 7  | UpdateHistory()                    |    3        |Các từ đã tra được lưu vào một tab lịch sử                              |   
+| Yêu cầu 8  | SearchFromHighlight()              |    3        |Chọn từ trong danh sách từ hiển thị ngay định nghĩa của từ              |
+| Yêu cầu 9  | CanSearchFromSelection()	          |    3        |Click vào một từ trong phần định nghĩa để dẫn đến định nghĩa của từ đó  |
 ### Yêu cầu phi chức năng 
 
 |   Định danh	|   Độ ưu tiên	|   Mô tả yêu cầu	|
@@ -73,6 +72,14 @@ Chương trình sẽ được thiết kế theo mô hình kiến trúc MVVM:
 ## Thiết kế dữ liệu 
 ### Tổng quan 
 ![alt text](https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.15752-9/32901750_656814607994417_3674429974397321216_n.png?_nc_cat=0&oh=780c5ed9f1d125aec7ea6178f38462f0&oe=5B91EA96)
+
+* ID là phần định danh giữa các từ với nhau. Các từ trùng tên nhưng có nhiều wordform (như từ "work" vừa là động từ vừa danh từ) thì phần name vẫn là chữ work, còn bên ID sẽ chèn thêm số để phân biệt (vd động từ là work_1 còn danh từ là work_2)
+
+![alt text](https://raw.githubusercontent.com/ThanhLoc47/imageproject/master/work_1.PNG)
+![alt text](https://raw.githubusercontent.com/ThanhLoc47/imageproject/master/work_2.PNG)
+
+* Name là cột tên của từ mà người dùng sẽ nhìn thấy trong cột autocomplete của từ điển.
+* Definition là tất cả các định nghĩa, idiom, vd và các reference liên quan về từ có ID đó
 ### Cách tạo database
 * Tổ chức dữ liệu theo SQLite. Lí do nhóm chọn SQLite là: …..
     * Việc tổ chức dữ liệu cho từ điển khá quan trọng, và hơn hết là làm sao tổ chức thuận lợi cho    quá trình tìm kiếm. Do đó nhóm thực hiện đã chọn cách tổ chức theo SQLite trên nền Json
@@ -96,13 +103,13 @@ Chương trình sẽ được thiết kế theo mô hình kiến trúc MVVM:
 
     ![alt text][logo]
 
-    [logo]:https://lh3.googleusercontent.com/iMpWdP00qERdQfgBbDGv13C2pmTPVfWsC372XsOMlAn-7xjYfAl8IhlKFPqmqmhR_g636kXT1Mn_f8mJuef4u23hyEIbhfr1d4I24g_4E3rKGIPznUCYEqhvsfj9vbvdhH1v_jfOMqbjqQmOm5vA6S2DhGEjKZPkJkiBQqGJkQ95OlcC-GDjaAS24HBOaLfuvxOUaVeiCI2uSQOI5Pxw-aCngI4N2uoyF1gl3JWCPjaY8b3NMZO5NNv8WTD7-DsVlEUy16556RftPdk8zAhDvk2YKBkeKqZwjNVoh6wm3PxIj16_iwmEy08p5jdb4DIzCxNxEukwu66LNkmNgbnnGS2ysWRQDK39UPdCNknsCmQ98jWCAl7eSuHoPbgwR-qJK5KCmnMR9n4So5DO-TZAS3BEPpMjd54eydXfEGZvzBr08v1Ou7LahQk2ABAocItaaP5-BMBA7MV9Io7k9dFyZN1mEZSKjscSikPXE47nxds8_RAqIcP2TR1p5C9suQeGyV0T0g9lh5JiZeWSYwDDqLI7IcDgYZvlX44I9IQIVshfNTocspnh58weT1gDUvBQA_otl9MJbNEQ5d9aL5JqawTAjYFjWu_sTfWkeLU=w144-h203-no
+    [logo]: https://raw.githubusercontent.com/ThanhLoc47/imageproject/master/work_2.PNG
     
     * Giải thích (lấy ví dụ là từ letter):
         * id: từ vựng (ví dụ: letter_1 (noun))
         * similar: các loại từ khác liên quan (động từ, danh từ, tính từ) (ví dụ: letter_2 (verb))
         * pronunciatons: phát âm theo Anh-Anh và Anh-Mỹ, đường dẫn file audio
-        * references
+        * references: gồm các từ liên quan và các thành ngữ liên quan gắn với từ đó 
         * definitions: bao gồm tất cả các định nghĩa của 1 từ và ví dụ của từng định nghĩa đó 
             * Ví dụ: 
                 * Định nghĩa: a message that is written down or printed on paper and usually put in an envelope and sent to somebody
@@ -119,4 +126,11 @@ Chương trình sẽ được thiết kế theo mô hình kiến trúc MVVM:
                 * Ví dụ cho thành ngữ: They insist on sticking to the letter of the law
         * other_results: bao gồm các từ liên quan đi kèm với từ    
 ## Thiết kế giao diện và thành phần xử lí của giao diện
-## Tổng thể về giao diện hệ thống 
+* Giao diện chương trình 
+
+![](https://raw.githubusercontent.com/ThanhLoc47/imageproject/master/giaodien.PNG)
+
+* Mô tả thành phần giao diện: 
+* Giao diện search chương trình
+
+![](https://raw.githubusercontent.com/ThanhLoc47/imageproject/master/giaodienkhisearch.PNG)
