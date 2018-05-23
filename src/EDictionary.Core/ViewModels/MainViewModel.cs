@@ -66,6 +66,8 @@ namespace EDictionary.Core.ViewModels
 				{
 					currentWord = value;
 					UpdateWordlistTopIndex();
+
+					SearchFromInputCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -114,6 +116,10 @@ namespace EDictionary.Core.ViewModels
 				{
 					definition = value;
 					NotifyPropertyChanged("Definition");
+
+					SearchFromSelectionCommand.RaiseCanExecuteChanged();
+					PlayBrEAudioCommand.RaiseCanExecuteChanged();
+					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -159,7 +165,7 @@ namespace EDictionary.Core.ViewModels
 
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
 			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
-			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight, CanSearchFromHighlight);
+			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight);
 			UpdateWordlistIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
 
 			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
@@ -189,53 +195,14 @@ namespace EDictionary.Core.ViewModels
 
 		#region Commands
 
-		public ICommand SearchFromInputCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand SearchFromSelectionCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand SearchFromHighlightCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand UpdateWordlistIndexCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PlayNAmEAudioCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PlayBrEAudioCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand NextHistoryCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PreviousHistoryCommand
-		{
-			get;
-			private set;
-		}
+		public DelegateCommand SearchFromInputCommand { get; private set; }
+		public DelegateCommand SearchFromSelectionCommand { get; private set; }
+		public DelegateCommand SearchFromHighlightCommand { get; private set; }
+		public DelegateCommand UpdateWordlistIndexCommand { get; private set; }
+		public DelegateCommand PlayNAmEAudioCommand { get; private set; }
+		public DelegateCommand PlayBrEAudioCommand { get; private set; }
+		public DelegateCommand NextHistoryCommand { get; private set; }
+		public DelegateCommand PreviousHistoryCommand { get; private set; }
 
 		#endregion
 
@@ -266,6 +233,9 @@ namespace EDictionary.Core.ViewModels
 				history.Add(word);
 
 			UpdateOtherResultList();
+
+			NextHistoryCommand.RaiseCanExecuteChanged();
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
 		}
 
 		#endregion
@@ -356,11 +326,6 @@ namespace EDictionary.Core.ViewModels
 				Definition = word.ToRTFString();
 
 			UpdateHistory(word);
-		}
-
-		public bool CanSearchFromHighlight()
-		{
-			return true;
 		}
 
 		#endregion
