@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace EDictionary.Core.Models
 {
-	public class Dictionary
+	public class EDict
 	{
 		private readonly string audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 		private DataAccess dataAccess = new DataAccess();
@@ -17,7 +17,7 @@ namespace EDictionary.Core.Models
 		public Dictionary<string, List<string>> NameToIDs { get; set; }
 		public List<string> WordList { get; set; }
 
-		public Dictionary()
+		public EDict()
 		{
 			NameToIDs = new Dictionary<string, List<string>>();
 			List<string> wordIDs = GetWordIDList();
@@ -81,6 +81,20 @@ namespace EDictionary.Core.Models
 			{
 				LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
 				return null;
+			}
+
+			// TODO: Set default Prefix when scraping
+			for (int i = 0; i < result.Data.Pronunciations.Count(); i++)
+			{
+				var pron = result.Data.Pronunciations[i];
+
+				if (pron.Prefix == null)
+				{
+					if (pron.Filename.Contains("__gb"))
+						pron.Prefix = "BrE";
+					else
+						pron.Prefix = "NAmE";
+				}
 			}
 
 			return result.Data;
