@@ -1,6 +1,4 @@
-﻿using EDictionary.Core.Commands;
-using EDictionary.Core.Extensions;
-using EDictionary.Core.Models;
+﻿using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -68,6 +66,8 @@ namespace EDictionary.Core.ViewModels
 				{
 					currentWord = value;
 					UpdateWordlistTopIndex();
+
+					SearchFromInputCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -116,6 +116,10 @@ namespace EDictionary.Core.ViewModels
 				{
 					definition = value;
 					NotifyPropertyChanged("Definition");
+
+					SearchFromSelectionCommand.RaiseCanExecuteChanged();
+					PlayBrEAudioCommand.RaiseCanExecuteChanged();
+					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -159,16 +163,16 @@ namespace EDictionary.Core.ViewModels
 
 			SpellCheck.GetVocabulary(WordList);
 
-			SearchFromInputCommand = new SearchFromInputCommand(this);
-			SearchFromSelectionCommand = new SearchFromSelectionCommand(this);
-			SearchFromHighlightCommand = new SearchFromHighlightCommand(this);
-			UpdateWordlistIndexCommand = new UpdateWordlistIndexCommand(this);
+			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
+			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
+			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight);
+			UpdateWordlistIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
 
-			PlayNAmEAudioCommand = new PlayNAmEAudioCommand(this);
-			PlayBrEAudioCommand = new PlayBrEAudioCommand(this);
+			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
+			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);
 
-			NextHistoryCommand = new NextHistoryCommand(this);
-			PreviousHistoryCommand = new PreviousHistoryCommand(this);
+			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
+			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
 		}
 
 		#endregion
@@ -191,53 +195,14 @@ namespace EDictionary.Core.ViewModels
 
 		#region Commands
 
-		public ICommand SearchFromInputCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand SearchFromSelectionCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand SearchFromHighlightCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand UpdateWordlistIndexCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PlayNAmEAudioCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PlayBrEAudioCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand NextHistoryCommand
-		{
-			get;
-			private set;
-		}
-
-		public ICommand PreviousHistoryCommand
-		{
-			get;
-			private set;
-		}
+		public DelegateCommand SearchFromInputCommand { get; private set; }
+		public DelegateCommand SearchFromSelectionCommand { get; private set; }
+		public DelegateCommand SearchFromHighlightCommand { get; private set; }
+		public DelegateCommand UpdateWordlistIndexCommand { get; private set; }
+		public DelegateCommand PlayNAmEAudioCommand { get; private set; }
+		public DelegateCommand PlayBrEAudioCommand { get; private set; }
+		public DelegateCommand NextHistoryCommand { get; private set; }
+		public DelegateCommand PreviousHistoryCommand { get; private set; }
 
 		#endregion
 
@@ -268,6 +233,9 @@ namespace EDictionary.Core.ViewModels
 				history.Add(word);
 
 			UpdateOtherResultList();
+
+			NextHistoryCommand.RaiseCanExecuteChanged();
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
 		}
 
 		#endregion
@@ -360,11 +328,6 @@ namespace EDictionary.Core.ViewModels
 			UpdateHistory(word);
 		}
 
-		public bool CanSearchFromHighlight()
-		{
-			return true;
-		}
-
 		#endregion
 
 		#region History
@@ -405,9 +368,14 @@ namespace EDictionary.Core.ViewModels
 
 		#region PlayAudio
 
-		public void PlayAudio(Dialect dialect)
+		public void PlayBrEAudio()
 		{
-			dictionary.PlayAudio(history.Current, dialect);
+			dictionary.PlayAudio(history.Current, Dialect.BrE);
+		}
+
+		public void PlayNAmEAudio()
+		{
+			dictionary.PlayAudio(history.Current, Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()
