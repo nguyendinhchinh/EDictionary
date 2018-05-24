@@ -249,7 +249,7 @@ namespace EDictionary.Vendors.RTF
                 bool replaceuni = false;
                 for (int i = 0; i < value.Length; i++)
                 {
-                    if (value[i] > 255)
+                    if (value[i] > 127)
                     {
                         replaceuni = true;
                         break;
@@ -261,10 +261,15 @@ namespace EDictionary.Vendors.RTF
 
                     for (int i = 0; i < value.Length; i++)
                     {
-                        if (value[i] <= 255)
+                        if (value[i] < 128)
                         {
                             sb.Append(value[i]);
                         }
+								else if (127 < value[i] && value[i] <= 255)
+								{
+									sb.Append("\\'");
+									sb.Append(((int)value[i]).ToString("X2"));
+								}
                         else
                         {
                             sb.Append("\\u");
