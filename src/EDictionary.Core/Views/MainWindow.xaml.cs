@@ -24,7 +24,7 @@ namespace EDictionary.Core.Views
 
 		private void btnSearch_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
 		{
-			PopupWindow popUp = new PopupWindow();
+			// PopupWindow popUp = new PopupWindow();
 
 			//popUp.Show();
 		}
