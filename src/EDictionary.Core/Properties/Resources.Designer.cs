@@ -111,6 +111,26 @@ namespace EDictionary.Core.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Oswald_Light {
+            get {
+                object obj = ResourceManager.GetObject("Oswald_Light", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Quicksand_Regular {
+            get {
+                object obj = ResourceManager.GetObject("Quicksand_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap RightArrow {
@@ -127,6 +147,36 @@ namespace EDictionary.Core.Properties {
             get {
                 object obj = ResourceManager.GetObject("Search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SourceSansPro_Regular {
+            get {
+                object obj = ResourceManager.GetObject("SourceSansPro_Regular", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SourceSansPro_SemiBold {
+            get {
+                object obj = ResourceManager.GetObject("SourceSansPro_SemiBold", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TitilliumWeb_SemiBold {
+            get {
+                object obj = ResourceManager.GetObject("TitilliumWeb_SemiBold", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

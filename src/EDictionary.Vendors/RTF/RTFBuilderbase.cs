@@ -54,7 +54,7 @@ namespace EDictionary.Vendors.RTF
         {
 
             _rawFonts = new StringCollection();
-            this._font = IndexOfFont(defaultFont);
+            //this._font = IndexOfFont(defaultFont);
             this._defaultFontSize = defaultFontSize;
             this._fontSize = this._defaultFontSize;
             this._defaultforecolor = SystemColors.WindowText;

@@ -23,10 +23,7 @@ namespace EDictionary.Core.Utilities
 		{
 			System.Windows.Media.SolidColorBrush brush = (System.Windows.Media.SolidColorBrush)colorDict[key];
 
-			return System.Drawing.Color.FromArgb(brush.Color.A,
-															 brush.Color.R,
-															 brush.Color.G,
-															 brush.Color.B);
+			return System.Drawing.Color.FromArgb(brush.Color.A, brush.Color.R, brush.Color.G, brush.Color.B);
 		}
 	}
 }

@@ -139,4 +139,19 @@
   <data name="BritishHovered" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BritishHovered.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Oswald_Light" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\Oswald-Light.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SourceSansPro_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\SourceSansPro-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SourceSansPro_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\SourceSansPro-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Quicksand_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\Quicksand-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TitilliumWeb_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\TitilliumWeb-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>
