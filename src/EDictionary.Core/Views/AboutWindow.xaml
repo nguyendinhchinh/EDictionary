@@ -9,7 +9,8 @@
 	WindowStartupLocation="CenterScreen"
 	ResizeMode="NoResize"
 	Height="300"
-	Width="400">
+	Width="400"
+  Style="{StaticResource CustomAboutWindowStyle}">
 
 	<Grid>
 		<Label

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace WpfStyleableWindow.StyleableWindow
+namespace EDictionary.Core.StyleableWindow
 {
     public static class SystemMenuManager
     {        
