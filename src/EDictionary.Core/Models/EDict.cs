@@ -69,6 +69,8 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
+			word = word.Trim().ToLower();
+
 			var wordIndex = WordList.FindIndex(x => x.Equals(word, StringComparison.OrdinalIgnoreCase));
 
 			if (wordIndex == -1)

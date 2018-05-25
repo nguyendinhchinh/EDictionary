@@ -54,6 +54,7 @@
       <HintPath>..\packages\FlatWindow.1.0.2\lib\FlatWindow.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Windows.Shell, Version=3.0.50506.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\FlatWindow.1.0.2\lib\Microsoft.Windows.Shell.dll</HintPath>
       <Private>True</Private>
@@ -87,6 +88,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />

@@ -8,6 +8,7 @@
 	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 	xmlns:simply="clr-namespace:Simply;assembly=FlatWindow"
 	mc:Ignorable="d"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -35,15 +36,18 @@
 
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 			<TextBox x:Name="txtSearch"
-				Text="{Binding CurrentWord, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+				Text="{Binding CurrentWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				Margin="10,0,-1,0"
 				VerticalAlignment="Center">
 
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="KeyUp">
+						<i:InvokeCommandAction Command="{Binding UpdateWordlistIndexCommand}" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+
 				<TextBox.InputBindings>
 					<KeyBinding Command="{Binding SearchFromInputCommand}" Key="Enter"/>
-					<!--<KeyBinding Command="{Binding UpdateWordlistIndexCommand}"/>-->
-
-					<KeyBinding Key="Tab" Command="{Binding TabKeyCommand}"/>
 				</TextBox.InputBindings>
 			</TextBox>
 

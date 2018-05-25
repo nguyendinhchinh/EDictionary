@@ -14,7 +14,7 @@ namespace EDictionary.Core.ViewModels
 		private EDict dictionary { get; set; }
 		private History<Word> history;
 		private int wordListTopIndex;
-		private string currentWord;
+		private string currentWord = "";
 		private string highlightedWord;
 		private string selectedWord;
 		private string definition;
@@ -53,13 +53,12 @@ namespace EDictionary.Core.ViewModels
 		{
 			get
 			{
-				return currentWord.Trim().ToLower();
+				return currentWord;
 			}
 			set
 			{
-				if (SetProperty(ref currentWord, value))
+				if (SetPropertyAndNotify(ref currentWord, value))
 				{
-					UpdateWordlistTopIndex();
 					SearchFromInputCommand.RaiseCanExecuteChanged();
 				}
 			}
@@ -76,6 +75,7 @@ namespace EDictionary.Core.ViewModels
 				if (SetProperty(ref highlightedWord, value))
 				{
 					SearchFromHighlight();
+					CurrentWord = HighlightedWord;
 				}
 			}
 		}
