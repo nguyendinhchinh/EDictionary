@@ -56,20 +56,27 @@
 			VerticalAlignment="Top"/>
 
 		<Label
-			Content="Source Code:"
 			HorizontalAlignment="Left"
-			Margin="20,220,0,0"
-			VerticalAlignment="Top"/>
-
-		<Label
-			HorizontalAlignment="Left"
-			Margin="100,220,0,0"
-			VerticalAlignment="Top">
+			Margin="5,0,0,5"
+			VerticalAlignment="Bottom">
 			<Hyperlink
 					 NavigateUri="{Binding SourceCodeURL}"
 					 Command="{Binding OpenSourceCodeCommand}">
 				<Hyperlink.Inlines>
-					<Run Text="{Binding SourceCodeURL}"/>
+					<Run Text="Source Code"/>
+				</Hyperlink.Inlines>
+			</Hyperlink>
+		</Label>
+
+		<Label
+			HorizontalAlignment="Right"
+			Margin="5,0,0,5"
+			VerticalAlignment="Bottom">
+			<Hyperlink
+					 NavigateUri="{Binding BugReportURL}"
+					 Command="{Binding OpenBugReportCommand}">
+				<Hyperlink.Inlines>
+					<Run Text="Report Bug?"/>
 				</Hyperlink.Inlines>
 			</Hyperlink>
 		</Label>

@@ -3,8 +3,9 @@
 	public interface IAboutViewModel
 	{
 		string Version { get; }
-		string Authors { get; set; }
-		string License { get; set; }
-		string SourceCodeURL { get; set; }
+		string Authors { get; }
+		string License { get; }
+		string SourceCodeURL { get; }
+		string BugReportURL { get; }
 	}
 }
