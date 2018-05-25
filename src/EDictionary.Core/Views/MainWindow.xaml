@@ -55,7 +55,7 @@
 			<Button x:Name="btnSearch"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
-				Margin="0,9" RenderTransformOrigin="0.364,0.591" MouseEnter="btnSearch_MouseEnter"/>
+				Margin="0,9" RenderTransformOrigin="0.364,0.591"/>
 
 		</StackPanel>
 

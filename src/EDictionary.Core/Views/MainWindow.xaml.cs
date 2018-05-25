@@ -22,13 +22,6 @@ namespace EDictionary.Core.Views
 			viewModel.ShowAboutWindowAction = new Action(this.ShowAboutWindow);
 		}
 
-		private void btnSearch_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-		{
-			// PopupWindow popUp = new PopupWindow();
-
-			//popUp.Show();
-		}
-
 		private void ShowSettingsWindow()
 		{
 			var settings = new SettingsWindow();

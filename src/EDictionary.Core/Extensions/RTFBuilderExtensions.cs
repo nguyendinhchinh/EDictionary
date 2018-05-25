@@ -1,26 +1,28 @@
 ﻿using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
-using System;
-using System.Collections;
-using System.Drawing;
-using System.Linq;
-using System.Windows;
 
 namespace EDictionary.Core.Extensions
 {
 	public static class RTFBuilderExtensions
 	{
-		public static RTFBuilder AppendTitle(this RTFBuilder builder, string word, string wordform)
-		{
-			builder.AppendLine();
+		public static int titleFontSize = 40;
+		public static int headerFontSize = 25;
+		public static int defaultFontSize = 10;
 
-			builder.FontSize(40);
+		public static RTFBuilder AppendTitle(this RTFBuilder builder, string word)
+		{
+			builder.FontSize(titleFontSize);
 			builder.FontStyle(System.Drawing.FontStyle.Bold);
 			builder.ForeColor(ColorPicker.Color("LightCyan"));
 			builder.Append(word);
 
-			builder.FontSize(25);
+			return builder;
+		}
+
+		public static RTFBuilder AppendWordform(this RTFBuilder builder, string wordform)
+		{
+			builder.FontSize(headerFontSize);
 			builder.ForeColor(ColorPicker.Color("Cyan"));
 			builder.AppendLine("  " + wordform);
 
@@ -31,14 +33,12 @@ namespace EDictionary.Core.Extensions
 
 		public static RTFBuilder AppendHeadline(this RTFBuilder builder, string str)
 		{
-			builder.FontSize(25);
+			builder.FontSize(headerFontSize);
 			builder.FontStyle(System.Drawing.FontStyle.Bold);
 			builder.ForeColor(ColorPicker.Color("Yellow"));
 
-			builder.AppendLine();
 			builder.AppendLine(str);
 			builder.AppendLine();
-			//builder.FontSize(20);
 
 			return builder;
 		}
@@ -104,7 +104,9 @@ namespace EDictionary.Core.Extensions
 
 			if (definition.Label != null)
 			{
+				builder.FontStyle(System.Drawing.FontStyle.Bold);
 				builder.ForeColor(ColorPicker.Color("Gray"));
+
 				if (definition.Label[0] != '(')
 					builder.Append($"({definition.Label}) ");
 				else
@@ -158,6 +160,8 @@ namespace EDictionary.Core.Extensions
 
 			foreach (var example in extraExamples)
 				builder.AppendLine(bullet + example);
+
+			builder.AppendLine();
 
 			return builder;
 		}

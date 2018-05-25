@@ -16,11 +16,25 @@ namespace EDictionary.Core.Models
 		public string[] ExtraExamples { get; set; }
 		public Idiom[] Idioms { get; set; }
 
-		public string ToRTFString()
+		public string ToRTFString(bool mini=false)
 		{
-			RTFBuilder builder = new RTFBuilder();
+			if (mini)
+			{
+				RTFBuilderExtensions.defaultFontSize = 18;
+				RTFBuilderExtensions.titleFontSize = 22;
+				RTFBuilderExtensions.headerFontSize = 20;
+			}
+			else
+			{
+				RTFBuilderExtensions.defaultFontSize = 25;
+				RTFBuilderExtensions.titleFontSize = 40;
+				RTFBuilderExtensions.headerFontSize = 28;
+			}
 
-			builder.AppendTitle(Name, Wordform);
+			RTFBuilder builder = new RTFBuilder(defaultFontSize: RTFBuilderExtensions.defaultFontSize);
+
+			builder.AppendTitle(Name);
+			builder.AppendWordform(Wordform);
 			builder.AppendPronunciation(Pronunciations);
 			builder.AppendReferences(References);
 			builder.AppendDefinitionGroups(DefinitionsExamples);

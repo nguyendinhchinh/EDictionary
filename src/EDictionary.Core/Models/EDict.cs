@@ -69,14 +69,13 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			word = word.Trim().ToLower();
+			var index = SearchIndex(word);
 
-			var wordIndex = WordList.FindIndex(x => x.Equals(word, StringComparison.OrdinalIgnoreCase));
-
-			if (wordIndex == -1)
+			if (index == -1)
 				return null;
+			else
+				word = WordList[index].Trim().ToLower();
 
-			word = WordList[wordIndex];
 			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word][0]);
 
 			if (result.Status != Status.Success)
@@ -100,6 +99,11 @@ namespace EDictionary.Core.Models
 			}
 
 			return result.Data;
+		}
+
+		private int SearchIndex(string word)
+		{
+			return WordList.FindIndex(x => x.Equals(word, StringComparison.OrdinalIgnoreCase));
 		}
 
 		public Word SearchID(string wordID)
