@@ -146,7 +146,6 @@
     <Compile Include="Styles\Utilities\WindowMaximizeCommand.cs" />
     <Compile Include="Styles\Utilities\WindowMinimizeCommand.cs" />
     <Compile Include="Styles\Utilities\WindowResizeBehavior.cs" />
-    <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
     <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\ColorPicker.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
