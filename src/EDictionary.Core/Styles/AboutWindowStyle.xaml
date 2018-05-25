@@ -50,7 +50,7 @@
 						<ColumnDefinition Width="75"/>
 					</Grid.ColumnDefinitions>
 					<Label Grid.Column="1" DockPanel.Dock="Right" Content="{TemplateBinding Property=Title}" Padding="3,0,0,0"                                                                                  
-                                   Foreground="{StaticResource LightGray}"                                           
+                                   Foreground="{StaticResource Light}"                                           
                                    FontSize="16"
 							       VerticalAlignment="Top"
 							       HorizontalAlignment="Left">
