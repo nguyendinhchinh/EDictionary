@@ -138,14 +138,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Styles\Utilities\ControlDoubleClickBehavior.cs" />
+    <Compile Include="Styles\Utilities\ShowSystemMenuBehavior.cs" />
+    <Compile Include="Styles\Utilities\SystemMenuManager.cs" />
+    <Compile Include="Styles\Utilities\WindowCloseCommand.cs" />
+    <Compile Include="Styles\Utilities\WindowDragBehavior.cs" />
+    <Compile Include="Styles\Utilities\WindowMaximizeCommand.cs" />
+    <Compile Include="Styles\Utilities\WindowMinimizeCommand.cs" />
+    <Compile Include="Styles\Utilities\WindowResizeBehavior.cs" />
     <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
-    <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
-    <Compile Include="StyleableWindow\SystemMenuManager.cs" />
-    <Compile Include="StyleableWindow\WindowCloseCommand.cs" />
-    <Compile Include="StyleableWindow\WindowDragBehavior.cs" />
-    <Compile Include="StyleableWindow\WindowMaximizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowMinimizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowResizeBehavior.cs" />
     <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\ColorPicker.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
@@ -172,10 +173,6 @@
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Styles\AboutWindowStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\Buttons.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,10 +201,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\MainWindowStyle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Styles\RichTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Texts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Windows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

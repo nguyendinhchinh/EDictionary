@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EDictionary.Core.StyleableWindow
+namespace EDictionary.Core.Styles.Utilities
 {
     public static class ControlDoubleClickBehavior
     {

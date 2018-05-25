@@ -3,14 +3,91 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:EDictionary.Core.Views"
+				xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+				xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Settings"
 				WindowStartupLocation="CenterScreen"
 				ResizeMode="NoResize"
-				Height="354"
-				Width="426">
+				Height="350"
+				Width="300"
+				Style="{StaticResource ChildWindow}">
+
+	<!--<Window.Resources>
+		<SolidColorBrush x:Key="WindowBackground" Color="#2c3e50" />
+		<SolidColorBrush x:Key="CaptionColor" Color="White" />
+	</Window.Resources>-->
+
 	<Grid>
+		 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		 
+		<Label Grid.Row="0" 
+				Content="Interval"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Margin="-70,0,0,0"/>
+
+		<toolkit:DateTimeUpDown Grid.Row="0"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Center"
+				Height="20"
+				Width="55"
+				Format="Custom"
+				FormatString="HH:mm tt"
+				Value="00:30"
+				Margin="50,0,0,0" />
+
+		<Button
+				Style="{StaticResource ButtonBaseStyle}"
+				Margin="0,0,5,0"
+				HorizontalAlignment="Right"/>
+
+		<GroupBox Grid.Row="1"
+				Header="Word List"
+				HorizontalAlignment="Center"
+				Height="220"
+				Margin="0,0,0,0"
+				VerticalAlignment="Center"
+				Width="217">
+			<Grid>
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="30"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="85"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<RadioButton Grid.Row="0" Grid.Column="0"
+							Content="All"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Left"
+							Margin="10,0,0,0"/>
+
+				<RadioButton Grid.Row="1" Grid.Column="0"
+							Content="Custom"
+							VerticalAlignment="Top"
+							HorizontalAlignment="Left"
+							Margin="10,10,0,0"/>
+
+				<control:ExpandedListView Grid.Row="1" Grid.Column="1"
+							x:Name="lbxOtherResult"
+							SelectedItem="{Binding HighlightedOtherResult}"
+							ItemsSource="{Binding OtherResults}"
+							Width="100"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Left"													
+							Margin="10,10,0,10"/>
+
+			</Grid>
+		</GroupBox>
 
 	</Grid>
 </Window>

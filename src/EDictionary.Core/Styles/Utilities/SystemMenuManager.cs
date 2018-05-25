@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace EDictionary.Core.StyleableWindow
+namespace EDictionary.Core.Styles.Utilities
 {
     public static class SystemMenuManager
     {        

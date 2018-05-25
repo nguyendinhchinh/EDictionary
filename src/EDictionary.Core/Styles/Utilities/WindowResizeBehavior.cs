@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 
-namespace EDictionary.Core.StyleableWindow
+namespace EDictionary.Core.Styles.Utilities
 {
     public static class WindowResizeBehavior
     {

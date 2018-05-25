@@ -10,7 +10,7 @@
 	ResizeMode="NoResize"
 	Height="300"
 	Width="400"
-  Style="{StaticResource CustomAboutWindowStyle}">
+  Style="{StaticResource ChildWindow}">
 
 	<Grid>
 		<Label

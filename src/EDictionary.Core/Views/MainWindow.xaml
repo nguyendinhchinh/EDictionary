@@ -18,15 +18,17 @@
 	Width="650"
   Title="E-Dictionary"
   Icon="../Resources/E-Dictionary.ico"
-  Style="{StaticResource CustomWindowStyle}">
+  Style="{StaticResource ParentWindow}">
 
 	<Grid>
+
 		<Grid.RowDefinitions>
 			<RowDefinition Height="20"/>
 			<RowDefinition Height="50"/>
 			<RowDefinition Height="40"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
+		 
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="135" Width="135"/>
 			<ColumnDefinition MinWidth ="250" Width="*"/>

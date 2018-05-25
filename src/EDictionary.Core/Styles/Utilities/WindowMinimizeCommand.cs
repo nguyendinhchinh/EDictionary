@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace EDictionary.Core.StyleableWindow
+namespace EDictionary.Core.Styles.Utilities
 {
     public class WindowMinimizeCommand :ICommand
     {     

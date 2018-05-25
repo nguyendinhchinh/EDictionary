@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace EDictionary.Core.StyleableWindow
+namespace EDictionary.Core.Styles.Utilities
 {
     public static class WindowDragBehavior
     {
