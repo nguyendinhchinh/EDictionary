@@ -14,45 +14,46 @@
 
 	<Grid>
 		<Label
-			Content="Big ass Logo"
+			Content="Free Dictionary English"
+		  Foreground="{StaticResource Light}"
 			HorizontalAlignment="Left"
-			Margin="150,50,0,0"
+			Margin="146,62,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="Version:"
 			HorizontalAlignment="Left"
-			Margin="20,100,0,0"
+			Margin="146,100,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="{Binding Version}"
 			HorizontalAlignment="Left"
-			Margin="100,100,0,0"
+			Margin="193,100,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="Authors:"
 			HorizontalAlignment="Left"
-			Margin="20,130,0,0"
+			Margin="146,125,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="{Binding Authors}"
 			HorizontalAlignment="Left"
-			Margin="100,130,0,0"
+			Margin="146,140,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="License:"
 			HorizontalAlignment="Left"
-			Margin="20,190,0,0"
+			Margin="146,197,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
 			Content="{Binding License}"
 			HorizontalAlignment="Left"
-			Margin="100,190,0,0"
+			Margin="194,197,0,0"
 			VerticalAlignment="Top"/>
 
 		<Label
