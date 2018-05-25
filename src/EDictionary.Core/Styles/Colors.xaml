@@ -27,5 +27,8 @@
 	
 	<SolidColorBrush x:Key="DarkBlue" Color="#2c3e50"/>
 	<SolidColorBrush x:Key="GrayBlue" Color="#374d64"/>
+  <SolidColorBrush x:Key="MediumGrayBlue" Color="#31455a"/>
+
+  <SolidColorBrush x:Key="Light" Color="#f7f9f9"/>
 
 </ResourceDictionary>

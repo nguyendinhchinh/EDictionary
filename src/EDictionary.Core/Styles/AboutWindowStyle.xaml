@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:core="clr-namespace:EDictionary.Core"
+                    xmlns:styleableWindow="clr-namespace:EDictionary.Core"
+                    xmlns:styleableWindow1="clr-namespace:EDictionary.Core.StyleableWindow">
+
+	<!--The window template and it's components -->
+  <styleableWindow1:WindowCloseCommand x:Key="CloseCommand"></styleableWindow1:WindowCloseCommand>
+
+	<Style TargetType="{x:Type Button}" x:Key="WindowButton">
+		<Setter Property="Height" Value="25"/>
+		<Setter Property="Width" Value="25"/>
+		<Setter Property="Background" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="Foreground" Value="{StaticResource Gray}"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="HorizontalAlignment" Value="Right"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Button}">
+					<Border Background="{TemplateBinding Background}">
+						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+					</Border>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsEnabled" Value="False">
+							<Setter Property="Foreground" Value="{StaticResource LightGray}"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Foreground" Value="{StaticResource Light}"/>
+						</Trigger>
+						<Trigger Property="IsPressed" Value="True">
+							<Setter Property="Foreground" Value="{StaticResource Gray}"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
+		<Grid Background="#31455a">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="30"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0" Margin="5,0,5,0">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="75"/>
+					</Grid.ColumnDefinitions>
+					<Label Grid.Column="1" DockPanel.Dock="Right" Content="{TemplateBinding Property=Title}" Padding="3,0,0,0"                                                                                  
+                                   Foreground="{StaticResource LightGray}"                                           
+                                   FontSize="16"
+							       VerticalAlignment="Top"
+							       HorizontalAlignment="Left">
+					</Label>
+					<Button Grid.Column="2" Style ="{StaticResource WindowButton}"  Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">✕</Button>
+
+				</Grid>
+
+				<Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+					<Grid>
+						<AdornerDecorator>
+							<ContentPresenter x:Name="WindowContent"/>
+						</AdornerDecorator>
+						<ResizeGrip  x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
+					</Grid>
+				</Border>
+			</Grid>
+		</Grid>
+	</ControlTemplate>
+
+	<!--the custom style window-->
+	<Style x:Key="CustomAboutWindowStyle" TargetType="{x:Type Window}">
+		<Setter Property="WindowStyle" Value="None"/>
+		<Setter Property="AllowsTransparency" Value="True"/>
+		<Setter Property="Background" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="BorderThickness" Value="0"/>
+		<Setter Property="Foreground" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
+	</Style>
+
+</ResourceDictionary>
