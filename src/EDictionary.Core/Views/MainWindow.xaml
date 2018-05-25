@@ -9,6 +9,7 @@
 	xmlns:simply="clr-namespace:Simply;assembly=FlatWindow"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -73,11 +74,12 @@
 				ItemsSource="{Binding WordList}"
 				Margin="0, 10, 0, 10">
 
-				<!--<control:ExpandedListView.InputBindings>
-				<MouseBinding
-							MouseAction="LeftDoubleClick"
-							Command="{Binding SearchFromHighlightCommand}" />
-			</control:ExpandedListView.InputBindings>-->
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<i:InvokeCommandAction Command="{Binding SearchFromHighlightCommand}" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+
 			</control:ExpandedListView>
 
 			<control:ExpandedListView x:Name="lbxOtherResult"
@@ -86,6 +88,13 @@
 				ItemsSource="{Binding OtherResults}"
 				Height="65"
 				VerticalAlignment="Bottom">
+
+				<i:Interaction.Triggers>
+					<i:EventTrigger EventName="MouseDoubleClick">
+						<i:InvokeCommandAction Command="{Binding SearchHighlightedOtherResultCommand}" />
+					</i:EventTrigger>
+				</i:Interaction.Triggers>
+
 			</control:ExpandedListView>
 		</Grid>
 

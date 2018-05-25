@@ -74,7 +74,6 @@ namespace EDictionary.Core.ViewModels
 			{
 				if (SetProperty(ref highlightedWord, value))
 				{
-					SearchFromHighlight();
 					CurrentWord = HighlightedWord;
 				}
 			}
@@ -126,13 +125,7 @@ namespace EDictionary.Core.ViewModels
 			}
 			set
 			{
-				if (value == null)
-					return;
-
-				if (SetProperty(ref highlightedOtherResult, value))
-				{
-					SearchHighlightedOtherResult();
-				}
+				SetProperty(ref highlightedOtherResult, value);
 			}
 		}
 
@@ -166,6 +159,8 @@ namespace EDictionary.Core.ViewModels
 			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
 			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
 
+			SearchHighlightedOtherResultCommand = new DelegateCommand(SearchHighlightedOtherResult, CanSearchHighlightedOtherResult);
+
 			OpenSettingCommand = new DelegateCommand(OpenSettings);
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
 		}
@@ -181,6 +176,7 @@ namespace EDictionary.Core.ViewModels
 		public DelegateCommand PlayNAmEAudioCommand { get; private set; }
 		public DelegateCommand PlayBrEAudioCommand { get; private set; }
 		public DelegateCommand NextHistoryCommand { get; private set; }
+		public DelegateCommand SearchHighlightedOtherResultCommand { get; private set; }
 		public DelegateCommand PreviousHistoryCommand { get; private set; }
 		public DelegateCommand OpenSettingCommand { get; private set; }
 		public DelegateCommand OpenAboutCommand { get; private set; }
@@ -405,6 +401,14 @@ namespace EDictionary.Core.ViewModels
 				otherResultNameToID.Add(similarWord.Replace('_', ' '), similarWord);
 			}
 			NotifyPropertyChanged("OtherResults");
+		}
+
+		public bool CanSearchHighlightedOtherResult()
+		{
+			if (HighlightedOtherResult == null)
+				return false;
+
+			return true;
 		}
 
 		public void SearchHighlightedOtherResult()
