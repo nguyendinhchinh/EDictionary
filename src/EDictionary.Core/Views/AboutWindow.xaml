@@ -15,7 +15,7 @@
 	<Grid>
 		<Label
 			Content="Free Dictionary English"
-		  Foreground="{StaticResource Light}"
+		  Foreground="{StaticResource White}"
 			HorizontalAlignment="Left"
 			Margin="146,62,0,0"
 			VerticalAlignment="Top"/>

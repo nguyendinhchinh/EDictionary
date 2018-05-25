@@ -1,34 +1,60 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-	<SolidColorBrush x:Key="Red" Color="#c0392b"/>
-	<SolidColorBrush x:Key="LightRed" Color="#e74c3c"/>
+	<Color x:Key="RedColor">#C0392B</Color>
+	<Color x:Key="LightRedColor">#E74C3C</Color>
 
-	<SolidColorBrush x:Key="Blue" Color="#2980b9"/>
-	<SolidColorBrush x:Key="LightBlue" Color="#3498db"/>
+	<Color x:Key="BlueColor">#2980B9</Color>
+	<Color x:Key="LightBlueColor">#3498DB</Color>
 
-	<SolidColorBrush x:Key="Gray" Color="#7f8c8d"/>
-	<SolidColorBrush x:Key="LightGray" Color="#95a5a6"/>
+	<Color x:Key="GrayColor">#7F8C8D</Color>
+	<Color x:Key="LightGrayColor">#95A5A6</Color>
 
-	<SolidColorBrush x:Key="Yellow" Color="#f39c12"/>
-	<SolidColorBrush x:Key="LightYellow" Color="#f1c40f"/>
+	<Color x:Key="YellowColor">#F39C12</Color>
+	<Color x:Key="LightYellowColor">#F1C40F</Color>
 
-	<SolidColorBrush x:Key="Silver" Color="#bdc3c7"/>
-	<SolidColorBrush x:Key="White" Color="#ecf0f1"/>
+	<Color x:Key="SilverColor">#BDC3C7</Color>
+	<Color x:Key="WhiteColor">#ECF0F1</Color>
 
-	<SolidColorBrush x:Key="Cyan" Color="#007f7f"/>
-	<SolidColorBrush x:Key="LightCyan" Color="#1abc9c"/>
+	<Color x:Key="CyanColor">#007F7F</Color>
+	<Color x:Key="LightCyanColor">#1ABC9C</Color>
+
+	<Color x:Key="OrangeColor">#D35400</Color>
+	<Color x:Key="LightOrangeColor">#E67E22</Color>
+
+	<Color x:Key="MagentaColor">#8e44ad</Color>
+	<Color x:Key="LightMagentaColor">#9b59b6</Color>
+
+	<Color x:Key="BlackColor">#2c3e50</Color>
+	<Color x:Key="DarkColor">#374d64</Color>
+	<Color x:Key="Dark2Color">#31455a</Color>
+
+	<SolidColorBrush x:Key="Red" Color="{StaticResource RedColor}"/>
+	<SolidColorBrush x:Key="LightRed" Color="{StaticResource LightRedColor}"/>
+
+	<SolidColorBrush x:Key="Blue" Color="{StaticResource BlueColor}"/>
+	<SolidColorBrush x:Key="LightBlue" Color="{StaticResource LightBlueColor}"/>
+
+	<SolidColorBrush x:Key="Gray" Color="{StaticResource GrayColor}"/>
+	<SolidColorBrush x:Key="LightGray" Color="{StaticResource LightGrayColor}"/>
+
+	<SolidColorBrush x:Key="Yellow" Color="{StaticResource YellowColor}"/>
+	<SolidColorBrush x:Key="LightYellow" Color="{StaticResource LightYellowColor}"/>
+
+	<SolidColorBrush x:Key="Silver" Color="{StaticResource SilverColor}"/>
+	<SolidColorBrush x:Key="White" Color="{StaticResource WhiteColor}"/>
+
+	<SolidColorBrush x:Key="Cyan" Color="{StaticResource CyanColor}"/>
+	<SolidColorBrush x:Key="LightCyan" Color="{StaticResource LightCyanColor}"/>
 	
-	<SolidColorBrush x:Key="Orange" Color="#d35400"/>
-	<SolidColorBrush x:Key="LightOrange" Color="#e67e22"/>
+	<SolidColorBrush x:Key="Orange" Color="{StaticResource OrangeColor}"/>
+	<SolidColorBrush x:Key="LightOrange" Color="{StaticResource LightOrangeColor}"/>
 
-	<SolidColorBrush x:Key="Magenta" Color="#8e44ad"/>
-	<SolidColorBrush x:Key="LightMagenta" Color="#9b59b6"/>
+	<SolidColorBrush x:Key="Magenta" Color="{StaticResource MagentaColor}"/>
+	<SolidColorBrush x:Key="LightMagenta" Color="{StaticResource LightMagentaColor}"/>
 	
-	<SolidColorBrush x:Key="DarkBlue" Color="#2c3e50"/>
-	<SolidColorBrush x:Key="GrayBlue" Color="#374d64"/>
-  <SolidColorBrush x:Key="MediumGrayBlue" Color="#31455a"/>
-
-  <SolidColorBrush x:Key="Light" Color="#f7f9f9"/>
+	<SolidColorBrush x:Key="Black" Color="{StaticResource BlackColor}"/>
+	<SolidColorBrush x:Key="Dark" Color="{StaticResource DarkColor}"/>
+	<SolidColorBrush x:Key="Dark2" Color="{StaticResource Dark2Color}"/>
 
 </ResourceDictionary>

@@ -18,7 +18,7 @@
 	<Style TargetType="{x:Type Button}" x:Key="WindowButton">
 		<Setter Property="Height" Value="25"/>
 		<Setter Property="Width" Value="25"/>
-		<Setter Property="Background" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="Background" Value="{StaticResource Dark2}"/>
 		<Setter Property="Foreground" Value="{StaticResource Gray}"/>
 		<Setter Property="VerticalAlignment" Value="Top"/>
 		<Setter Property="HorizontalAlignment" Value="Right"/>
@@ -33,7 +33,7 @@
 							<Setter Property="Foreground" Value="{StaticResource LightGray}"/>
 						</Trigger>
 						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Foreground" Value="{StaticResource Light}"/>
+							<Setter Property="Foreground" Value="{StaticResource White}"/>
 						</Trigger>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter Property="Foreground" Value="{StaticResource Gray}"/>
@@ -60,14 +60,14 @@
 				<BeginStoryboard>
 					<Storyboard>
 						<DoubleAnimation Storyboard.TargetProperty="(Window.Opacity)"
-							From="0.0" To="1.0" Duration="0:0:0.2"
+							From="0.0" To="1.0" Duration="0:0:0.3"
 							AutoReverse="False"/>
 					</Storyboard>
 				</BeginStoryboard>
 			</EventTrigger>
 		</ControlTemplate.Triggers>
 
-		<Grid Background="{StaticResource DarkBlue}">
+		<Grid Background="{StaticResource Black}">
 			<Grid>
 
 				<!-- Title bar and the rest of window -->
@@ -101,7 +101,7 @@
 						VerticalContentAlignment="Center"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Top"
-						Foreground="{StaticResource Light}"
+						Foreground="{StaticResource White}"
 						FontSize="16"
 						win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
 						win:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
@@ -133,20 +133,20 @@
 		<Setter Property="WindowStyle" Value="None"/>
 		<Setter Property="AllowsTransparency" Value="True"/>
 		<Setter Property="BorderThickness" Value="0"/>
-		<Setter Property="Foreground" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="Foreground" Value="{StaticResource Dark2}"/>
 
 		<!-- Custom title bar, effects... -->
 		<Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
 	</Style>
 
 	<Style TargetType="Window" x:Key="ParentWindow" BasedOn="{StaticResource WindowBaseStyle}">
-		<Setter Property="Background" Value="{StaticResource DarkBlue}"/>
-		<Setter Property="BorderBrush" Value="{StaticResource GrayBlue}"/>
+		<Setter Property="Background" Value="{StaticResource Black}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Dark}"/>
 	</Style>
 
 	<Style TargetType="Window" x:Key="ChildWindow" BasedOn="{StaticResource WindowBaseStyle}">
-		<Setter Property="Background" Value="{StaticResource MediumGrayBlue}"/>
-		<Setter Property="BorderBrush" Value="{StaticResource MediumGrayBlue}"/>
+		<Setter Property="Background" Value="{StaticResource Dark2}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Dark2}"/>
 	</Style>
 
 </ResourceDictionary>

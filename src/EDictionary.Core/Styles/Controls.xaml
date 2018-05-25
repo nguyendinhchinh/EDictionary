@@ -3,7 +3,8 @@
                     xmlns:local="clr-namespace:EDictionary.Core.Styles">
 	
 	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-		<Setter Property="BorderBrush" Value="{x:Null}"/>
+		<!--<Setter Property="BorderBrush" Value="Transparent" />-->
+		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
 	</Style>

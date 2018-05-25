@@ -7,7 +7,7 @@
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
 
-		<Setter Property="Background" Value="{StaticResource GrayBlue}"/>
+		<Setter Property="Background" Value="{StaticResource Dark}"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 
 		<Style.Resources>
