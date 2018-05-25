@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using System.Text;
 
-namespace EDictionary.Core.ViewModels
+namespace EDictionary.Core.ViewModels.AboutViewModel
 {
 	public class AboutViewModel : ViewModelBase, IAboutViewModel
 	{

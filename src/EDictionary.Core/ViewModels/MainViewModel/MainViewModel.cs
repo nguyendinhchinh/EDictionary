@@ -2,10 +2,9 @@
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 
-namespace EDictionary.Core.ViewModels
+namespace EDictionary.Core.ViewModels.MainViewModel
 {
 	public class MainViewModel : ViewModelBase, IMainViewModel
 	{

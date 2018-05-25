@@ -157,11 +157,11 @@
     <Compile Include="Utilities\SpellCheck.cs" />
     <Compile Include="Utilities\Stemmer.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
-    <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\IAboutViewModel.cs" />
-    <Compile Include="ViewModels\IMainViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\PopupViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel\IAboutViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel\IMainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModels\PopupViewModel\PopupViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>

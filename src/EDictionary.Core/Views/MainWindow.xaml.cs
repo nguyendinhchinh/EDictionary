@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.ViewModels;
+﻿using EDictionary.Core.ViewModels.MainViewModel;
 using System;
 
 namespace EDictionary.Core.Views

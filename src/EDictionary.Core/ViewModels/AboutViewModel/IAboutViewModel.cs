@@ -1,4 +1,4 @@
-﻿namespace EDictionary.Core.ViewModels
+﻿namespace EDictionary.Core.ViewModels.AboutViewModel
 {
 	public interface IAboutViewModel
 	{

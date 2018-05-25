@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.ViewModels;
+﻿using EDictionary.Core.ViewModels.PopupViewModel;
 using System.Windows;
 
 namespace EDictionary.Core.Views

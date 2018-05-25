@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 
-namespace EDictionary.Core.ViewModels
+namespace EDictionary.Core.ViewModels.PopupViewModel
 {
 	public class PopupViewModel : ViewModelBase
 	{
