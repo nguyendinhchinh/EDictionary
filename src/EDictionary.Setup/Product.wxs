@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	
+	<?define EDictionary.Vendors_TargetDir=$(var.EDictionary.Vendors.TargetDir)?>
+	<?define EDictionary.Controls_TargetDir=$(var.EDictionary.Controls.TargetDir)?>
+	<?define EDictionary.Core_TargetDir=$(var.EDictionary.Core.TargetDir)?>
+	
+	<Product Id="48981cf8-40d9-4714-bad7-1690acd03ccf" Name="EDictionary" Language="1033" Version="1.0.0.0" Manufacturer="CryptoHub" UpgradeCode="c41a8b19-a246-4dda-8273-e2d746d5aa23">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<Icon Id="AppIcon" SourceFile="$(var.ProjectDir)E-Dictionary.ico" />
+		<Property Id="ARPPRODUCTICON" Value="AppIcon" />
+		
+		<WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\..\..\LICENSE.rtf" />
+
+		<UIRef Id="WixUI_InstallDir" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="EDictionary" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentRef Id="ApplicationShortcut" />
+			<ComponentRef Id="ApplicationShortcutDesktop" />
+			<ComponentGroupRef Id="Fonts_files" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="EDictionary">
+					<Directory Id="Fonts" Name="Fonts" />
+				</Directory>
+
+				<Directory Id="ProgramMenuFolder">
+					<Directory Id="ApplicationProgramsFolder" Name="EDictionary"/>
+				</Directory>
+
+				<Directory Id="DesktopFolder" Name="Desktop"/>
+			</Directory>
+		</Directory>
+
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+	</Fragment>
+
+	<Fragment>
+		<DirectoryRef Id="ApplicationProgramsFolder">
+			<Component Id="ApplicationShortcut" Guid="9bd13330-6540-406f-a3a8-d7f7c69ae7f9">
+				<Shortcut Id="ApplicationStartMenuShortcut" Name="EDictionary" Description="Free English Dictionary" Target="[INSTALLFOLDER]EDictionary.exe" WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="RemoveApplicationProgramsFolder" Directory="ApplicationProgramsFolder" On="uninstall" />
+				<RegistryValue Root="HKCU" Key="Software\EDictionary" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+		<DirectoryRef Id="DesktopFolder">
+			<Component Id="ApplicationShortcutDesktop" Guid="cde1e030-eb64-49a5-b7b8-400b379c2d1a">
+				<Shortcut Id="ApplicationDesktopShortcut" Name="EDictionary" Description="Free English Dictionary" Target="[INSTALLFOLDER]EDictionary.exe" WorkingDirectory="INSTALLFOLDER" />
+				<RemoveFolder Id="RemoveDesktopFolder" Directory="DesktopFolder" On="uninstall" />
+				<RegistryValue Root="HKCU" Key="Software\EDictionary" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<!-- <Component Id="ProductComponent"> -->
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+			<!-- </Component> -->
+			<Component Id="EDictionary.Vendors.dll" Guid="1181d8d3-929b-4be9-9a23-bf4b51e5dcec">
+			  <File Id="EDictionary.Vendors.dll" Name="EDictionary.Vendors.dll" Source="$(var.EDictionary.Vendors_TargetDir)EDictionary.Vendors.dll" />
+			</Component>
+			<Component Id="EDictionary.Controls.dll" Guid="39ee50f4-24e4-42db-959a-bed2da18c174">
+			  <File Id="EDictionary.Controls.dll" Name="EDictionary.Controls.dll" Source="$(var.EDictionary.Controls_TargetDir)EDictionary.Controls.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.Toolkit.dll" Guid="6491ba6c-c6a3-490a-8f54-dbb9434fe62e">
+			  <File Id="Xceed.Wpf.Toolkit.dll" Name="Xceed.Wpf.Toolkit.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.Toolkit.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.DataGrid.dll" Guid="71128d2f-6c1b-439b-bb98-5ac5f722c4a8">
+			  <File Id="Xceed.Wpf.DataGrid.dll" Name="Xceed.Wpf.DataGrid.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.DataGrid.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Guid="b6c0a827-81be-40fa-8933-5042f3d201d3">
+			  <File Id="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Name="Xceed.Wpf.AvalonDock.Themes.VS2010.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.AvalonDock.Themes.VS2010.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Guid="095b8930-ae32-4bcf-b4a4-e6fe79ca6f7e">
+			  <File Id="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Name="Xceed.Wpf.AvalonDock.Themes.Metro.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.AvalonDock.Themes.Metro.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Guid="4450f588-43fa-4ca8-99fc-793f89b07c30">
+			  <File Id="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Name="Xceed.Wpf.AvalonDock.Themes.Aero.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.AvalonDock.Themes.Aero.dll" />
+			</Component>
+			<Component Id="Xceed.Wpf.AvalonDock.dll" Guid="692d6ab9-2ba8-4f69-b011-534bc6c38f7e">
+			  <File Id="Xceed.Wpf.AvalonDock.dll" Name="Xceed.Wpf.AvalonDock.dll" Source="$(var.EDictionary.Core_TargetDir)Xceed.Wpf.AvalonDock.dll" />
+			</Component>
+			<Component Id="System.Data.SQLite.Linq.dll" Guid="a0030aa3-b9f7-4f8b-82d4-d48e19e3c146">
+			  <File Id="System.Data.SQLite.Linq.dll" Name="System.Data.SQLite.Linq.dll" Source="$(var.EDictionary.Core_TargetDir)System.Data.SQLite.Linq.dll" />
+			</Component>
+			<Component Id="System.Data.SQLite.EF6.dll" Guid="7342eee5-631b-4fa4-b555-26b7b380d79d">
+			  <File Id="System.Data.SQLite.EF6.dll" Name="System.Data.SQLite.EF6.dll" Source="$(var.EDictionary.Core_TargetDir)System.Data.SQLite.EF6.dll" />
+			</Component>
+			<Component Id="System.Data.SQLite.dll" Guid="2f8506df-b4f4-4968-b2f8-8679446bbfe0">
+			  <File Id="System.Data.SQLite.dll" Name="System.Data.SQLite.dll" Source="$(var.EDictionary.Core_TargetDir)System.Data.SQLite.dll" />
+			</Component>
+			<Component Id="EDictionary.exe" Guid="827d3aee-6524-443f-bd58-5d686df5a7ba">
+			  <File Id="EDictionary.exe" Name="EDictionary.exe" Source="$(var.EDictionary.Core_TargetDir)EDictionary.exe" />
+			</Component>
+			<Component Id="EDictionary.exe.config" Guid="9c5365b7-e2ce-4439-b81f-14a6e244d402">
+			  <File Id="EDictionary.exe.config" Name="EDictionary.exe.config" Source="$(var.EDictionary.Core_TargetDir)EDictionary.exe.config" />
+			</Component>
+			<Component Id="EntityFramework.SqlServer.dll" Guid="e2f23411-f602-4182-9bbf-cf1561cbb109">
+			  <File Id="EntityFramework.SqlServer.dll" Name="EntityFramework.SqlServer.dll" Source="$(var.EDictionary.Core_TargetDir)EntityFramework.SqlServer.dll" />
+			</Component>
+			<Component Id="EntityFramework.dll" Guid="578c9686-1197-41b3-a297-cdb0041d4d32">
+			  <File Id="EntityFramework.dll" Name="EntityFramework.dll" Source="$(var.EDictionary.Core_TargetDir)EntityFramework.dll" />
+			</Component>
+			<Component Id="FlatWindow.dll" Guid="a6bbab84-0432-419e-b29a-3c7e8198bfd5">
+			  <File Id="FlatWindow.dll" Name="FlatWindow.dll" Source="$(var.EDictionary.Core_TargetDir)FlatWindow.dll" />
+			</Component>
+			<Component Id="Microsoft.Windows.Shell.dll" Guid="04177076-ba52-4ac5-8acd-adddd707fb55">
+			  <File Id="Microsoft.Windows.Shell.dll" Name="Microsoft.Windows.Shell.dll" Source="$(var.EDictionary.Core_TargetDir)Microsoft.Windows.Shell.dll" />
+			</Component>
+			<Component Id="Newtonsoft.Json.dll" Guid="d7dc1827-06b6-400b-9bed-f662f70a6d55">
+			  <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.EDictionary.Core_TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+			<Component Id="StemmersNet.dll" Guid="68d17b3b-3bd5-4216-83ef-bb6e0d0d93f8">
+			  <File Id="StemmersNet.dll" Name="StemmersNet.dll" Source="$(var.EDictionary.Core_TargetDir)StemmersNet.dll" />
+			</Component>
+			<Component Id="StyleCop.dll" Guid="ccb261b0-94ba-46c1-bddf-38734c75ebef">
+			  <File Id="StyleCop.dll" Name="StyleCop.dll" Source="$(var.EDictionary.Core_TargetDir)StyleCop.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="Fonts_files" Directory="Fonts">
+      <Component Id="Fonts_Oswald_Light.ttf" Guid="3983f517-2aaa-46a0-947b-fbd275426e7f">
+        <File Id="Fonts_Oswald_Light.ttf" Name="Oswald-Light.ttf" Source="$(var.EDictionary.Core_TargetDir)Fonts\Oswald-Light.ttf" />
+      </Component>
+      <Component Id="Fonts_SourceSansPro_SemiBold.ttf" Guid="f9a4c5f5-7686-4e64-bd39-372a7d3628ad">
+        <File Id="Fonts_SourceSansPro_SemiBold.ttf" Name="SourceSansPro-SemiBold.ttf" Source="$(var.EDictionary.Core_TargetDir)Fonts\SourceSansPro-SemiBold.ttf" />
+      </Component>
+      <Component Id="Fonts_SourceSansPro_Regular.ttf" Guid="8e9c8575-5c14-4265-8f72-c97a6300c04b">
+        <File Id="Fonts_SourceSansPro_Regular.ttf" Name="SourceSansPro-Regular.ttf" Source="$(var.EDictionary.Core_TargetDir)Fonts\SourceSansPro-Regular.ttf" />
+      </Component>
+      <Component Id="Fonts_TitilliumWeb_SemiBold.ttf" Guid="cb42af95-b7f5-4da7-a6ae-e2c5ab627f85">
+        <File Id="Fonts_TitilliumWeb_SemiBold.ttf" Name="TitilliumWeb-SemiBold.ttf" Source="$(var.EDictionary.Core_TargetDir)Fonts\TitilliumWeb-SemiBold.ttf" />
+      </Component>
+      <Component Id="Fonts_Quicksand_Regular.ttf" Guid="da64f3d4-eb79-482d-81f3-e68f6706dbd4">
+        <File Id="Fonts_Quicksand_Regular.ttf" Name="Quicksand-Regular.ttf" Source="$(var.EDictionary.Core_TargetDir)Fonts\Quicksand-Regular.ttf" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+</Wix>
