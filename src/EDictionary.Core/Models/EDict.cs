@@ -1,5 +1,6 @@
 using EDictionary.Core.Data;
 using EDictionary.Core.Extensions;
+using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
 using System;

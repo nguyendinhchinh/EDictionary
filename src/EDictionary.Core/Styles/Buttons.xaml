@@ -8,8 +8,6 @@
 		<Setter Property="Background" Value="{StaticResource LightCyan}"/>
 		<Setter Property="Foreground" Value="{StaticResource Cyan}"/>
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
-		<Setter Property="Width" Value="22"/>
-		<Setter Property="Height" Value="22"/>
 
 		<!-- Need this for hover event to work -->
 		<Setter Property="Template">
@@ -30,7 +28,7 @@
 				<BeginStoryboard>
 					<Storyboard>
 						<ColorAnimation To="{StaticResource ExtraLightCyanColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color" />
-						<ColorAnimation To="{StaticResource LightCyanColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
+						<ColorAnimation To="{StaticResource CyanColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
 					</Storyboard>
 				</BeginStoryboard>
 			</EventTrigger>
@@ -48,9 +46,18 @@
 	</Style>
 
 	<Style TargetType="Button" x:Key="IconButton" BasedOn="{StaticResource ButtonBase}">
+		<Setter Property="Width" Value="24"/>
+		<Setter Property="Height" Value="24"/>
 		<Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
 	</Style>
 
+	<Style TargetType="Button" x:Key="TextButton" BasedOn="{StaticResource ButtonBase}">
+		<Setter Property="Width" Value="80"/>
+		<Setter Property="Height" Value="25"/>
+		<Setter Property="Foreground" Value="{StaticResource White}"/>
+		<Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+	</Style>
+	
 	<Style TargetType="Button" x:Key="SpeakerButton" BasedOn="{StaticResource IconButton}">
 		 
 		<Setter Property="Background" Value="Transparent"/>

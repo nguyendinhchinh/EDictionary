@@ -1,4 +1,5 @@
 using EDictionary.Core.Extensions;
+using EDictionary.Core.Models.WordComponents;
 using EDictionary.Vendors.RTF;
 using System.Drawing;
 

@@ -12,7 +12,6 @@
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-	xmlns:fa="http://schemas.fontawesome.io/icons/"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -44,6 +43,7 @@
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 
 			<TextBox x:Name="txtSearch"
+				Style="{StaticResource TextBoxBase}"
 				extension:FocusExtension.IsFocused="{Binding IsTextBoxFocus, Mode=TwoWay}"
 				Text="{Binding CurrentWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				Margin="10,0,-1,0"
@@ -64,7 +64,8 @@
 				Content="{Binding SearchIcon, Converter={StaticResource ResourceConverter}, UpdateSourceTrigger=Explicit}"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource SearchButton}"
-				Margin="0,9"/>
+				VerticalAlignment="Center"
+				Margin="0,0"/>
 
 		</StackPanel>
 
@@ -119,7 +120,7 @@
 			<StackPanel Grid.Column="0" Orientation="Horizontal">
 
 				<Button x:Name="btnPrevHistory"
-					Margin="0,0,10,0"
+					Margin="0,0,5,0"
 					HorizontalAlignment="Left"
 					Command="{Binding PreviousHistoryCommand}"
 					Style="{StaticResource PrevButton}">
@@ -129,7 +130,7 @@
 					HorizontalAlignment="Left"
 					Command="{Binding NextHistoryCommand}"
 					Style="{StaticResource NextButton}"
-					Margin="0,0,10,0">
+					Margin="0,0,5,0">
 				</Button>
 
 			</StackPanel>

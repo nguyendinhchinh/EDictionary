@@ -1,5 +1,7 @@
 ﻿using EDictionary.Core.Utilities;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Text;
 
@@ -31,6 +33,7 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 
 			OpenSourceCodeCommand = new DelegateCommand(OpenSourceCode);
 			OpenBugReportCommand = new DelegateCommand(OpenBugReport);
+			OpenLicenseCommand = new DelegateCommand(OpenLicense);
 		}
 
 		private string GetAuthors()
@@ -46,6 +49,7 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 
 		public DelegateCommand OpenSourceCodeCommand { get; private set; }
 		public DelegateCommand OpenBugReportCommand { get; private set; }
+		public DelegateCommand OpenLicenseCommand { get; private set; }
 
 		private void OpenSourceCode()
 		{
@@ -55,6 +59,13 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 		private void OpenBugReport()
 		{
 			System.Diagnostics.Process.Start(BugReportURL);
+		}
+
+		private void OpenLicense()
+		{
+			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE.rtf");
+
+			Process.Start(path);
 		}
 	}
 }

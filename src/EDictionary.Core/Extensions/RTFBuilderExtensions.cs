@@ -1,4 +1,4 @@
-﻿using EDictionary.Core.Models;
+﻿using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
 

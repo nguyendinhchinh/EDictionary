@@ -1,4 +1,4 @@
-namespace EDictionary.Core.Models
+namespace EDictionary.Core.Models.WordComponents
 {
 	public class Reference
 	{

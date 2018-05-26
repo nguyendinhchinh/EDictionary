@@ -25,14 +25,19 @@ namespace EDictionary.Core.Views
 
 		private void ShowSettingsWindow()
 		{
-			var settings = new SettingsWindow();
-			settings.ShowDialog();
+			var settingsWindow = new SettingsWindow();
+
+			// Make child window always on top of this window but not all other windows
+			settingsWindow.Owner = Application.Current.MainWindow;
+			settingsWindow.ShowDialog();
 		}
 
 		private void ShowAboutWindow()
 		{
-			var about = new AboutWindow();
-			about.ShowDialog();
+			var aboutWindow = new AboutWindow();
+
+			aboutWindow.Owner = Application.Current.MainWindow;
+			aboutWindow.ShowDialog();
 		}
 	}
 }

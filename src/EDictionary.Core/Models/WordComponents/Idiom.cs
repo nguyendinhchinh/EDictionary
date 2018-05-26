@@ -2,7 +2,7 @@ using EDictionary.Vendors.RTF;
 using System;
 using System.Linq;
 
-namespace EDictionary.Core.Models
+namespace EDictionary.Core.Models.WordComponents
 {
 	public class Idiom
 	{

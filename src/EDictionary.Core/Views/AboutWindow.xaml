@@ -13,6 +13,7 @@
   Style="{StaticResource ChildWindow}">
 
 	<Grid>
+
 		<Label
 			Content="Free Dictionary English"
 		  Foreground="{StaticResource White}"
