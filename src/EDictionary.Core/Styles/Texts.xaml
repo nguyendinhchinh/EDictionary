@@ -3,8 +3,11 @@
 	
 	<Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}">
 		<Setter Property="VerticalAlignment" Value="Center"/>
+
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 		<Setter Property="Background" Value="{StaticResource Dark}"/>
+		<Setter Property="CaretBrush" Value="{StaticResource LightCyan}"/>
+
 		<Setter Property="Padding" Value="3.25" />
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="Height" Value="22"/>

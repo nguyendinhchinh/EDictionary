@@ -6,6 +6,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+	xmlns:extension="clr-namespace:EDictionary.Core.Extensions"
 	xmlns:simply="clr-namespace:Simply;assembly=FlatWindow"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
@@ -36,6 +37,7 @@
 
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 			<TextBox x:Name="txtSearch"
+				extension:FocusExtension.IsFocused="{Binding IsTextBoxFocus, Mode=TwoWay}"
 				Text="{Binding CurrentWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 				Margin="10,0,-1,0"
 				VerticalAlignment="Center">

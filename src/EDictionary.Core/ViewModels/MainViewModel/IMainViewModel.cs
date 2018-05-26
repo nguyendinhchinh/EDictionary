@@ -11,6 +11,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		double WindowMinimumHeight { get; set; }
 		double WindowMinimumWidth { get; set; }
 
+		bool IsTextBoxFocus { get; set; }
+
 		List<string> WordList { get; }
 		int WordListTopIndex { get; set; }
 

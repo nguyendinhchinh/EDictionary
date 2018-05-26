@@ -12,6 +12,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		private EDict dictionary { get; set; }
 		private History<Word> history;
+		private bool isTextBoxFocus;
 		private int wordListTopIndex;
 		private string currentWord = "";
 		private string highlightedWord;
@@ -27,6 +28,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public double WindowMinimumHeight { get; set; } = 350;
 
 		public double WindowMinimumWidth { get; set; } = 450;
+
+		public bool IsTextBoxFocus
+		{
+			get { return isTextBoxFocus; }
+
+			set
+			{
+				SetPropertyAndNotify(ref isTextBoxFocus, value);
+			}
+		}
 
 		public List<string> WordList
 		{
@@ -50,10 +61,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public string CurrentWord
 		{
-			get
-			{
-				return currentWord;
-			}
+			get { return currentWord; }
+
 			set
 			{
 				if (SetPropertyAndNotify(ref currentWord, value))
@@ -65,25 +74,22 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public string HighlightedWord
 		{
-			get
-			{
-				return highlightedWord;
-			}
+			get { return highlightedWord; }
+
 			set
 			{
 				if (SetProperty(ref highlightedWord, value))
 				{
 					CurrentWord = HighlightedWord;
+					IsTextBoxFocus = true;
 				}
 			}
 		}
 
 		public string SelectedWord
 		{
-			get
-			{
-				return selectedWord.ToLower();
-			}
+			get { return selectedWord.ToLower(); }
+
 			set
 			{
 				SetProperty(ref selectedWord, value);
@@ -92,10 +98,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public string Definition
 		{
-			get
-			{
-				return definition;
-			}
+			get { return definition; }
 
 			set
 			{

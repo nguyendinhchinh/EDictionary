@@ -3,10 +3,16 @@
                     xmlns:local="clr-namespace:EDictionary.Core.Styles">
 	
 	<Style TargetType="{x:Type Control}" x:Key="BaseStyle">
-		<!--<Setter Property="BorderBrush" Value="Transparent" />-->
 		<Setter Property="BorderThickness" Value="0" />
+		<!--<Setter Property="Foreground" Value="{StaticResource Red}"/>-->
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+	</Style>
+
+	<Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}">
+	</Style>
+
+	<Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource BaseStyle}">
 	</Style>
 	
 </ResourceDictionary>

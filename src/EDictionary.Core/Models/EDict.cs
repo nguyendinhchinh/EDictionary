@@ -73,8 +73,8 @@ namespace EDictionary.Core.Models
 
 			if (index == -1)
 				return null;
-			else
-				word = WordList[index].Trim().ToLower();
+
+			word = WordList[index];
 
 			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word][0]);
 
@@ -103,7 +103,7 @@ namespace EDictionary.Core.Models
 
 		private int SearchIndex(string word)
 		{
-			return WordList.FindIndex(x => x.Equals(word, StringComparison.OrdinalIgnoreCase));
+			return WordList.FindIndex(x => x.Equalize().Equals(word.Equalize(), StringComparison.OrdinalIgnoreCase));
 		}
 
 		public Word SearchID(string wordID)

@@ -17,5 +17,10 @@ namespace EDictionary.Core.Extensions
 
 			return result.Value;
 		}
+
+		public static string Equalize(this string str)
+		{
+			return str.Trim().ToLower();
+		}
 	}
 }
