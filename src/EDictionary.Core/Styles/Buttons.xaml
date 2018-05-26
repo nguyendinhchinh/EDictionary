@@ -78,7 +78,7 @@
 	</Style>
 	
 	
-	<Style TargetType="Button" x:Key="btnBrE" BasedOn="{StaticResource SpeakerButton}">
+	<Style TargetType="Button" x:Key="BrEButton" BasedOn="{StaticResource SpeakerButton}">
 
 		<Setter Property="Foreground" Value="{StaticResource LightBlue}"/>
 
@@ -102,7 +102,7 @@
 
 	</Style>
 
-	<Style TargetType="Button" x:Key="btnNAmE" BasedOn="{StaticResource SpeakerButton}">
+	<Style TargetType="Button" x:Key="NAmEButton" BasedOn="{StaticResource SpeakerButton}">
 
 		<Setter Property="Foreground" Value="{StaticResource LightRed}"/>
 
@@ -126,7 +126,7 @@
 
 	</Style>
 
-	<Style TargetType="Button" x:Key="ButtonHistory" BasedOn="{StaticResource IconButton}">
+	<Style TargetType="Button" x:Key="ArrowButton" BasedOn="{StaticResource IconButton}">
 
 		<Setter Property="Background" Value="{StaticResource LightMagenta}"/>
 		<Setter Property="Foreground" Value="{StaticResource ExtraLightMagenta}"/>
@@ -154,19 +154,20 @@
 		 
 	</Style>
 
-	<Style TargetType="Button" x:Key="btnNextHistory" BasedOn="{StaticResource ButtonHistory}">
+	<Style TargetType="Button" x:Key="NextButton" BasedOn="{StaticResource ArrowButton}">
 		<Setter Property="Content" Value="{DynamicResource NextArrowIcon}"/>
 	</Style>
 
-	<Style TargetType="Button" x:Key="btnPrevHistory" BasedOn="{StaticResource ButtonHistory}">
+	<Style TargetType="Button" x:Key="PrevButton" BasedOn="{StaticResource ArrowButton}">
 		<Setter Property="Content" Value="{StaticResource PrevArrowIcon}"/>
 	</Style>
 
-	<Style TargetType="Button" x:Key="btnSearch" BasedOn="{StaticResource IconButton}">
+	<Style TargetType="Button" x:Key="SearchButton" BasedOn="{StaticResource IconButton}">
 
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="Background" Value="{StaticResource LightCyan}"/>
 		<Setter Property="Foreground" Value="{StaticResource Cyan}"/>
+		<Setter Property="Content" Value="{StaticResource SearchIcon}"/>
 
 		<Style.Triggers>
 			<EventTrigger RoutedEvent="MouseEnter">
@@ -190,14 +191,14 @@
 		 
 	</Style>
 
-	<Style TargetType="Button" x:Key="btnSetting" BasedOn="{StaticResource IconButton}">
+	<Style TargetType="Button" x:Key="SettingButton" BasedOn="{StaticResource IconButton}">
 
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="Content" Value="{DynamicResource CogIcon}"/>
 
 	</Style>
 	
-	<Style TargetType="Button" x:Key="btnAbout" BasedOn="{StaticResource IconButton}">
+	<Style TargetType="Button" x:Key="HelpButton" BasedOn="{StaticResource IconButton}">
 
 		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="Content" Value="{DynamicResource QuestionIcon}"/>

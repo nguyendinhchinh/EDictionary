@@ -63,7 +63,7 @@
 			<Button x:Name="btnSearch"
 				Content="{Binding SearchIcon, Converter={StaticResource ResourceConverter}, UpdateSourceTrigger=Explicit}"
 				Command="{Binding SearchFromInputCommand}"
-				Style="{StaticResource btnSearch}"
+				Style="{StaticResource SearchButton}"
 				Margin="0,9"/>
 
 		</StackPanel>
@@ -122,13 +122,13 @@
 					Margin="0,0,10,0"
 					HorizontalAlignment="Left"
 					Command="{Binding PreviousHistoryCommand}"
-					Style="{StaticResource btnPrevHistory}">
+					Style="{StaticResource PrevButton}">
 				</Button>
 
 				<Button x:Name="btnNextHistory"
 					HorizontalAlignment="Left"
 					Command="{Binding NextHistoryCommand}"
-					Style="{StaticResource btnNextHistory}"
+					Style="{StaticResource NextButton}"
 					Margin="0,0,10,0">
 				</Button>
 
@@ -140,7 +140,7 @@
 
 				<Button x:Name="btnBrE"
 					Command="{Binding PlayBrEAudioCommand}"
-					Style="{StaticResource btnBrE}"
+					Style="{StaticResource BrEButton}"
 					Margin="1,0,10,0">
 				</Button>
 
@@ -148,7 +148,7 @@
 
 				<Button x:Name="btnNAmE"
 					Command="{Binding PlayNAmEAudioCommand}"
-					Style="{StaticResource btnNAmE}"
+					Style="{StaticResource NAmEButton}"
 					Margin="1,0,0,0">
 				</Button>
 
@@ -158,13 +158,13 @@
 
 				<Button
 					Margin="0,0,5,0"
-					Style="{StaticResource btnSetting}"
+					Style="{StaticResource SettingButton}"
 					Command="{Binding OpenSettingCommand}">
 				</Button>
 
 				<Button
 					Margin="0,0,5,0"
-					Style="{StaticResource btnAbout}"
+					Style="{StaticResource HelpButton}"
 					Command="{Binding OpenAboutCommand}">
 				</Button>
 

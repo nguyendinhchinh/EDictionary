@@ -42,7 +42,7 @@
 				Margin="50,0,0,0" />
 
 		<Button
-				Style="{StaticResource ButtonBaseStyle}"
+				Style="{StaticResource HelpButton}"
 				Margin="0,0,5,0"
 				HorizontalAlignment="Right"/>
 
