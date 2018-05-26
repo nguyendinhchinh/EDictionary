@@ -12,36 +12,6 @@
 		<Setter Property="Width" Value="25"/>
 	</Style>
 
-	<!-- Minimize, Maximize, Close button on title bar -->
-	<Style TargetType="{x:Type Button}" x:Key="WindowButton">
-		<Setter Property="Height" Value="25"/>
-		<Setter Property="Width" Value="25"/>
-		<Setter Property="Background" Value="{StaticResource Dark2}"/>
-		<Setter Property="Foreground" Value="{StaticResource Gray}"/>
-		<Setter Property="VerticalAlignment" Value="Top"/>
-		<Setter Property="HorizontalAlignment" Value="Right"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Button}">
-					<Border Background="{TemplateBinding Background}">
-						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-					</Border>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Setter Property="Foreground" Value="{StaticResource LightGray}"/>
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="True">
-							<Setter Property="Foreground" Value="{StaticResource White}"/>
-						</Trigger>
-						<Trigger Property="IsPressed" Value="True">
-							<Setter Property="Foreground" Value="{StaticResource Gray}"/>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 	<!-- Custom title bar, effects... -->
 	<ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
 
@@ -87,9 +57,9 @@
 					</Label>
 
 					<StackPanel Grid.Column="2" Orientation="Horizontal">
-						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource WindowButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">▁</Button>
-						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource WindowButton}" Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">☐</Button>
-						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">✕</Button>
+						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MinimizeButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
+						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MaximizeButton}" Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
+						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource CloseButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
 					</StackPanel>
 				</Grid>
 
@@ -146,9 +116,10 @@
 					<Button Grid.Column="2"
 							HorizontalAlignment="Right"
 							VerticalAlignment="Center"
-							Style="{StaticResource WindowButton}"
+							Style="{StaticResource CloseButton}"
 							Command="{StaticResource CloseCommand}"
-							CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">✕</Button>
+							CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
+					</Button>
 				</Grid>
 
 				<Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
