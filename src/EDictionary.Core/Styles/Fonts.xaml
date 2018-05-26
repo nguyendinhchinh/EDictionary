@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+	<FontFamily x:Key="FontAwesome">pack://application:,,,/Fonts/#Font Awesome 5 Free Solid</FontFamily>
 	<FontFamily x:Key="Oswald">pack://application:,,,/Fonts/#Oswald Light</FontFamily>
 	<FontFamily x:Key="SourceSansProSemiBold">pack://application:,,,/Fonts/#Source Sans Pro SemiBold</FontFamily>
 	<FontFamily x:Key="SourceSansPro">pack://application:,,,/Fonts/#Source Sans Pro</FontFamily>

@@ -3,6 +3,9 @@ using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace EDictionary.Core.ViewModels.MainViewModel
 {
@@ -20,6 +23,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		private string definition;
 		private Dictionary<string, string> otherResultNameToID;
 		private string highlightedOtherResult;
+		private object searchIcon;
 
 		#endregion
 
@@ -131,6 +135,18 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			}
 		}
 
+		public object SearchIcon
+		{
+			get { return searchIcon; }
+			set
+			{
+				App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send,
+					new Action(() => SetPropertyAndNotify(ref searchIcon, value)
+				));
+				
+			}
+		}
+
 		#endregion
 
 		#region Actions
@@ -153,7 +169,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
 			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
 			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight);
-			UpdateWordlistIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
+			UpdateWordlistTopIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
 
 			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
 			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);
@@ -165,6 +181,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 			OpenSettingCommand = new DelegateCommand(OpenSettings);
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
+
+			SearchIcon = "SearchIcon";
 		}
 
 		#endregion
@@ -174,7 +192,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public DelegateCommand SearchFromInputCommand { get; private set; }
 		public DelegateCommand SearchFromSelectionCommand { get; private set; }
 		public DelegateCommand SearchFromHighlightCommand { get; private set; }
-		public DelegateCommand UpdateWordlistIndexCommand { get; private set; }
+		public DelegateCommand UpdateWordlistTopIndexCommand { get; private set; }
 		public DelegateCommand PlayNAmEAudioCommand { get; private set; }
 		public DelegateCommand PlayBrEAudioCommand { get; private set; }
 		public DelegateCommand NextHistoryCommand { get; private set; }
@@ -241,6 +259,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromInput()
 		{
+			//SearchIcon = "SpinnerIcon";
+
 			Word word = dictionary.Search(CurrentWord);
 
 			if (word == null)

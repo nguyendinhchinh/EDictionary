@@ -7,10 +7,12 @@
 	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 	xmlns:extension="clr-namespace:EDictionary.Core.Extensions"
+	xmlns:converter="clr-namespace:EDictionary.Core.Converters"
 	xmlns:simply="clr-namespace:Simply;assembly=FlatWindow"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+	xmlns:fa="http://schemas.fontawesome.io/icons/"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -20,6 +22,10 @@
   Title="E-Dictionary"
   Icon="../Resources/E-Dictionary.ico"
   Style="{StaticResource ParentWindow}">
+
+	<Window.Resources>
+		<converter:StringToResourceConverter x:Key="ResourceConverter" />
+	</Window.Resources>
 
 	<Grid>
 
@@ -36,6 +42,7 @@
 		</Grid.ColumnDefinitions>
 
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+
 			<TextBox x:Name="txtSearch"
 				extension:FocusExtension.IsFocused="{Binding IsTextBoxFocus, Mode=TwoWay}"
 				Text="{Binding CurrentWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -44,7 +51,7 @@
 
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="KeyUp">
-						<i:InvokeCommandAction Command="{Binding UpdateWordlistIndexCommand}" />
+						<i:InvokeCommandAction Command="{Binding UpdateWordlistTopIndexCommand}" />
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 
@@ -54,9 +61,10 @@
 			</TextBox>
 
 			<Button x:Name="btnSearch"
+				Content="{Binding SearchIcon, Converter={StaticResource ResourceConverter}, UpdateSourceTrigger=Explicit}"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource btnSearch}"
-				Margin="0,9" RenderTransformOrigin="0.364,0.591"/>
+				Margin="0,9"/>
 
 		</StackPanel>
 
@@ -100,48 +108,69 @@
 		</Grid>
 
 
-		<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="10,0,10,0">
+		<Grid Grid.Row="2" Grid.Column="1" Margin="10,0,10,0">
 
-			<Button x:Name="btnPrevHistory"
-				Command="{Binding PreviousHistoryCommand}"
-				Style="{StaticResource btnPrevHistory}"
-				RenderTransformOrigin="-2.227,-0.318 ">
-			</Button>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-			<Button x:Name="btnNextHistory"
-				Command="{Binding NextHistoryCommand}"
-				Style="{StaticResource btnNextHistory}"
-				Margin="10, 0, 0, 0"
-				RenderTransformOrigin="-3.955,-0.455">
-			</Button>
+			<StackPanel Grid.Column="0" Orientation="Horizontal">
 
-			<Button x:Name="btnNAmE"
-				Command="{Binding PlayNAmEAudioCommand}"
-				Style="{StaticResource btnNAmE}"
-				Margin="30, 0, 0, 0"
-				RenderTransformOrigin="0,0">
-			</Button>
+				<Button x:Name="btnPrevHistory"
+					Margin="0,0,10,0"
+					HorizontalAlignment="Left"
+					Command="{Binding PreviousHistoryCommand}"
+					Style="{StaticResource btnPrevHistory}">
+				</Button>
 
-			<Button x:Name="btnBrE"
-				Command="{Binding PlayBrEAudioCommand}"
-				Style="{StaticResource btnBrE}"
-				Margin="10, 0, 10, 0"
-				RenderTransformOrigin="0,0">
-			</Button>
+				<Button x:Name="btnNextHistory"
+					HorizontalAlignment="Left"
+					Command="{Binding NextHistoryCommand}"
+					Style="{StaticResource btnNextHistory}"
+					Margin="0,0,10,0">
+				</Button>
 
-			<Button
-					 Style="{StaticResource ButtonBaseStyle}"
-					 Content="S"
-					 Command="{Binding OpenSettingCommand}">
-			</Button>
+			</StackPanel>
 
-			<Button
-					 Style="{StaticResource ButtonBaseStyle}"
-					 Content="A"
-					 Command="{Binding OpenAboutCommand}">
-			</Button>
+			<StackPanel Grid.Column="1" Orientation="Horizontal">
 
-		</StackPanel>
+				<Label Content="BrE" VerticalAlignment="Center"/>
+
+				<Button x:Name="btnBrE"
+					Command="{Binding PlayBrEAudioCommand}"
+					Style="{StaticResource btnBrE}"
+					Margin="1,0,10,0">
+				</Button>
+
+				<Label Content="NAmE" VerticalAlignment="Center"/>
+
+				<Button x:Name="btnNAmE"
+					Command="{Binding PlayNAmEAudioCommand}"
+					Style="{StaticResource btnNAmE}"
+					Margin="1,0,0,0">
+				</Button>
+
+			</StackPanel>
+
+			<StackPanel Grid.Column="2" Orientation="Horizontal">
+
+				<Button
+					Margin="0,0,5,0"
+					Style="{StaticResource btnSetting}"
+					Command="{Binding OpenSettingCommand}">
+				</Button>
+
+				<Button
+					Margin="0,0,5,0"
+					Style="{StaticResource btnAbout}"
+					Command="{Binding OpenAboutCommand}">
+				</Button>
+
+			</StackPanel>
+
+		</Grid>
 
 		<control:ExpandedRichTextBox x:Name="rtxDefinition"
 			Grid.Row="3" Grid.Column="1"
