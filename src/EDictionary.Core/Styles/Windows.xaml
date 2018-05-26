@@ -115,11 +115,7 @@
 						VerticalAlignment="Top"
 						Foreground="{StaticResource White}"
 						FontSize="14"
-					  FontFamily="Quicksand"
-						win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-						win:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-						win:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-						win:ShowSystemMenuBehavior.RightButtonShow="true">
+					  FontFamily="Quicksand">
 					</Label>
 
 					<Label Grid.Column="1"
