@@ -128,6 +128,7 @@
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\DictionaryTable.cs" />
+    <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\RTFBuilderExtensions.cs" />
