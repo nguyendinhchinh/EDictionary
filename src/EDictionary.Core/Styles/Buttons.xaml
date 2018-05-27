@@ -296,7 +296,7 @@
 
 					<Grid>
 						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="14" Width="14" Foreground="{StaticResource LightGreen}" Name="Circle" Icon="Circle" />
-						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource Green}" Name="Minimize" Icon="Minus" Opacity="0">
+						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource Green}" Name="Minimize" Icon="Sort" Opacity="0">
 							<fa:ImageAwesome.RenderTransform>
 								<RotateTransform/>
 							</fa:ImageAwesome.RenderTransform>
@@ -316,13 +316,13 @@
 
 						<Storyboard x:Key="MouseEnterTimeLine">
 							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.25"/>
-							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="90" To="180" Duration="0:0:0.3" />
+							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="135" To="225" Duration="0:0:0.3" />
 							<ColorAnimation Storyboard.TargetName="Circle" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource LightGreenColor}" Duration="0:0:0.15" />
 						</Storyboard>
 
 						<Storyboard x:Key="MouseExitTimeLine">
 							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.25"/>
-							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="180" To="90" Duration="0:0:0.3" />
+							<DoubleAnimation Storyboard.TargetName="Minimize" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="225" To="135" Duration="0:0:0.3" />
 							<ColorAnimation Storyboard.TargetName="Circle" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource GreenColor}" Duration="0:0:0.15" />
 						</Storyboard>
 					</ControlTemplate.Resources>
@@ -361,7 +361,7 @@
 
 					<Grid>
 						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="14" Width="14" Foreground="{StaticResource LightYellow}" Name="Circle" Icon="Circle" />
-						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource DarkYellow}" Name="Expand" Icon="Sort" Opacity="0">
+						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource DarkYellow}" Name="Expand" Icon="Minus" Opacity="0">
 							<fa:ImageAwesome.RenderTransform>
 								<RotateTransform/>
 							</fa:ImageAwesome.RenderTransform>
@@ -381,13 +381,13 @@
 
 						<Storyboard x:Key="MouseEnterTimeLine">
 							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.25"/>
-							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="135" To="225" Duration="0:0:0.3" />
+							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="90" To="180" Duration="0:0:0.3" />
 							<ColorAnimation Storyboard.TargetName="Circle" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource LightYellowColor}" Duration="0:0:0.15" />
 						</Storyboard>
 
 						<Storyboard x:Key="MouseExitTimeLine">
 							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.25"/>
-							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="225" To="135" Duration="0:0:0.3" />
+							<DoubleAnimation Storyboard.TargetName="Expand" Storyboard.TargetProperty="(RenderTransform).(RotateTransform.Angle)" From="180" To="90" Duration="0:0:0.3" />
 							<ColorAnimation Storyboard.TargetName="Circle" Storyboard.TargetProperty="Foreground.Color" To="{StaticResource YellowColor}" Duration="0:0:0.15" />
 						</Storyboard>
 					</ControlTemplate.Resources>
