@@ -71,13 +71,13 @@ namespace EDictionary.Core.Data
 					OpenConnection();
 
 					Word word = JsonHelper.Deserialize(wordJsonStr);
-					string wordNumber = word.Id.MatchRegex("[0-9]");
+					string wordNumber = word.ID.MatchRegex("[0-9]");
 					string wordName = word.Name;
 
 					if (wordNumber != null)
 						wordName += " " + wordNumber;
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = word.Id });
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = word.ID });
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@name", Value = wordName }); // TODO: Test
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
 

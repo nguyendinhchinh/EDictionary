@@ -7,7 +7,7 @@ namespace EDictionary.Core.Models
 {
 	public class Word
 	{
-		public string Id { get; set; }
+		public string ID { get; set; }
 		public string[] Similars { get; set; }
 		public string Name { get; set; }
 		public string Wordform { get; set; }
@@ -49,7 +49,7 @@ namespace EDictionary.Core.Models
 		{
 			Word word = obj as Word;
 
-			if (this.Id == word.Id)
+			if (this.ID == word.ID)
 			{
 				return true;
 			}
@@ -58,7 +58,7 @@ namespace EDictionary.Core.Models
 
 		public override int GetHashCode()
 		{
-			return this.Id.GetHashCode();
+			return this.ID.GetHashCode();
 		}
 	}
 }

@@ -34,24 +34,33 @@ BLUE = colorama.Fore.BLUE
 YELLOW = colorama.Fore.YELLOW
 RESET = colorama.Fore.RESET
 
-NOT_FOUND_WORDS_FILE = os.path.join('cache', 'not_found_words.txt')
-SKIPPED_WORDS_FILE = os.path.join('cache', 'skipped_words.txt')
-CORRUPTED_WORDS_FILE = os.path.join('cache', 'corrupted_words.txt')
+CACHE_PATH = os.path.join(os.getcwd(), 'cache')
+DATA_PATH = os.path.join(os.getcwd(), 'data')
 
-WORDLIST_FILE = 'words_alpha.txt'
+NOT_FOUND_WORDS_FILE = os.path.join(CACHE_PATH, 'not_found_words.txt')
+SKIPPED_WORDS_FILE = os.path.join(CACHE_PATH, 'skipped_words.txt')
+CORRUPTED_WORDS_FILE = os.path.join(CACHE_PATH, 'corrupted_words.txt')
+CORRUPTED_AUDIOS_FILE = os.path.join(CACHE_PATH, 'corrupted_audios.txt')
 
-AUDIO_PATH = os.path.join(os.getcwd(), 'data', 'audio')
-DEF_PATH = os.path.join(os.getcwd(), 'data', 'words')
+WORDLIST_FILE = os.path.join(os.getcwd(), 'words_alpha.txt')
 
-NEED_AUDIO = False
+AUDIO_PATH = os.path.join(DATA_PATH, 'audio')
+DEF_PATH = os.path.join(DATA_PATH, 'words')
 
-LOG_PATH = os.path.join(os.getcwd(), 'cache', 'scraping.log')
+NEED_AUDIO = True
+
+LOG_PATH = os.path.join(CACHE_PATH, 'scraping.log')
 LOG = settup_logger('info', LOG_PATH, level=logging.INFO)
+
+
+mkdir(CACHE_PATH)
+mkdir(AUDIO_PATH)
+mkdir(DEF_PATH)
+
 
 def get_not_found_words():
 	""" return a dictionary of not found words (in oxford diciontary) """
-	path = os.path.join(os.getcwd(), NOT_FOUND_WORDS_FILE)
-	return read(path, type="dict")
+	return read(NOT_FOUND_WORDS_FILE, type="dict")
 
 def get_downloaded_words():
 	""" get a list of json files to determine which words
@@ -85,24 +94,8 @@ def save(word, path):
 		with open(cache_path, 'w') as file:
 			json.dump(word, file, separators=(',', ':')) # minify
 
-def update_skipped_words(word):
-	""" update words that has to be skipped (connection error) """
-	path = os.path.join(os.getcwd(), SKIPPED_WORDS_FILE)
-	put(word, path)
-
-def update_not_found_words(word):
-	""" update not found words (in oxford diciontary) """
-	path = os.path.join(os.getcwd(), NOT_FOUND_WORDS_FILE)
-	put(word, path)
-
-def update_corrupted_words(word):
-	""" update words that has corrupted data for some reasons """
-	path = os.path.join(os.getcwd(), CORRUPTED_WORDS_FILE)
-	put(word, path)
-
-def get_wordlist(filename):
+def get_wordlist(path):
 	""" read file in current working directory for wordlist """
-	path = os.path.join(os.getcwd(), filename)
 	return read(path)
 
 def download_audios(word):
@@ -114,7 +107,7 @@ def download_audios(word):
 			if url is not None:
 				download(url, AUDIO_PATH)
 		except urllib.error.HTTPError: # 'ginkgo': audio urls are available but not valid
-			update_corrupted_words(word + ':audio')
+			put(word['name'], CORRUPTED_AUDIOS_FILE)
 
 @timer
 def extract_data(word):
@@ -139,13 +132,13 @@ def extract_data(word):
 		print("No data for '{}' word. Skipping".format(word))
 		LOG.info("No data for '%s' word. Skipping", word)
 
-		update_not_found_words(word)
+		put(word, NOT_FOUND_WORDS_FILE)
 		return (1, None)
 	except (ConnectionError, HTTPError, Timeout) as error:
 		print("Requests failed: '{}'".format(error))
 		LOG.debug("Requests failed: '%s'", error)
 
-		update_skipped_words(word)
+		put(word, SKIPPED_WORDS_FILE)
 		return (2, None)
 
 	try:
@@ -171,7 +164,7 @@ def extract_data(word):
 		print(traceback.format_exc())
 		LOG.debug(traceback.format_exc())
 
-		update_corrupted_words(word)
+		put(word, CORRUPTED_WORDS_FILE)
 		return (3, None)
 	else:
 		return (0, data['similars'])
@@ -213,7 +206,7 @@ def scrap(words, *, reference=True, force=False):
 def run(filename=WORDLIST_FILE, *, force=False):
 	""" read the wordlist from a file and scrap it """
 
-	print('getting wordlist data from {}'.format(os.path.join(os.getcwd(), filename)))
+	print('getting wordlist data from {}'.format(filename))
 	words = get_wordlist(filename)
 
 	scrap(words, reference=True, force=force)
