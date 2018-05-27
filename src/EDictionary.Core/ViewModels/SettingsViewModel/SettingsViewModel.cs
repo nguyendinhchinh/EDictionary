@@ -12,8 +12,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 	public class SettingsViewModel : ViewModelBase, ISettingsViewModel
 	{
 		private bool canEditCustomWordList;
-		private string option;
-		private List<string> customWordList;
+		private Option option;
+		private List<string> customWordList = new List<string>();
 
 		public bool CanEditCustomWordList
 		{
@@ -23,13 +23,13 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 		public int MinInterval { get; set; }
 		public int SecInterval { get; set; }
 
-		public string Option
+		public Option Option
 		{
 			get { return option; }
 
 			set
 			{
-				if (value == "Custom")
+				if (value == Option.Custom)
 					CanEditCustomWordList = true;
 				else
 					CanEditCustomWordList = false;

@@ -7,6 +7,12 @@ using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
 {
+	public enum Option
+	{
+		Full,
+		Custom,
+	}
+
 	[Serializable]
 	public class Settings
 	{
@@ -23,21 +29,22 @@ namespace EDictionary.Core.Models
 		{
 			MinInterval = 20,
 			SecInterval = 0,
-			Option = "All",
-			CustomWordList = null,
+			Option = Option.Full,
+			CustomWordList = new List<string>(),
 		};
 
 		public int MinInterval;
 
 		public int SecInterval;
 
-		public string Option;
+		public Option Option;
 
 		public List<string> CustomWordList { get; set; }
 
 		public Settings()
 		{
 			settingsAccess = new SettingsAccess();
+			CustomWordList = new List<string>();
 		}
 
 		public void SaveSettings(Settings settings)

@@ -130,7 +130,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
-    <Compile Include="Converters\StringToRadioBoolConverter.cs" />
+    <Compile Include="Converters\OptionToRadioBoolConverter.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\DictionaryTable.cs" />

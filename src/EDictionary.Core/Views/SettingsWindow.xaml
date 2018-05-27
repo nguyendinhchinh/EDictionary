@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+				xmlns:model="clr-namespace:EDictionary.Core.Models"
 				xmlns:converter="clr-namespace:EDictionary.Core.Converters"
 
 				xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
@@ -16,7 +17,7 @@
 				Style="{StaticResource ChildWindow}">
 
 	<Window.Resources>
-		<converter:StringToRadioBoolConverter x:Key="RadioConverter" />
+		<converter:OptionToRadioBoolConverter x:Key="RadioConverter" />
 		<converter:ListToStringConverter x:Key="StringConverter" />
 	</Window.Resources>
 
@@ -93,13 +94,13 @@
 
 			<RadioButton Grid.Row="0" Grid.Column="0"
 							Content="All"
-							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter=All}"
+							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Full}}"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Left"
 							Margin="10,0,0,0"/>
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
-							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter=Custom}"
+							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Custom}}"
 							Content="Custom"
 							VerticalAlignment="Top"
 							HorizontalAlignment="Left"

@@ -1,19 +1,17 @@
-﻿using System;
+﻿using EDictionary.Core.Models;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 
 namespace EDictionary.Core.Converters
 {
-	public class StringToRadioBoolConverter : IValueConverter
+	public class OptionToRadioBoolConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			string option = (string)value;
-
-			if (option == parameter.ToString())
-				return true;
+			Option option = (Option)value;
 			
-			return false;
+			return option.Equals(parameter);
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
