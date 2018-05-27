@@ -49,24 +49,24 @@
 						HorizontalAlignment="Left"
 						Foreground="{StaticResource White}"
 						FontSize="14"
-            FontFamily="Quicksand">
+                        FontFamily="{StaticResource Quicksand}">
 					</Label>
 
 					<Label Grid.Column="1"
-            win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            win:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
-            win:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            win:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            win:ShowSystemMenuBehavior.RightButtonShow="true">
+                        win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        win:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+                        win:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        win:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        win:ShowSystemMenuBehavior.RightButtonShow="true">
 					</Label>
-          
-          <StackPanel Grid.Column="1">
 
-          </StackPanel>
+					<StackPanel Grid.Column="1">
+
+					</StackPanel>
 
 					<StackPanel Grid.Column="2" Orientation="Horizontal">
 						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MaximizeButton}" Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
-					  <Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MinimizeButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
+						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MinimizeButton}" Command="{StaticResource MinimizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
 						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource CloseButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
 					</StackPanel>
 				</Grid>
@@ -115,15 +115,15 @@
 						VerticalAlignment="Top"
 						Foreground="{StaticResource White}"
 						FontSize="14"
-					  FontFamily="Quicksand">
+					    FontFamily="{StaticResource Quicksand}">
 					</Label>
 
 					<Label Grid.Column="1"
-					       win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					       win:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
-					       win:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					       win:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-					       win:ShowSystemMenuBehavior.RightButtonShow="true">
+					   win:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					   win:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+					   win:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					   win:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					   win:ShowSystemMenuBehavior.RightButtonShow="true">
 					</Label>
 
 					<Button Grid.Column="2"
@@ -162,7 +162,7 @@
 				<Setter Property="Foreground" Value="LightGray" />
 			</Style>
 		</Style.Resources>
-		 
+
 		<Setter Property="WindowStyle" Value="None"/>
 		<Setter Property="AllowsTransparency" Value="True"/>
 		<Setter Property="BorderThickness" Value="0"/>
