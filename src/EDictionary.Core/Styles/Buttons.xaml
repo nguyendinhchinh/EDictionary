@@ -36,7 +36,7 @@
 				<BeginStoryboard>
 					<Storyboard>
 						<ColorAnimation To="{StaticResource ExtraLightCyanColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color" />
-						<ColorAnimation To="{StaticResource CyanColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
+						<ColorAnimation To="{StaticResource BlueColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
 					</Storyboard>
 				</BeginStoryboard>
 			</EventTrigger>

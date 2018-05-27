@@ -63,6 +63,16 @@ namespace EDictionary.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Catamaran_Bold {
+            get {
+                object obj = ResourceManager.GetObject("Catamaran_Bold", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] FontAwesome5_Solid {
             get {
                 object obj = ResourceManager.GetObject("FontAwesome5_Solid", resourceCulture);
@@ -73,9 +83,19 @@ namespace EDictionary.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Oswald_Light {
+        internal static byte[] PTSans_Bold {
             get {
-                object obj = ResourceManager.GetObject("Oswald_Light", resourceCulture);
+                object obj = ResourceManager.GetObject("PTSans_Bold", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Quicksand_Medium {
+            get {
+                object obj = ResourceManager.GetObject("Quicksand_Medium", resourceCulture);
                 return ((byte[])(obj));
             }
         }
