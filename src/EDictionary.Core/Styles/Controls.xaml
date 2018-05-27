@@ -12,7 +12,4 @@
 	<Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}">
 	</Style>
 
-	<Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource BaseStyle}">
-	</Style>
-	
 </ResourceDictionary>
