@@ -47,9 +47,9 @@
 					<Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}"
 						VerticalContentAlignment="Center"
 						HorizontalAlignment="Left"
-						Foreground="{StaticResource White}"
+						Foreground="{StaticResource LightCyan}"
 						FontSize="14"
-                        FontFamily="{StaticResource Quicksand}">
+						FontFamily="{StaticResource Catamaran}">
 					</Label>
 
 					<Label Grid.Column="1"
@@ -111,7 +111,7 @@
 						VerticalAlignment="Top"
 						Foreground="{StaticResource White}"
 						FontSize="14"
-					  FontFamily="{StaticResource Quicksand}">
+						FontFamily="{StaticResource Catamaran}">
 					</Label>
 
 					<Label Grid.Column="1"
