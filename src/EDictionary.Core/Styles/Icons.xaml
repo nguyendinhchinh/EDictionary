@@ -10,10 +10,6 @@
 	<clr:String x:Key="SpeakerIcon">&#xf028;</clr:String>
 	<clr:String x:Key="CogIcon">&#xf013;</clr:String>
 	<clr:String x:Key="QuestionIcon">&#xf128;</clr:String>
-	<clr:String x:Key="MinimizeIcon">&#xf056;</clr:String>
-	<clr:String x:Key="MaximizeIcon">&#xf28d;</clr:String>
-	<clr:String x:Key="CloseIcon">&#xf057;</clr:String>
-	<clr:String x:Key="CircleIcon">&#xf111;</clr:String>
 
 	<fa:ImageAwesome x:Key="SpinnerIcon"
 			Foreground="{StaticResource LightYellow}"
