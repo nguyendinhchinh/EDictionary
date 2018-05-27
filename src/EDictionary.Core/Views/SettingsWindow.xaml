@@ -4,90 +4,142 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 				xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+				xmlns:converter="clr-namespace:EDictionary.Core.Converters"
+
 				xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Settings"
 				WindowStartupLocation="CenterScreen"
 				ResizeMode="NoResize"
-				Height="350"
+				Height="400"
 				Width="300"
 				Style="{StaticResource ChildWindow}">
 
-	<!--<Window.Resources>
-		<SolidColorBrush x:Key="WindowBackground" Color="#2c3e50" />
-		<SolidColorBrush x:Key="CaptionColor" Color="White" />
-	</Window.Resources>-->
+	<Window.Resources>
+		<converter:StringToRadioBoolConverter x:Key="RadioConverter" />
+		<converter:ListToStringConverter x:Key="StringConverter" />
+	</Window.Resources>
 
 	<Grid>
-		 
+
 		<Grid.RowDefinitions>
-			<RowDefinition Height="60"/>
+			<RowDefinition Height="80"/>
+			<RowDefinition Height="200"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		 
+
 		<Label Grid.Row="0" 
 				Content="Interval"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Center"
-				Margin="-70,0,0,0"/>
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="10,10,0,0"/>
 
-		<toolkit:DateTimeUpDown Grid.Row="0"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Center"
+		<Label Grid.Row="0" 
+				Content="Mins"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="50,40,0,0"/>
+
+		<toolkit:IntegerUpDown Grid.Row="0"
+				Background="{StaticResource Black}"
+				Foreground="{StaticResource Silver}"
+				BorderThickness="0"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
 				Height="20"
-				Width="55"
-				Format="Custom"
-				FormatString="HH:mm tt"
-				Value="00:30"
-				Margin="50,0,0,0" />
+				Width="40"
+				Value="{Binding MinInterval}"
+				Increment="1"
+				Minimum="00"
+				Maximum="59"
+				Margin="90,40,0,0" />
+
+		<Label Grid.Row="0" 
+				Content="Secs"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="140,40,0,0"/>
+
+		<toolkit:IntegerUpDown Grid.Row="0"
+				Background="{StaticResource Black}"
+				Foreground="{StaticResource Silver}"
+				BorderThickness="0"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Height="20"
+				Width="40"
+				Value="{Binding SecInterval}"
+				Increment="1"
+				Minimum="00"
+				Maximum="59"
+				Margin="180,40,0,0" />
 
 		<Button
-				Style="{StaticResource ButtonBaseStyle}"
+				Style="{StaticResource HelpButton}"
 				Margin="0,0,5,0"
 				HorizontalAlignment="Right"/>
 
-		<GroupBox Grid.Row="1"
-				Header="Word List"
-				HorizontalAlignment="Center"
-				Height="220"
-				Margin="0,0,0,0"
-				VerticalAlignment="Center"
-				Width="217">
-			<Grid>
+		<Grid Grid.Row="1">
 
-				<Grid.RowDefinitions>
-					<RowDefinition Height="30"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="30"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
 
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="85"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="85"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
 
-				<RadioButton Grid.Row="0" Grid.Column="0"
+			<RadioButton Grid.Row="0" Grid.Column="0"
 							Content="All"
+							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter=All}"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Left"
 							Margin="10,0,0,0"/>
 
-				<RadioButton Grid.Row="1" Grid.Column="0"
+			<RadioButton Grid.Row="1" Grid.Column="0"
+							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter=Custom}"
 							Content="Custom"
 							VerticalAlignment="Top"
 							HorizontalAlignment="Left"
 							Margin="10,10,0,0"/>
 
-				<control:ExpandedListView Grid.Row="1" Grid.Column="1"
-							x:Name="lbxOtherResult"
-							SelectedItem="{Binding HighlightedOtherResult}"
-							ItemsSource="{Binding OtherResults}"
-							Width="100"
-							VerticalAlignment="Stretch"
-							HorizontalAlignment="Left"													
-							Margin="10,10,0,10"/>
+			<TextBox Grid.Row="1" Grid.Column="1"
+				x:Name="txtCustomWordList"
+				Style="{StaticResource MultilineTextBox}"
+				Text="{Binding CustomWordList, Converter={StaticResource StringConverter}}"
+				Width="100"
+				VerticalAlignment="Stretch"
+				HorizontalAlignment="Left"
+				IsEnabled="{Binding CanEditCustomWordList}"
+				Margin="10,10,0,10"/>
 
-			</Grid>
-		</GroupBox>
+		</Grid>
 
+		<Grid Grid.Row="2">
+				
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="100"/>
+				<ColumnDefinition Width="100"/>
+				<ColumnDefinition/>
+			</Grid.ColumnDefinitions>
+				
+				<Button Grid.Column="2"
+				Style="{StaticResource TextButton}"
+				HorizontalAlignment="Left"
+				Content="Apply"
+				Command="{Binding SaveCommand}"
+				Margin="10,0,0,0"/>
+
+				<Button Grid.Column="1"
+				Style="{StaticResource TextButton}"
+				HorizontalAlignment="Right"
+				Content="Cancel"
+				Command="{Binding CloseCommand}"
+				Margin="0,0,10,0"/>
+				
+		</Grid>
 	</Grid>
 </Window>

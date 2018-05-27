@@ -1,4 +1,5 @@
 ﻿using EDictionary.Core.Models;
+using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -303,7 +304,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(CurrentWord);
+				var stemmedWord = Stemmer.Stem(SelectedWord);
 
 				if (CurrentWord != stemmedWord)
 					word = dictionary.Search(stemmedWord);

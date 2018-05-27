@@ -28,6 +28,10 @@ namespace EDictionary.Core.Utilities
 		{
 
 		}
+		public Result(Status status)
+		{
+			this.Status = status;
+		}
 
 		public Result(Result result)
 		{

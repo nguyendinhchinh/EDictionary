@@ -128,16 +128,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
+    <Compile Include="Converters\StringToRadioBoolConverter.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\DictionaryTable.cs" />
+    <Compile Include="Data\SettingsAccess.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\RTFBuilderExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Models\Dialect.cs" />
+    <Compile Include="Models\WordComponents\Dialect.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -167,6 +171,8 @@
     <Compile Include="ViewModels\MainViewModel\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
     <Compile Include="ViewModels\PopupViewModel\PopupViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -209,7 +215,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\Texts.xaml">
+    <Page Include="Styles\TextBoxs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -247,12 +253,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Definition.cs" />
-    <Compile Include="Models\DefinitionGroup.cs" />
+    <Compile Include="Models\WordComponents\Definition.cs" />
+    <Compile Include="Models\WordComponents\DefinitionGroup.cs" />
     <Compile Include="Models\EDict.cs" />
-    <Compile Include="Models\Idiom.cs" />
-    <Compile Include="Models\Pronunciation.cs" />
-    <Compile Include="Models\Reference.cs" />
+    <Compile Include="Models\WordComponents\Idiom.cs" />
+    <Compile Include="Models\WordComponents\Pronunciation.cs" />
+    <Compile Include="Models\WordComponents\Reference.cs" />
     <Compile Include="Models\Word.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
