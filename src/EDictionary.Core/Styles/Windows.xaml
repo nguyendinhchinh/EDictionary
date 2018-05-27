@@ -154,9 +154,6 @@
 				<Setter Property="Foreground" Value="LightGray" />
 			</Style>
 
-			<Style TargetType="{x:Type RadioButton}">
-				<Setter Property="Foreground" Value="LightGray" />
-			</Style>
 		</Style.Resources>
 
 		<Setter Property="WindowStyle" Value="None"/>
