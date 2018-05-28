@@ -9,11 +9,17 @@ namespace EDictionary.Core.Utilities
 
 		public WordContractResolver()
 		{
-			PropertyMappings = new Dictionary<string, string> 
+			PropertyMappings = new Dictionary<string, string>
 			{
-				{"Similars", "similar"},
+				{"ID", "id"},
+				{"Similars", "similars"},
+				{"Name", "name"},
+				{"Wordform", "wordform"},
+				{"Pronunciations", "pronunciations"},
+				{"References", "references"},
 				{"DefinitionsExamples", "definitions"},
 				{"ExtraExamples", "extra_examples"},
+				{"Idioms", "idioms"},
 			};
 		}
 

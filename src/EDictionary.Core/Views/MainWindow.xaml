@@ -18,7 +18,7 @@
 	ResizeMode="CanResizeWithGrip"
 	Height="460"
 	Width="650"
-  Title="E-Dictionary"
+  Title="EDictionary"
   Icon="../Resources/E-Dictionary.ico"
   Style="{StaticResource ParentWindow}">
 

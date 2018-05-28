@@ -86,20 +86,21 @@ def to_ascii(string):
 
 def insert(json):
 	""" insert json data in db """
-	word_id = json['id']
-	word_name = json['name'].strip()
+	id = json['id']
+	name = json['name'].strip()
+
 	try:
-		word_name = word_name.encode('ascii') # remove unicode character (’tis -> tis)
+		name = name.encode('ascii') # remove unicode character (’tis -> tis)
 	except UnicodeEncodeError:
 		try:
-			word_name = to_ascii(word_name)
+			name = to_ascii(name)
 		except UnicodeEncodeError:
-			util.put(word_name, 'untracked_unicode.txt')
+			util.put(name, 'untracked_unicode.txt')
 
 	json_str = uglify(json)
 
 	CURSOR.execute('INSERT INTO {} (ID, Name, Definition) VALUES (?, ?, ?)'.format(TABLE_NAME),
-			(word_id, word_name, json_str))
+			(id, name, json_str))
 
 def to_sqlite():
 	""" get word info in json file from word name """

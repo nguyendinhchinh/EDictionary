@@ -234,24 +234,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		#endregion
 
-		#region Definition Utils
-
-		private void UpdateHistory(Word word)
-		{
-			if (word == null)
-				return;
-
-			if (word != history.Current)
-				history.Add(word);
-
-			UpdateOtherResultList();
-
-			NextHistoryCommand.RaiseCanExecuteChanged();
-			PreviousHistoryCommand.RaiseCanExecuteChanged();
-		}
-
-		#endregion
-
 		#region SearchFromInput
 
 		/// <summary>
@@ -345,6 +327,20 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		#endregion
 
 		#region History
+
+		private void UpdateHistory(Word word)
+		{
+			if (word == null)
+				return;
+
+			if (word != history.Current)
+				history.Add(word);
+
+			UpdateOtherResultList();
+
+			NextHistoryCommand.RaiseCanExecuteChanged();
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
+		}
 
 		public void NextHistory()
 		{

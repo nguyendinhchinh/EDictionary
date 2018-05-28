@@ -28,12 +28,13 @@ namespace EDictionary.Core.Models
 
 			for (int i = 0; i <= wordNames.Count - 1; i++)
 			{
-				NameToIDs.Add(wordNames[i], new List<string>() { wordIDs[i] });
+				string currentKey = wordNames[i].Trim().ToLower();
+				NameToIDs.Add(currentKey, new List<string>() { wordIDs[i] });
 				currentIndex = i;
 
-				while (wordNames[i] == wordNames.NextItem(i))
+				while (wordNames[currentIndex] == wordNames.NextItem(i))
 				{
-					NameToIDs[wordNames[currentIndex]].Add(wordIDs[i + 1]);
+					NameToIDs[currentKey].Add(wordIDs[i + 1]);
 					i++;
 				}
 			}
@@ -70,14 +71,10 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			var index = SearchIndex(word);
-
-			if (index == -1)
+			if (!NameToIDs.ContainsKey(word.Trim().ToLower()))
 				return null;
 
-			word = WordList[index];
-
-			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word][0]);
+			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word].FirstOrDefault());
 
 			if (result.Status != Status.Success)
 			{
@@ -85,26 +82,7 @@ namespace EDictionary.Core.Models
 				return null;
 			}
 
-			// TODO: Set default Prefix when scraping
-			for (int i = 0; i < result.Data.Pronunciations.Count(); i++)
-			{
-				var pron = result.Data.Pronunciations[i];
-
-				if (pron.Prefix == null)
-				{
-					if (pron.Filename.Contains("__gb"))
-						pron.Prefix = "BrE";
-					else
-						pron.Prefix = "NAmE";
-				}
-			}
-
 			return result.Data;
-		}
-
-		private int SearchIndex(string word)
-		{
-			return WordList.FindIndex(x => x.Equalize().Equals(word.Equalize(), StringComparison.OrdinalIgnoreCase));
 		}
 
 		public Word SearchID(string wordID)
