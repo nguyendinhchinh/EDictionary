@@ -71,7 +71,9 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
-			if (!NameToIDs.ContainsKey(word.Trim().ToLower()))
+			word = word.Trim().ToLower();
+
+			if (!NameToIDs.ContainsKey(word))
 				return null;
 
 			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word].FirstOrDefault());

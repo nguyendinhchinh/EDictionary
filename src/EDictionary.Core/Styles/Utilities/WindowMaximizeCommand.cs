@@ -20,7 +20,7 @@ namespace EDictionary.Core.Styles.Utilities
 
             if (window != null)
             {
-                if(window.WindowState == WindowState.Maximized)
+                if (window.WindowState == WindowState.Maximized)
                 {
                     window.WindowState = WindowState.Normal;
                 }

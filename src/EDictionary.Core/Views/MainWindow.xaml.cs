@@ -28,7 +28,7 @@ namespace EDictionary.Core.Views
 			var settingsWindow = new SettingsWindow();
 
 			// Make child window always on top of this window but not all other windows
-			settingsWindow.Owner = Application.Current.MainWindow;
+			settingsWindow.Owner = this;
 			settingsWindow.ShowDialog();
 		}
 
@@ -36,7 +36,7 @@ namespace EDictionary.Core.Views
 		{
 			var aboutWindow = new AboutWindow();
 
-			aboutWindow.Owner = Application.Current.MainWindow;
+			aboutWindow.Owner = this;
 			aboutWindow.ShowDialog();
 		}
 	}

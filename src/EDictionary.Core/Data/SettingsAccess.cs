@@ -24,7 +24,7 @@ namespace EDictionary.Core.Data
 			}
 			catch (Exception ex)
 			{
-				return new Result<Settings>(Settings.Default, "Error occured on loading settings", "", Status.Error, ex);
+				return new Result<Settings>(null, "Error occured on loading settings", "", Status.Error, ex);
 			}
 		}
 

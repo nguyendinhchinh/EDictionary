@@ -45,9 +45,11 @@ namespace EDictionary.Core.Extensions
 
 		public static RTFBuilder AppendPronunciation(this RTFBuilder builder, Pronunciation[] prons)
 		{
+			bool hasContent = false;
+
 			foreach (var pron in prons)
 			{
-				if (pron.Prefix == null || pron.Ipa == null)
+				if (pron.Ipa == null)
 					continue;
 
 				builder.ForeColor(ColorPicker.Color("LightMagenta"));
@@ -55,9 +57,12 @@ namespace EDictionary.Core.Extensions
 				builder.Append(pron.Prefix);
 
 				builder.AppendLine($" /{pron.Ipa}/");
+
+				hasContent = true;
 			}
 
-			builder.AppendLine();
+			if (hasContent)
+				builder.AppendLine();
 
 			return builder;
 		}
