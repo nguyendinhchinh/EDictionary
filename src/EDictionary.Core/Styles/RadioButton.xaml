@@ -31,11 +31,12 @@
                   Fill="Transparent"
                   StrokeThickness="4"
                   Stroke="{StaticResource Cyan}" />
-								<Ellipse Name="CheckMark"
+				<Ellipse Name="CheckMark"
                   Grid.Column="1"
                   Grid.Row="1"
                   Opacity="0"
-                  Fill="Transparent"  />
+				  
+                  Fill="{StaticResource ExtraLightCyan}"  />
 							</Grid>
 						</BulletDecorator.Bullet>
 						<VisualStateManager.VisualStateGroups>
@@ -80,9 +81,11 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsPressed" Value="True">
 							<Setter TargetName="EllipseMain" Property="Fill" Value="{StaticResource ExtraLightCyan}" />
+							<Setter TargetName="EllipseMain" Property="StrokeThickness" Value="4" />	
 						</Trigger>
 						<Trigger Property="IsFocused" Value="True">
 							<Setter TargetName="EllipseMain" Property="Fill" Value="{StaticResource ExtraLightCyan}" />
+						    <Setter TargetName="EllipseMain" Property="StrokeThickness" Value="4" />
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
