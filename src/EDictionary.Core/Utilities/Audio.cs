@@ -8,7 +8,6 @@ namespace EDictionary.Core.Utilities
 
 		public static void Play(string audioPath)
 		{
-
 			wplayer.URL = audioPath;
 			wplayer.controls.play();
 		}
