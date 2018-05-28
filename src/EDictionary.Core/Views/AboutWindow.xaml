@@ -71,17 +71,22 @@
 
 		<Label Grid.Row="3" Grid.Column="1"
 			Style="{StaticResource NormalLabel}"
-			Content="{Binding License}"
 			HorizontalAlignment="Left"
-			VerticalAlignment="Top"/>
+			VerticalAlignment="Top">
+			<Hyperlink
+					 Command="{Binding OpenLicense}">
+				<Hyperlink.Inlines>
+					<Run Text="{Binding License, Mode=OneWay}"/>
+				</Hyperlink.Inlines>
+			</Hyperlink>
+		</Label>
 
 		<Grid Grid.Row="4" Grid.ColumnSpan="2">
-				
+
 			<Label Grid.Column="0"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Bottom">
 				<Hyperlink
-					 NavigateUri="{Binding SourceCodeURL}"
 					 Command="{Binding OpenSourceCodeCommand}">
 					<Hyperlink.Inlines>
 						<Run Text="Source Code"/>
@@ -93,14 +98,13 @@
 			HorizontalAlignment="Right"
 			VerticalAlignment="Bottom">
 				<Hyperlink
-					 NavigateUri="{Binding BugReportURL}"
 					 Command="{Binding OpenBugReportCommand}">
 					<Hyperlink.Inlines>
 						<Run Text="Report Bug?"/>
 					</Hyperlink.Inlines>
 				</Hyperlink>
 			</Label>
-				
+
 		</Grid>
 
 	</Grid>

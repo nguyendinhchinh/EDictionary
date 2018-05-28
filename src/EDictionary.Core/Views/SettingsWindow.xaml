@@ -12,7 +12,7 @@
         Title="Settings"
 				WindowStartupLocation="CenterScreen"
 				ResizeMode="NoResize"
-				Height="400"
+				Height="380"
 				Width="300"
 				Style="{StaticResource ChildWindow}">
 
@@ -29,17 +29,19 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<Label Grid.Row="0" 
+		<Label Grid.Row="0"
+				Style="{StaticResource SmallHeaderLabel}"
 				Content="Interval"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
 				Margin="10,10,0,0"/>
 
-		<Label Grid.Row="0" 
+		<Label Grid.Row="0"
+				Style="{StaticResource NormalLabel}"
 				Content="Mins"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="50,40,0,0"/>
+				Margin="60,40,0,0"/>
 
 		<toolkit:IntegerUpDown Grid.Row="0"
 				Background="{StaticResource Black}"
@@ -53,13 +55,14 @@
 				Increment="1"
 				Minimum="00"
 				Maximum="59"
-				Margin="90,40,0,0" />
+				Margin="100,40,0,0" />
 
-		<Label Grid.Row="0" 
+		<Label Grid.Row="0"
+				Style="{StaticResource NormalLabel}"
 				Content="Secs"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="140,40,0,0"/>
+				Margin="150,40,0,0"/>
 
 		<toolkit:IntegerUpDown Grid.Row="0"
 				Background="{StaticResource Black}"
@@ -73,7 +76,7 @@
 				Increment="1"
 				Minimum="00"
 				Maximum="59"
-				Margin="180,40,0,0" />
+				Margin="190,40,0,0" />
 
 		<Button
 				Style="{StaticResource HelpButton}"
@@ -88,7 +91,7 @@
 			</Grid.RowDefinitions>
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="85"/>
+				<ColumnDefinition Width="90"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
@@ -97,14 +100,14 @@
 							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Full}}"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Left"
-							Margin="10,0,0,0"/>
+							Margin="15,0,0,0"/>
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
 							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Custom}}"
 							Content="Custom"
 							VerticalAlignment="Top"
 							HorizontalAlignment="Left"
-							Margin="10,10,0,0"/>
+							Margin="15,10,0,0"/>
 
 			<TextBox Grid.Row="1" Grid.Column="1"
 				x:Name="txtCustomWordList"

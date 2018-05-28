@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -44,6 +45,10 @@ namespace EDictionary.Controls
 
 		#endregion
 
+		/// <summary>
+		/// Update SelectedWord property on mouse click
+		/// </summary>
+		/// <param name="e"></param>
 		protected override void OnMouseUp(MouseButtonEventArgs e)
 		{
 			TextPointer cursorPosition = CaretPosition;
@@ -61,6 +66,43 @@ namespace EDictionary.Controls
 				.ToArray());
 
 			base.OnMouseUp(e);
+		}
+
+		/// <summary>
+		/// Change mouse cursor to hand if cursor is on text
+		/// </summary>
+		/// <param name="e"></param>
+		protected override void OnMouseMove(MouseEventArgs e)
+		{
+			if (GetCharAtCursorPosition(e) != '\0')
+			{
+				this.Cursor = Cursors.Hand;
+			}
+			else
+			{
+				this.Cursor = Cursors.Arrow;
+			}
+
+			base.OnMouseMove(e);
+		}
+
+		private char GetCharAtCursorPosition(MouseEventArgs e)
+		{
+			var mousePosition = e.GetPosition(this);
+
+			TextPointer textPointer = GetPositionFromPoint(mousePosition, false);
+
+			if (textPointer == null)
+			{
+				return default(char);
+			}
+
+			CaretPosition = textPointer;
+
+			// Console.WriteLine(mousePosition);
+			// Console.WriteLine(GetPositionFromPoint(mousePosition, false) == null);
+
+			return CaretPosition.GetTextInRun(LogicalDirection.Forward).FirstOrDefault();
 		}
 
 		protected override void OnTextChanged(TextChangedEventArgs e)

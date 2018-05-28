@@ -9,6 +9,10 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 {
 	public class AboutViewModel : ViewModelBase, IAboutViewModel
 	{
+		private string licensePath;
+		private string sourceCodeURL;
+		private string bugReportURL;
+
 		public string Version
 		{
 			get
@@ -19,8 +23,6 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 		}
 		public string Authors { get; private set; }
 		public string License { get; private set; }
-		public string SourceCodeURL { get; private set; }
-		public string BugReportURL { get; private set; }
 
 		public AboutViewModel()
 		{
@@ -28,8 +30,9 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 
 			License = "BSD 3-Clauses";
 
-			SourceCodeURL = "https://github.com/NearHuscarl/E-Dictionary";
-			BugReportURL = "https://github.com/NearHuscarl/E-Dictionary/issues";
+			licensePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE.rtf");
+			sourceCodeURL = "https://github.com/NearHuscarl/E-Dictionary";
+			bugReportURL = "https://github.com/NearHuscarl/E-Dictionary/issues";
 
 			OpenSourceCodeCommand = new DelegateCommand(OpenSourceCode);
 			OpenBugReportCommand = new DelegateCommand(OpenBugReport);
@@ -53,19 +56,17 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 
 		private void OpenSourceCode()
 		{
-			System.Diagnostics.Process.Start(SourceCodeURL);
+			Process.Start(sourceCodeURL);
 		}
 
 		private void OpenBugReport()
 		{
-			System.Diagnostics.Process.Start(BugReportURL);
+			Process.Start(bugReportURL);
 		}
 
 		private void OpenLicense()
 		{
-			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LICENSE.rtf");
-
-			Process.Start(path);
+			Process.Start(licensePath);
 		}
 	}
 }

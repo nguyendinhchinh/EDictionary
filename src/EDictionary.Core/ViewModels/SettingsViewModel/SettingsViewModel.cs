@@ -1,4 +1,5 @@
-﻿using EDictionary.Core.Models;
+﻿using EDictionary.Core.DataLogic;
+using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 {
 	public class SettingsViewModel : ViewModelBase, ISettingsViewModel
 	{
+		private SettingsLogic settingsLogic;
+
 		private bool canEditCustomWordList;
 		private Option option;
 		private List<string> customWordList = new List<string>();
@@ -52,10 +55,11 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 		public SettingsViewModel()
 		{
-			SaveCommand = new DelegateCommand(Save);
+			SaveCommand = new DelegateCommand(SaveAndReload);
 			CloseCommand = new DelegateCommand(Close);
 
-			Load();
+			settingsLogic = new SettingsLogic();
+			LoadSettings();
 		}
 
 		#region Commands
@@ -65,27 +69,17 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 		#endregion
 
-		private void Load()
-		{
-			LoadSettings();
-		}
-
 		private void LoadSettings()
 		{
-			Settings settings = new Settings();
+			Settings settings = settingsLogic.LoadSettings();
 
-			Result<Settings> result = settings.LoadSettings();
-
-			if (result.Status == Status.Success)
-			{
-				this.MinInterval = result.Data.MinInterval;
-				this.SecInterval = result.Data.SecInterval;
-				this.Option = result.Data.Option;
-				this.CustomWordList = result.Data.CustomWordList;
-			}
+			this.MinInterval = settings.MinInterval;
+			this.SecInterval = settings.SecInterval;
+			this.Option = settings.Option;
+			this.CustomWordList = settings.CustomWordList;
 		}
 
-		private void Save()
+		private void SaveAndReload()
 		{
 			try
 			{
@@ -99,7 +93,7 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 					Option = this.Option,
 				};
 
-				settings.SaveSettings(settings);
+				settingsLogic.SaveSettings(settings);
 
 				LogWriter.Instance.WriteLine("Saving Settings ends");
 
@@ -118,6 +112,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 				LogWriter.Instance.WriteLine(errorMsg.ToString());
 			}
+
+
 
 			this.CloseAction.Invoke();
 		}
