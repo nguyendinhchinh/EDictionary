@@ -38,7 +38,7 @@ if (!(Test-Path -Path "$TargetAudioPath"))
 {
 	Write-Host "${Prompt} audio dir not found. Copying audio files to target dir..."
 	New-Item -ItemType directory -Path "$TargetAudioPath"
-	Copy-Item -Path "${SourceAudioPath}" -Destination "${TargetAudioDir}"
+	Copy-Item -Path "${SourceAudioPath}\*.mp3" -Destination "${TargetAudioPath}"
 }
 
 # vim: ft=conf
