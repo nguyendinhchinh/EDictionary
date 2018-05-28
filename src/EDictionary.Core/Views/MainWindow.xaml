@@ -8,7 +8,6 @@
 	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 	xmlns:extension="clr-namespace:EDictionary.Core.Extensions"
 	xmlns:converter="clr-namespace:EDictionary.Core.Converters"
-	xmlns:simply="clr-namespace:Simply;assembly=FlatWindow"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
@@ -137,7 +136,10 @@
 
 			<StackPanel Grid.Column="1" Orientation="Horizontal">
 
-				<Label Content="BrE" VerticalAlignment="Center"/>
+				<Label
+					Style="{StaticResource SmallHeaderLabel}"
+					Content="BrE"
+					VerticalAlignment="Center"/>
 
 				<Button x:Name="btnBrE"
 					Command="{Binding PlayBrEAudioCommand}"
@@ -145,7 +147,10 @@
 					Margin="1,0,10,0">
 				</Button>
 
-				<Label Content="NAmE" VerticalAlignment="Center"/>
+				<Label
+					Style="{StaticResource SmallHeaderLabel}"
+					Content="NAmE"
+					VerticalAlignment="Center"/>
 
 				<Button x:Name="btnNAmE"
 					Command="{Binding PlayNAmEAudioCommand}"

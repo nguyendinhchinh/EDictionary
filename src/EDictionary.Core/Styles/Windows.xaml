@@ -146,11 +146,8 @@
 	<Style TargetType="Window" x:Key="WindowBaseStyle">
 
 		<Style.Resources>
+				
 			<Style TargetType="{x:Type Control}">
-				<Setter Property="Foreground" Value="LightGray" />
-			</Style>
-
-			<Style TargetType="{x:Type Label}">
 				<Setter Property="Foreground" Value="LightGray" />
 			</Style>
 
