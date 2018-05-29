@@ -130,7 +130,9 @@ namespace EDictionary.Core.Extensions
 				builder.Append(definition.Property + " ");
 			}
 
-			builder.AppendLine(definition.Description);
+			if (definition.Description != null)
+				builder.AppendLine(definition.Description);
+
 			builder.AppendExamples(definition.Examples);
 			builder.AppendReferences(definition.References);
 
@@ -139,7 +141,7 @@ namespace EDictionary.Core.Extensions
 
 		public static RTFBuilder AppendExamples(this RTFBuilder builder, string[] examples)
 		{
-			if (examples == null && examples.Length == 0)
+			if (examples.Length == 0)
 				return builder;
 
 			foreach (var example in examples)
