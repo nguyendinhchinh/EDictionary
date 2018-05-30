@@ -4,13 +4,12 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 	xmlns:extension="clr-namespace:EDictionary.Core.Extensions"
 	xmlns:converter="clr-namespace:EDictionary.Core.Converters"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+	xmlns:behave="clr-namespace:Presentation.Behaviours"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -23,6 +22,10 @@
 	<Window.Resources>
 		<converter:StringToResourceConverter x:Key="ResourceConverter" />
 	</Window.Resources>
+
+	<i:Interaction.Behaviors>
+		<behave:CloseBehavior Storyboard="{StaticResource FadeOutAnimation}"/>
+	</i:Interaction.Behaviors>
 
 	<WindowChrome.WindowChrome>
 		<WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
@@ -79,7 +82,7 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
-			<control:ExpandedListView x:Name="lbxWordList"
+			<control:ExtendedListView x:Name="lbxWordList"
 				Grid.Row="0"
 				TopIndex="{Binding WordListTopIndex}"
 				SelectedItem="{Binding HighlightedWord}"
@@ -92,9 +95,9 @@
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 
-			</control:ExpandedListView>
+			</control:ExtendedListView>
 
-			<control:ExpandedListView x:Name="lbxOtherResult"
+			<control:ExtendedListView x:Name="lbxOtherResult"
 				Margin="0,15,0,0"
 				Grid.Row="1"
 				SelectedItem="{Binding HighlightedOtherResult}"
@@ -108,7 +111,7 @@
 					</i:EventTrigger>
 				</i:Interaction.Triggers>
 
-			</control:ExpandedListView>
+			</control:ExtendedListView>
 		</Grid>
 
 
@@ -182,20 +185,20 @@
 
 		</Grid>
 
-		<control:ExpandedRichTextBox x:Name="rtxDefinition"
+		<control:ExtendedRichTextBox x:Name="rtxDefinition"
 			Grid.Row="3" Grid.Column="1"
 			SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 			Text="{Binding Definition}"
 			Margin="0, 5, 15, 15"
 			Height="Auto">
 
-			<control:ExpandedRichTextBox.InputBindings>
+			<control:ExtendedRichTextBox.InputBindings>
 				<MouseBinding
 							Gesture="LeftDoubleClick"
 							Command="{Binding SearchFromSelectionCommand}" />
-			</control:ExpandedRichTextBox.InputBindings>
+			</control:ExtendedRichTextBox.InputBindings>
 
 			<FlowDocument/>
-		</control:ExpandedRichTextBox>
+		</control:ExtendedRichTextBox>
 	</Grid>
 </Window>

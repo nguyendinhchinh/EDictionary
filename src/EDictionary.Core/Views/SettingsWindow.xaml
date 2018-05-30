@@ -6,9 +6,11 @@
 				xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 				xmlns:model="clr-namespace:EDictionary.Core.Models"
 				xmlns:converter="clr-namespace:EDictionary.Core.Converters"
-
+				xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 				xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
+				xmlns:behave="clr-namespace:Presentation.Behaviours"
+				mc:Ignorable="d"
         Title="Settings"
 				WindowStartupLocation="CenterScreen"
 				ResizeMode="NoResize"
@@ -20,6 +22,10 @@
 		<converter:OptionToRadioBoolConverter x:Key="RadioConverter" />
 		<converter:ListToStringConverter x:Key="StringConverter" />
 	</Window.Resources>
+	
+	<i:Interaction.Behaviors>
+		<behave:CloseBehavior Storyboard="{StaticResource FadeOutAnimation}"/>
+	</i:Interaction.Behaviors>
 
 	<Grid>
 

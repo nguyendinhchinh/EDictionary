@@ -17,6 +17,7 @@
 	<Color x:Key="LightCyanColor">#1ABC9C</Color>
 	<Color x:Key="ExtraLightCyanColor">#5ed0b9</Color>
 
+	<Color x:Key="DarkGreenColor">#1f8b4c</Color>
 	<Color x:Key="GreenColor">#27ae60</Color>
 	<Color x:Key="LightGreenColor">#2ecc71</Color>
 	<Color x:Key="ExtraLightGreenColor">#57d68d</Color>
@@ -43,38 +44,39 @@
 	<SolidColorBrush x:Key="LightRed" Color="{StaticResource LightRedColor}"/>
 	<SolidColorBrush x:Key="ExtraLightRed" Color="{StaticResource ExtraLightRedColor}"/>
 
-	<SolidColorBrush x:Key="Blue" Color="{StaticResource BlueColor}"/>
-	<SolidColorBrush x:Key="LightBlue" Color="{StaticResource LightBlueColor}"/>
-
-	<SolidColorBrush x:Key="Gray" Color="{StaticResource GrayColor}"/>
-	<SolidColorBrush x:Key="LightGray" Color="{StaticResource LightGrayColor}"/>
+	<SolidColorBrush x:Key="Orange" Color="{StaticResource OrangeColor}"/>
+	<SolidColorBrush x:Key="LightOrange" Color="{StaticResource LightOrangeColor}"/>
 
 	<SolidColorBrush x:Key="DarkYellow" Color="{StaticResource DarkYellowColor}"/>
 	<SolidColorBrush x:Key="Yellow" Color="{StaticResource YellowColor}"/>
 	<SolidColorBrush x:Key="LightYellow" Color="{StaticResource LightYellowColor}"/>
 	<SolidColorBrush x:Key="ExtraLightYellow" Color="{StaticResource ExtraLightYellowColor}"/>
 
-	<SolidColorBrush x:Key="Silver" Color="{StaticResource SilverColor}"/>
-	<SolidColorBrush x:Key="White" Color="{StaticResource WhiteColor}"/>
-
 	<SolidColorBrush x:Key="Cyan" Color="{StaticResource CyanColor}"/>
 	<SolidColorBrush x:Key="LightCyan" Color="{StaticResource LightCyanColor}"/>
 	<SolidColorBrush x:Key="ExtraLightCyan" Color="{StaticResource ExtraLightCyanColor}"/>
 
-	<SolidColorBrush x:Key="Orange" Color="{StaticResource OrangeColor}"/>
-	<SolidColorBrush x:Key="LightOrange" Color="{StaticResource LightOrangeColor}"/>
+	<SolidColorBrush x:Key="DarkGreen" Color="{StaticResource DarkGreenColor}"/>
+	<SolidColorBrush x:Key="Green" Color="{StaticResource GreenColor}"/>
+	<SolidColorBrush x:Key="LightGreen" Color="{StaticResource LightGreenColor}"/>
+	<SolidColorBrush x:Key="ExtraLightGreen" Color="{StaticResource ExtraLightGreenColor}"/>
+
+	<SolidColorBrush x:Key="Blue" Color="{StaticResource BlueColor}"/>
+	<SolidColorBrush x:Key="LightBlue" Color="{StaticResource LightBlueColor}"/>
 
 	<SolidColorBrush x:Key="DarkMagenta" Color="{StaticResource DarkMagentaColor}"/>
 	<SolidColorBrush x:Key="Magenta" Color="{StaticResource MagentaColor}"/>
 	<SolidColorBrush x:Key="LightMagenta" Color="{StaticResource LightMagentaColor}"/>
 	<SolidColorBrush x:Key="ExtraLightMagenta" Color="{StaticResource ExtraLightMagentaColor}"/>
 
+	<SolidColorBrush x:Key="Gray" Color="{StaticResource GrayColor}"/>
+	<SolidColorBrush x:Key="LightGray" Color="{StaticResource LightGrayColor}"/>
+
+	<SolidColorBrush x:Key="Silver" Color="{StaticResource SilverColor}"/>
+	<SolidColorBrush x:Key="White" Color="{StaticResource WhiteColor}"/>
+
 	<SolidColorBrush x:Key="Black" Color="{StaticResource BlackColor}"/>
 	<SolidColorBrush x:Key="Dark" Color="{StaticResource DarkColor}"/>
 	<SolidColorBrush x:Key="Dark2" Color="{StaticResource Dark2Color}"/>
-
-  <SolidColorBrush x:Key="Green" Color="{StaticResource GreenColor}"/>
-  <SolidColorBrush x:Key="LightGreen" Color="{StaticResource LightGreenColor}"/>
-	<SolidColorBrush x:Key="ExtraLightGreen" Color="{StaticResource ExtraLightGreenColor}"/>
 
 </ResourceDictionary>

@@ -9,9 +9,9 @@ using Xceed.Wpf.Toolkit;
 
 namespace EDictionary.Controls
 {
-	public class ExpandedRichTextBox : Xceed.Wpf.Toolkit.RichTextBox
+	public class ExtendedRichTextBox : Xceed.Wpf.Toolkit.RichTextBox
 	{
-		public ExpandedRichTextBox()
+		public ExtendedRichTextBox()
 		{
 			// Use base class style
 			SetResourceReference(StyleProperty, typeof(Xceed.Wpf.Toolkit.RichTextBox));
@@ -27,7 +27,7 @@ namespace EDictionary.Controls
 			DependencyProperty.Register(
 					"SelectedWord",
 					typeof(string),
-					typeof(ExpandedRichTextBox),
+					typeof(ExtendedRichTextBox),
 					new PropertyMetadata("")
 					);
 

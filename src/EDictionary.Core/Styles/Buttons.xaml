@@ -3,26 +3,22 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:fa="http://schemas.fontawesome.io/icons/">
 
+	<ControlTemplate x:Key="ButtonBaseTemplate" TargetType="{x:Type Button}">
+		<!-- Need this for hover event to work -->
+		<Border Background="{TemplateBinding Background}" 
+      BorderBrush="{TemplateBinding BorderBrush}"
+			BorderThickness="{TemplateBinding BorderThickness}">
+			<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		</Border>
+	</ControlTemplate>
+
 	<Style TargetType="Button" x:Key="ButtonBase">
 
 		<Setter Property="Cursor" Value="Hand" />
 		<Setter Property="Background" Value="{StaticResource LightCyan}"/>
 		<Setter Property="Foreground" Value="{StaticResource Cyan}"/>
 		<Setter Property="BorderBrush" Value="{x:Null}"/>
-
-		<!-- Need this for hover event to work -->
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Button}">
-
-					<Border Background="{TemplateBinding Background}" 
-                  BorderBrush="{TemplateBinding BorderBrush}"
-                  BorderThickness="{TemplateBinding BorderThickness}">
-						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-					</Border>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
+		<Setter Property="Template" Value="{StaticResource ButtonBaseTemplate}"/>
 
 	</Style>
 
@@ -296,7 +292,7 @@
 
 					<Grid>
 						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="14" Width="14" Foreground="{StaticResource LightGreen}" Name="Circle" Icon="Circle" />
-						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource Green}" Name="Minimize" Icon="Sort" Opacity="0">
+						<fa:ImageAwesome RenderTransformOrigin="0.5,0.5" Height="8" Width="8" Foreground="{StaticResource DarkGreen}" Name="Minimize" Icon="Sort" Opacity="0">
 							<fa:ImageAwesome.RenderTransform>
 								<RotateTransform/>
 							</fa:ImageAwesome.RenderTransform>

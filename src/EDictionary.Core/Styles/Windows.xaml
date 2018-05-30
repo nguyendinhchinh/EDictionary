@@ -142,7 +142,7 @@
 			</Grid>
 		</Grid>
 	</ControlTemplate>
-
+	
 	<Style TargetType="Window" x:Key="WindowBaseStyle">
 
 		<Style.Resources>
@@ -158,16 +158,9 @@
 		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 
-		<!-- Fade in when window show up -->
 		<Style.Triggers>
 			<EventTrigger RoutedEvent="Window.Loaded">
-				<BeginStoryboard>
-					<Storyboard>
-						<DoubleAnimation Storyboard.TargetProperty="(Window.Opacity)"
-							From="0.0" To="1.0" Duration="0:0:0.2"
-							AutoReverse="False"/>
-					</Storyboard>
-				</BeginStoryboard>
+				<BeginStoryboard Storyboard="{StaticResource FadeInAnimation}"/>
 			</EventTrigger>
 		</Style.Triggers>
 	</Style>
