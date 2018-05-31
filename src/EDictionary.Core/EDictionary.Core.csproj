@@ -152,18 +152,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Styles\Utilities\ControlDoubleClickBehavior.cs" />
-    <Compile Include="Styles\Utilities\ShowSystemMenuBehavior.cs" />
-    <Compile Include="Styles\Utilities\SystemMenuManager.cs" />
-    <Compile Include="Styles\Utilities\WindowCloseCommand.cs" />
-    <Compile Include="Styles\Utilities\WindowDragBehavior.cs" />
-    <Compile Include="Styles\Utilities\WindowMaximizeCommand.cs" />
-    <Compile Include="Styles\Utilities\WindowMinimizeCommand.cs" />
-    <Compile Include="Styles\Utilities\WindowResizeBehavior.cs" />
     <Compile Include="Utilities\Audio.cs" />
     <Compile Include="Utilities\ColorPicker.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
-    <Compile Include="Utilities\History.cs" />
+    <Compile Include="Models\History.cs" />
     <Compile Include="Utilities\JsonHelper.cs" />
     <Compile Include="Utilities\LogWriter.cs" />
     <Compile Include="Utilities\Result.cs" />
@@ -175,79 +167,15 @@
     <Compile Include="ViewModels\AboutViewModel\IAboutViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel\IMainViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModels\PopupViewModel\PopupViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PopupWindow.xaml.cs">
-      <DependentUpon>PopupWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Styles\Animations.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Buttons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Colors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Controls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Fonts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Hyperlink.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\IntegerUpDown.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\ListViews.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\RadioButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\RichTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Scrollbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\TextBoxs.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Icons.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Labels.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Styles\Windows.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,10 +192,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PopupWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -319,6 +243,9 @@
     <Content Include="Fonts\Catamaran-Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fonts\Quicksand-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -349,6 +276,10 @@
     <ProjectReference Include="..\EDictionary.Controls\EDictionary.Controls.csproj">
       <Project>{638f4620-a06a-4eba-966b-98dfdd30daa1}</Project>
       <Name>EDictionary.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EDictionary.Theme\EDictionary.Theme.csproj">
+      <Project>{a481790b-1742-446c-bbf9-e41eaaa01c74}</Project>
+      <Name>EDictionary.Theme</Name>
     </ProjectReference>
     <ProjectReference Include="..\EDictionary.Vendors\EDictionary.Vendors.csproj">
       <Project>{587def9d-5d87-44bb-8db2-771ebefee97c}</Project>

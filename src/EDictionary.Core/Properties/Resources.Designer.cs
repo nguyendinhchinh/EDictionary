@@ -93,6 +93,16 @@ namespace EDictionary.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] Quicksand_Bold1 {
+            get {
+                object obj = ResourceManager.GetObject("Quicksand_Bold1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] Quicksand_Medium {
             get {
                 object obj = ResourceManager.GetObject("Quicksand_Medium", resourceCulture);

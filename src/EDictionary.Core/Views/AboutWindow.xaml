@@ -89,7 +89,7 @@
 
 		<Grid Grid.Row="4" Grid.ColumnSpan="2">
 
-			<Label Grid.Column="0"
+			<Label Grid.Column="0" Margin="2"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Bottom">
 				<Hyperlink
@@ -100,7 +100,7 @@
 				</Hyperlink>
 			</Label>
 
-			<Label Grid.Column="1"
+			<Label Grid.Column="1" Margin="2"
 			HorizontalAlignment="Right"
 			VerticalAlignment="Bottom">
 				<Hyperlink

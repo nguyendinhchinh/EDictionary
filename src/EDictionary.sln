@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2000
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Core", "EDictionary.Core\EDictionary.Core.csproj", "{DBD57B7E-EBC3-4C1E-8DAA-2A78438F2CBC}"
 EndProject
@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "EDictionary.Setup", "EDictionary.Setup\EDictionary.Setup.wixproj", "{7421A091-23F5-46F9-A7F8-769A442D0C1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Core.Learner", "EDictionary.Core.Learner\EDictionary.Core.Learner.csproj", "{1CEB95F4-8E72-42AD-9787-420A56635F5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EDictionary.Theme", "EDictionary.Theme\EDictionary.Theme.csproj", "{A481790B-1742-446C-BBF9-E41EAAA01C74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,22 @@ Global
 		{7421A091-23F5-46F9-A7F8-769A442D0C1C}.Release|Any CPU.ActiveCfg = Release|x86
 		{7421A091-23F5-46F9-A7F8-769A442D0C1C}.Release|x86.ActiveCfg = Release|x86
 		{7421A091-23F5-46F9-A7F8-769A442D0C1C}.Release|x86.Build.0 = Release|x86
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Debug|x86.Build.0 = Debug|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CEB95F4-8E72-42AD-9787-420A56635F5F}.Release|x86.Build.0 = Release|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Debug|x86.Build.0 = Debug|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Release|x86.ActiveCfg = Release|Any CPU
+		{A481790B-1742-446C-BBF9-E41EAAA01C74}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

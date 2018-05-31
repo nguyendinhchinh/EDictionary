@@ -13,7 +13,7 @@ namespace EDictionary.Core.Utilities
 	/// </summary>
 	public static class ColorPicker
 	{
-		private static Uri colorUri = new Uri("pack://application:,,,/Styles/Colors.xaml", UriKind.RelativeOrAbsolute);
+		private static Uri colorUri = new Uri("pack://application:,,,/EDictionary.Theme;component/Styles/Colors.xaml", UriKind.RelativeOrAbsolute);
 		private static ResourceDictionary colorDict = new ResourceDictionary()
 		{
 			Source = colorUri,
