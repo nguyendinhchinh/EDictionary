@@ -28,11 +28,11 @@ namespace EDictionary.Core.Models
 			CustomWordList = new List<string>(),
 		};
 
-		public int MinInterval;
+		public int MinInterval { get; set; }
 
-		public int SecInterval;
+		public int SecInterval { get; set; }
 
-		public Option Option;
+		public Option Option { get; set; }
 
 		public List<string> CustomWordList { get; set; }
 

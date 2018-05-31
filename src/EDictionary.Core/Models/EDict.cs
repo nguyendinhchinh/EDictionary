@@ -71,6 +71,9 @@ namespace EDictionary.Core.Models
 
 		public Word Search(string word)
 		{
+			if (word == null)
+				return null;
+
 			word = word.Trim().ToLower();
 
 			if (!NameToIDs.ContainsKey(word))

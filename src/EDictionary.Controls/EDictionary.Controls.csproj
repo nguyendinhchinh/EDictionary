@@ -62,12 +62,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtendedWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ExtendedRichTextBox.cs" />
     <Compile Include="ExtendedListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EDictionary.Theme\EDictionary.Theme.csproj">
+      <Project>{a481790b-1742-446c-bbf9-e41eaaa01c74}</Project>
+      <Name>EDictionary.Theme</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

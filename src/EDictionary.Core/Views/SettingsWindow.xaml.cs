@@ -1,13 +1,13 @@
-﻿using EDictionary.Core.ViewModels.SettingsViewModel;
+﻿using EDictionary.Controls;
+using EDictionary.Core.ViewModels.SettingsViewModel;
 using System;
-using System.Windows;
 
 namespace EDictionary.Core.Views
 {
 	/// <summary>
 	/// Interaction logic for SettingWindow.xaml
 	/// </summary>
-	public partial class SettingsWindow : Window
+	public partial class SettingsWindow : ExtendedWindow
 	{
 		private SettingsViewModel viewModel;
 

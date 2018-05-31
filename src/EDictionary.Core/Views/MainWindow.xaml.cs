@@ -1,4 +1,5 @@
-﻿using EDictionary.Core.ViewModels.MainViewModel;
+﻿using EDictionary.Controls;
+using EDictionary.Core.ViewModels.MainViewModel;
 using System;
 using System.Windows;
 
@@ -7,7 +8,7 @@ namespace EDictionary.Core.Views
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
-	public partial class MainWindow : Window
+	public partial class MainWindow : ExtendedWindow
 	{
 		private MainViewModel viewModel;
 

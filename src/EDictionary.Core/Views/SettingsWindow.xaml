@@ -1,14 +1,13 @@
-﻿<Window x:Class="EDictionary.Core.Views.SettingsWindow"
+﻿<controls:ExtendedWindow
+	xmlns:controls="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
+	x:Class="EDictionary.Core.Views.SettingsWindow"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:control="clr-namespace:EDictionary.Controls;assembly=EDictionary.Controls"
 	xmlns:model="clr-namespace:EDictionary.Core.Models"
 	xmlns:converter="clr-namespace:EDictionary.Core.Converters"
-	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
-	xmlns:behave="clr-namespace:Presentation.Behaviours"
 	mc:Ignorable="d"
 	Title="Settings"
 	WindowStartupLocation="CenterScreen"
@@ -21,10 +20,6 @@
 		<converter:OptionToRadioBoolConverter x:Key="RadioConverter" />
 		<converter:ListToStringConverter x:Key="StringConverter" />
 	</Window.Resources>
-	
-	<i:Interaction.Behaviors>
-		<behave:CloseBehavior Storyboard="{StaticResource FadeOutAnimation}"/>
-	</i:Interaction.Behaviors>
 
 	<Grid>
 
@@ -146,4 +141,4 @@
 				
 		</Grid>
 	</Grid>
-</Window>
+</controls:ExtendedWindow>

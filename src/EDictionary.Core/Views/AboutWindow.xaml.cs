@@ -1,12 +1,12 @@
-﻿using EDictionary.Core.ViewModels.AboutViewModel;
-using System.Windows;
+﻿using EDictionary.Controls;
+using EDictionary.Core.ViewModels.AboutViewModel;
 
 namespace EDictionary.Core.Views
 {
 	/// <summary>
 	/// Interaction logic for AboutWindow.xaml
 	/// </summary>
-	public partial class AboutWindow : Window
+	public partial class AboutWindow : ExtendedWindow
 	{
 		private AboutViewModel viewModel;
 
