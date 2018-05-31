@@ -39,6 +39,7 @@
 	<Color x:Key="BlackColor">#2c3e50</Color>
 	<Color x:Key="DarkColor">#374d64</Color>
 	<Color x:Key="Dark2Color">#31455a</Color>
+	<Color x:Key="Dark3Color">#3a526b</Color>
 
 	<SolidColorBrush x:Key="Red" Color="{StaticResource RedColor}"/>
 	<SolidColorBrush x:Key="LightRed" Color="{StaticResource LightRedColor}"/>
@@ -78,5 +79,6 @@
 	<SolidColorBrush x:Key="Black" Color="{StaticResource BlackColor}"/>
 	<SolidColorBrush x:Key="Dark" Color="{StaticResource DarkColor}"/>
 	<SolidColorBrush x:Key="Dark2" Color="{StaticResource Dark2Color}"/>
+  <SolidColorBrush x:Key="Dark3" Color="{StaticResource Dark3Color}"/>
 
 </ResourceDictionary>

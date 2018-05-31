@@ -89,7 +89,7 @@
 	<!-- Custom title bar, effects... -->
 	<ControlTemplate x:Key="PopupWindowTemplate" TargetType="{x:Type Window}">
 
-		<Grid Background="{StaticResource Dark}">
+		<Grid Background="{StaticResource Dark3}">
 			<Grid>
 
 				<!-- Title bar and the rest of window -->
