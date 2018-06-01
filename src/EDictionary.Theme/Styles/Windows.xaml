@@ -22,7 +22,7 @@
 	<!-- Custom title bar, effects... -->
 	<ControlTemplate x:Key="WindowTemplate" TargetType="{x:Type Window}">
 
-		<Grid Background="{StaticResource Dark}">
+		<Grid Background="{StaticResource Dark1}">
 			<Grid>
 
 				<!-- Title bar and the rest of window -->
@@ -89,7 +89,7 @@
 	<!-- Custom title bar, effects... -->
 	<ControlTemplate x:Key="PopupWindowTemplate" TargetType="{x:Type Window}">
 
-		<Grid Background="{StaticResource Dark3}">
+		<Grid Background="{StaticResource Dark0}">
 			<Grid>
 
 				<!-- Title bar and the rest of window -->
@@ -180,8 +180,8 @@
 	</Style>
 
 	<Style TargetType="Window" x:Key="ParentWindow" BasedOn="{StaticResource WindowBaseStyle}">
-		<Setter Property="Background" Value="{StaticResource Black}"/>
-		<Setter Property="BorderBrush" Value="{StaticResource Dark}"/>
+		<Setter Property="Background" Value="{StaticResource Dark3}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource Dark1}"/>
 		<Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
 	</Style>
 

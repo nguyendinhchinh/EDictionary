@@ -9,7 +9,7 @@
 	<Style TargetType="{x:Type TextBox}" x:Key="TextBoxBase" BasedOn="{StaticResource BaseStyle}">
 		 
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
-		<Setter Property="Background" Value="{StaticResource Dark}"/>
+		<Setter Property="Background" Value="{StaticResource Dark1}"/>
 		<Setter Property="CaretBrush" Value="{StaticResource LightCyan}"/>
 		<Setter Property="SelectionBrush" Value="{StaticResource LightCyan}"/>
 
