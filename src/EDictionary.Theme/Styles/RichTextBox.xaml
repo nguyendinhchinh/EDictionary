@@ -15,7 +15,7 @@
 		<Setter Property="VerticalAlignment" Value="Stretch"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
-		<Setter Property="Background" Value="{StaticResource Dark1}"/>
+		<Setter Property="Background" Value="{StaticResource Black2}"/>
 		<Setter Property="IsReadOnly" Value="True"/>
 		<Setter Property="SelectionBrush" Value="{StaticResource Cyan}"/>
 		<Setter Property="SelectionOpacity" Value="0.65" />

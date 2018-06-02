@@ -10,8 +10,8 @@
 	
 	<Style TargetType="{x:Type wpfToolkit:IntegerUpDown}">
 		<Style.Resources>
-			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}" Color="{StaticResource BlackColor}"/>
-			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphDisabledForegroundKey}" Color="{StaticResource BlackColor}"/>
+			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}" Color="{StaticResource Black0Color}"/>
+			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphDisabledForegroundKey}" Color="{StaticResource Black0Color}"/>
 		</Style.Resources>
 	</Style>
 
