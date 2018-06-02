@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels.SettingsViewModel
@@ -44,7 +45,7 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 		public List<string> CustomWordList
 		{
 			get { return customWordList; }
-			set { SetProperty(ref customWordList, value); }
+			set { SetPropertyAndNotify(ref customWordList, value); }
 		}
 
 		#region Actions
@@ -59,7 +60,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			CloseCommand = new DelegateCommand(Close);
 
 			settingsLogic = new SettingsLogic();
-			LoadSettings();
+
+			LoadSettingsAsync();
 		}
 
 		#region Commands
@@ -69,9 +71,9 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 		#endregion
 
-		private void LoadSettings()
+		private async void LoadSettingsAsync()
 		{
-			Settings settings = settingsLogic.LoadSettings();
+			Settings settings = await settingsLogic.LoadSettingsAsync();
 
 			this.MinInterval = settings.MinInterval;
 			this.SecInterval = settings.SecInterval;

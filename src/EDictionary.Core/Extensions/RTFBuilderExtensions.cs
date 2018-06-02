@@ -1,6 +1,8 @@
 ﻿using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace EDictionary.Core.Extensions
 {
@@ -10,11 +12,18 @@ namespace EDictionary.Core.Extensions
 		public static int headerFontSize = 25;
 		public static int defaultFontSize = 10;
 
+		public static Color TitleColor = ColorPicker.Color("LightCyan");
+		public static Color WordformColor = ColorPicker.Color("Cyan");
+		public static Color HeadlineColor = ColorPicker.Color("Yellow");
+		public static Color PronPrefixColor = ColorPicker.Color("LightMagenta");
+		public static Color ExampleColor = ColorPicker.Color("LightBlue");
+		public static Color LabelColor = ColorPicker.Color("Gray");
+
 		public static RTFBuilder AppendTitle(this RTFBuilder builder, string word)
 		{
 			builder.FontSize(titleFontSize);
-			builder.FontStyle(System.Drawing.FontStyle.Bold);
-			builder.ForeColor(ColorPicker.Color("LightCyan"));
+			builder.FontStyle(FontStyle.Bold);
+			builder.ForeColor(TitleColor);
 			builder.Append(word);
 
 			return builder;
@@ -23,7 +32,7 @@ namespace EDictionary.Core.Extensions
 		public static RTFBuilder AppendWordform(this RTFBuilder builder, string wordform)
 		{
 			builder.FontSize(headerFontSize);
-			builder.ForeColor(ColorPicker.Color("Cyan"));
+			builder.ForeColor(WordformColor);
 			builder.AppendLine("  " + wordform);
 
 			builder.AppendLine();
@@ -34,8 +43,8 @@ namespace EDictionary.Core.Extensions
 		public static RTFBuilder AppendHeadline(this RTFBuilder builder, string str)
 		{
 			builder.FontSize(headerFontSize);
-			builder.FontStyle(System.Drawing.FontStyle.Bold);
-			builder.ForeColor(ColorPicker.Color("Yellow"));
+			builder.FontStyle(FontStyle.Bold);
+			builder.ForeColor(HeadlineColor);
 
 			builder.AppendLine(str);
 			builder.AppendLine();
@@ -52,8 +61,8 @@ namespace EDictionary.Core.Extensions
 				if (pron.Ipa == null)
 					continue;
 
-				builder.ForeColor(ColorPicker.Color("LightMagenta"));
-				builder.FontStyle(System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic);
+				builder.ForeColor(PronPrefixColor);
+				builder.FontStyle(FontStyle.Bold | FontStyle.Italic);
 				builder.Append(pron.Prefix);
 
 				builder.AppendLine($" /{pron.Ipa}/");
@@ -109,8 +118,8 @@ namespace EDictionary.Core.Extensions
 
 			if (definition.Label != null)
 			{
-				builder.FontStyle(System.Drawing.FontStyle.Bold);
-				builder.ForeColor(ColorPicker.Color("Gray"));
+				builder.FontStyle(FontStyle.Bold);
+				builder.ForeColor(LabelColor);
 
 				if (definition.Label[0] != '(')
 					builder.Append($"({definition.Label}) ");
@@ -120,13 +129,13 @@ namespace EDictionary.Core.Extensions
 
 			if (definition.Refer != null)
 			{
-				builder.ForeColor(ColorPicker.Color("Gray"));
+				builder.ForeColor(LabelColor);
 				builder.Append(definition.Refer);
 			}
 
 			if (definition.Property != null)
 			{
-				builder.ForeColor(ColorPicker.Color("Gray"));
+				builder.ForeColor(LabelColor);
 				builder.Append(definition.Property + " ");
 			}
 
@@ -146,8 +155,8 @@ namespace EDictionary.Core.Extensions
 
 			foreach (var example in examples)
 			{
-				builder.FontStyle(System.Drawing.FontStyle.Italic);
-				builder.ForeColor(ColorPicker.Color("LightBlue"));
+				builder.FontStyle(FontStyle.Italic);
+				builder.ForeColor(ExampleColor);
 				builder.AppendLine("  • " + example);
 			}
 
@@ -182,9 +191,9 @@ namespace EDictionary.Core.Extensions
 
 			foreach (var idiom in idioms)
 			{
-				builder.FontStyle(System.Drawing.FontStyle.Bold);
+				builder.FontStyle(FontStyle.Bold);
 				builder.AppendLine(idiom.Name);
-				builder.FontStyle(System.Drawing.FontStyle.Regular);
+				builder.FontStyle(FontStyle.Regular);
 
 				foreach (var definition in idiom.Definitions)
 					builder.AppendDefinition(definition);

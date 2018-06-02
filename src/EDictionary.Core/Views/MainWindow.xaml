@@ -9,6 +9,7 @@
 	xmlns:converter="clr-namespace:EDictionary.Core.Converters"
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -42,7 +43,7 @@
 
 		<StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
 
-			<TextBox x:Name="txtSearch"
+			<TextBox
 				Style="{StaticResource TextBoxBase}"
 				extension:FocusExtension.IsFocused="{Binding IsTextBoxFocus, Mode=TwoWay}"
 				Text="{Binding CurrentWord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -64,8 +65,7 @@
 				Content="{Binding SearchIcon, Converter={StaticResource ResourceConverter}, UpdateSourceTrigger=Explicit}"
 				Command="{Binding SearchFromInputCommand}"
 				Style="{StaticResource SearchButton}"
-				VerticalAlignment="Center"
-				Margin="0,0"/>
+				VerticalAlignment="Center" />
 
 		</StackPanel>
 
@@ -77,11 +77,11 @@
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
 
-			<control:ExtendedListView x:Name="lbxWordList"
+			<control:ExtendedListView
 				Grid.Row="0"
 				TopIndex="{Binding WordListTopIndex}"
 				SelectedItem="{Binding HighlightedWord}"
-				ItemsSource="{Binding WordList}"
+				ItemsSource="{Binding WordList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 				Margin="0, 0, 0, 0">
 
 				<i:Interaction.Triggers>
@@ -92,7 +92,7 @@
 
 			</control:ExtendedListView>
 
-			<control:ExtendedListView x:Name="lbxOtherResult"
+			<control:ExtendedListView
 				Margin="0,15,0,0"
 				Grid.Row="1"
 				SelectedItem="{Binding HighlightedOtherResult}"
@@ -120,14 +120,14 @@
 
 			<StackPanel Grid.Column="0" Orientation="Horizontal">
 
-				<Button x:Name="btnPrevHistory"
+				<Button
 					Margin="0,0,5,0"
 					HorizontalAlignment="Left"
 					Command="{Binding PreviousHistoryCommand}"
 					Style="{StaticResource PrevButton}">
 				</Button>
 
-				<Button x:Name="btnNextHistory"
+				<Button
 					HorizontalAlignment="Left"
 					Command="{Binding NextHistoryCommand}"
 					Style="{StaticResource NextButton}"
@@ -143,7 +143,7 @@
 					Content="BrE"
 					VerticalAlignment="Center"/>
 
-				<Button x:Name="btnBrE"
+				<Button
 					Command="{Binding PlayBrEAudioCommand}"
 					Style="{StaticResource BrEButton}"
 					Margin="1,0,10,0">
@@ -154,7 +154,7 @@
 					Content="NAmE"
 					VerticalAlignment="Center"/>
 
-				<Button x:Name="btnNAmE"
+				<Button
 					Command="{Binding PlayNAmEAudioCommand}"
 					Style="{StaticResource NAmEButton}"
 					Margin="1,0,0,0">
@@ -188,12 +188,15 @@
 			Height="Auto">
 
 			<control:ExtendedRichTextBox.InputBindings>
-				<MouseBinding
-							Gesture="LeftDoubleClick"
-							Command="{Binding SearchFromSelectionCommand}" />
+				<MouseBinding Gesture="LeftDoubleClick"
+					Command="{Binding SearchFromSelectionCommand}" />
 			</control:ExtendedRichTextBox.InputBindings>
 
 			<FlowDocument/>
+			<control:ExtendedRichTextBox.TextFormatter>
+				<toolkit:RtfFormatter />
+			</control:ExtendedRichTextBox.TextFormatter>
+				
 		</control:ExtendedRichTextBox>
 	</Grid>
 </control:ExtendedWindow>

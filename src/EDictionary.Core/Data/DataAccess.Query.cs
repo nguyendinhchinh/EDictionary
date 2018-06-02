@@ -21,11 +21,13 @@ namespace EDictionary.Core.Data
 
 		private readonly string selectIDQuery = $@"
 			SELECT {DictionaryTable.ID}
-			FROM {DictionaryTable.TableName}";
+			FROM {DictionaryTable.TableName}
+			ORDER BY { DictionaryTable.ID } ASC";
 
 		private readonly string selectNameQuery = $@"
 			SELECT {DictionaryTable.Name}
-			FROM {DictionaryTable.TableName}";
+			FROM {DictionaryTable.TableName}
+			ORDER BY {DictionaryTable.ID} ASC";
 
 		private readonly string selectIDAndNameQuery = $@"
 			SELECT {DictionaryTable.ID}, {DictionaryTable.Name}

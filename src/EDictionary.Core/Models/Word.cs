@@ -1,7 +1,9 @@
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models.WordComponents;
+using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
-using System.Drawing;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EDictionary.Core.Models
 {
@@ -19,6 +21,8 @@ namespace EDictionary.Core.Models
 
 		public string ToRTFString(bool mini=false)
 		{
+			Watcher watch = new Watcher();
+
 			if (mini)
 			{
 				RTFBuilderExtensions.defaultFontSize = 18;
@@ -32,33 +36,36 @@ namespace EDictionary.Core.Models
 				RTFBuilderExtensions.headerFontSize = 28;
 			}
 
-			RTFBuilder builder = new RTFBuilder(defaultFontSize: RTFBuilderExtensions.defaultFontSize);
+			List<Task<string>> tasks = new List<Task<string>>();
 
-			builder.AppendTitle(Name);
-			builder.AppendWordform(Wordform);
-			builder.AppendPronunciation(Pronunciations);
-			builder.AppendReferences(References);
-			builder.AppendDefinitionGroups(DefinitionsExamples);
-			builder.AppendExtraExamples(ExtraExamples);
-			builder.AppendIdioms(Idioms);
+			watch.Print("[C] Init Build");
 
-			return builder.ToString();
-		}
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendTitle(Name).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendWordform(Wordform).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendPronunciation(Pronunciations).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendReferences(References).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendDefinitionGroups(DefinitionsExamples).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendExtraExamples(ExtraExamples).ToString()));
+			tasks.Add(Task.Run(() => new RTFBuilder().AppendIdioms(Idioms).ToString()));
 
-		public override bool Equals(object obj)
-		{
-			Word word = obj as Word;
+			Task.WaitAll(tasks.ToArray());
 
-			if (this.ID == word.ID)
+			watch.Print("[C] Build");
+
+			RTFBuilder builder = new RTFBuilder();
+
+			foreach (var task in tasks)
 			{
-				return true;
+				builder.AppendRTFDocument(task.Result);
 			}
-			return false;
-		}
 
-		public override int GetHashCode()
-		{
-			return this.ID.GetHashCode();
+			watch.Print("[C] Add String");
+
+			string str = builder.ToString();
+
+			watch.Print("[C] ToString");
+
+			return str;
 		}
 	}
 }

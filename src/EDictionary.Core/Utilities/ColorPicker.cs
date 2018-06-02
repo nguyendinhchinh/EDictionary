@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace EDictionary.Core.Utilities
 {
@@ -19,9 +15,9 @@ namespace EDictionary.Core.Utilities
 			Source = colorUri,
 		};
 
-		public static Color Color(string key)
+		public static System.Drawing.Color Color(string key)
 		{
-			System.Windows.Media.SolidColorBrush brush = (System.Windows.Media.SolidColorBrush)colorDict[key];
+			SolidColorBrush brush = (SolidColorBrush)colorDict[key];
 
 			return System.Drawing.Color.FromArgb(brush.Color.A, brush.Color.R, brush.Color.G, brush.Color.B);
 		}

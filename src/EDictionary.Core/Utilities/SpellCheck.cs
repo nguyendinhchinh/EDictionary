@@ -4,18 +4,19 @@ using System.Linq;
 
 namespace EDictionary.Core.Utilities
 {
-	static public class SpellCheck
+	public class SpellCheck
 	{
-		public static HashSet<string> Vocabulary { get; set; }
+		public HashSet<string> Vocabulary { get; set; }
 		private const string alphabet = "abcdefghijklmnopqrstuvwxyz";
-		private static Func<string, bool> IsValidWord = word => Vocabulary.Contains(word);
+		private Func<string, bool> IsValidWord;
 
 		/// <summary>
 		/// initialize Vocabulary for SpellCheck class
 		/// </summary>
-		public static void GetVocabulary(IEnumerable<string> wordList)
+		public SpellCheck(IEnumerable<string> wordList)
 		{
 			Vocabulary = new HashSet<string>(wordList);
+			IsValidWord = word => Vocabulary.Contains(word);
 
 			foreach (var word in wordList)
 				Vocabulary.Add(word.ToLower());
@@ -26,7 +27,7 @@ namespace EDictionary.Core.Utilities
 		/// <para/>
 		/// Example: 'strike' would return {'trike', 'tsrike', 'atrike', 'astrike', ...}
 		/// </summary>
-		public static IEnumerable<string> Edits1(string word)
+		public IEnumerable<string> Edits1(string word)
 		{
 			var splits = from i in Enumerable.Range(0, word.Length)
 				select new {a = word.Substring(0, i), b = word.Substring(i)};
@@ -58,7 +59,7 @@ namespace EDictionary.Core.Utilities
 		/// Return an IEnumarable of words that are two edits away from the given word
 		/// See Edits1(string)
 		/// </summary>
-		private static IEnumerable<string> Edits2(string word)
+		private IEnumerable<string> Edits2(string word)
 		{
 			return (
 					from e1 in Edits1(word)
@@ -70,7 +71,7 @@ namespace EDictionary.Core.Utilities
 		/// <summary>
 		/// return a list of valid words from another wordlist
 		/// </summary>
-		private static IEnumerable<string> Known(IEnumerable<string> words)
+		private IEnumerable<string> Known(IEnumerable<string> words)
 		{
 			return words.Where(word => IsValidWord(word));
 		}
@@ -78,7 +79,7 @@ namespace EDictionary.Core.Utilities
 		/// <summary>
 		/// return a list of candidates for the wrong spelling word
 		/// </summary>
-		public static IEnumerable<string> Candidates(string word)
+		public IEnumerable<string> Candidates(string word)
 		{
 			var candidates = new[] {
 					Known(new[] {word}),
@@ -90,7 +91,7 @@ namespace EDictionary.Core.Utilities
 			return candidates;
 		}
 
-		public static void ReadFromStdIn()
+		public void ReadFromStdIn()
 		{
 			string word;
 

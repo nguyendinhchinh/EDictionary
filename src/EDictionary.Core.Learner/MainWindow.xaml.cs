@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EDictionary.Core.Learner.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,11 +21,11 @@ namespace EDictionary.Core.Learner
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private LearnerViewModel viewModel;
+
 		public MainWindow()
 		{
-			Core.App app = new Core.App();
-
-			app.InitializeComponent();
+			InitializeComponent();
 		}
 		
 		//private void Button_Click(object sender, RoutedEventArgs e)

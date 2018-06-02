@@ -1,6 +1,7 @@
 ﻿using EDictionary.Core.Data;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
+using System.Threading.Tasks;
 
 namespace EDictionary.Core.DataLogic
 {
@@ -28,6 +29,11 @@ namespace EDictionary.Core.DataLogic
 			}
 
 			return Settings.Default;
+		}
+
+		public async Task<Settings> LoadSettingsAsync()
+		{
+			return await Task.Run(() => this.LoadSettings());
 		}
 	}
 }

@@ -12,7 +12,7 @@ namespace EDictionary.Core.Learner.ViewModels
 		#region Fields
 
 		private SettingsLogic settingsLogic;
-		private EDict dictionary;
+		private WordLogic wordLogic;
 
 		private string definition;
 		private TimeSpan interval;
@@ -37,7 +37,7 @@ namespace EDictionary.Core.Learner.ViewModels
 			wordList = new List<string>();
 
 			settingsLogic = new SettingsLogic();
-			dictionary = new EDict();
+			wordLogic = new WordLogic();
 
 			ReloadSettings();
 
@@ -56,7 +56,7 @@ namespace EDictionary.Core.Learner.ViewModels
 
 			if (settings.Option == Option.Full)
 			{
-				wordList = dictionary.WordList;
+				wordList = wordLogic.WordList;
 			}
 			else if (settings.Option == Option.Custom)
 			{
@@ -68,7 +68,7 @@ namespace EDictionary.Core.Learner.ViewModels
 		{
 			var randWord = wordList.PickRandom();
 
-			Definition = dictionary.Search(randWord).ToRTFString(mini: true);
+			Definition = wordLogic.Search(randWord).ToRTFString(mini: true);
 		}
 	}
 }

@@ -25,7 +25,7 @@ namespace EDictionary.Core.Data
 				SQLiteConnection.CreateFile(savePath);
 			}
 			dbConnection = new SQLiteConnection(connectionStr);
-			CreateTable();
+			//CreateTable();
 		}
 
 		private void OpenConnection()
@@ -99,6 +99,8 @@ namespace EDictionary.Core.Data
 
 		public Result<Word> SelectDefinitionFrom(string wordID)
 		{
+			Watcher watch = new Watcher();
+
 			string definition;
 
 			try
@@ -111,6 +113,8 @@ namespace EDictionary.Core.Data
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = wordID});
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
+						watch.Print("Read db");
+
 						command.CommandType = CommandType.Text;
 						SQLiteDataReader reader = command.ExecuteReader();
 
@@ -119,11 +123,15 @@ namespace EDictionary.Core.Data
 							results.Add(Convert.ToString(reader[DictionaryTable.Definition]));
 						}
 
+						watch.Print("Execute query");
+
 						definition = results.ElementAtOrDefault(0);
 						Word word = null;
 
 						if (definition != null)
 							word = JsonHelper.Deserialize(definition);
+
+						watch.Print("Deserialize result");
 
 						return new Result<Word>(data:word, message:"", status:Status.Success);
 					}

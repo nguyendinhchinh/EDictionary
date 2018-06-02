@@ -1,11 +1,11 @@
-﻿using EDictionary.Core.Models;
+﻿using EDictionary.Core.DataLogic;
+using EDictionary.Core.Models;
 using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace EDictionary.Core.ViewModels.MainViewModel
@@ -14,7 +14,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 	{
 		#region Fields
 
-		private EDict dictionary { get; set; }
+		private WordLogic wordLogic;
 		private History<Word> history;
 		private bool isTextBoxFocus;
 		private int wordListTopIndex;
@@ -44,13 +44,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			}
 		}
 
-		public List<string> WordList
-		{
-			get
-			{
-				return dictionary.WordList;
-			}
-		}
+		public List<string> WordList { get; set; }
 
 		public int WordListTopIndex
 		{
@@ -161,11 +155,17 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public MainViewModel()
 		{
-			dictionary = new EDict();
+			var watch = new Watcher();
+
+			Task.Run(() =>
+			{
+				wordLogic = new WordLogic();
+				WordList = wordLogic.WordList;
+				NotifyPropertyChanged("WordList");
+			});
+
 			history = new History<Word>();
 			otherResultNameToID = new Dictionary<string, string>();
-
-			SpellCheck.GetVocabulary(WordList);
 
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
 			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
@@ -184,6 +184,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
 
 			SearchIcon = "SearchIcon";
+
+			watch.Print("init viewmodel");
 		}
 
 		#endregion
@@ -220,16 +222,14 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		#region Wordlist
 
-		public void UpdateWordlistTopIndex()
+		public async void UpdateWordlistTopIndex()
 		{
-			WordListTopIndex = Search.Prefix(CurrentWord, WordList);
+			await Task.Run(() => WordListTopIndex = Search.Prefix(CurrentWord, WordList));
 		}
 
 		public string CorrectWord(string word)
 		{
-			IEnumerable<string> candidates = SpellCheck.Candidates(word);
-
-			return dictionary.GetSuggestions(word, candidates);
+			return wordLogic.GetSuggestions(word);
 		}
 
 		#endregion
@@ -243,25 +243,40 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public void SearchFromInput()
 		{
 			//SearchIcon = "SpinnerIcon";
+			//NotifyPropertyChanged("SearchIcon");
+			Console.WriteLine();
+			Console.WriteLine(">>> " + CurrentWord);
+			Watcher watch = new Watcher();
 
-			Word word = dictionary.Search(CurrentWord);
+			Word word = wordLogic.Search(CurrentWord);
+
+			watch.Print("Search");
 
 			if (word == null)
 			{
 				var stemmedWord = Stemmer.Stem(CurrentWord);
 
 				if (CurrentWord != stemmedWord)
-					word = dictionary.Search(stemmedWord);
+					word = wordLogic.Search(stemmedWord);
 			}
+			watch.Print("Stem");
 
 			if (word != null)
 			{
-				Definition = word.ToRTFString();
+				string str = word.ToRTFString();
+
+				watch.Print("To RFT");
+
+				Definition = str;
+
+				watch.Print("Update Definition");
 			}
 			else
 				Definition = CorrectWord(CurrentWord);
 
 			UpdateHistory(word);
+
+			watch.Print("Update History");
 		}
 
 		public bool CanSearchFromInput()
@@ -282,14 +297,14 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			Word word = dictionary.Search(SelectedWord);
+			Word word = wordLogic.Search(SelectedWord);
 
 			if (word == null)
 			{
 				var stemmedWord = Stemmer.Stem(SelectedWord);
 
 				if (CurrentWord != stemmedWord)
-					word = dictionary.Search(stemmedWord);
+					word = wordLogic.Search(stemmedWord);
 			}
 
 			if (word != null)
@@ -316,7 +331,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromHighlight()
 		{
-			Word word = dictionary.Search(HighlightedWord);
+			Word word = wordLogic.Search(HighlightedWord);
 
 			if (word != null)
 				Definition = word.ToRTFString();
@@ -386,12 +401,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void PlayBrEAudio()
 		{
-			dictionary.PlayAudio(history.Current, Dialect.BrE);
+			wordLogic.PlayAudio(history.Current, Dialect.BrE);
 		}
 
 		public void PlayNAmEAudio()
 		{
-			dictionary.PlayAudio(history.Current, Dialect.NAmE);
+			wordLogic.PlayAudio(history.Current, Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()
@@ -432,7 +447,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void SearchHighlightedOtherResult()
 		{
-			Word word = dictionary.SearchID(otherResultNameToID[HighlightedOtherResult]);
+			Word word = wordLogic.SearchID(otherResultNameToID[HighlightedOtherResult]);
 
 			if (word != null)
 				Definition = word.ToRTFString();

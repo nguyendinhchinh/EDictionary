@@ -116,6 +116,9 @@ def to_sqlite():
 
 			insert(replace_url(json))
 
+	# improve SELECT .. WHERE .. performance
+	CURSOR.execute('CREATE INDEX `idx{}` ON {} (`ID`)'.format(TABLE_NAME, TABLE_NAME))
+
 	CONNECTION.commit()
 
 def main():
