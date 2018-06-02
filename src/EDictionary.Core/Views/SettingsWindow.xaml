@@ -44,7 +44,7 @@
 				Margin="60,40,0,0"/>
 
 		<toolkit:IntegerUpDown Grid.Row="0"
-				Background="{StaticResource Black}"
+				Background="{StaticResource Black0}"
 				Foreground="{StaticResource Silver}"
 				BorderThickness="0"
 				VerticalAlignment="Top"
@@ -65,7 +65,7 @@
 				Margin="150,40,0,0"/>
 
 		<toolkit:IntegerUpDown Grid.Row="0"
-				Background="{StaticResource Black}"
+				Background="{StaticResource Black0}"
 				Foreground="{StaticResource Silver}"
 				BorderThickness="0"
 				VerticalAlignment="Top"
