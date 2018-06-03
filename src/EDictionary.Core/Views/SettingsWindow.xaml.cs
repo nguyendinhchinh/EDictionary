@@ -15,11 +15,12 @@ namespace EDictionary.Core.Views
 		{
 			InitializeComponent();
 
-			viewModel = new SettingsViewModel();
+			viewModel = new SettingsViewModel
+			{
+				CloseAction = new Action(this.Close),
+			};
 
 			DataContext = viewModel;
-
-			viewModel.CloseAction = new Action(this.Close);
 		}
 	}
 }

@@ -2,10 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:EDictionary.Core.Learner"
-             StartupUri="MainWindow.xaml">
+						 ShutdownMode="OnExplicitShutdown">
+
+	<!--
+				Note that this application does not have a StartupUri declared, so no Window is automatically loaded.
+				Also, the ShutdownMode was set to explicit, so we have to close the application programmatically
+   -->
 
 	<Application.Resources>
-		<ResourceDictionary Source="pack://application:,,,/EDictionary.Theme;component/Themes/Generic.xaml"/>
+		 
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/EDictionary.Theme;component/Themes/Generic.xaml"/>
+				<ResourceDictionary Source="LearnerNotifyIcon.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+		 
 	</Application.Resources>
 
 </Application>

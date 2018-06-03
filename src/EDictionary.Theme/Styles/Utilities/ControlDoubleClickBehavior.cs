@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
     public static class ControlDoubleClickBehavior
     {

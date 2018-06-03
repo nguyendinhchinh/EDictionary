@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SourceSansPro_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\SourceSansPro-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SourceSansPro_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\SourceSansPro-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Quicksand_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\Quicksand-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="TitilliumWeb_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\TitilliumWeb-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="Catamaran_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\Catamaran-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="FontAwesome5_Solid" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Fonts\FontAwesome5-Solid.otf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Quicksand_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\Quicksand-Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="PTSans_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Fonts\PTSans-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Catamaran_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Fonts\Catamaran-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="Quicksand_Bold1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Quicksand_Bold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Fonts\Quicksand-Bold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Quicksand_Medium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\Quicksand-Medium.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Quicksand_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\Quicksand-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SourceSansPro_Regular" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\SourceSansPro-Regular.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SourceSansPro_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\SourceSansPro-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="TitilliumWeb_SemiBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Fonts\TitilliumWeb-SemiBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

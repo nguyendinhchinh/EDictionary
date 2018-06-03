@@ -7,20 +7,8 @@
 				xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Title="MainWindow" Height="300" Width="300">
+	
     <Grid>
 
-
-		<tb:TaskbarIcon
-			x:Name="EDictionaryLearner"
-			IconSource="../EDictionary.Core/Resources/E-Dictionary.ico"
-			ToolTipText="EDictionary Learner" />
-
-
-		<!--<Button
-				Style="{StaticResource HelpButton}"
-				Command="{Binding ShowBalloon}"
-				Margin="0,0,5,0"
-				HorizontalAlignment="Right" Click="Button_Click"/>-->
-			
 	</Grid>
 </Window>

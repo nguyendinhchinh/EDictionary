@@ -20,6 +20,18 @@ namespace EDictionary.Core.Utilities
 				{"DefinitionsExamples", "definitions"},
 				{"ExtraExamples", "extra_examples"},
 				{"Idioms", "idioms"},
+
+				{"Prefix", "prefix"},
+				{"Ipa", "ipa"},
+				{"Filename", "filename"},
+
+				{"Namespace", "namespace"},
+				{"Definitions", "definitions"},
+				{"Property", "property"},
+				{"Label", "label"},
+				{"Refer", "refer"},
+				{"Description", "description"},
+				{"Examples", "examples"},
 			};
 		}
 

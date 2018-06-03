@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
     public class WindowMaximizeCommand :ICommand
     {     

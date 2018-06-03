@@ -1,8 +1,7 @@
 ﻿using EDictionary.Core.Models.WordComponents;
-using EDictionary.Core.Utilities;
+using EDictionary.Theme.Utilities;
 using EDictionary.Vendors.RTF;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace EDictionary.Core.Extensions
 {

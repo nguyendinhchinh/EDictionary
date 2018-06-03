@@ -2,7 +2,7 @@
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
     public static class ShowSystemMenuBehavior
     {        

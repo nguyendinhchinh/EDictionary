@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
     public static class WindowDragBehavior
     {

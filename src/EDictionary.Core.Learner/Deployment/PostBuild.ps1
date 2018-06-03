@@ -4,15 +4,11 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$Prompt = "Core>"
+$Prompt = "Learner>"
 
 $SourceSqlitePath = "${SolutionDir}EDictionary\Data\words.sqlite"
 $TargetSqlitePath = "${TargetDir}words.sqlite"
 $TargetSqliteDir = "$TargetDir"
-
-$SourceAudioPath = "${SolutionDir}..\tool\data\audio"
-$TargetAudioPath = "${TargetDir}audio"
-$TargetAudioDir = "$TargetDir"
 
 Write-Host "${Prompt} Running PostBuild script..."
 
@@ -32,13 +28,6 @@ else
 		Write-Host "${Prompt} Detect sqlite file size changed ($($sourceSqliteFile.Length) vs $($targetSqliteFile.Length)). Copying new file to target dir..."
 		Copy-Item -Path "$SourceSqlitePath" -Destination "$TargetSqliteDir"
 	}
-}
-
-if (!(Test-Path -Path "$TargetAudioPath"))
-{
-	Write-Host "${Prompt} audio dir not found. Copying audio files to target dir..."
-	New-Item -ItemType directory -Path "$TargetAudioPath"
-	Copy-Item -Path "${SourceAudioPath}\*.mp3" -Destination "${TargetAudioPath}"
 }
 
 # vim: ft=conf

@@ -1,7 +1,7 @@
 ﻿using EDictionary.Core.Learner.ViewModels;
 using System.Windows.Controls;
 
-namespace EDictionary.Core.Views
+namespace EDictionary.Core.Learner.Views
 {
 	/// <summary>
 	/// Interaction logic for LearnerBaloon.xaml
@@ -11,10 +11,6 @@ namespace EDictionary.Core.Views
 		public LearnerBaloon()
 		{
 			InitializeComponent();
-
-			var viewModel = new LearnerViewModel();
-
-			DataContext = viewModel;
 		}
 	}
 }

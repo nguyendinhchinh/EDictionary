@@ -16,12 +16,13 @@ namespace EDictionary.Core.Views
 		{
 			InitializeComponent();
 
-			viewModel = new MainViewModel();
+			viewModel = new MainViewModel
+			{
+				ShowSettingsWindowAction = new Action(this.ShowSettingsWindow),
+				ShowAboutWindowAction = new Action(this.ShowAboutWindow),
+			};
 
 			DataContext = viewModel;
-
-			viewModel.ShowSettingsWindowAction = new Action(this.ShowSettingsWindow);
-			viewModel.ShowAboutWindowAction = new Action(this.ShowAboutWindow);
 		}
 
 		private void ShowSettingsWindow()

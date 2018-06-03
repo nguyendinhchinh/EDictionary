@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 
-namespace EDictionary.Core.Utilities
+namespace EDictionary.Theme.Utilities
 {
 	/// <summary>
 	/// Read color from Resource Dictionary based on resource key
@@ -10,7 +10,7 @@ namespace EDictionary.Core.Utilities
 	public static class ColorPicker
 	{
 		private static Uri colorUri = new Uri("pack://application:,,,/EDictionary.Theme;component/Styles/Colors.xaml", UriKind.RelativeOrAbsolute);
-		private static ResourceDictionary colorDict = new ResourceDictionary()
+		private static readonly ResourceDictionary colorDict = new ResourceDictionary()
 		{
 			Source = colorUri,
 		};

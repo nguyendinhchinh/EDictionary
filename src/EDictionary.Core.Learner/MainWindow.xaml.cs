@@ -1,18 +1,7 @@
 ﻿using EDictionary.Core.Learner.ViewModels;
+using EDictionary.Core.Learner.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace EDictionary.Core.Learner
 {
@@ -26,13 +15,20 @@ namespace EDictionary.Core.Learner
 		public MainWindow()
 		{
 			InitializeComponent();
-		}
-		
-		//private void Button_Click(object sender, RoutedEventArgs e)
-		//{
-		//	LearnerBaloon balloon = new LearnerBaloon();
 
-		//	EDictionaryLearner.ShowCustomBalloon(balloon, System.Windows.Controls.Primitives.PopupAnimation.Fade, 5000);
-		//}
+			viewModel = new LearnerViewModel
+			{
+				ShowLearnerBalloonAction = new Action(ShowLearnerBalloon)
+			};
+
+			DataContext = viewModel;
+		}
+
+		private void ShowLearnerBalloon()
+		{
+			LearnerBaloon balloon = new LearnerBaloon();
+
+			EDictionaryLearner.ShowCustomBalloon(balloon, System.Windows.Controls.Primitives.PopupAnimation.Fade, 5000);
+		}
 	}
 }

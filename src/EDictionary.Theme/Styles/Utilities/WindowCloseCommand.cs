@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
-    public class WindowCloseCommand :ICommand
+    public class WindowCloseCommand : ICommand
     {     
 
         public bool CanExecute(object parameter)

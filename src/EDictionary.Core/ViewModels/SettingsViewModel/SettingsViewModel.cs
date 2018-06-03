@@ -16,6 +16,10 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 		private SettingsLogic settingsLogic;
 
 		private bool canEditCustomWordList;
+
+		private int minInterval;
+		private int secInterval;
+
 		private Option option;
 		private List<string> customWordList = new List<string>();
 
@@ -24,8 +28,18 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			get { return canEditCustomWordList; }
 			set { SetPropertyAndNotify(ref canEditCustomWordList, value); }
 		}
-		public int MinInterval { get; set; }
-		public int SecInterval { get; set; }
+
+		public int MinInterval
+		{
+			get { return minInterval; }
+			set { SetPropertyAndNotify(ref minInterval, value); }
+		}
+
+		public int SecInterval
+		{
+			get { return secInterval; }
+			set { SetPropertyAndNotify(ref secInterval, value); }
+		}
 
 		public Option Option
 		{

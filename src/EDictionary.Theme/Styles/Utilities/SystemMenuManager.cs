@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace Delete.Styles.Utilities
+namespace EDictionary.Styles.Utilities
 {
     public static class SystemMenuManager
     {        
