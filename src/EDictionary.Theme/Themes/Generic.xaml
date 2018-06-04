@@ -22,6 +22,7 @@
 		<ResourceDictionary Source="../Styles/Hyperlink.xaml" />
 		<ResourceDictionary Source="../Styles/RadioButton.xaml" />
 		<ResourceDictionary Source="../Styles/IntegerUpDown.xaml"/>
+	  <ResourceDictionary Source="../Styles/CheckBox.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
