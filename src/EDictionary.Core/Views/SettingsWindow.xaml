@@ -12,8 +12,9 @@
 	Title="Settings"
 	WindowStartupLocation="CenterScreen"
 	ResizeMode="NoResize"
-	Height="380"
-	Width="300"
+	Height="420"
+	Width="350"
+	CloseTrigger="{Binding IsClose}"
 	Style="{StaticResource ChildWindow}">
 
 	<Window.Resources>
@@ -25,58 +26,75 @@
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="80"/>
-			<RowDefinition Height="200"/>
+			<RowDefinition Height="230"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		 
-		<Label Grid.Row="0"
+
+		<Grid>
+				
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="210"/>
+				<ColumnDefinition Width="140"/>
+			</Grid.ColumnDefinitions>
+
+			<Label Grid.Column="0"
 				Style="{StaticResource SmallHeaderLabel}"
 				Content="Interval"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
 				Margin="10,10,0,0"/>
 
-		<Label Grid.Row="0"
+			<Label Grid.Column="0"
 				Style="{StaticResource NormalLabel}"
 				Content="Mins"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="60,40,0,0"/>
+				Margin="20,40,0,0"/>
 
-		<toolkit:IntegerUpDown Grid.Row="0"
-				Background="{StaticResource Black0}"
-				Foreground="{StaticResource Silver}"
-				BorderThickness="0"
+			<toolkit:IntegerUpDown Grid.Column="0"
+				Style="{StaticResource MinuteUpDown}"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Height="20"
-				Width="40"
 				Value="{Binding MinInterval}"
-				Increment="1"
-				Minimum="00"
-				Maximum="59"
-				Margin="100,40,0,0" />
+				Margin="60,40,0,0" />
 
-		<Label Grid.Row="0"
+			<Label Grid.Column="0"
 				Style="{StaticResource NormalLabel}"
 				Content="Secs"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="150,40,0,0"/>
+				Margin="110,40,0,0"/>
 
-		<toolkit:IntegerUpDown Grid.Row="0"
-				Background="{StaticResource Black0}"
-				Foreground="{StaticResource Silver}"
-				BorderThickness="0"
+			<toolkit:IntegerUpDown Grid.Column="0"
+				Style="{StaticResource SecondUpDown}"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Height="20"
-				Width="40"
 				Value="{Binding SecInterval}"
-				Increment="1"
-				Minimum="00"
-				Maximum="59"
-				Margin="190,40,0,0" />
+				Margin="150,40,0,0" />
+
+			<Label Grid.Column="1"
+				Style="{StaticResource SmallHeaderLabel}"
+				Content="Timeout"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="10,10,0,0"/>
+
+			<Label Grid.Column="1"
+				Style="{StaticResource NormalLabel}"
+				Content="Secs"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="20,40,0,0"/>
+
+			<toolkit:IntegerUpDown Grid.Column="1"
+				Style="{StaticResource SecondUpDown}"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Value="{Binding Timeout}"
+				Margin="60,40,0,0"/>
+		</Grid>
+		 
+	
 
 		<Grid Grid.Row="1">
 
@@ -86,24 +104,47 @@
 			</Grid.RowDefinitions>
 
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="90"/>
+				<ColumnDefinition Width="130"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 
-			<RadioButton Grid.Row="0" Grid.Column="0"
-							Content="All"
-							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Full}}"
-							VerticalAlignment="Center"
-							HorizontalAlignment="Left"
-							Margin="15,0,0,0"/>
+			<Label Grid.Column="0"
+				Style="{StaticResource SmallHeaderLabel}"
+				Content="Vocabulary Source"
+				VerticalAlignment="Center"
+				HorizontalAlignment="Left"
+				Margin="10,0,0,0"/>
+				
+			<RadioButton Grid.Row="1" Grid.Column="0"
+				Content="All"
+				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Full}}"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="20,10,0,0"/>
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
-							IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Custom}}"
-							Content="Custom"
-							VerticalAlignment="Top"
-							HorizontalAlignment="Left"
-							Margin="15,10,0,0"/>
+				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Custom}}"
+				Content="Custom"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="20,40,0,0"/>
 
+			<CheckBox Grid.Row="1" Grid.Column="0"
+				IsChecked="{Binding UseHistoryWordlist}"
+				Content="History"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				IsEnabled="{Binding CanEditCustomOptions}"
+				Margin="40,70,0,0"/>
+
+			<CheckBox Grid.Row="1" Grid.Column="0"
+				IsChecked="{Binding UseCustomWordlist}"
+				Content="Word List"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				IsEnabled="{Binding CanEditCustomOptions}"
+				Margin="40,100,0,0"/>
+				
 			<TextBox Grid.Row="1" Grid.Column="1"
 				x:Name="txtCustomWordList"
 				Style="{StaticResource MultilineTextBox}"
@@ -111,33 +152,26 @@
 				Width="100"
 				VerticalAlignment="Stretch"
 				HorizontalAlignment="Left"
-				IsEnabled="{Binding CanEditCustomWordList}"
-				Margin="10,10,0,10"/>
+				IsEnabled="{Binding CanEditCustomOptions}"
+				Margin="0,10,0,10"/>
 
 		</Grid>
 
 		<Grid Grid.Row="2">
-				
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition/>
-				<ColumnDefinition Width="100"/>
-				<ColumnDefinition Width="100"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
-				
-				<Button Grid.Column="2"
+
+			<Button
 				Style="{StaticResource TextButton}"
-				HorizontalAlignment="Left"
+				HorizontalAlignment="Center"
 				Content="Apply"
 				Command="{Binding SaveCommand}"
-				Margin="10,0,0,0"/>
+				Margin="120,0,0,0"/>
 
-				<Button Grid.Column="1"
+			<Button
 				Style="{StaticResource TextButton}"
-				HorizontalAlignment="Right"
+				HorizontalAlignment="Center"
 				Content="Cancel"
 				Command="{Binding CloseCommand}"
-				Margin="0,0,10,0"/>
+				Margin="-120,0,0,0"/>
 				
 		</Grid>
 	</Grid>

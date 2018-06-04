@@ -1,21 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using EDictionary.Core.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
 {
+	[Serializable]
 	public class History<T>
 	{
-		private List<T> history;
-		private int currentIndex = -1;
+		[XmlIgnore]
+		public static readonly string Directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+
+		[XmlIgnore]
+		public static readonly string Path = System.IO.Path.Combine(Directory, "history.xml");
+
+		public static readonly int MaxHistory = 1000;
 
 		#region Properties
+
+		public int CurrentIndex { get; set; }
+
+		public List<T> Wordlist { get; set; }
 
 		public T Current
 		{
 			get
 			{
-				if (currentIndex != -1)
-					return history[currentIndex];
+				if (CurrentIndex != -1)
+					return Wordlist[CurrentIndex];
 				else
 					return default(T);
 			}
@@ -23,67 +36,74 @@ namespace EDictionary.Core.Models
 
 		public bool IsFirst
 		{
-			get
-			{
-				return currentIndex == 0;
-			}
+			get { return CurrentIndex == 0; }
 		}
 
 		public bool IsLast
 		{
-			get
-			{
-				return currentIndex == history.Count - 1;
-			}
+			get { return CurrentIndex == Wordlist.Count - 1; }
 		}
 
 		public int Count
 		{
-			get
-			{
-				return history.Count;
-			}
+			get { return Wordlist.Count; }
 		}
 
 		#endregion
 
+		#region Constructors
+
 		public History()
 		{
-			history = new List<T> { };
+			Wordlist = new List<T> { };
+			CurrentIndex = -1;
 		}
+
+		#endregion
 
 		/// <summary>
 		/// add history item at the next index and truncate the rest
 		/// </summary>
 		public void Add(T item)
 		{
-			if (currentIndex + 1 <= history.Count - 1)
+			if (CurrentIndex + 1 <= Wordlist.Count - 1)
 			{
-				history.Insert(currentIndex + 1, item);
+				Wordlist.Insert(CurrentIndex + 1, item);
 			}
 			else
 			{
-				history.Add(item);
+				Wordlist.Add(item);
 			}
 
-			currentIndex++;
-			history = history.Take(currentIndex + 1).ToList();
+			CurrentIndex++;
+			Wordlist = Wordlist.Take(CurrentIndex + 1).ToList();
 		}
 
-		public void Previous(ref T item)
+		public void Previous(out T item)
 		{
-			if (currentIndex > 0)
-				item = history[--currentIndex];
+			if (CurrentIndex > 0)
+				item = Wordlist[--CurrentIndex];
 			else
-				item = history[0];
+				item = Wordlist[0];
 		}
 
-		public void Next(ref T item)
+		public void Next(out T item)
 		{
-			if (currentIndex < history.Count - 1)
-				item = history[++currentIndex];
+			if (CurrentIndex < Wordlist.Count - 1)
+				item = Wordlist[++CurrentIndex];
 			else
-				item = history[history.Count - 1];
+				item = Wordlist[Wordlist.Count - 1];
+		}
+
+		/// <summary>
+		/// Remove old history based on MaxHistory
+		/// </summary>
+		public void Trim()
+		{
+			if (Wordlist.Count > MaxHistory)
+			{
+				Wordlist = (List<T>)Wordlist.TakeLast(MaxHistory);
+			}
 		}
 	}
 }

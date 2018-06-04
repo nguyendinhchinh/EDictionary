@@ -137,11 +137,8 @@ namespace EDictionary.Core.DataLogic
 
 		public void PlayAudio(Word word, Dialect dialect)
 		{
-			string filename = null;
-			string audioFile;
-
-			filename = GetFilename(word, dialect);
-			audioFile = Path.Combine(audioPath, filename);
+			string filename = GetFilename(word, dialect);
+			string audioFile = Path.Combine(audioPath, filename);
 
 			audioPlayer.Play(audioFile);
 		}

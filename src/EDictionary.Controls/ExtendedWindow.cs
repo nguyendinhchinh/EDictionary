@@ -41,9 +41,41 @@ namespace EDictionary.Controls
 			BeginAnimation(OpacityProperty, closingAnimation);
 		}
 
-		protected override void OnDeactivated(EventArgs e)
+		#region CloseTrigger DP
+
+		public static readonly DependencyProperty CloseTriggerProperty = DependencyProperty.Register(
+			"CloseTrigger", typeof(bool),
+			typeof(ExtendedWindow),
+			new PropertyMetadata(
+				false,
+				OnCloseTriggerChanged)
+			);
+
+		public bool CloseTrigger
 		{
-			base.OnDeactivated(e);
+			get
+			{
+				return (bool)GetValue(CloseTriggerProperty);
+			}
+			set
+			{
+				SetValue(CloseTriggerProperty, value);
+			}
 		}
+
+		private static void OnCloseTriggerChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
+		{
+			ExtendedWindow window = source as ExtendedWindow;
+
+			if (window == null)
+				return;
+
+			if (window.CloseTrigger)
+			{
+				window.Close();
+			}
+		}
+
+		#endregion
 	}
 }

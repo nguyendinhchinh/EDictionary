@@ -9,18 +9,10 @@ namespace EDictionary.Core.Views
 	/// </summary>
 	public partial class SettingsWindow : ExtendedWindow
 	{
-		private SettingsViewModel viewModel;
-
 		public SettingsWindow()
 		{
 			InitializeComponent();
-
-			viewModel = new SettingsViewModel
-			{
-				CloseAction = new Action(this.Close),
-			};
-
-			DataContext = viewModel;
+			DataContext = new SettingsViewModel();
 		}
 	}
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Threading;
 
 namespace EDictionary.Core.ViewModels.MainViewModel
@@ -15,10 +16,13 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		#region Fields
 
 		private WordLogic wordLogic;
-		private History<Word> history;
+		private HistoryLogic historyLogic;
+		private History<string> history;
+		private Word currentWord;
+
 		private bool isTextBoxFocus;
 		private int wordListTopIndex;
-		private string currentWord = "";
+		private string searchedWord = "";
 		private string highlightedWord;
 		private string selectedWord;
 		private string definition;
@@ -58,13 +62,13 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			}
 		}
 
-		public string CurrentWord
+		public string SearchedWord
 		{
-			get { return currentWord; }
+			get { return searchedWord; }
 
 			set
 			{
-				if (SetPropertyAndNotify(ref currentWord, value))
+				if (SetPropertyAndNotify(ref searchedWord, value))
 				{
 					SearchFromInputCommand.RaiseCanExecuteChanged();
 				}
@@ -79,7 +83,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			{
 				if (SetProperty(ref highlightedWord, value))
 				{
-					CurrentWord = HighlightedWord;
+					SearchedWord = HighlightedWord;
 					IsTextBoxFocus = true;
 				}
 			}
@@ -157,14 +161,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		{
 			var watch = new Watcher();
 
-			Task.Run(() =>
-			{
-				wordLogic = new WordLogic();
-				WordList = wordLogic.WordList;
-				NotifyPropertyChanged("WordList");
-			});
+			LoadWordlistAndHistory();
 
-			history = new History<Word>();
 			otherResultNameToID = new Dictionary<string, string>();
 
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
@@ -186,6 +184,30 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			SearchIcon = "SearchIcon";
 
 			watch.Print("init viewmodel");
+		}
+
+		private async void LoadWordlistAndHistory()
+		{
+			await Task.Run(() =>
+			{
+				wordLogic = new WordLogic();
+				WordList = wordLogic.WordList;
+				NotifyPropertyChanged("WordList");
+
+				historyLogic = new HistoryLogic();
+				history = historyLogic.LoadHistory<string>();
+
+				if (history.Count > 0)
+					currentWord = wordLogic.Search(history.Current);
+
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					Definition = currentWord.ToRTFString();
+
+					NextHistoryCommand.RaiseCanExecuteChanged();
+					PreviousHistoryCommand.RaiseCanExecuteChanged();
+				});
+			});
 		}
 
 		#endregion
@@ -224,7 +246,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public async void UpdateWordlistTopIndex()
 		{
-			await Task.Run(() => WordListTopIndex = Search.Prefix(CurrentWord, WordList));
+			await Task.Run(() => WordListTopIndex = Search.Prefix(SearchedWord, WordList));
 		}
 
 		public string CorrectWord(string word)
@@ -245,25 +267,25 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			//SearchIcon = "SpinnerIcon";
 			//NotifyPropertyChanged("SearchIcon");
 			Console.WriteLine();
-			Console.WriteLine(">>> " + CurrentWord);
+			Console.WriteLine(">>> " + SearchedWord);
 			Watcher watch = new Watcher();
 
-			Word word = wordLogic.Search(CurrentWord);
+			currentWord = wordLogic.Search(SearchedWord);
 
 			watch.Print("Search");
 
-			if (word == null)
+			if (currentWord == null)
 			{
-				var stemmedWord = Stemmer.Stem(CurrentWord);
+				var stemmedWord = Stemmer.Stem(SearchedWord);
 
-				if (CurrentWord != stemmedWord)
-					word = wordLogic.Search(stemmedWord);
+				if (SearchedWord != stemmedWord)
+					currentWord = wordLogic.Search(stemmedWord);
 			}
 			watch.Print("Stem");
 
-			if (word != null)
+			if (currentWord != null)
 			{
-				string str = word.ToRTFString();
+				string str = currentWord.ToRTFString();
 
 				watch.Print("To RFT");
 
@@ -272,16 +294,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 				watch.Print("Update Definition");
 			}
 			else
-				Definition = CorrectWord(CurrentWord);
+				Definition = CorrectWord(SearchedWord);
 
-			UpdateHistory(word);
+			UpdateHistory(currentWord);
 
 			watch.Print("Update History");
 		}
 
 		public bool CanSearchFromInput()
 		{
-			if (string.IsNullOrEmpty(CurrentWord))
+			if (string.IsNullOrEmpty(SearchedWord))
 				return false;
 
 			return true;
@@ -297,20 +319,20 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			Word word = wordLogic.Search(SelectedWord);
+			currentWord = wordLogic.Search(SelectedWord);
 
-			if (word == null)
+			if (currentWord == null)
 			{
 				var stemmedWord = Stemmer.Stem(SelectedWord);
 
-				if (CurrentWord != stemmedWord)
-					word = wordLogic.Search(stemmedWord);
+				if (SearchedWord != stemmedWord)
+					currentWord = wordLogic.Search(stemmedWord);
 			}
 
-			if (word != null)
-				Definition = word.ToRTFString();
+			if (currentWord != null)
+				Definition = currentWord.ToRTFString();
 
-			UpdateHistory(word);
+			UpdateHistory(currentWord);
 		}
 
 		public bool CanSearchFromSelection()
@@ -331,57 +353,66 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromHighlight()
 		{
-			Word word = wordLogic.Search(HighlightedWord);
+			currentWord = wordLogic.Search(HighlightedWord);
 
-			if (word != null)
-				Definition = word.ToRTFString();
+			if (currentWord != null)
+				Definition = currentWord.ToRTFString();
 
-			UpdateHistory(word);
+			UpdateHistory(currentWord);
 		}
 
 		#endregion
 
 		#region History
 
-		private void UpdateHistory(Word word)
+		private async void UpdateHistory(Word word)
 		{
-			if (word == null)
-				return;
+			await Task.Run(() =>
+			{
+				if (word == null)
+					return;
 
-			if (word != history.Current)
-				history.Add(word);
+				if (word.Name != history.Current)
+					history.Add(word.Name);
 
-			UpdateOtherResultList();
+				historyLogic.SaveHistory(history);
+				UpdateOtherResultList();
 
-			NextHistoryCommand.RaiseCanExecuteChanged();
-			PreviousHistoryCommand.RaiseCanExecuteChanged();
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					NextHistoryCommand.RaiseCanExecuteChanged();
+					PreviousHistoryCommand.RaiseCanExecuteChanged();
+				});
+			});
 		}
 
 		public void NextHistory()
 		{
-			Word word = null;
-
-			history.Next(ref word);
-			Definition = word.ToRTFString();
+			history.Next(out string word);
+			currentWord = wordLogic.Search(word);
+			Definition = currentWord.ToRTFString();
 
 			PreviousHistoryCommand.RaiseCanExecuteChanged();
 			NextHistoryCommand.RaiseCanExecuteChanged();
+
+			historyLogic.SaveHistory(history);
 		}
 
 		public void PreviousHistory()
 		{
-			Word word = null;
-
-			history.Previous(ref word);
-			Definition = word.ToRTFString();
+			history.Previous(out string word);
+			currentWord = wordLogic.Search(word);
+			Definition = currentWord.ToRTFString();
 
 			PreviousHistoryCommand.RaiseCanExecuteChanged();
 			NextHistoryCommand.RaiseCanExecuteChanged();
+
+			historyLogic.SaveHistory(history);
 		}
 
 		public bool CanGoToNextHistory()
 		{
-			if (history.Count == 0)
+			if (history == null || history.Count == 0)
 				return false;
 
 			return !history.IsLast;
@@ -389,7 +420,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public bool CanGoToPreviousHistory()
 		{
-			if (history.Count == 0)
+			if (history == null || history.Count == 0)
 				return false;
 
 			return !history.IsFirst;
@@ -401,12 +432,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void PlayBrEAudio()
 		{
-			wordLogic.PlayAudio(history.Current, Dialect.BrE);
+			wordLogic.PlayAudio(currentWord, Dialect.BrE);
 		}
 
 		public void PlayNAmEAudio()
 		{
-			wordLogic.PlayAudio(history.Current, Dialect.NAmE);
+			wordLogic.PlayAudio(currentWord, Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()
@@ -423,14 +454,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void UpdateOtherResultList()
 		{
-			Word word = history.Current;
-
-			if (word.Similars == null)
+			if (currentWord.Similars == null)
 				return;
 
 			otherResultNameToID.Clear();
 
-			foreach (var similarWord in word.Similars)
+			foreach (var similarWord in currentWord.Similars)
 			{
 				otherResultNameToID.Add(similarWord.Replace('_', ' '), similarWord);
 			}

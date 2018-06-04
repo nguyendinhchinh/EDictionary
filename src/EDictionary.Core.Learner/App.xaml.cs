@@ -5,7 +5,7 @@ using Hardcodet.Wpf.TaskbarNotification;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
+using System.Windows.Controls.Primitives;
 
 namespace EDictionary.Core.Learner
 {
@@ -30,6 +30,7 @@ namespace EDictionary.Core.Learner
 				ShowSettingsWindowAction = new Action(ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(ShowAboutWindow),
 				ShowLearnerBalloonAction = new Action(ShowLearnerBalloon),
+				HideLearnerBalloonAction = new Action(HideLearnerBalloon),
 			};
 
 			learnerNotifyIcon.DataContext = viewModel;
@@ -62,12 +63,17 @@ namespace EDictionary.Core.Learner
 		{
 			LearnerBaloon balloon = new LearnerBaloon();
 
-			learnerNotifyIcon.ShowCustomBalloon(balloon, System.Windows.Controls.Primitives.PopupAnimation.Fade, 5000);
+			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, null);
+		}
+
+		private void HideLearnerBalloon()
+		{
+			learnerNotifyIcon.CloseBalloon();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			learnerNotifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+			learnerNotifyIcon.Dispose(); // the icon would clean up automatically, but this is cleaner
 			base.OnExit(e);
 		}
 	}

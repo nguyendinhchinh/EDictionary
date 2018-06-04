@@ -17,7 +17,7 @@ namespace EDictionary.Core.Utilities
 		StreamWriter logWriter;
 
 		int fileCount = 0;
-		static string logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "LOGS");
+		static string logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
 		string logFilename = string.Empty;
 		long LogFileSize = 2097152; // 2Mb
 

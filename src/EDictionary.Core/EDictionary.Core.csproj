@@ -130,12 +130,15 @@
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
     <Compile Include="Converters\OptionToRadioBoolConverter.cs" />
+    <Compile Include="DataLogic\HistoryLogic.cs" />
     <Compile Include="DataLogic\SettingsLogic.cs" />
     <Compile Include="DataLogic\WordLogic.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
     <Compile Include="Data\DictionaryTable.cs" />
+    <Compile Include="Data\HistoryAccess.cs" />
     <Compile Include="Data\SettingsAccess.cs" />
+    <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />

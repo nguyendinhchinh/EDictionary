@@ -7,8 +7,15 @@
 	<ResourceDictionary.MergedDictionaries>
 		<ResourceDictionary Source="Colors.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
-	
-	<Style TargetType="{x:Type wpfToolkit:IntegerUpDown}">
+
+	<Style x:Key="IntergerUpDownBase" TargetType="{x:Type wpfToolkit:IntegerUpDown}">
+		<Setter Property="Width" Value="40"/>
+		<Setter Property="Height" Value="20"/>
+
+		<Setter Property="Background" Value="{StaticResource Black0}"/>
+		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
+		 
+		<Setter Property="BorderThickness" Value="0"/>
 		<Style.Resources>
 			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphNormalForegroundKey}" Color="{StaticResource Black0Color}"/>
 			<SolidColorBrush x:Key="{x:Static theme:ResourceKeys.GlyphDisabledForegroundKey}" Color="{StaticResource Black0Color}"/>
@@ -23,8 +30,8 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="RepeatButton" >
 					<Border Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}">
+						BorderBrush="{TemplateBinding BorderBrush}"
+						BorderThickness="{TemplateBinding BorderThickness}">
 						<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
 					</Border>
 				</ControlTemplate>
@@ -38,6 +45,16 @@
 				<Setter Property="Background" Value="{StaticResource Cyan}"/>
 			</Trigger>
 		</Style.Triggers>
+	</Style>
+
+	<Style x:Key="MinuteUpDown" TargetType="{x:Type wpfToolkit:IntegerUpDown}" BasedOn="{StaticResource IntergerUpDownBase}">
+		<Setter Property="Increment" Value="1"></Setter>
+		<Setter Property="Minimum" Value="00"></Setter>
+		<Setter Property="Maximum" Value="59"></Setter>
+	</Style>
+
+	<Style x:Key="SecondUpDown" TargetType="{x:Type wpfToolkit:IntegerUpDown}" BasedOn="{StaticResource MinuteUpDown}">
+		 
 	</Style>
 
 </ResourceDictionary>

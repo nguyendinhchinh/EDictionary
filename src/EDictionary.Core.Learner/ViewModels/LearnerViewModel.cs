@@ -14,7 +14,8 @@ namespace EDictionary.Core.Learner.ViewModels
 	public enum Status
 	{
 		Stop,
-		Resume,
+		Pause,
+		Run,
 	}
 
 	public class LearnerViewModel : ViewModelBase, ILearnerViewModel
@@ -24,9 +25,19 @@ namespace EDictionary.Core.Learner.ViewModels
 		private SettingsLogic settingsLogic;
 		private WordLogic wordLogic;
 
+		private Status status;
 		private Status nextStatus;
 		private string definition;
-		private TimeSpan interval;
+
+		private TimeSpan spawnInterval;
+		private TimeSpan activeInterval;
+
+		private int spawnCounter;
+		private int activeCounter;
+
+		private DispatcherTimer spawnTimer;
+		private DispatcherTimer activeTimer;
+
 		private List<string> wordList;
 
 		#endregion
@@ -53,6 +64,7 @@ namespace EDictionary.Core.Learner.ViewModels
 		public Action ShowSettingsWindowAction { get; set; }
 		public Action ShowAboutWindowAction { get; set; }
 		public Action ShowLearnerBalloonAction { get; set; }
+		public Action HideLearnerBalloonAction { get; set; }
 
 		private void DispatchIfNecessary(Action action)
 		{
@@ -70,9 +82,14 @@ namespace EDictionary.Core.Learner.ViewModels
 		}
 
 		public void OpenMainDictionary() => ShowMainDictionaryAction.Invoke();
-		public void OpenSettings() => ShowSettingsWindowAction.Invoke();
+		public void OpenSettings()
+		{
+			ShowSettingsWindowAction.Invoke();
+			ReloadSettings();
+		}
 		public void OpenAbout() => ShowAboutWindowAction.Invoke();
 		public void OpenLearnerBalloon() => DispatchIfNecessary(ShowLearnerBalloonAction);
+		public void CloseLearnerBalloon() => DispatchIfNecessary(HideLearnerBalloonAction);
 		public void CloseApp() => Application.Current.Shutdown();
 
 		#endregion
@@ -85,6 +102,14 @@ namespace EDictionary.Core.Learner.ViewModels
 
 			settingsLogic = new SettingsLogic();
 			wordLogic = new WordLogic();
+
+			spawnTimer = new DispatcherTimer();
+			spawnTimer.Tick += OnSpawnTimerTick;
+			spawnTimer.Interval = new TimeSpan(0, 0, 1);
+
+			activeTimer = new DispatcherTimer();
+			activeTimer.Tick += OnActiveTimerTick;
+			activeTimer.Interval = new TimeSpan(0, 0, 1);
 
 			OpenMainDictionaryCommand = new DelegateCommand(OpenMainDictionary);
 			ToggleActiveCommand = new DelegateCommand(ToggleActive);
@@ -111,8 +136,12 @@ namespace EDictionary.Core.Learner.ViewModels
 		{
 			Settings settings = settingsLogic.LoadSettings();
 
-			interval = TimeSpan.FromMinutes(settings.MinInterval);
-			interval = TimeSpan.FromSeconds(settings.SecInterval);
+			spawnInterval = TimeSpan.FromMinutes(settings.MinInterval);
+			spawnInterval = TimeSpan.FromSeconds(settings.SecInterval);
+			activeInterval = TimeSpan.FromSeconds(settings.Timeout);
+
+			spawnCounter = (int)spawnInterval.TotalSeconds;
+			activeCounter = (int)activeInterval.TotalSeconds;
 
 			if (settings.Option == Option.Full)
 			{
@@ -131,32 +160,66 @@ namespace EDictionary.Core.Learner.ViewModels
 			Definition = wordLogic.Search(randWord).ToRTFString(mini: true);
 		}
 
+		private void OnSpawnTimerTick(object sender, EventArgs e)
+		{
+			if (status == Status.Stop)
+				return;
+
+			spawnCounter--;
+
+			if (spawnCounter <= 0)
+			{
+				SetRandomWord();
+				OpenLearnerBalloon();
+
+				spawnCounter = (int)spawnInterval.TotalSeconds;
+
+				spawnTimer.Stop();
+				activeTimer.Start();
+			}
+		}
+
+		private void OnActiveTimerTick(object sender, EventArgs e)
+		{
+			if (status == Status.Stop)
+				return;
+
+			activeCounter--;
+
+			if (activeCounter <= 0)
+			{
+				CloseLearnerBalloon();
+
+				activeCounter = (int)activeInterval.TotalSeconds;
+
+				activeTimer.Stop();
+				spawnTimer.Start();
+			}
+		}
+
 		public void Run()
 		{
+			status = Status.Run;
+
 			ReloadSettings();
-			interval = TimeSpan.FromSeconds(5);
 
 			if (wordList.Count == 0)
 				return;
 
-			while (true)
-			{
-				Thread.Sleep(interval);
-
-				SetRandomWord();
-				OpenLearnerBalloon();
-			}
+			spawnTimer.Start();
 		}
 
 		private void ToggleActive()
 		{
-			if (NextStatus == Status.Stop)
+			if (status == Status.Stop)
 			{
-				NextStatus = Status.Resume;
+				status = Status.Run;
+				NextStatus = Status.Stop;
 			}
 			else
 			{
-				NextStatus = Status.Stop;
+				status = Status.Stop;
+				NextStatus = Status.Run;
 			}
 		}
 	}

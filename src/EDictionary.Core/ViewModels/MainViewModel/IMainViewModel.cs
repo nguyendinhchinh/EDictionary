@@ -16,7 +16,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		List<string> WordList { get; }
 		int WordListTopIndex { get; set; }
 
-		string CurrentWord { get; set; }
+		string SearchedWord { get; set; }
 		string HighlightedWord { get; set; }
 		string SelectedWord { get; set; }
 		string Definition { get; set; }

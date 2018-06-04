@@ -17,13 +17,13 @@ namespace EDictionary.Controls
 		#region TopIndex DP
 
 		public static readonly DependencyProperty TopIndexProperty = DependencyProperty.Register(
-				"TopIndex",
-				typeof(int),
-				typeof(ExtendedListView),
-				new FrameworkPropertyMetadata(-1,
-					OnTopIndexChangedProperty,
-					OnCoerceTopIndexProperty)
-				);
+			"TopIndex",
+			typeof(int),
+			typeof(ExtendedListView),
+			new FrameworkPropertyMetadata(-1,
+				OnTopIndexChangedProperty,
+				OnCoerceTopIndexProperty)
+			);
 
 		public int TopIndex
 		{

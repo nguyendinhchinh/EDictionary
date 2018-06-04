@@ -15,7 +15,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 	{
 		private SettingsLogic settingsLogic;
 
-		private bool canEditCustomWordList;
+		private bool isClose = false;
+		private bool canEditCustomOptions;
 
 		private int minInterval;
 		private int secInterval;
@@ -23,10 +24,21 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 		private Option option;
 		private List<string> customWordList = new List<string>();
 
-		public bool CanEditCustomWordList
+		private bool useHistoryWordlist;
+		private bool useCustomWordlist;
+
+		private int timeout;
+
+		public bool IsClose
 		{
-			get { return canEditCustomWordList; }
-			set { SetPropertyAndNotify(ref canEditCustomWordList, value); }
+			get { return isClose; }
+			set { SetPropertyAndNotify(ref isClose, value); }
+		}
+
+		public bool CanEditCustomOptions
+		{
+			get { return canEditCustomOptions; }
+			set { SetPropertyAndNotify(ref canEditCustomOptions, value); }
 		}
 
 		public int MinInterval
@@ -41,6 +53,12 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			set { SetPropertyAndNotify(ref secInterval, value); }
 		}
 
+		public int Timeout
+		{
+			get { return timeout; }
+			set { SetPropertyAndNotify(ref timeout, value); }
+		}
+
 		public Option Option
 		{
 			get { return option; }
@@ -48,9 +66,9 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			set
 			{
 				if (value == Option.Custom)
-					CanEditCustomWordList = true;
+					CanEditCustomOptions = true;
 				else
-					CanEditCustomWordList = false;
+					CanEditCustomOptions = false;
 
 				SetPropertyAndNotify(ref option, value);
 			}
@@ -62,30 +80,36 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			set { SetPropertyAndNotify(ref customWordList, value); }
 		}
 
-		#region Actions
+		public bool UseHistoryWordlist
+		{
+			get { return useHistoryWordlist; }
+			set { SetPropertyAndNotify(ref useHistoryWordlist, value); }
+		}
 
-		public Action CloseAction { get; set; }
-
-		#endregion
+		public bool UseCustomWordlist
+		{
+			get { return useCustomWordlist; }
+			set { SetPropertyAndNotify(ref useCustomWordlist, value); }
+		}
 
 		public SettingsViewModel()
 		{
-			SaveCommand = new DelegateCommand(SaveAndReload);
 			CloseCommand = new DelegateCommand(Close);
+			SaveCommand = new DelegateCommand(SaveSettings);
 
 			settingsLogic = new SettingsLogic();
 
-			LoadSettingsAsync();
+			LoadSettings();
 		}
 
 		#region Commands
 
-		public DelegateCommand SaveCommand { get; private set; }
 		public DelegateCommand CloseCommand { get; private set; }
+		public DelegateCommand SaveCommand { get; private set; }
 
 		#endregion
 
-		private async void LoadSettingsAsync()
+		private async void LoadSettings()
 		{
 			Settings settings = await settingsLogic.LoadSettingsAsync();
 
@@ -93,9 +117,12 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			this.SecInterval = settings.SecInterval;
 			this.Option = settings.Option;
 			this.CustomWordList = settings.CustomWordList;
+			this.UseHistoryWordlist = settings.UseHistoryWordlist;
+			this.UseCustomWordlist = settings.UseCustomWordlist;
+			this.Timeout = settings.Timeout;
 		}
 
-		private void SaveAndReload()
+		private void SaveSettings()
 		{
 			try
 			{
@@ -105,8 +132,11 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 				{
 					SecInterval = this.SecInterval,
 					MinInterval = this.MinInterval,
-					CustomWordList = this.CustomWordList,
 					Option = this.Option,
+					CustomWordList = this.CustomWordList,
+					UseHistoryWordlist = this.UseHistoryWordlist,
+					UseCustomWordlist = this.UseCustomWordlist,
+					Timeout = this.Timeout,
 				};
 
 				settingsLogic.SaveSettings(settings);
@@ -118,7 +148,7 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			{
 				var errorMsg = new StringBuilder();
 
-				errorMsg.AppendLine("Error occured in saving settings - SettingsViewModel.Save()");
+				errorMsg.AppendLine("Error occured in saving settings - SettingsViewModel.SaveSettings()");
 				errorMsg.AppendLine(ex.Message);
 
 				if (ex.InnerException != null)
@@ -129,14 +159,12 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 				LogWriter.Instance.WriteLine(errorMsg.ToString());
 			}
 
-
-
-			this.CloseAction.Invoke();
+			Close();
 		}
 
 		private void Close()
 		{
-			CloseAction.Invoke();
+			IsClose = true;
 		}
 	}
 }
