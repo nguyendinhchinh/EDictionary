@@ -1,3 +1,4 @@
+using EDictionary.Controls.Extensions;
 using System;
 using System.Linq;
 using System.Windows;
@@ -56,8 +57,8 @@ namespace EDictionary.Controls
 			string strBeforeCursor = cursorPosition.GetTextInRun(LogicalDirection.Backward);
 			string strAfterCursor = cursorPosition.GetTextInRun(LogicalDirection.Forward);
 
-			string wordBeforeCursor = strBeforeCursor.Split().Last();
-			string wordAfterCursor = strAfterCursor.Split().First();
+			string wordBeforeCursor = strBeforeCursor.SplitWord().LastOrDefault();
+			string wordAfterCursor = strAfterCursor.SplitWord().FirstOrDefault();
 
 			string text = wordBeforeCursor + wordAfterCursor;
 

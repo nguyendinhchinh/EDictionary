@@ -135,9 +135,11 @@
     <Compile Include="DataLogic\WordLogic.cs" />
     <Compile Include="Data\DataAccess.cs" />
     <Compile Include="Data\DataAccess.Query.cs" />
-    <Compile Include="Data\DictionaryTable.cs" />
+    <Compile Include="Data\DatabaseInfo.cs" />
+    <Compile Include="Data\Factory\DatabaseFactory.cs" />
     <Compile Include="Data\HistoryAccess.cs" />
     <Compile Include="Data\SettingsAccess.cs" />
+    <Compile Include="Data\SqliteAccess.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="Extensions\FocusExtension.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
@@ -216,6 +218,7 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Compile Include="Data\HistoryAccess.Query.cs" />
     <None Include="Deployment\PostBuild.ps1" />
     <Content Include="Fonts\Catamaran-Bold.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

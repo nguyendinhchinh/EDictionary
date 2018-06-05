@@ -10,37 +10,18 @@ using EDictionary.Core.Extensions;
 
 namespace EDictionary.Core.Data
 {
-	public partial class DataAccess
+	public partial class DataAccess : SqliteAccess
 	{
 		private readonly static string saveDir = AppDomain.CurrentDomain.BaseDirectory;
-		private readonly static string savePath = Path.GetFullPath($"{saveDir}\\words.sqlite");
+		private readonly static string savePath = Path.Combine(saveDir, "words.sqlite");
 		private readonly string connectionStr = $"Data Source={savePath};Version=3;";
 
-		private SQLiteConnection dbConnection;
-
-		public DataAccess()
+		public DataAccess(DatabaseInfo dbInfo) : base(dbInfo)
 		{
-			if (!File.Exists(savePath))
-			{
-				SQLiteConnection.CreateFile(savePath);
-			}
-			dbConnection = new SQLiteConnection(connectionStr);
-			//CreateTable();
+
 		}
 
-		private void OpenConnection()
-		{
-			if (dbConnection.State != ConnectionState.Open)
-				dbConnection.Open();
-		}
-
-		private void CloseConnection()
-		{
-			if (dbConnection.State != ConnectionState.Closed)
-				dbConnection.Close();
-		}
-
-		public Result CreateTable()
+		public override Result CreateTable()
 		{
 			try
 			{
@@ -77,9 +58,9 @@ namespace EDictionary.Core.Data
 					if (wordNumber != null)
 						wordName += " " + wordNumber;
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = word.ID });
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@name", Value = wordName }); // TODO: Test
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@definition", Value = wordJsonStr });
+					command.Parameters.AddWithValue("@id", word.ID);
+					command.Parameters.AddWithValue("@name", wordName); // TODO: Test
+					command.Parameters.AddWithValue("@definition", wordJsonStr);
 
 					command.ExecuteNonQuery();
 
@@ -97,20 +78,17 @@ namespace EDictionary.Core.Data
 			}
 		}
 
-		public Result<Word> SelectDefinitionFrom(string wordID)
+		public Result<string> SelectDefinitionFrom(string wordID)
 		{
 			Watcher watch = new Watcher();
 
-			string definition;
-
 			try
 			{
-				List<string> results = new List<string>();
 				using (SQLiteCommand command = new SQLiteCommand(selectDefinitionFromQuery, dbConnection))
 				{
 					OpenConnection();
 
-					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@ID", Value = wordID});
+					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@id", Value = wordID});
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
 						watch.Print("Read db");
@@ -118,30 +96,20 @@ namespace EDictionary.Core.Data
 						command.CommandType = CommandType.Text;
 						SQLiteDataReader reader = command.ExecuteReader();
 
-						while (reader.Read())
-						{
-							results.Add(Convert.ToString(reader[DictionaryTable.Definition]));
-						}
+						reader.Read();
+						string definitionStr = Convert.ToString(reader["Definition"]);
 
 						watch.Print("Execute query");
 
-						definition = results.ElementAtOrDefault(0);
-						Word word = null;
-
-						if (definition != null)
-							word = JsonHelper.Deserialize(definition);
-
-						watch.Print("Deserialize result");
-
-						return new Result<Word>(data:word, message:"", status:Status.Success);
+						return new Result<string>(data:definitionStr, message:"", status:Status.Success);
 					}
 				}
 			}
 			catch (Exception exception)
 			{
-				LogWriter.Instance.WriteLine($"Error occured at LookUp in DataAccess:\n{exception.Message}");
+				LogWriter.Instance.WriteLine($"Error occured at SelectDefinitionFrom in DataAccess:\n{exception.Message}");
 				
-				return new Result<Word>(
+				return new Result<string>(
 						message:exception.Message,
 						innerMessage:"",
 						status:Status.Error,
@@ -159,9 +127,11 @@ namespace EDictionary.Core.Data
 			try
 			{
 				List<string> results = new List<string>();
+
 				using (SQLiteCommand command = new SQLiteCommand(selectIDQuery, dbConnection))
 				{
 					OpenConnection();
+
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
 						command.CommandType = CommandType.Text;
@@ -169,7 +139,7 @@ namespace EDictionary.Core.Data
 
 						while (reader.Read())
 						{
-							results.Add(Convert.ToString(reader[DictionaryTable.ID]));
+							results.Add(Convert.ToString(reader["ID"]));
 						}
 						return new Result<List<string>>(data:results, message:"", status:Status.Success);
 					}
@@ -207,7 +177,7 @@ namespace EDictionary.Core.Data
 
 						while (reader.Read())
 						{
-							results.Add(Convert.ToString(reader[DictionaryTable.Name]));
+							results.Add(Convert.ToString(reader["Name"]));
 						}
 						return new Result<List<string>>(data: results, message: "", status: Status.Success);
 					}
@@ -246,8 +216,8 @@ namespace EDictionary.Core.Data
 						while (reader.Read())
 						{
 							results.Add(
-								Convert.ToString(reader[DictionaryTable.ID]),
-								Convert.ToString(reader[DictionaryTable.Name]));
+								Convert.ToString(reader["ID"]),
+								Convert.ToString(reader["Name"]));
 						}
 						return new Result<Dictionary<string, string>>(data: results, message: "", status: Status.Success);
 					}

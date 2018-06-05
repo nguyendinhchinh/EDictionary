@@ -6,29 +6,30 @@ using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
 {
-	[Serializable]
 	public class History<T>
 	{
-		[XmlIgnore]
 		public static readonly string Directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
-
-		[XmlIgnore]
 		public static readonly string Path = System.IO.Path.Combine(Directory, "history.xml");
 
-		public static readonly int MaxHistory = 1000;
+		public static History<T> Default = new History<T>()
+		{
+			MaxHistory = 1000,
+			CurrentIndex = -1,
+		};
 
 		#region Properties
 
+		public int MaxHistory { get; set; }
 		public int CurrentIndex { get; set; }
 
-		public List<T> Wordlist { get; set; }
+		public List<T> Collection { get; set; }
 
 		public T Current
 		{
 			get
 			{
 				if (CurrentIndex != -1)
-					return Wordlist[CurrentIndex];
+					return Collection[CurrentIndex];
 				else
 					return default(T);
 			}
@@ -41,12 +42,12 @@ namespace EDictionary.Core.Models
 
 		public bool IsLast
 		{
-			get { return CurrentIndex == Wordlist.Count - 1; }
+			get { return CurrentIndex == Collection.Count - 1; }
 		}
 
 		public int Count
 		{
-			get { return Wordlist.Count; }
+			get { return Collection.Count; }
 		}
 
 		#endregion
@@ -55,8 +56,7 @@ namespace EDictionary.Core.Models
 
 		public History()
 		{
-			Wordlist = new List<T> { };
-			CurrentIndex = -1;
+			Collection = new List<T>();
 		}
 
 		#endregion
@@ -66,33 +66,33 @@ namespace EDictionary.Core.Models
 		/// </summary>
 		public void Add(T item)
 		{
-			if (CurrentIndex + 1 <= Wordlist.Count - 1)
+			if (CurrentIndex + 1 <= Collection.Count - 1)
 			{
-				Wordlist.Insert(CurrentIndex + 1, item);
+				Collection.Insert(CurrentIndex + 1, item);
 			}
 			else
 			{
-				Wordlist.Add(item);
+				Collection.Add(item);
 			}
 
 			CurrentIndex++;
-			Wordlist = Wordlist.Take(CurrentIndex + 1).ToList();
+			Collection = Collection.Take(CurrentIndex + 1).ToList();
 		}
 
 		public void Previous(out T item)
 		{
 			if (CurrentIndex > 0)
-				item = Wordlist[--CurrentIndex];
+				item = Collection[--CurrentIndex];
 			else
-				item = Wordlist[0];
+				item = Collection[0];
 		}
 
 		public void Next(out T item)
 		{
-			if (CurrentIndex < Wordlist.Count - 1)
-				item = Wordlist[++CurrentIndex];
+			if (CurrentIndex < Collection.Count - 1)
+				item = Collection[++CurrentIndex];
 			else
-				item = Wordlist[Wordlist.Count - 1];
+				item = Collection[Collection.Count - 1];
 		}
 
 		/// <summary>
@@ -100,9 +100,9 @@ namespace EDictionary.Core.Models
 		/// </summary>
 		public void Trim()
 		{
-			if (Wordlist.Count > MaxHistory)
+			if (Collection.Count > MaxHistory)
 			{
-				Wordlist = (List<T>)Wordlist.TakeLast(MaxHistory);
+				Collection = (List<T>)Collection.TakeLast(MaxHistory);
 			}
 		}
 	}

@@ -107,9 +107,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			{
 				if (SetPropertyAndNotify(ref definition, value))
 				{
-					SearchFromSelectionCommand.RaiseCanExecuteChanged();
-					PlayBrEAudioCommand.RaiseCanExecuteChanged();
-					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
+					DispatchIfNecessary(() =>
+					{
+						SearchFromSelectionCommand.RaiseCanExecuteChanged();
+						PlayBrEAudioCommand.RaiseCanExecuteChanged();
+						PlayNAmEAudioCommand.RaiseCanExecuteChanged();
+					});
 				}
 			}
 		}
@@ -199,11 +202,14 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 				if (history.Count > 0)
 					currentWord = wordLogic.Search(history.Current);
+				else
+					currentWord = wordLogic.Search("a");
+
+				if (currentWord != null)
+					Definition = currentWord.ToRTFString();
 
 				Application.Current.Dispatcher.Invoke(() =>
 				{
-					Definition = currentWord.ToRTFString();
-
 					NextHistoryCommand.RaiseCanExecuteChanged();
 					PreviousHistoryCommand.RaiseCanExecuteChanged();
 				});
@@ -262,43 +268,46 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// Called on enter or doubleclick event on wordlist
 		/// Run spellcheck for similar word when word not found
 		/// </summary>
-		public void SearchFromInput()
+		public async void SearchFromInput()
 		{
-			//SearchIcon = "SpinnerIcon";
-			//NotifyPropertyChanged("SearchIcon");
-			Console.WriteLine();
-			Console.WriteLine(">>> " + SearchedWord);
-			Watcher watch = new Watcher();
-
-			currentWord = wordLogic.Search(SearchedWord);
-
-			watch.Print("Search");
-
-			if (currentWord == null)
+			await Task.Run(() =>
 			{
-				var stemmedWord = Stemmer.Stem(SearchedWord);
+				//SearchIcon = "SpinnerIcon";
+				//NotifyPropertyChanged("SearchIcon");
+				Console.WriteLine();
+				Console.WriteLine(">>> " + SearchedWord);
+				Watcher watch = new Watcher();
 
-				if (SearchedWord != stemmedWord)
-					currentWord = wordLogic.Search(stemmedWord);
-			}
-			watch.Print("Stem");
+				currentWord = wordLogic.Search(SearchedWord);
 
-			if (currentWord != null)
-			{
-				string str = currentWord.ToRTFString();
+				watch.Print("Search");
 
-				watch.Print("To RFT");
+				if (currentWord == null)
+				{
+					var stemmedWord = Stemmer.Stem(SearchedWord);
 
-				Definition = str;
+					if (SearchedWord != stemmedWord)
+						currentWord = wordLogic.Search(stemmedWord);
+				}
+				watch.Print("Stem");
 
-				watch.Print("Update Definition");
-			}
-			else
-				Definition = CorrectWord(SearchedWord);
+				if (currentWord != null)
+				{
+					string str = currentWord.ToRTFString();
 
-			UpdateHistory(currentWord);
+					watch.Print("To RFT");
 
-			watch.Print("Update History");
+					Definition = str;
+
+					watch.Print("Update Definition");
+				}
+				else
+					Definition = CorrectWord(SearchedWord);
+
+				UpdateHistory(currentWord);
+
+				watch.Print("Update History");
+			});
 		}
 
 		public bool CanSearchFromInput()
@@ -373,9 +382,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 					return;
 
 				if (word.Name != history.Current)
+				{
 					history.Add(word.Name);
+					historyLogic.AddItem(word.Name);
+					historyLogic.UpdateCurrentIndex(history.CurrentIndex);
+				}
 
-				historyLogic.SaveHistory(history);
 				UpdateOtherResultList();
 
 				Application.Current.Dispatcher.Invoke(() =>
@@ -388,26 +400,30 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void NextHistory()
 		{
-			history.Next(out string word);
+			string word;
+
+			history.Next(out word);
 			currentWord = wordLogic.Search(word);
 			Definition = currentWord.ToRTFString();
 
 			PreviousHistoryCommand.RaiseCanExecuteChanged();
 			NextHistoryCommand.RaiseCanExecuteChanged();
 
-			historyLogic.SaveHistory(history);
+			historyLogic.UpdateCurrentIndex(history.CurrentIndex);
 		}
 
 		public void PreviousHistory()
 		{
-			history.Previous(out string word);
+			string word;
+
+			history.Previous(out word);
 			currentWord = wordLogic.Search(word);
 			Definition = currentWord.ToRTFString();
 
 			PreviousHistoryCommand.RaiseCanExecuteChanged();
 			NextHistoryCommand.RaiseCanExecuteChanged();
 
-			historyLogic.SaveHistory(history);
+			historyLogic.UpdateCurrentIndex(history.CurrentIndex);
 		}
 
 		public bool CanGoToNextHistory()
@@ -432,12 +448,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void PlayBrEAudio()
 		{
-			wordLogic.PlayAudio(currentWord, Dialect.BrE);
+			currentWord.PlayAudio(Dialect.BrE);
 		}
 
 		public void PlayNAmEAudio()
 		{
-			wordLogic.PlayAudio(currentWord, Dialect.NAmE);
+			currentWord.PlayAudio(Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()

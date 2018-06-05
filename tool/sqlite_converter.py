@@ -74,8 +74,10 @@ def replace_url(word):
 
 def create_table():
 	""" create table if not exists """
-	CURSOR.execute('CREATE TABLE IF NOT EXISTS {} (ID NVARCHAR, Name NVARCHAR, Definition NVARCHAR)'
-			.format(TABLE_NAME))
+	CURSOR.execute("""CREATE TABLE IF NOT EXISTS {} (
+			[ID] NVARCHAR NOT NULL PRIMARY KEY,
+			[Name] NVARCHAR,
+			[Definition] NVARCHAR)""".format(TABLE_NAME))
 
 def to_ascii(string):
 	""" replace some possible unicode characters with similar ascii ones """
@@ -99,7 +101,7 @@ def insert(json):
 
 	json_str = uglify(json)
 
-	CURSOR.execute('INSERT INTO {} (ID, Name, Definition) VALUES (?, ?, ?)'.format(TABLE_NAME),
+	CURSOR.execute('INSERT INTO {} ([ID], [Name], [Definition]) VALUES (?, ?, ?)'.format(TABLE_NAME),
 			(id, name, json_str))
 
 def to_sqlite():
@@ -117,7 +119,7 @@ def to_sqlite():
 			insert(replace_url(json))
 
 	# improve SELECT .. WHERE .. performance
-	CURSOR.execute('CREATE INDEX `idx{}` ON {} (`ID`)'.format(TABLE_NAME, TABLE_NAME))
+	CURSOR.execute('CREATE INDEX [idx{}] ON {} ([ID])'.format(TABLE_NAME, TABLE_NAME))
 
 	CONNECTION.commit()
 

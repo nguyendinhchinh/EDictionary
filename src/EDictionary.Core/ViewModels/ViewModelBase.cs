@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace EDictionary.Core.ViewModels
 {
@@ -30,6 +33,10 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
+		#endregion
+
+		#region Setter Wrappers
+
 		protected virtual bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string propertyName = "")
 		{
 			if (EqualityComparer<T>.Default.Equals(storage, value))
@@ -49,5 +56,20 @@ namespace EDictionary.Core.ViewModels
 		}
 
 		#endregion
+
+		protected void DispatchIfNecessary(Action action)
+		{
+			if (Application.Current.Dispatcher.CheckAccess())
+			{
+				action.Invoke();
+			}
+			else
+			{
+				Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+				{
+					action.Invoke();
+				}));
+			}
+		}
 	}
 }

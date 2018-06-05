@@ -2,13 +2,19 @@ using EDictionary.Core.Extensions;
 using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using EDictionary.Vendors.RTF;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EDictionary.Core.Models
 {
 	public class Word
 	{
+		public static readonly string AudioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
+		private static AudioManager audioPlayer = new AudioManager();
+
 		public string ID { get; set; }
 		public string[] Similars { get; set; }
 		public string Name { get; set; }
@@ -66,6 +72,22 @@ namespace EDictionary.Core.Models
 			watch.Print("[C] ToString");
 
 			return str;
+		}
+
+		private string GetFilename(Dialect dialect)
+		{
+			return Pronunciations
+				.Where(x => x.Prefix == dialect.ToString())
+				.Select(x => x.Filename)
+				.First();
+		}
+
+		public void PlayAudio(Dialect dialect)
+		{
+			string filename = GetFilename(dialect);
+			string audioFile = Path.Combine(AudioPath, filename);
+
+			audioPlayer.Play(audioFile);
 		}
 	}
 }

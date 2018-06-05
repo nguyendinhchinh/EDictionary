@@ -1,4 +1,5 @@
 ﻿using EDictionary.Core.Data;
+using EDictionary.Core.Data.Factory;
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Models.WordComponents;
@@ -18,8 +19,6 @@ namespace EDictionary.Core.DataLogic
 	/// </summary>
 	public class WordLogic
    {
-		private readonly string audioPath;
-		private AudioManager audioPlayer;
 		private DataAccess dataAccess;
 		private SpellCheck spellCheck;
 
@@ -37,9 +36,7 @@ namespace EDictionary.Core.DataLogic
 
 		public WordLogic()
 		{
-			audioPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
-			dataAccess = new DataAccess();
-			audioPlayer = new AudioManager();
+			dataAccess = DatabaseFactory.CreateWordlistDatabase();
 
 			InitWordList();
 			spellCheck = new SpellCheck(WordList);
@@ -93,6 +90,22 @@ namespace EDictionary.Core.DataLogic
 			return result.Data;
 		}
 
+		private Word GetWordDefinition(string wordID)
+		{
+			Result<string> result = dataAccess.SelectDefinitionFrom(wordID);
+
+			if (result.Status != Status.Success)
+			{
+				LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
+				return null;
+			}
+
+			if (result.Data == null)
+				return null;
+
+			return JsonHelper.Deserialize(result.Data);
+		}
+
 		public Word Search(string word)
 		{
 			if (word == null)
@@ -103,44 +116,12 @@ namespace EDictionary.Core.DataLogic
 			if (!NameToIDs.ContainsKey(word))
 				return null;
 
-			Result<Word> result = dataAccess.SelectDefinitionFrom(NameToIDs[word].FirstOrDefault());
-
-			if (result.Status != Status.Success)
-			{
-				LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
-				return null;
-			}
-
-			return result.Data;
+			return GetWordDefinition(NameToIDs[word].FirstOrDefault());
 		}
 
 		public Word SearchID(string wordID)
 		{
-			Result<Word> result = dataAccess.SelectDefinitionFrom(wordID);
-
-			if (result.Status != Status.Success)
-			{
-				LogWriter.Instance.WriteLine($"Error occured at Search in class Dictionary: {result.Message}");
-				return null;
-			}
-
-			return result.Data;
-		}
-
-		private string GetFilename(Word word, Dialect dialect)
-		{
-			return word.Pronunciations
-				.Where(x => x.Prefix == dialect.ToString())
-				.Select(x => x.Filename)
-				.First();
-		}
-
-		public void PlayAudio(Word word, Dialect dialect)
-		{
-			string filename = GetFilename(word, dialect);
-			string audioFile = Path.Combine(audioPath, filename);
-
-			audioPlayer.Play(audioFile);
+			return GetWordDefinition(wordID);
 		}
 
 		public string GetSuggestions(string wrongWord)

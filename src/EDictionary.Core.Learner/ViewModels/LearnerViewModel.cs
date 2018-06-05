@@ -66,21 +66,6 @@ namespace EDictionary.Core.Learner.ViewModels
 		public Action ShowLearnerBalloonAction { get; set; }
 		public Action HideLearnerBalloonAction { get; set; }
 
-		private void DispatchIfNecessary(Action action)
-		{
-			if (Application.Current.Dispatcher.CheckAccess())
-			{
-				action.Invoke();
-			}
-			else
-			{
-				Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
-				{
-					action.Invoke();
-				}));
-			}
-		}
-
 		public void OpenMainDictionary() => ShowMainDictionaryAction.Invoke();
 		public void OpenSettings()
 		{

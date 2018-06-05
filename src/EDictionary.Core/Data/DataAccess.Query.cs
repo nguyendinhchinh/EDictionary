@@ -2,35 +2,46 @@ namespace EDictionary.Core.Data
 {
 	public partial class DataAccess
 	{
-		private readonly string insertQuery = $@"
-			INSERT INTO {DictionaryTable.TableName}
-				({DictionaryTable.ID},
-				{DictionaryTable.Name},
-				{DictionaryTable.Definition})
-			VALUES (@ID, @name, @definition)";
+		private static readonly string tableName = "[Dictionary]";
 
 		private readonly string createTableQuery = $@"
-			CREATE TABLE IF NOT EXISTS {DictionaryTable.TableName}
-				({DictionaryTable.ID} NVARCHAR,
-				{DictionaryTable.Name} NVARCHAR,
-				{DictionaryTable.Definition} NVARCHAR)";
+			CREATE TABLE IF NOT EXISTS {tableName}
+			(
+				[ID] NVARCHAR,
+				[Name] NVARCHAR,
+				[Definition] NVARCHAR
+			);";
+
+		private readonly string insertQuery = $@"
+			INSERT INTO {tableName}
+			(
+				[ID],
+				[Name],
+				[Definition]
+			)
+			VALUES
+			(
+				@id,
+				@name,
+				@definition
+			)";
 
 		private readonly string selectDefinitionFromQuery = $@"
-			SELECT {DictionaryTable.Definition} FROM {DictionaryTable.TableName}
-			WHERE {DictionaryTable.ID} = @ID";
+			SELECT [Definition] FROM {tableName}
+			WHERE [ID] = @id";
 
 		private readonly string selectIDQuery = $@"
-			SELECT {DictionaryTable.ID}
-			FROM {DictionaryTable.TableName}
-			ORDER BY { DictionaryTable.ID } ASC";
+			SELECT [ID]
+			FROM {tableName}
+			ORDER BY [ID] ASC";
 
 		private readonly string selectNameQuery = $@"
-			SELECT {DictionaryTable.Name}
-			FROM {DictionaryTable.TableName}
-			ORDER BY {DictionaryTable.ID} ASC";
+			SELECT [Name]
+			FROM {tableName}
+			ORDER BY [ID] ASC";
 
 		private readonly string selectIDAndNameQuery = $@"
-			SELECT {DictionaryTable.ID}, {DictionaryTable.Name}
-			FROM {DictionaryTable.TableName}";
+			SELECT [ID], [Name]
+			FROM {tableName}";
 	}
 }
