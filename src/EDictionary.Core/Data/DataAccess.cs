@@ -12,10 +12,6 @@ namespace EDictionary.Core.Data
 {
 	public partial class DataAccess : SqliteAccess
 	{
-		private readonly static string saveDir = AppDomain.CurrentDomain.BaseDirectory;
-		private readonly static string savePath = Path.Combine(saveDir, "words.sqlite");
-		private readonly string connectionStr = $"Data Source={savePath};Version=3;";
-
 		public DataAccess(DatabaseInfo dbInfo) : base(dbInfo)
 		{
 

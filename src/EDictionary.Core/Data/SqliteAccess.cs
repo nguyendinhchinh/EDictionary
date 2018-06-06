@@ -23,6 +23,7 @@ namespace EDictionary.Core.Data
 		{
 			if (!File.Exists(dbInfo.SavePath))
 			{
+				Directory.CreateDirectory(dbInfo.SaveDir); // create directory if not exists
 				SQLiteConnection.CreateFile(dbInfo.SavePath);
 				dbConnection = new SQLiteConnection(dbInfo.ConnectionString);
 				CreateTable();
