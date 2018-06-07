@@ -96,7 +96,7 @@ def insert(json):
 	except UnicodeEncodeError:
 		try:
 			name = to_ascii(name)
-		except UnicodeEncodeError:
+		except KeyError:
 			util.put(name, 'untracked_unicode.txt')
 
 	json_str = uglify(json)

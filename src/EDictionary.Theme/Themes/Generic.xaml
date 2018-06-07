@@ -17,6 +17,7 @@
 		<ResourceDictionary Source="../Styles/TextBoxs.xaml" />
 		<ResourceDictionary Source="../Styles/ListViews.xaml" />
 		<ResourceDictionary Source="../Styles/RichTextBox.xaml" />
+		<ResourceDictionary Source="../Styles/Editor.xaml" />
 		<ResourceDictionary Source="../Styles/Scrollbar.xaml" />
 		<ResourceDictionary Source="../Styles/Windows.xaml" />
 		<ResourceDictionary Source="../Styles/Hyperlink.xaml" />

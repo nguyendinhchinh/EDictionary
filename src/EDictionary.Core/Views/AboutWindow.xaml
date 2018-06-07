@@ -5,6 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:fa="http://schemas.fontawesome.io/icons/"
 	mc:Ignorable="d"
 	Title="About"
 	WindowStartupLocation="CenterScreen"
@@ -90,6 +91,7 @@
 				<Hyperlink
 					 Command="{Binding OpenSourceCodeCommand}">
 					<Hyperlink.Inlines>
+						<fa:FontAwesome Icon="Github" FontSize="14" />
 						<Run Text="Source Code"/>
 					</Hyperlink.Inlines>
 				</Hyperlink>
@@ -101,6 +103,7 @@
 				<Hyperlink
 					 Command="{Binding OpenBugReportCommand}">
 					<Hyperlink.Inlines>
+						<Run Text="Bug" FontFamily="{StaticResource FontAwesome}"/>
 						<Run Text="Report Bug?"/>
 					</Hyperlink.Inlines>
 				</Hyperlink>

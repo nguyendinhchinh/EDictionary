@@ -15,11 +15,18 @@ namespace EDictionary.Theme.Utilities
 			Source = colorUri,
 		};
 
-		public static System.Drawing.Color Color(string key)
+		public static System.Drawing.Color GetColor(string key)
 		{
 			SolidColorBrush brush = (SolidColorBrush)colorDict[key];
 
 			return System.Drawing.Color.FromArgb(brush.Color.A, brush.Color.R, brush.Color.G, brush.Color.B);
+		}
+
+		public static Color GetMediaColor(string key)
+		{
+			SolidColorBrush brush = (SolidColorBrush)colorDict[key];
+
+			return Color.FromArgb(brush.Color.A, brush.Color.R, brush.Color.G, brush.Color.B);
 		}
 	}
 }

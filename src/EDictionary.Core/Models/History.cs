@@ -6,20 +6,25 @@ using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
 {
+	[Serializable]
 	public class History<T>
 	{
+		[XmlIgnore]
 		public static readonly string Directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+		[XmlIgnore]
 		public static readonly string Path = System.IO.Path.Combine(Directory, "history.xml");
 
+		[XmlIgnore]
 		public static History<T> Default = new History<T>()
 		{
+			Collection = new List<T>(),
 			MaxHistory = 1000,
 			CurrentIndex = -1,
 		};
 
 		#region Properties
 
-		public int MaxHistory { get; set; }
+		public int MaxHistory { get; set; } = 1000; // In case xml History field is empty
 		public int CurrentIndex { get; set; }
 
 		public List<T> Collection { get; set; }
@@ -28,10 +33,10 @@ namespace EDictionary.Core.Models
 		{
 			get
 			{
-				if (CurrentIndex != -1)
-					return Collection[CurrentIndex];
-				else
+				if (CurrentIndex == -1 || Collection.Count == 0)
 					return default(T);
+
+				return Collection[CurrentIndex];
 			}
 		}
 
@@ -48,15 +53,6 @@ namespace EDictionary.Core.Models
 		public int Count
 		{
 			get { return Collection.Count; }
-		}
-
-		#endregion
-
-		#region Constructors
-
-		public History()
-		{
-			Collection = new List<T>();
 		}
 
 		#endregion
@@ -79,20 +75,20 @@ namespace EDictionary.Core.Models
 			Collection = Collection.Take(CurrentIndex + 1).ToList();
 		}
 
-		public void Previous(out T item)
+		public T Previous()
 		{
 			if (CurrentIndex > 0)
-				item = Collection[--CurrentIndex];
-			else
-				item = Collection[0];
+				return Collection[--CurrentIndex];
+
+			return Collection[0];
 		}
 
-		public void Next(out T item)
+		public T Next()
 		{
 			if (CurrentIndex < Collection.Count - 1)
-				item = Collection[++CurrentIndex];
-			else
-				item = Collection[Collection.Count - 1];
+				return Collection[++CurrentIndex];
+
+			return Collection[Collection.Count - 1];
 		}
 
 		/// <summary>

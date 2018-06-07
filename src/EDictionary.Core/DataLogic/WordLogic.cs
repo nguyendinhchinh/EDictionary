@@ -132,7 +132,7 @@ namespace EDictionary.Core.DataLogic
 
 			builder.AppendLine();
 			builder.FontSize(30).Append("No match for ");
-			builder.ForeColor(ColorPicker.Color("LightRed"));
+			builder.ForeColor(ColorPicker.GetColor("LightRed"));
 			builder.FontSize(30).Append($"\"{wrongWord}\"");
 			builder.FontSize(30).AppendLine(" in the dictionary");
 			builder.AppendLine();
@@ -143,7 +143,7 @@ namespace EDictionary.Core.DataLogic
 			builder.FontSize(20).AppendLine("Did you mean:");
 			foreach (var candidate in candidates)
 			{
-				builder.ForeColor(ColorPicker.Color("LightCyan"));
+				builder.ForeColor(ColorPicker.GetColor("LightCyan"));
 				builder.AppendLine(" • " + candidate);
 			}
 

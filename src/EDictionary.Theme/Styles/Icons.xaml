@@ -14,6 +14,7 @@
 	<clr:String x:Key="SpeakerIcon">&#xf028;</clr:String>
 	<clr:String x:Key="CogIcon">&#xf013;</clr:String>
 	<clr:String x:Key="QuestionIcon">&#xf128;</clr:String>
+	<clr:String x:Key="GithubIcon">&#xf092;</clr:String>
 
 	<fa:ImageAwesome x:Key="SpinnerIcon"
 			Foreground="{StaticResource LightYellow}"

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0"?>
+<SyntaxDefinition name="EDictionary" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	
+	<Color name="Yellow" foreground="Red" fontWeight="bold" exampleText="1. minutes/hours/years, etc." />
+	<Color name="Gray" foreground="Red" exampleText="[uncountable, countable]" />
+	<Color name="Blue" foreground="Red" fontStyle="italic" exampleText="• What time do you finish work?" />
+
+	<!-- This is the main ruleset. -->
+	<RuleSet>
+
+		<!-- Extra Examples -->
+		<Span color="Blue" >
+			<Begin>•</Begin>
+			<End>\n</End>
+		</Span>
+
+		<!-- Headline -->
+		<Rule color="Yellow" >
+			^(Idioms|Other\sExamples)$
+		</Rule>
+		
+		<!-- Definition Namespaces -->
+		<Rule color="Yellow">
+			^[0-9]+\..*$  # 1. lorem ipsum
+		</Rule>
+
+		<!-- Label -->
+		<Rule color="Gray">
+			\[(countable|uncountable|singular|plural|transitive|intransitive)(,[ a-z]+)?\]
+			|
+			\(((especially|both)\s)?(British\s+English|North\sAmerican\sEnglish)\)
+			|
+			\((formal|informal|saying|old-fashioned|humorous|literary)(,[ a-z]+)?\)
+			|
+			\(of\ssoldiers\)
+		</Rule>
+		
+	</RuleSet>
+</SyntaxDefinition>

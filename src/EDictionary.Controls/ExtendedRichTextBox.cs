@@ -10,6 +10,7 @@ using Xceed.Wpf.Toolkit;
 
 namespace EDictionary.Controls
 {
+	[Obsolete]
 	public class ExtendedRichTextBox : Xceed.Wpf.Toolkit.RichTextBox
 	{
 		public ExtendedRichTextBox()

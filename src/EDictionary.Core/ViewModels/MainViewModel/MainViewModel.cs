@@ -18,10 +18,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		private WordLogic wordLogic;
 		private HistoryLogic historyLogic;
 		private History<string> history;
-		private Word currentWord;
 
 		private bool isTextBoxFocus;
+		private bool resetScrollViewer;
+
 		private int wordListTopIndex;
+		private Word currentWord;
 		private string searchedWord = "";
 		private string highlightedWord;
 		private string selectedWord;
@@ -48,6 +50,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			}
 		}
 
+		public bool ResetScrollViewer
+		{
+			get { return resetScrollViewer; }
+			set { SetPropertyAndNotify(ref resetScrollViewer, value); }
+		}
+
 		public List<string> WordList { get; set; }
 
 		public int WordListTopIndex
@@ -60,6 +68,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			{
 				SetPropertyAndNotify(ref wordListTopIndex, value);
 			}
+		}
+
+		public Word CurrentWord
+		{
+			get { return currentWord; }
+			set { SetPropertyAndNotify(ref currentWord, value); }
 		}
 
 		public string SearchedWord
@@ -107,12 +121,10 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			{
 				if (SetPropertyAndNotify(ref definition, value))
 				{
-					DispatchIfNecessary(() =>
-					{
-						SearchFromSelectionCommand.RaiseCanExecuteChanged();
-						PlayBrEAudioCommand.RaiseCanExecuteChanged();
-						PlayNAmEAudioCommand.RaiseCanExecuteChanged();
-					});
+					ResetScrollViewer = true;
+					SearchFromSelectionCommand.RaiseCanExecuteChanged();
+					PlayBrEAudioCommand.RaiseCanExecuteChanged();
+					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -164,10 +176,18 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		{
 			var watch = new Watcher();
 
-			LoadWordlistAndHistory();
-
 			otherResultNameToID = new Dictionary<string, string>();
 
+			LoadCommands();
+			LoadWordlistAndHistory();
+
+			SearchIcon = "SearchIcon";
+
+			watch.Print("init viewmodel");
+		}
+
+		private void LoadCommands()
+		{
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
 			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
 			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight);
@@ -184,36 +204,27 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			OpenSettingCommand = new DelegateCommand(OpenSettings);
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
 
-			SearchIcon = "SearchIcon";
-
-			watch.Print("init viewmodel");
+			CloseCommand = new DelegateCommand(OnCloseWindow);
 		}
 
-		private async void LoadWordlistAndHistory()
+		private void LoadWordlistAndHistory()
 		{
-			await Task.Run(() =>
-			{
-				wordLogic = new WordLogic();
-				WordList = wordLogic.WordList;
-				NotifyPropertyChanged("WordList");
+			wordLogic = new WordLogic();
+			WordList = wordLogic.WordList;
+			//NotifyPropertyChanged("WordList");
 
-				historyLogic = new HistoryLogic();
-				history = historyLogic.LoadHistory<string>();
+			historyLogic = new HistoryLogic();
+			history = historyLogic.LoadHistory<string>();
 
-				if (history.Count > 0)
-					currentWord = wordLogic.Search(history.Current);
-				else
-					currentWord = wordLogic.Search("a");
+			if (history.Count > 0)
+				CurrentWord = wordLogic.Search(history.Current);
+			else
+				CurrentWord = wordLogic.Search("a");
 
-				if (currentWord != null)
-					Definition = currentWord.ToRTFString();
+			if (CurrentWord != null)
+				Definition = CurrentWord.ToDisplayedString();
 
-				Application.Current.Dispatcher.Invoke(() =>
-				{
-					NextHistoryCommand.RaiseCanExecuteChanged();
-					PreviousHistoryCommand.RaiseCanExecuteChanged();
-				});
-			});
+			NotifyHistoryChange();
 		}
 
 		#endregion
@@ -231,6 +242,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public DelegateCommand PreviousHistoryCommand { get; private set; }
 		public DelegateCommand OpenSettingCommand { get; private set; }
 		public DelegateCommand OpenAboutCommand { get; private set; }
+		public DelegateCommand CloseCommand { get; private set; }
 
 		#endregion
 
@@ -268,46 +280,43 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// Called on enter or doubleclick event on wordlist
 		/// Run spellcheck for similar word when word not found
 		/// </summary>
-		public async void SearchFromInput()
+		public void SearchFromInput()
 		{
-			await Task.Run(() =>
+			//SearchIcon = "SpinnerIcon";
+			//NotifyPropertyChanged("SearchIcon");
+			Console.WriteLine();
+			Console.WriteLine(">>> " + SearchedWord);
+			Watcher watch = new Watcher();
+
+			CurrentWord = wordLogic.Search(SearchedWord);
+
+			watch.Print("Search");
+
+			if (CurrentWord == null)
 			{
-				//SearchIcon = "SpinnerIcon";
-				//NotifyPropertyChanged("SearchIcon");
-				Console.WriteLine();
-				Console.WriteLine(">>> " + SearchedWord);
-				Watcher watch = new Watcher();
+				var stemmedWord = Stemmer.Stem(SearchedWord);
 
-				currentWord = wordLogic.Search(SearchedWord);
+				if (SearchedWord != stemmedWord)
+					CurrentWord = wordLogic.Search(stemmedWord);
+			}
+			watch.Print("Stem");
 
-				watch.Print("Search");
+			if (CurrentWord != null)
+			{
+				string str = CurrentWord.ToDisplayedString();
 
-				if (currentWord == null)
-				{
-					var stemmedWord = Stemmer.Stem(SearchedWord);
+				watch.Print("Build String");
 
-					if (SearchedWord != stemmedWord)
-						currentWord = wordLogic.Search(stemmedWord);
-				}
-				watch.Print("Stem");
+				Definition = str;
 
-				if (currentWord != null)
-				{
-					string str = currentWord.ToRTFString();
+				watch.Print("Update Definition");
+			}
+			else
+				Definition = CorrectWord(SearchedWord);
 
-					watch.Print("To RFT");
+			UpdateHistory(CurrentWord);
 
-					Definition = str;
-
-					watch.Print("Update Definition");
-				}
-				else
-					Definition = CorrectWord(SearchedWord);
-
-				UpdateHistory(currentWord);
-
-				watch.Print("Update History");
-			});
+			watch.Print("Update History - Finish");
 		}
 
 		public bool CanSearchFromInput()
@@ -328,20 +337,20 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			currentWord = wordLogic.Search(SelectedWord);
+			CurrentWord = wordLogic.Search(SelectedWord);
 
-			if (currentWord == null)
+			if (CurrentWord == null)
 			{
 				var stemmedWord = Stemmer.Stem(SelectedWord);
 
 				if (SearchedWord != stemmedWord)
-					currentWord = wordLogic.Search(stemmedWord);
+					CurrentWord = wordLogic.Search(stemmedWord);
 			}
 
-			if (currentWord != null)
-				Definition = currentWord.ToRTFString();
+			if (CurrentWord != null)
+				Definition = CurrentWord.ToDisplayedString();
 
-			UpdateHistory(currentWord);
+			UpdateHistory(CurrentWord);
 		}
 
 		public bool CanSearchFromSelection()
@@ -362,12 +371,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromHighlight()
 		{
-			currentWord = wordLogic.Search(HighlightedWord);
+			CurrentWord = wordLogic.Search(HighlightedWord);
 
-			if (currentWord != null)
-				Definition = currentWord.ToRTFString();
+			if (CurrentWord != null)
+				Definition = CurrentWord.ToDisplayedString();
 
-			UpdateHistory(currentWord);
+			UpdateHistory(CurrentWord);
 		}
 
 		#endregion
@@ -382,48 +391,38 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 					return;
 
 				if (word.Name != history.Current)
-				{
 					history.Add(word.Name);
-					historyLogic.AddItem(word.Name);
-					historyLogic.UpdateCurrentIndex(history.CurrentIndex);
-				}
 
 				UpdateOtherResultList();
 
-				Application.Current.Dispatcher.Invoke(() =>
-				{
-					NextHistoryCommand.RaiseCanExecuteChanged();
-					PreviousHistoryCommand.RaiseCanExecuteChanged();
-				});
+				Application.Current.Dispatcher.Invoke(() => NotifyHistoryChange());
 			});
+		}
+
+		private void NotifyHistoryChange()
+		{
+			PreviousHistoryCommand.RaiseCanExecuteChanged();
+			NextHistoryCommand.RaiseCanExecuteChanged();
 		}
 
 		public void NextHistory()
 		{
-			string word;
+			string word = history.Next();
 
-			history.Next(out word);
-			currentWord = wordLogic.Search(word);
-			Definition = currentWord.ToRTFString();
+			CurrentWord = wordLogic.Search(word);
+			Definition = CurrentWord.ToDisplayedString();
 
-			PreviousHistoryCommand.RaiseCanExecuteChanged();
-			NextHistoryCommand.RaiseCanExecuteChanged();
-
-			historyLogic.UpdateCurrentIndex(history.CurrentIndex);
+			NotifyHistoryChange();
 		}
 
 		public void PreviousHistory()
 		{
-			string word;
+			string word = history.Previous();
 
-			history.Previous(out word);
-			currentWord = wordLogic.Search(word);
-			Definition = currentWord.ToRTFString();
+			CurrentWord = wordLogic.Search(word);
+			Definition = CurrentWord.ToDisplayedString();
 
-			PreviousHistoryCommand.RaiseCanExecuteChanged();
-			NextHistoryCommand.RaiseCanExecuteChanged();
-
-			historyLogic.UpdateCurrentIndex(history.CurrentIndex);
+			NotifyHistoryChange();
 		}
 
 		public bool CanGoToNextHistory()
@@ -448,12 +447,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void PlayBrEAudio()
 		{
-			currentWord.PlayAudio(Dialect.BrE);
+			CurrentWord.PlayAudio(Dialect.BrE);
 		}
 
 		public void PlayNAmEAudio()
 		{
-			currentWord.PlayAudio(Dialect.NAmE);
+			CurrentWord.PlayAudio(Dialect.NAmE);
 		}
 
 		public bool CanPlayAudio()
@@ -470,12 +469,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void UpdateOtherResultList()
 		{
-			if (currentWord.Similars == null)
+			if (CurrentWord.Similars == null)
 				return;
 
 			otherResultNameToID.Clear();
 
-			foreach (var similarWord in currentWord.Similars)
+			foreach (var similarWord in CurrentWord.Similars)
 			{
 				otherResultNameToID.Add(similarWord.Replace('_', ' '), similarWord);
 			}
@@ -495,11 +494,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			Word word = wordLogic.SearchID(otherResultNameToID[HighlightedOtherResult]);
 
 			if (word != null)
-				Definition = word.ToRTFString();
+				Definition = word.ToDisplayedString();
 
 			UpdateHistory(word);
 		}
 
 		#endregion
+
+		private void OnCloseWindow()
+		{
+			historyLogic.SaveHistory(history);
+		}
 	}
 }

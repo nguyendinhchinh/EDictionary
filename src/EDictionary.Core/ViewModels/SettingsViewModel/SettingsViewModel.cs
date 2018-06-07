@@ -94,8 +94,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 		public SettingsViewModel()
 		{
-			CloseCommand = new DelegateCommand(Close);
 			SaveCommand = new DelegateCommand(SaveSettings);
+			CloseCommand = new DelegateCommand(Close);
 
 			settingsLogic = new SettingsLogic();
 
@@ -104,8 +104,8 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 		#region Commands
 
-		public DelegateCommand CloseCommand { get; private set; }
 		public DelegateCommand SaveCommand { get; private set; }
+		public DelegateCommand CloseCommand { get; private set; }
 
 		#endregion
 

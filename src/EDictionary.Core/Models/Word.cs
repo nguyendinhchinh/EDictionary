@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace EDictionary.Core.Models
@@ -25,6 +26,38 @@ namespace EDictionary.Core.Models
 		public string[] ExtraExamples { get; set; }
 		public Idiom[] Idioms { get; set; }
 
+		public string ToDisplayedString()
+		{
+			Watcher watch = new Watcher();
+
+			List<Task<string>> tasks = new List<Task<string>>();
+
+			watch.Print("[C] Init Build");
+
+			tasks.Add(Task.Run(() => new StringBuilder().AppendReferences(References).ToString()));
+			tasks.Add(Task.Run(() => new StringBuilder().AppendDefinitionGroups(DefinitionsExamples).ToString()));
+			tasks.Add(Task.Run(() => new StringBuilder().AppendExtraExamples(ExtraExamples).ToString()));
+			tasks.Add(Task.Run(() => new StringBuilder().AppendIdioms(Idioms).ToString()));
+
+			Task.WaitAll(tasks.ToArray());
+
+			watch.Print("[C] Build");
+
+			StringBuilder builder = new StringBuilder();
+
+			builder.AppendLine();
+
+			foreach (var task in tasks)
+			{
+				builder.Append(task.Result);
+			}
+
+			watch.Print("[C] Add String");
+
+			return builder.ToString();
+		}
+
+		[Obsolete]
 		public string ToRTFString(bool mini=false)
 		{
 			Watcher watch = new Watcher();

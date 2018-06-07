@@ -1,37 +1,21 @@
 ﻿using EDictionary.Core.Models.WordComponents;
 using EDictionary.Theme.Utilities;
-using EDictionary.Vendors.RTF;
 using System.Drawing;
+using System.Text;
 
 namespace EDictionary.Core.Extensions
 {
-	public static class RTFBuilderExtensions
-	{
-		public static int titleFontSize = 40;
-		public static int headerFontSize = 25;
-		public static int defaultFontSize = 10;
-
-		public static Color TitleColor = ColorPicker.GetColor("LightCyan");
-		public static Color WordformColor = ColorPicker.GetColor("Cyan");
-		public static Color HeadlineColor = ColorPicker.GetColor("Yellow");
-		public static Color PronPrefixColor = ColorPicker.GetColor("LightMagenta");
-		public static Color ExampleColor = ColorPicker.GetColor("LightBlue");
-		public static Color LabelColor = ColorPicker.GetColor("Gray");
-
-		public static RTFBuilder AppendTitle(this RTFBuilder builder, string word)
+	public static class StringBuilderExtension
+    {
+		public static StringBuilder AppendTitle(this StringBuilder builder, string word)
 		{
-			builder.FontSize(titleFontSize);
-			builder.FontStyle(FontStyle.Bold);
-			builder.ForeColor(TitleColor);
 			builder.Append(word);
 
 			return builder;
 		}
 
-		public static RTFBuilder AppendWordform(this RTFBuilder builder, string wordform)
+		public static StringBuilder AppendWordform(this StringBuilder builder, string wordform)
 		{
-			builder.FontSize(headerFontSize);
-			builder.ForeColor(WordformColor);
 			builder.AppendLine("  " + wordform);
 
 			builder.AppendLine();
@@ -39,19 +23,15 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendHeadline(this RTFBuilder builder, string str)
+		public static StringBuilder AppendHeadline(this StringBuilder builder, string str)
 		{
-			builder.FontSize(headerFontSize);
-			builder.FontStyle(FontStyle.Bold);
-			builder.ForeColor(HeadlineColor);
-
 			builder.AppendLine(str);
 			builder.AppendLine();
 
 			return builder;
 		}
 
-		public static RTFBuilder AppendPronunciation(this RTFBuilder builder, Pronunciation[] prons)
+		public static StringBuilder AppendPronunciation(this StringBuilder builder, Pronunciation[] prons)
 		{
 			bool hasContent = false;
 
@@ -59,11 +39,8 @@ namespace EDictionary.Core.Extensions
 			{
 				if (pron.Ipa == null)
 					continue;
-
-				builder.ForeColor(PronPrefixColor);
-				builder.FontStyle(FontStyle.Bold | FontStyle.Italic);
+				
 				builder.Append(pron.Prefix);
-
 				builder.AppendLine($" /{pron.Ipa}/");
 
 				hasContent = true;
@@ -75,7 +52,7 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendReferences(this RTFBuilder builder, Reference[] references)
+		public static StringBuilder AppendReferences(this StringBuilder builder, Reference[] references)
 		{
 			if (references == null)
 				return builder;
@@ -88,7 +65,7 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendDefinitionGroups(this RTFBuilder builder, DefinitionGroup[] defGroups)
+		public static StringBuilder AppendDefinitionGroups(this StringBuilder builder, DefinitionGroup[] defGroups)
 		{
 			int nsIndex = 0;
 
@@ -103,7 +80,7 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendDefinitions(this RTFBuilder builder, Definition[] definitions)
+		public static StringBuilder AppendDefinitions(this StringBuilder builder, Definition[] definitions)
 		{
 			foreach (var definition in definitions)
 				builder.AppendDefinition(definition);
@@ -111,15 +88,12 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendDefinition(this RTFBuilder builder, Definition definition)
+		public static StringBuilder AppendDefinition(this StringBuilder builder, Definition definition)
 		{
 			builder.Append("  ");
 
 			if (definition.Label != null)
 			{
-				builder.FontStyle(FontStyle.Bold);
-				builder.ForeColor(LabelColor);
-
 				if (definition.Label[0] != '(')
 					builder.Append($"({definition.Label}) ");
 				else
@@ -128,13 +102,11 @@ namespace EDictionary.Core.Extensions
 
 			if (definition.Refer != null)
 			{
-				builder.ForeColor(LabelColor);
 				builder.Append(definition.Refer);
 			}
 
 			if (definition.Property != null)
 			{
-				builder.ForeColor(LabelColor);
 				builder.Append(definition.Property + " ");
 			}
 
@@ -147,15 +119,13 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendExamples(this RTFBuilder builder, string[] examples)
+		public static StringBuilder AppendExamples(this StringBuilder builder, string[] examples)
 		{
 			if (examples.Length == 0)
 				return builder;
 
 			foreach (var example in examples)
 			{
-				builder.FontStyle(FontStyle.Italic);
-				builder.ForeColor(ExampleColor);
 				builder.AppendLine("  • " + example);
 			}
 
@@ -164,7 +134,7 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendExtraExamples(this RTFBuilder builder, string[] extraExamples)
+		public static StringBuilder AppendExtraExamples(this StringBuilder builder, string[] extraExamples)
 		{
 			if (extraExamples == null || extraExamples.Length == 0)
 				return builder;
@@ -181,7 +151,7 @@ namespace EDictionary.Core.Extensions
 			return builder;
 		}
 
-		public static RTFBuilder AppendIdioms(this RTFBuilder builder, Idiom[] idioms)
+		public static StringBuilder AppendIdioms(this StringBuilder builder, Idiom[] idioms)
 		{
 			if (idioms == null || idioms.Length == 0)
 				return builder;
@@ -190,14 +160,12 @@ namespace EDictionary.Core.Extensions
 
 			foreach (var idiom in idioms)
 			{
-				builder.FontStyle(FontStyle.Bold);
 				builder.AppendLine(idiom.Name);
-				builder.FontStyle(FontStyle.Regular);
 
 				foreach (var definition in idiom.Definitions)
 					builder.AppendDefinition(definition);
 			}
-			
+
 			return builder;
 		}
 	}

@@ -10,6 +10,10 @@
 	mc:Ignorable="d"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
+	xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+	xmlns:behaviors="clr-namespace:EDictionary.Core.Behaviours"
+	xmlns:fa="http://schemas.fontawesome.io/icons/"
+	xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
 	WindowStartupLocation="CenterScreen"
 	MinHeight="{Binding WindowMinimumHeight}"
 	MinWidth="{Binding WindowMinimumWidth}"
@@ -18,6 +22,12 @@
   Title="EDictionary"
   Icon="../Resources/E-Dictionary.ico"
   Style="{StaticResource ParentWindow}">
+
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Closed">
+			<i:InvokeCommandAction Command="{Binding CloseCommand}" />
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
 
 	<Window.Resources>
 		<converter:StringToResourceConverter x:Key="ResourceConverter" />
@@ -138,27 +148,11 @@
 
 			<StackPanel Grid.Column="1" Orientation="Horizontal">
 
-				<Label
-					Style="{StaticResource SmallHeaderLabel}"
-					Content="BrE"
-					VerticalAlignment="Center"/>
-
-				<Button
-					Command="{Binding PlayBrEAudioCommand}"
-					Style="{StaticResource BrEButton}"
-					Margin="1,0,10,0">
-				</Button>
-
-				<Label
-					Style="{StaticResource SmallHeaderLabel}"
-					Content="NAmE"
-					VerticalAlignment="Center"/>
-
-				<Button
+				<!--<Button
 					Command="{Binding PlayNAmEAudioCommand}"
 					Style="{StaticResource NAmEButton}"
 					Margin="1,0,0,0">
-				</Button>
+				</Button>-->
 
 			</StackPanel>
 
@@ -180,7 +174,96 @@
 
 		</Grid>
 
-		<controls:ExtendedRichTextBox x:Name="rtxDefinition"
+		<controls:ExtendedScrollViewer Grid.Row="3" Grid.Column="1"
+			Margin="0, 5, 15, 15"
+			behaviors:ScrollViewerBehavior.AutoScrollToTop="{Binding ResetScrollViewer, Mode=TwoWay}">
+
+			<!-- Enable scrolling when mouse in content -->
+			<i:Interaction.Behaviors>
+				<behaviors:BubbleScrollEvent />
+			</i:Interaction.Behaviors>
+
+			<Grid ScrollViewer.CanContentScroll="False"
+				Background="{StaticResource Black2}">
+
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="Auto" />
+					<RowDefinition Height="*" />
+				</Grid.RowDefinitions>
+
+				<TextBlock Grid.Row="0"
+					ScrollViewer.CanContentScroll="False"
+					Style="{StaticResource TextBlockBase}" >
+					<TextBlock Margin="0,0,5,0"
+						FontSize="26"
+						FontWeight="Bold"
+						Foreground="{StaticResource LightCyan}"
+						Text="{Binding CurrentWord.Name}"/>
+					<TextBlock
+						FontSize="18"
+						Foreground="{StaticResource Cyan}"
+						Text="{Binding CurrentWord.Wordform}"/>
+				</TextBlock>
+					 
+				<StackPanel Grid.Row="1" Orientation="Vertical"
+					ScrollViewer.CanContentScroll="False" >
+
+					<StackPanel Orientation="Horizontal"
+						ScrollViewer.CanContentScroll="False">
+						<TextBlock
+							FontSize="16"
+							FontWeight="Bold"
+							FontStyle="Italic"
+							Foreground="{StaticResource LightMagenta}"
+							Style="{StaticResource TextBlockBase}"
+							Text="{Binding CurrentWord.Pronunciations[0].Prefix}"/>
+						<TextBlock
+							FontSize="16"
+							Style="{StaticResource TextBlockBase}"
+							Text="{Binding CurrentWord.Pronunciations[0].IpaText}"/>
+						<Button
+							Command="{Binding PlayBrEAudioCommand}"
+							Style="{StaticResource BrEButton}" />
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal">
+						<TextBlock
+							FontSize="16"
+							FontWeight="Bold"
+							FontStyle="Italic"
+							Foreground="{StaticResource LightMagenta}"
+							Style="{StaticResource TextBlockBase}"
+							Text="{Binding CurrentWord.Pronunciations[1].Prefix}"/>
+						<TextBlock
+							FontSize="16"
+							Style="{StaticResource TextBlockBase}"
+							Text="{Binding CurrentWord.Pronunciations[1].IpaText}"/>
+						<Button
+							Command="{Binding PlayNAmEAudioCommand}"
+							Style="{StaticResource NAmEButton}" />
+					</StackPanel>
+							
+				</StackPanel>
+
+				<controls:ExtendedAvalonEdit Grid.Row="2"
+					FontSize="16"
+					BindingText="{Binding Definition}"
+					SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
+					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+					SyntaxHighlighting="EDictionary"
+					ScrollViewer.CanContentScroll="True">
+
+					<avalonEdit:TextEditor.InputBindings>
+						<MouseBinding Gesture="LeftDoubleClick"
+							Command="{Binding SearchFromSelectionCommand}" />
+					</avalonEdit:TextEditor.InputBindings>
+				</controls:ExtendedAvalonEdit>
+
+			</Grid>
+		</controls:ExtendedScrollViewer>
+
+		<!--<controls:ExtendedRichTextBox x:Name="rtxDefinition"
 			Grid.Row="3" Grid.Column="1"
 			SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 			Text="{Binding Definition}"
@@ -197,6 +280,7 @@
 				<toolkit:RtfFormatter />
 			</controls:ExtendedRichTextBox.TextFormatter>
 				
-		</controls:ExtendedRichTextBox>
+		</controls:ExtendedRichTextBox>-->
+		 
 	</Grid>
 </controls:ExtendedWindow>

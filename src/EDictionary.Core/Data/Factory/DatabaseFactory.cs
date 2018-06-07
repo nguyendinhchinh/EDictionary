@@ -16,15 +16,15 @@ namespace EDictionary.Core.Data.Factory
 			return new DataAccess(dbInfo);
 		}
 
-		public static HistoryAccess CreateHistoryDatabase()
-		{
-			DatabaseInfo dbInfo = new DatabaseInfo();
+		//public static HistoryAccess CreateHistoryDatabase()
+		//{
+		//	DatabaseInfo dbInfo = new DatabaseInfo();
 
-			dbInfo.SaveDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
-			dbInfo.SavePath = Path.Combine(dbInfo.SaveDir, "history.sqlite");
-			dbInfo.ConnectionString = $"Data Source={dbInfo.SavePath};Version=3;";
+		//	dbInfo.SaveDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+		//	dbInfo.SavePath = Path.Combine(dbInfo.SaveDir, "history.sqlite");
+		//	dbInfo.ConnectionString = $"Data Source={dbInfo.SavePath};Version=3;";
 
-			return new HistoryAccess(dbInfo);
-		}
+		//	return new HistoryAccess(dbInfo);
+		//}
 	}
 }
