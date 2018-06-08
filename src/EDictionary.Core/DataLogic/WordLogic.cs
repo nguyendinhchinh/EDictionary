@@ -2,15 +2,10 @@
 using EDictionary.Core.Data.Factory;
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
-using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
-using EDictionary.Theme.Utilities;
-using EDictionary.Vendors.RTF;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace EDictionary.Core.DataLogic
 {
@@ -127,23 +122,18 @@ namespace EDictionary.Core.DataLogic
 		public string GetSuggestions(string wrongWord)
 		{
 			IEnumerable<string> candidates = spellCheck.Candidates(wrongWord);
-
-			RTFBuilder builder = new RTFBuilder();
+			StringBuilder builder = new StringBuilder();
 
 			builder.AppendLine();
-			builder.FontSize(30).Append("No match for ");
-			builder.ForeColor(ColorPicker.GetColor("LightRed"));
-			builder.FontSize(30).Append($"\"{wrongWord}\"");
-			builder.FontSize(30).AppendLine(" in the dictionary");
+			builder.AppendLine($"No match for \"{wrongWord}\" in the dictionary");
 			builder.AppendLine();
 
 			if (candidates.Count() == 1)
 				return builder.ToString();
 
-			builder.FontSize(20).AppendLine("Did you mean:");
+			builder.AppendLine("Did you mean:");
 			foreach (var candidate in candidates)
 			{
-				builder.ForeColor(ColorPicker.GetColor("LightCyan"));
 				builder.AppendLine(" • " + candidate);
 			}
 

@@ -119,22 +119,13 @@ namespace EDictionary.Controls
 					"SelectedWord",
 					typeof(string),
 					typeof(ExtendedAvalonEdit),
-					new PropertyMetadata(
-						"",
-						OnBindingSelectedTextChangedProperty)
+					new PropertyMetadata(defaultValue: "")
 					);
 
 		public string SelectedWord
 		{
 			get { return (string)GetValue(SelectedWordProperty); }
 			set { SetValue(SelectedWordProperty, value); }
-		}
-
-		private static void OnBindingSelectedTextChangedProperty(DependencyObject source, DependencyPropertyChangedEventArgs e)
-		{
-			//ExtendedAvalonEdit editor = source as ExtendedAvalonEdit;
-
-			//editor.SelectedText = editor.BindingSelectedText;
 		}
 
 		#endregion

@@ -130,8 +130,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviours\BubbleScrollEvent.cs" />
+    <Compile Include="Behaviours\IgnoreMouseWheelBehavior.cs" />
     <Compile Include="Behaviours\ScrollViewerBehavior.cs" />
+    <Compile Include="Behaviours\SurpressBringIntoViewBehavior.cs" />
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
     <Compile Include="Converters\OptionToRadioBoolConverter.cs" />

@@ -3,6 +3,7 @@ using EDictionary.Core.ViewModels.MainViewModel;
 using EDictionary.Theme.Utilities;
 using ICSharpCode.AvalonEdit.Highlighting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -49,15 +50,20 @@ namespace EDictionary.Core.Views
 				}
 			}
 
-			// Apply custom colors
-			var yellowHighlightingColor = eDictionaryHighlighting.NamedHighlightingColors.First(c => c.Name == "Yellow");
-			var grayHighlightingColor = eDictionaryHighlighting.NamedHighlightingColors.First(c => c.Name == "Gray");
-			var blueHighlightingColor = eDictionaryHighlighting.NamedHighlightingColors.First(c => c.Name == "Blue");
+			Dictionary<string, string> groupToColor = new Dictionary<string, string>()
+			{
+				{ "Header", "Yellow" },
+				{ "Label", "Gray" },
+				{ "Example", "LightBlue" },
+				{ "WrongWord", "LightRed" },
+			};
 
-			// Change the Foreground Color
-			yellowHighlightingColor.Foreground = new SimpleHighlightingBrush(ColorPicker.GetMediaColor("Yellow"));
-			grayHighlightingColor.Foreground = new SimpleHighlightingBrush(ColorPicker.GetMediaColor("Gray"));
-			blueHighlightingColor.Foreground = new SimpleHighlightingBrush(ColorPicker.GetMediaColor("LightBlue"));
+			foreach (var item in groupToColor)
+			{
+				var highlightingColor = eDictionaryHighlighting.NamedHighlightingColors.First(c => c.Name == item.Key);
+
+				highlightingColor.Foreground = new SimpleHighlightingBrush(ColorPicker.GetMediaColor(item.Value));
+			}
 
 			// and register it in the HighlightingManager
 			HighlightingManager.Instance.RegisterHighlighting("EDictionary", new string[] { ".edic" }, eDictionaryHighlighting);

@@ -8,7 +8,7 @@ namespace EDictionary.Core.Behaviours
 	/// Child elements of scrollviewer preventing scrolling with mouse wheel
 	/// https://stackoverflow.com/a/16110178/9449426
 	/// </summary>
-	public sealed class BubbleScrollEvent : Behavior<UIElement>
+	public sealed class IgnoreMouseWheelBehavior : Behavior<UIElement>
 	{
 		protected override void OnAttached()
 		{
@@ -25,8 +25,12 @@ namespace EDictionary.Core.Behaviours
 		void AssociatedObject_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
 		{
 			e.Handled = true;
-			var e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta);
-			e2.RoutedEvent = UIElement.MouseWheelEvent;
+
+			var e2 = new MouseWheelEventArgs(e.MouseDevice, e.Timestamp, e.Delta)
+			{
+				RoutedEvent = UIElement.MouseWheelEvent
+			};
+
 			AssociatedObject.RaiseEvent(e2);
 		}
 	}

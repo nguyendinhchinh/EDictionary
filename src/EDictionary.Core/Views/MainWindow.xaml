@@ -31,6 +31,7 @@
 
 	<Window.Resources>
 		<converter:StringToResourceConverter x:Key="ResourceConverter" />
+		<BooleanToVisibilityConverter x:Key="VisibilityConverter" />
 	</Window.Resources>
 
 	<WindowChrome.WindowChrome>
@@ -174,85 +175,95 @@
 
 		</Grid>
 
-		<controls:ExtendedScrollViewer Grid.Row="3" Grid.Column="1"
+		<ScrollViewer Grid.Row="3" Grid.Column="1"
 			Margin="0, 5, 15, 15"
+			VerticalScrollBarVisibility="Auto"
 			behaviors:ScrollViewerBehavior.AutoScrollToTop="{Binding ResetScrollViewer, Mode=TwoWay}">
 
 			<!-- Enable scrolling when mouse in content -->
 			<i:Interaction.Behaviors>
-				<behaviors:BubbleScrollEvent />
+				<behaviors:IgnoreMouseWheelBehavior />
 			</i:Interaction.Behaviors>
 
-			<Grid ScrollViewer.CanContentScroll="False"
-				Background="{StaticResource Black2}">
+			<Grid Background="{StaticResource Black2}">
 
 				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto" />
 					<RowDefinition Height="Auto" />
 					<RowDefinition Height="*" />
 				</Grid.RowDefinitions>
 
-				<TextBlock Grid.Row="0"
-					ScrollViewer.CanContentScroll="False"
-					Style="{StaticResource TextBlockBase}" >
-					<TextBlock Margin="0,0,5,0"
-						FontSize="26"
-						FontWeight="Bold"
-						Foreground="{StaticResource LightCyan}"
-						Text="{Binding CurrentWord.Name}"/>
-					<TextBlock
-						FontSize="18"
-						Foreground="{StaticResource Cyan}"
-						Text="{Binding CurrentWord.Wordform}"/>
-				</TextBlock>
-					 
-				<StackPanel Grid.Row="1" Orientation="Vertical"
-					ScrollViewer.CanContentScroll="False" >
+				<!--
+					 Header:
+					 - Wordname - Wordform
+					 - Pronunciation
+					 -->
+				<StackPanel Grid.Row="0" Visibility="{Binding HeaderVisibility, Converter={StaticResource VisibilityConverter}}">
 
-					<StackPanel Orientation="Horizontal"
-						ScrollViewer.CanContentScroll="False">
-						<TextBlock
-							FontSize="16"
+					<!-- Title -->
+					<TextBlock Grid.Row="0"
+						Style="{StaticResource TextBlockBase}" >
+						<TextBlock Margin="0,0,5,0"
+							FontSize="26"
 							FontWeight="Bold"
-							FontStyle="Italic"
-							Foreground="{StaticResource LightMagenta}"
-							Style="{StaticResource TextBlockBase}"
-							Text="{Binding CurrentWord.Pronunciations[0].Prefix}"/>
+							Foreground="{StaticResource LightCyan}"
+							Text="{Binding CurrentWord.Name}"/>
 						<TextBlock
-							FontSize="16"
-							Style="{StaticResource TextBlockBase}"
-							Text="{Binding CurrentWord.Pronunciations[0].IpaText}"/>
-						<Button
-							Command="{Binding PlayBrEAudioCommand}"
-							Style="{StaticResource BrEButton}" />
-					</StackPanel>
+							FontSize="18"
+							Foreground="{StaticResource Cyan}"
+							Text="{Binding CurrentWord.Wordform}"/>
+					</TextBlock>
 
-					<StackPanel Orientation="Horizontal">
-						<TextBlock
-							FontSize="16"
-							FontWeight="Bold"
-							FontStyle="Italic"
-							Foreground="{StaticResource LightMagenta}"
-							Style="{StaticResource TextBlockBase}"
-							Text="{Binding CurrentWord.Pronunciations[1].Prefix}"/>
-						<TextBlock
-							FontSize="16"
-							Style="{StaticResource TextBlockBase}"
-							Text="{Binding CurrentWord.Pronunciations[1].IpaText}"/>
-						<Button
-							Command="{Binding PlayNAmEAudioCommand}"
-							Style="{StaticResource NAmEButton}" />
+					<!-- Pronunciation -->
+					<StackPanel Grid.Row="1" Orientation="Vertical" >
+
+						<StackPanel Orientation="Horizontal" >
+							<TextBlock
+								FontSize="16"
+								FontWeight="Bold"
+								FontStyle="Italic"
+								Foreground="{StaticResource LightMagenta}"
+								Style="{StaticResource TextBlockBase}"
+								Text="{Binding CurrentWord.Pronunciations[0].Prefix}"/>
+							<TextBlock
+								FontSize="16"
+								Style="{StaticResource TextBlockBase}"
+								Text="{Binding CurrentWord.Pronunciations[0].IpaText}"/>
+							<Button
+								Command="{Binding PlayBrEAudioCommand}"
+								Style="{StaticResource BrEButton}" />
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal">
+							<TextBlock
+								FontSize="16"
+								FontWeight="Bold"
+								FontStyle="Italic"
+								Foreground="{StaticResource LightMagenta}"
+								Style="{StaticResource TextBlockBase}"
+								Text="{Binding CurrentWord.Pronunciations[1].Prefix}"/>
+							<TextBlock
+								FontSize="16"
+								Style="{StaticResource TextBlockBase}"
+								Text="{Binding CurrentWord.Pronunciations[1].IpaText}"/>
+							<Button
+								Command="{Binding PlayNAmEAudioCommand}"
+								Style="{StaticResource NAmEButton}" />
+						</StackPanel>
+								 
 					</StackPanel>
 							
 				</StackPanel>
 
-				<controls:ExtendedAvalonEdit Grid.Row="2"
+				<controls:ExtendedAvalonEdit Grid.Row="1"
 					FontSize="16"
 					BindingText="{Binding Definition}"
 					SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 					ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-					SyntaxHighlighting="EDictionary"
-					ScrollViewer.CanContentScroll="True">
+					SyntaxHighlighting="EDictionary" >
+
+					<i:Interaction.Behaviors>
+						<behaviors:SurpressBringIntoViewBehavior />
+					</i:Interaction.Behaviors>
 
 					<avalonEdit:TextEditor.InputBindings>
 						<MouseBinding Gesture="LeftDoubleClick"
@@ -261,7 +272,7 @@
 				</controls:ExtendedAvalonEdit>
 
 			</Grid>
-		</controls:ExtendedScrollViewer>
+		</ScrollViewer>
 
 		<!--<controls:ExtendedRichTextBox x:Name="rtxDefinition"
 			Grid.Row="3" Grid.Column="1"

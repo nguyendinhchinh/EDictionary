@@ -20,6 +20,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		private History<string> history;
 
 		private bool isTextBoxFocus;
+		private bool headerVisibility;
 		private bool resetScrollViewer;
 
 		private int wordListTopIndex;
@@ -43,11 +44,17 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public bool IsTextBoxFocus
 		{
 			get { return isTextBoxFocus; }
+			set { SetPropertyAndNotify(ref isTextBoxFocus, value); }
+		}
 
-			set
-			{
-				SetPropertyAndNotify(ref isTextBoxFocus, value);
-			}
+		/// <summary>
+		/// true -> Visibility.Visible
+		/// false -> Visibility.Collapsed
+		/// </summary>
+		public bool HeaderVisibility
+		{
+			get { return headerVisibility; }
+			set { SetPropertyAndNotify(ref headerVisibility, value); }
 		}
 
 		public bool ResetScrollViewer
@@ -60,14 +67,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public int WordListTopIndex
 		{
-			get
-			{
-				return wordListTopIndex;
-			}
-			set
-			{
-				SetPropertyAndNotify(ref wordListTopIndex, value);
-			}
+			get { return wordListTopIndex; }
+			set { SetPropertyAndNotify(ref wordListTopIndex, value); }
 		}
 
 		public Word CurrentWord
@@ -106,11 +107,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public string SelectedWord
 		{
 			get { return selectedWord.ToLower(); }
-
-			set
-			{
-				SetProperty(ref selectedWord, value);
-			}
+			set { SetProperty(ref selectedWord, value); }
 		}
 
 		public string Definition
@@ -131,27 +128,19 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public List<string> OtherResults
 		{
-			get
-			{
-				return otherResultNameToID.Keys.ToList();
-			}
+			get { return otherResultNameToID.Keys.ToList(); }
 		}
 
 		public string HighlightedOtherResult
 		{
-			get
-			{
-				return highlightedOtherResult;
-			}
-			set
-			{
-				SetProperty(ref highlightedOtherResult, value);
-			}
+			get { return highlightedOtherResult; }
+			set { SetProperty(ref highlightedOtherResult, value); }
 		}
 
 		public object SearchIcon
 		{
 			get { return searchIcon; }
+
 			set
 			{
 				App.Current.Dispatcher.BeginInvoke(DispatcherPriority.Send,
@@ -211,18 +200,18 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		{
 			wordLogic = new WordLogic();
 			WordList = wordLogic.WordList;
-			//NotifyPropertyChanged("WordList");
 
 			historyLogic = new HistoryLogic();
 			history = historyLogic.LoadHistory<string>();
 
+			Word word;
 			if (history.Count > 0)
-				CurrentWord = wordLogic.Search(history.Current);
+				word = wordLogic.Search(history.Current);
 			else
-				CurrentWord = wordLogic.Search("a");
+				word = wordLogic.Search(WordList.FirstOrDefault());
 
-			if (CurrentWord != null)
-				Definition = CurrentWord.ToDisplayedString();
+			if (word != null)
+				ShowDefinition(word);
 
 			NotifyHistoryChange();
 		}
@@ -244,10 +233,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public DelegateCommand OpenAboutCommand { get; private set; }
 		public DelegateCommand CloseCommand { get; private set; }
 
-		#endregion
-
-		#region Open Windows
-
 		private void OpenSettings()
 		{
 			ShowSettingsWindowAction.Invoke();
@@ -267,8 +252,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			await Task.Run(() => WordListTopIndex = Search.Prefix(SearchedWord, WordList));
 		}
 
-		public string CorrectWord(string word)
+		private void ShowDefinition(Word word)
 		{
+			HeaderVisibility = true;
+			CurrentWord = word;
+			Definition = word.ToDisplayedString();
+		}
+
+		private string CorrectWord(string word)
+		{
+			HeaderVisibility = false;
 			return wordLogic.GetSuggestions(word);
 		}
 
@@ -288,33 +281,29 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			Console.WriteLine(">>> " + SearchedWord);
 			Watcher watch = new Watcher();
 
-			CurrentWord = wordLogic.Search(SearchedWord);
+			Word word = wordLogic.Search(SearchedWord);
 
 			watch.Print("Search");
 
-			if (CurrentWord == null)
+			if (word == null)
 			{
 				var stemmedWord = Stemmer.Stem(SearchedWord);
 
 				if (SearchedWord != stemmedWord)
-					CurrentWord = wordLogic.Search(stemmedWord);
+					word = wordLogic.Search(stemmedWord);
 			}
 			watch.Print("Stem");
 
-			if (CurrentWord != null)
+			if (word != null)
 			{
-				string str = CurrentWord.ToDisplayedString();
-
-				watch.Print("Build String");
-
-				Definition = str;
+				ShowDefinition(word);
 
 				watch.Print("Update Definition");
 			}
 			else
 				Definition = CorrectWord(SearchedWord);
 
-			UpdateHistory(CurrentWord);
+			UpdateHistory(word);
 
 			watch.Print("Update History - Finish");
 		}
@@ -337,20 +326,20 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			CurrentWord = wordLogic.Search(SelectedWord);
+			Word word = wordLogic.Search(SelectedWord);
 
-			if (CurrentWord == null)
+			if (word == null)
 			{
 				var stemmedWord = Stemmer.Stem(SelectedWord);
 
 				if (SearchedWord != stemmedWord)
-					CurrentWord = wordLogic.Search(stemmedWord);
+					word = wordLogic.Search(stemmedWord);
 			}
 
-			if (CurrentWord != null)
-				Definition = CurrentWord.ToDisplayedString();
+			if (word != null)
+				ShowDefinition(word);
 
-			UpdateHistory(CurrentWord);
+			UpdateHistory(word);
 		}
 
 		public bool CanSearchFromSelection()
@@ -371,12 +360,12 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromHighlight()
 		{
-			CurrentWord = wordLogic.Search(HighlightedWord);
+			Word word = wordLogic.Search(HighlightedWord);
 
-			if (CurrentWord != null)
-				Definition = CurrentWord.ToDisplayedString();
+			if (word != null)
+				ShowDefinition(word);
 
-			UpdateHistory(CurrentWord);
+			UpdateHistory(word);
 		}
 
 		#endregion
@@ -407,20 +396,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public void NextHistory()
 		{
-			string word = history.Next();
-
-			CurrentWord = wordLogic.Search(word);
-			Definition = CurrentWord.ToDisplayedString();
+			Word word = wordLogic.Search(history.Next());
+			ShowDefinition(word);
 
 			NotifyHistoryChange();
 		}
 
 		public void PreviousHistory()
 		{
-			string word = history.Previous();
-
-			CurrentWord = wordLogic.Search(word);
-			Definition = CurrentWord.ToDisplayedString();
+			Word word = wordLogic.Search(history.Previous());
+			ShowDefinition(word);
 
 			NotifyHistoryChange();
 		}
@@ -494,7 +479,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 			Word word = wordLogic.SearchID(otherResultNameToID[HighlightedOtherResult]);
 
 			if (word != null)
-				Definition = word.ToDisplayedString();
+				ShowDefinition(word);
 
 			UpdateHistory(word);
 		}
