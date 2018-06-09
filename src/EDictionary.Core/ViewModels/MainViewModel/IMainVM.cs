@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EDictionary.Core.ViewModels.MainViewModel
 {
-	public interface IMainViewModel
+	public interface IMainVM
 	{
 		double WindowMinimumHeight { get; set; }
 		double WindowMinimumWidth { get; set; }
@@ -18,8 +18,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		string SearchedWord { get; set; }
 		string HighlightedWord { get; set; }
-		string SelectedWord { get; set; }
-		string Definition { get; set; }
 
 		List<string> OtherResults { get; }
 		string HighlightedOtherResult { get; set; }

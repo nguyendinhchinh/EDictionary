@@ -12,7 +12,7 @@ namespace EDictionary.Core.Views
 		public SettingsWindow()
 		{
 			InitializeComponent();
-			DataContext = new SettingsViewModel();
+			DataContext = new SettingsVM();
 		}
 	}
 }

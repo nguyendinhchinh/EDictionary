@@ -8,13 +8,13 @@ namespace EDictionary.Core.Views
 	/// </summary>
 	public partial class AboutWindow : ExtendedWindow
 	{
-		private AboutViewModel viewModel;
+		private AboutVM viewModel;
 
 		public AboutWindow()
 		{
 			InitializeComponent();
 
-			viewModel = new AboutViewModel();
+			viewModel = new AboutVM();
 
 			DataContext = viewModel;
 		}

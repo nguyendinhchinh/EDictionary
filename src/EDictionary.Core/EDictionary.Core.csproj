@@ -153,7 +153,6 @@
     <Compile Include="Extensions\RTFBuilderExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtension.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Models\WordComponents\Dialect.cs" />
     <Compile Include="Models\Settings.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -171,20 +170,29 @@
     <Compile Include="Utilities\Stemmer.cs" />
     <Compile Include="Utilities\Watcher.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
-    <Compile Include="ViewModels\AboutViewModel\AboutViewModel.cs" />
-    <Compile Include="ViewModels\AboutViewModel\IAboutViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel\IMainViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\ISettingsViewModel.cs" />
+    <Compile Include="ViewModels\AboutViewModel\AboutVM.cs" />
+    <Compile Include="ViewModels\AboutViewModel\IAboutVM.cs" />
+    <Compile Include="ViewModels\DefinitionViewModel\DefinitionVM.cs" />
+    <Compile Include="ViewModels\DefinitionViewModel\IDefinitionVM.cs" />
+    <Compile Include="ViewModels\MainViewModel\IMainVM.cs" />
+    <Compile Include="ViewModels\MainViewModel\MainVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\SettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\ISettingsVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DefinitionTextbox.xaml.cs">
+      <DependentUpon>DefinitionTextbox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DefinitionTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

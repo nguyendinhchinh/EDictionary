@@ -27,11 +27,10 @@ namespace EDictionary.Controls
 		/// </summary>
 		public static readonly DependencyProperty SelectedWordProperty =
 			DependencyProperty.Register(
-					"SelectedWord",
-					typeof(string),
-					typeof(ExtendedRichTextBox),
-					new PropertyMetadata("")
-					);
+				"SelectedWord",
+				typeof(string),
+				typeof(ExtendedRichTextBox),
+				new PropertyMetadata(""));
 
 		public string SelectedWord
 		{

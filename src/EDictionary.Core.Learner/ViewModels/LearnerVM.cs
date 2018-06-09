@@ -3,6 +3,7 @@ using EDictionary.Core.Extensions;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.ViewModels;
+using EDictionary.Core.ViewModels.DefinitionViewModel;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -18,12 +19,14 @@ namespace EDictionary.Core.Learner.ViewModels
 		Run,
 	}
 
-	public class LearnerViewModel : ViewModelBase, ILearnerViewModel
+	public class LearnerVM : ViewModelBase, ILearnerVM
 	{
 		#region Fields
 
 		private SettingsLogic settingsLogic;
 		private WordLogic wordLogic;
+
+		private DefinitionVM definitionVM;
 
 		private Status status;
 		private Status nextStatus;
@@ -43,6 +46,12 @@ namespace EDictionary.Core.Learner.ViewModels
 		#endregion
 
 		#region Properties
+
+		public DefinitionVM DefinitionVM
+		{
+			get { return definitionVM; }
+			protected set { SetPropertyAndNotify(ref definitionVM, value); }
+		}
 
 		public Status NextStatus
 		{
@@ -81,9 +90,11 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		#region Constructor
 
-		public LearnerViewModel()
+		public LearnerVM()
 		{
 			wordList = new List<string>();
+
+			DefinitionVM = new DefinitionVM();
 
 			settingsLogic = new SettingsLogic();
 			wordLogic = new WordLogic();
@@ -142,7 +153,10 @@ namespace EDictionary.Core.Learner.ViewModels
 		{
 			var randWord = wordList.PickRandom();
 
-			Definition = wordLogic.Search(randWord).ToRTFString(mini: true);
+			Word word = wordLogic.Search(randWord);
+
+			DefinitionVM.Word = word;
+			DefinitionVM.Definition = word.ToDisplayedString();
 		}
 
 		private void OnSpawnTimerTick(object sender, EventArgs e)

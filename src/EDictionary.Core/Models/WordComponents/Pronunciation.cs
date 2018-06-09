@@ -1,5 +1,11 @@
 namespace EDictionary.Core.Models.WordComponents
 {
+	public enum Dialect
+	{
+		NAmE,
+		BrE,
+	}
+
 	public class Pronunciation
 	{
 		public string Prefix { get; set; }

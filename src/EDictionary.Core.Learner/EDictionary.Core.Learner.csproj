@@ -102,8 +102,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\ILearnerViewModel.cs" />
-    <Compile Include="ViewModels\LearnerViewModel.cs" />
+    <Compile Include="ViewModels\ILearnerVM.cs" />
+    <Compile Include="ViewModels\LearnerVM.cs" />
     <Compile Include="Views\LearnerBaloon.xaml.cs">
       <DependentUpon>LearnerBaloon.xaml</DependentUpon>
     </Compile>

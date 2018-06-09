@@ -1,6 +1,6 @@
 ﻿namespace EDictionary.Core.ViewModels.AboutViewModel
 {
-	public interface IAboutViewModel
+	public interface IAboutVM
 	{
 		string Version { get; }
 		string Authors { get; }

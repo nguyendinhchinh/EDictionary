@@ -3,7 +3,6 @@
                     xmlns:local="clr-namespace:EDictionary.Core.Learner"
 										xmlns:tb="http://www.hardcodet.net/taskbar">
 
-	<!-- pause/resume -->
 	<ContextMenu x:Shared="false" x:Key="SysTrayMenu">
 		<MenuItem Header="Open EDictionary" Command="{Binding OpenMainDictionaryCommand}" />
 		<MenuItem Header="{Binding NextStatus}" Command="{Binding ToggleActiveCommand}" />
@@ -14,7 +13,6 @@
 	</ContextMenu>
 
 	<tb:TaskbarIcon x:Key="LearnerNotifyIcon"
-		x:Name="EDictionaryLearner"
 		IconSource="/Icons/E-Dictionary.ico"
 		ToolTipText="EDictionary Learner"
 		DoubleClickCommand="{Binding OpenLearnerBalloonCommand}"

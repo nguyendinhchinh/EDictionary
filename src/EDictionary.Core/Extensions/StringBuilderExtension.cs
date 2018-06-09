@@ -6,48 +6,11 @@ using System.Text;
 namespace EDictionary.Core.Extensions
 {
 	public static class StringBuilderExtension
-    {
-		public static StringBuilder AppendTitle(this StringBuilder builder, string word)
-		{
-			builder.Append(word);
-
-			return builder;
-		}
-
-		public static StringBuilder AppendWordform(this StringBuilder builder, string wordform)
-		{
-			builder.AppendLine("  " + wordform);
-
-			builder.AppendLine();
-
-			return builder;
-		}
-
+	{
 		public static StringBuilder AppendHeadline(this StringBuilder builder, string str)
 		{
 			builder.AppendLine(str);
 			builder.AppendLine();
-
-			return builder;
-		}
-
-		public static StringBuilder AppendPronunciation(this StringBuilder builder, Pronunciation[] prons)
-		{
-			bool hasContent = false;
-
-			foreach (var pron in prons)
-			{
-				if (pron.Ipa == null)
-					continue;
-				
-				builder.Append(pron.Prefix);
-				builder.AppendLine($" /{pron.Ipa}/");
-
-				hasContent = true;
-			}
-
-			if (hasContent)
-				builder.AppendLine();
 
 			return builder;
 		}

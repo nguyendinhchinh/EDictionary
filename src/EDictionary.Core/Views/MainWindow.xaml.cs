@@ -17,14 +17,14 @@ namespace EDictionary.Core.Views
 	/// </summary>
 	public partial class MainWindow : ExtendedWindow
 	{
-		private MainViewModel viewModel;
+		private MainVM viewModel;
 
 		public MainWindow()
 		{
 			RegisterCustomHighlight();
 			InitializeComponent();
 
-			viewModel = new MainViewModel
+			viewModel = new MainVM
 			{
 				ShowSettingsWindowAction = new Action(this.ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(this.ShowAboutWindow),

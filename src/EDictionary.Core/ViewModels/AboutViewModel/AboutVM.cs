@@ -7,7 +7,7 @@ using System.Text;
 
 namespace EDictionary.Core.ViewModels.AboutViewModel
 {
-	public class AboutViewModel : ViewModelBase, IAboutViewModel
+	public class AboutVM : ViewModelBase, IAboutVM
 	{
 		private string licensePath;
 		private string sourceCodeURL;
@@ -24,7 +24,7 @@ namespace EDictionary.Core.ViewModels.AboutViewModel
 		public string Authors { get; private set; }
 		public string License { get; private set; }
 
-		public AboutViewModel()
+		public AboutVM()
 		{
 			Authors = GetAuthors();
 

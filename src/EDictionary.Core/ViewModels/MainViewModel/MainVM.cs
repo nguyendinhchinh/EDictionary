@@ -1,5 +1,6 @@
 ﻿using EDictionary.Core.DataLogic;
 using EDictionary.Core.Models;
+using EDictionary.Core.ViewModels.DefinitionViewModel;
 using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using System;
@@ -11,7 +12,7 @@ using System.Windows.Threading;
 
 namespace EDictionary.Core.ViewModels.MainViewModel
 {
-	public class MainViewModel : ViewModelBase, IMainViewModel
+	public class MainVM : ViewModelBase, IMainVM
 	{
 		#region Fields
 
@@ -19,16 +20,13 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		private HistoryLogic historyLogic;
 		private History<string> history;
 
+		private DefinitionVM definitionVM;
+
 		private bool isTextBoxFocus;
-		private bool headerVisibility;
-		private bool resetScrollViewer;
 
 		private int wordListTopIndex;
-		private Word currentWord;
 		private string searchedWord = "";
 		private string highlightedWord;
-		private string selectedWord;
-		private string definition;
 		private Dictionary<string, string> otherResultNameToID;
 		private string highlightedOtherResult;
 		private object searchIcon;
@@ -41,26 +39,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public double WindowMinimumWidth { get; set; } = 450;
 
+		public DefinitionVM DefinitionVM
+		{
+			get { return definitionVM; }
+			protected set { SetPropertyAndNotify(ref definitionVM, value); }
+		}
+
 		public bool IsTextBoxFocus
 		{
 			get { return isTextBoxFocus; }
 			set { SetPropertyAndNotify(ref isTextBoxFocus, value); }
-		}
-
-		/// <summary>
-		/// true -> Visibility.Visible
-		/// false -> Visibility.Collapsed
-		/// </summary>
-		public bool HeaderVisibility
-		{
-			get { return headerVisibility; }
-			set { SetPropertyAndNotify(ref headerVisibility, value); }
-		}
-
-		public bool ResetScrollViewer
-		{
-			get { return resetScrollViewer; }
-			set { SetPropertyAndNotify(ref resetScrollViewer, value); }
 		}
 
 		public List<string> WordList { get; set; }
@@ -69,12 +57,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		{
 			get { return wordListTopIndex; }
 			set { SetPropertyAndNotify(ref wordListTopIndex, value); }
-		}
-
-		public Word CurrentWord
-		{
-			get { return currentWord; }
-			set { SetPropertyAndNotify(ref currentWord, value); }
 		}
 
 		public string SearchedWord
@@ -100,28 +82,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 				{
 					SearchedWord = HighlightedWord;
 					IsTextBoxFocus = true;
-				}
-			}
-		}
-
-		public string SelectedWord
-		{
-			get { return selectedWord.ToLower(); }
-			set { SetProperty(ref selectedWord, value); }
-		}
-
-		public string Definition
-		{
-			get { return definition; }
-
-			set
-			{
-				if (SetPropertyAndNotify(ref definition, value))
-				{
-					ResetScrollViewer = true;
-					SearchFromSelectionCommand.RaiseCanExecuteChanged();
-					PlayBrEAudioCommand.RaiseCanExecuteChanged();
-					PlayNAmEAudioCommand.RaiseCanExecuteChanged();
 				}
 			}
 		}
@@ -161,9 +121,14 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		#region Constructor
 
-		public MainViewModel()
+		public MainVM()
 		{
 			var watch = new Watcher();
+
+			DefinitionVM = new DefinitionVM()
+			{
+				DoubleClickCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection),
+			};
 
 			otherResultNameToID = new Dictionary<string, string>();
 
@@ -178,12 +143,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		private void LoadCommands()
 		{
 			SearchFromInputCommand = new DelegateCommand(SearchFromInput, CanSearchFromInput);
-			SearchFromSelectionCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection);
 			SearchFromHighlightCommand = new DelegateCommand(SearchFromHighlight);
 			UpdateWordlistTopIndexCommand = new DelegateCommand(UpdateWordlistTopIndex);
-
-			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
-			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);
 
 			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
 			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
@@ -224,8 +185,6 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		public DelegateCommand SearchFromSelectionCommand { get; private set; }
 		public DelegateCommand SearchFromHighlightCommand { get; private set; }
 		public DelegateCommand UpdateWordlistTopIndexCommand { get; private set; }
-		public DelegateCommand PlayNAmEAudioCommand { get; private set; }
-		public DelegateCommand PlayBrEAudioCommand { get; private set; }
 		public DelegateCommand NextHistoryCommand { get; private set; }
 		public DelegateCommand SearchHighlightedOtherResultCommand { get; private set; }
 		public DelegateCommand PreviousHistoryCommand { get; private set; }
@@ -254,15 +213,14 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		private void ShowDefinition(Word word)
 		{
-			HeaderVisibility = true;
-			CurrentWord = word;
-			Definition = word.ToDisplayedString();
+			DefinitionVM.Word = word;
+			DefinitionVM.Definition = word.ToDisplayedString();
 		}
 
-		private string CorrectWord(string word)
+		private void CorrectWord(string word)
 		{
-			HeaderVisibility = false;
-			return wordLogic.GetSuggestions(word);
+			DefinitionVM.Word = null; // Hide Header
+			DefinitionVM.Definition = wordLogic.GetSuggestions(word);
 		}
 
 		#endregion
@@ -277,8 +235,8 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		{
 			//SearchIcon = "SpinnerIcon";
 			//NotifyPropertyChanged("SearchIcon");
-			Console.WriteLine();
-			Console.WriteLine(">>> " + SearchedWord);
+			System.Diagnostics.Debug.WriteLine("");
+			System.Diagnostics.Debug.WriteLine(">>> " + SearchedWord);
 			Watcher watch = new Watcher();
 
 			Word word = wordLogic.Search(SearchedWord);
@@ -301,7 +259,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 				watch.Print("Update Definition");
 			}
 			else
-				Definition = CorrectWord(SearchedWord);
+				CorrectWord(SearchedWord);
 
 			UpdateHistory(word);
 
@@ -326,13 +284,13 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			Word word = wordLogic.Search(SelectedWord);
+			Word word = wordLogic.Search(DefinitionVM.SelectedWord);
 
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(SelectedWord);
+				var stemmedWord = Stemmer.Stem(DefinitionVM.SelectedWord);
 
-				if (SearchedWord != stemmedWord)
+				if (DefinitionVM.SelectedWord != stemmedWord)
 					word = wordLogic.Search(stemmedWord);
 			}
 
@@ -344,7 +302,7 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		public bool CanSearchFromSelection()
 		{
-			if (string.IsNullOrEmpty(Definition))
+			if (DefinitionVM.Word == null)
 				return false;
 
 			return true;
@@ -428,38 +386,16 @@ namespace EDictionary.Core.ViewModels.MainViewModel
 
 		#endregion
 
-		#region PlayAudio
-
-		public void PlayBrEAudio()
-		{
-			CurrentWord.PlayAudio(Dialect.BrE);
-		}
-
-		public void PlayNAmEAudio()
-		{
-			CurrentWord.PlayAudio(Dialect.NAmE);
-		}
-
-		public bool CanPlayAudio()
-		{
-			if (string.IsNullOrEmpty(Definition))
-				return false;
-
-			return true;
-		}
-
-		#endregion
-
 		#region OtherResult
 
 		public void UpdateOtherResultList()
 		{
-			if (CurrentWord.Similars == null)
+			if (DefinitionVM.Word.Similars == null)
 				return;
 
 			otherResultNameToID.Clear();
 
-			foreach (var similarWord in CurrentWord.Similars)
+			foreach (var similarWord in DefinitionVM.Word.Similars)
 			{
 				otherResultNameToID.Add(similarWord.Replace('_', ' '), similarWord);
 			}

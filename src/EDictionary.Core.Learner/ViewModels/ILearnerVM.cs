@@ -1,6 +1,6 @@
 ﻿namespace EDictionary.Core.Learner.ViewModels
 {
-	public interface ILearnerViewModel
+	public interface ILearnerVM
    {
    }
 }

@@ -15,7 +15,7 @@ namespace EDictionary.Core.Learner
 	public partial class App : Application
 	{
 		private TaskbarIcon learnerNotifyIcon;
-		private LearnerViewModel viewModel;
+		private LearnerVM viewModel;
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
@@ -24,7 +24,7 @@ namespace EDictionary.Core.Learner
 			//create the notifyicon (it's a resource declared in LearnerNotifyIcon.xaml
 			learnerNotifyIcon = (TaskbarIcon)FindResource("LearnerNotifyIcon");
 
-			viewModel = new LearnerViewModel()
+			viewModel = new LearnerVM()
 			{
 				ShowMainDictionaryAction = new Action(ShowMainDictionary),
 				ShowSettingsWindowAction = new Action(ShowSettingsWindow),
@@ -63,7 +63,7 @@ namespace EDictionary.Core.Learner
 		{
 			LearnerBaloon balloon = new LearnerBaloon();
 
-			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.Slide, null);
+			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.None, null);
 		}
 
 		private void HideLearnerBalloon()

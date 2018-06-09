@@ -22,8 +22,7 @@ namespace EDictionary.Controls
 			typeof(ExtendedListView),
 			new FrameworkPropertyMetadata(-1,
 				OnTopIndexChangedProperty,
-				OnCoerceTopIndexProperty)
-			);
+				OnCoerceTopIndexProperty));
 
 		public int TopIndex
 		{

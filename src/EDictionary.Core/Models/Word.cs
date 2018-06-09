@@ -45,8 +45,6 @@ namespace EDictionary.Core.Models
 
 			StringBuilder builder = new StringBuilder();
 
-			builder.AppendLine();
-
 			foreach (var task in tasks)
 			{
 				builder.Append(task.Result);

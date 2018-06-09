@@ -29,6 +29,8 @@
 		<Rule color="Label">
 			\[(countable|uncountable|singular|plural|transitive|intransitive)(,[ a-z]+)?\]
 			|
+			\[(only\sbefore)\s\S+\]
+			|
 			\(((especially|both)\s)?(British\s+English|North\sAmerican\sEnglish)\)
 			|
 			\((formal|informal|saying|old-fashioned|humorous|literary)(,[ a-z]+)?\)

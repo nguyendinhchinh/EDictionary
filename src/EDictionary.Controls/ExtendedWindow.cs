@@ -48,8 +48,7 @@ namespace EDictionary.Controls
 			typeof(ExtendedWindow),
 			new PropertyMetadata(
 				false,
-				OnCloseTriggerChanged)
-			);
+				OnCloseTriggerChanged));
 
 		public bool CloseTrigger
 		{

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EDictionary.Core.ViewModels.SettingsViewModel
 {
-	public interface ISettingsViewModel
+	public interface ISettingsVM
 	{
 		bool IsClose { set; }
 		bool CanEditCustomOptions { get; set; }

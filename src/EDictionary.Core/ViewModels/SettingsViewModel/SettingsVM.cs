@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels.SettingsViewModel
 {
-	public class SettingsViewModel : ViewModelBase, ISettingsViewModel
+	public class SettingsVM : ViewModelBase, ISettingsVM
 	{
 		private SettingsLogic settingsLogic;
 
@@ -92,7 +92,7 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			set { SetPropertyAndNotify(ref useCustomWordlist, value); }
 		}
 
-		public SettingsViewModel()
+		public SettingsVM()
 		{
 			SaveCommand = new DelegateCommand(SaveSettings);
 			CloseCommand = new DelegateCommand(Close);
