@@ -176,6 +176,12 @@
     <Compile Include="ViewModels\DefinitionViewModel\IDefinitionVM.cs" />
     <Compile Include="ViewModels\MainViewModel\IMainVM.cs" />
     <Compile Include="ViewModels\MainViewModel\MainVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\DynamicSettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\GeneralSettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\IDynamicSettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\IGeneralSettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\ILearnerSettingsVM.cs" />
+    <Compile Include="ViewModels\SettingsViewModel\LearnerSettingsVM.cs" />
     <Compile Include="ViewModels\SettingsViewModel\SettingsVM.cs" />
     <Compile Include="ViewModels\SettingsViewModel\ISettingsVM.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -185,6 +191,15 @@
     <Compile Include="Views\DefinitionTextbox.xaml.cs">
       <DependentUpon>DefinitionTextbox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DynamicSettingsTab.xaml.cs">
+      <DependentUpon>DynamicSettingsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GeneralSettingsTab.xaml.cs">
+      <DependentUpon>GeneralSettingsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LearnerSettingsTab.xaml.cs">
+      <DependentUpon>LearnerSettingsTab.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
@@ -193,6 +208,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\DefinitionTextbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DynamicSettingsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GeneralSettingsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LearnerSettingsTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

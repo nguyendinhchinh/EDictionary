@@ -22,6 +22,10 @@ namespace EDictionary.Core.Models
 		[XmlIgnore]
 		public static Settings Default = new Settings()
 		{
+			RunAtStartup = true,
+			IsLearnerEnabled = true,
+			IsDynamicEnabled = true,
+
 			MinInterval = 20,
 			SecInterval = 0,
 			Option = Option.Full,
@@ -30,6 +34,10 @@ namespace EDictionary.Core.Models
 			UseCustomWordlist = false,
 			Timeout = 12,
 		};
+
+		public bool RunAtStartup { get; set; }
+		public bool IsLearnerEnabled { get; set; }
+		public bool IsDynamicEnabled { get; set; }
 
 		public int MinInterval { get; set; }
 

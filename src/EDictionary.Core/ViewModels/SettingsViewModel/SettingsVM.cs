@@ -3,11 +3,8 @@ using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+using System.Collections.ObjectModel;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace EDictionary.Core.ViewModels.SettingsViewModel
 {
@@ -15,19 +12,11 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 	{
 		private SettingsLogic settingsLogic;
 
+		private GeneralSettingsVM generalSettingsVM;
+		private LearnerSettingsVM learnerSettingsVM;
+		private DynamicSettingsVM dynamicSettingsVM;
+
 		private bool isClose = false;
-		private bool canEditCustomOptions;
-
-		private int minInterval;
-		private int secInterval;
-
-		private Option option;
-		private List<string> customWordList = new List<string>();
-
-		private bool useHistoryWordlist;
-		private bool useCustomWordlist;
-
-		private int timeout;
 
 		public bool IsClose
 		{
@@ -35,94 +24,72 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 			set { SetPropertyAndNotify(ref isClose, value); }
 		}
 
-		public bool CanEditCustomOptions
+		public GeneralSettingsVM GeneralSettingsVM
 		{
-			get { return canEditCustomOptions; }
-			set { SetPropertyAndNotify(ref canEditCustomOptions, value); }
+			get { return generalSettingsVM; }
+			set { SetPropertyAndNotify(ref generalSettingsVM, value); }
 		}
 
-		public int MinInterval
+		public LearnerSettingsVM LearnerSettingsVM
 		{
-			get { return minInterval; }
-			set { SetPropertyAndNotify(ref minInterval, value); }
+			get { return learnerSettingsVM; }
+			set { SetPropertyAndNotify(ref learnerSettingsVM, value); }
+
 		}
 
-		public int SecInterval
+		public DynamicSettingsVM DynamicSettingsVM
 		{
-			get { return secInterval; }
-			set { SetPropertyAndNotify(ref secInterval, value); }
+			get { return dynamicSettingsVM; }
+			set { SetPropertyAndNotify(ref dynamicSettingsVM, value); }
 		}
 
-		public int Timeout
-		{
-			get { return timeout; }
-			set { SetPropertyAndNotify(ref timeout, value); }
-		}
-
-		public Option Option
-		{
-			get { return option; }
-
-			set
-			{
-				if (value == Option.Custom)
-					CanEditCustomOptions = true;
-				else
-					CanEditCustomOptions = false;
-
-				SetPropertyAndNotify(ref option, value);
-			}
-		}
-
-		public List<string> CustomWordList
-		{
-			get { return customWordList; }
-			set { SetPropertyAndNotify(ref customWordList, value); }
-		}
-
-		public bool UseHistoryWordlist
-		{
-			get { return useHistoryWordlist; }
-			set { SetPropertyAndNotify(ref useHistoryWordlist, value); }
-		}
-
-		public bool UseCustomWordlist
-		{
-			get { return useCustomWordlist; }
-			set { SetPropertyAndNotify(ref useCustomWordlist, value); }
-		}
+		#region Constructor
 
 		public SettingsVM()
 		{
-			SaveCommand = new DelegateCommand(SaveSettings);
-			CloseCommand = new DelegateCommand(Close);
+			InitChildViewModels();
 
+			SaveCommand = new DelegateCommand(SaveSettings);
+			ApplyCommand = new DelegateCommand(ApplySettings);
+		}
+
+		private async void InitChildViewModels()
+		{
 			settingsLogic = new SettingsLogic();
 
-			LoadSettings();
+			Settings settings = await settingsLogic.LoadSettingsAsync();
+
+			GeneralSettingsVM = new GeneralSettingsVM()
+			{
+				RunAtStartup = settings.RunAtStartup,
+				IsLearnerEnabled = settings.IsLearnerEnabled,
+				IsDynamicEnabled = settings.IsDynamicEnabled,
+			};
+
+			LearnerSettingsVM = new LearnerSettingsVM()
+			{
+				MinInterval = settings.MinInterval,
+				SecInterval = settings.SecInterval,
+				Timeout = settings.Timeout,
+				Option = settings.Option,
+				CustomWordList = settings.CustomWordList,
+				UseHistoryWordlist = settings.UseHistoryWordlist,
+				UseCustomWordlist = settings.UseCustomWordlist,
+			};
+
+			DynamicSettingsVM = new DynamicSettingsVM();
 		}
+
+		#endregion
 
 		#region Commands
 
 		public DelegateCommand SaveCommand { get; private set; }
-		public DelegateCommand CloseCommand { get; private set; }
+		public DelegateCommand ApplyCommand { get; private set; }
 
 		#endregion
 
-		private async void LoadSettings()
-		{
-			Settings settings = await settingsLogic.LoadSettingsAsync();
-
-			this.MinInterval = settings.MinInterval;
-			this.SecInterval = settings.SecInterval;
-			this.Option = settings.Option;
-			this.CustomWordList = settings.CustomWordList;
-			this.UseHistoryWordlist = settings.UseHistoryWordlist;
-			this.UseCustomWordlist = settings.UseCustomWordlist;
-			this.Timeout = settings.Timeout;
-		}
-
-		private void SaveSettings()
+		private void ApplySettings()
 		{
 			try
 			{
@@ -130,13 +97,17 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 				Settings settings = new Settings()
 				{
-					SecInterval = this.SecInterval,
-					MinInterval = this.MinInterval,
-					Option = this.Option,
-					CustomWordList = this.CustomWordList,
-					UseHistoryWordlist = this.UseHistoryWordlist,
-					UseCustomWordlist = this.UseCustomWordlist,
-					Timeout = this.Timeout,
+					RunAtStartup = GeneralSettingsVM.RunAtStartup,
+					IsLearnerEnabled = GeneralSettingsVM.IsLearnerEnabled,
+					IsDynamicEnabled = GeneralSettingsVM.IsDynamicEnabled,
+
+					SecInterval = LearnerSettingsVM.SecInterval,
+					MinInterval = LearnerSettingsVM.MinInterval,
+					Option = LearnerSettingsVM.Option,
+					CustomWordList = LearnerSettingsVM.CustomWordList,
+					UseHistoryWordlist = LearnerSettingsVM.UseHistoryWordlist,
+					UseCustomWordlist = LearnerSettingsVM.UseCustomWordlist,
+					Timeout = LearnerSettingsVM.Timeout,
 				};
 
 				settingsLogic.SaveSettings(settings);
@@ -158,7 +129,11 @@ namespace EDictionary.Core.ViewModels.SettingsViewModel
 
 				LogWriter.Instance.WriteLine(errorMsg.ToString());
 			}
+		}
 
+		private void SaveSettings()
+		{
+			ApplySettings();
 			Close();
 		}
 

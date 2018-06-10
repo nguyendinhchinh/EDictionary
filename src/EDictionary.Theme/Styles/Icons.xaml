@@ -12,8 +12,8 @@
 	<clr:String x:Key="NextArrowIcon">&#xf105;</clr:String>
 	<clr:String x:Key="PrevArrowIcon">&#xf104;</clr:String>
 	<clr:String x:Key="SpeakerIcon">&#xf028;</clr:String>
-	<clr:String x:Key="CogIcon">&#xf013;</clr:String>
-	<clr:String x:Key="QuestionIcon">&#xf128;</clr:String>
+	<!--<clr:String x:Key="CogIcon">&#xf013;</clr:String>-->
+	<!--<clr:String x:Key="QuestionIcon">&#xf128;</clr:String>-->
 	<clr:String x:Key="GithubIcon">&#xf092;</clr:String>
 
 	<fa:ImageAwesome x:Key="SpinnerIcon"
@@ -22,5 +22,33 @@
 			Spin="True"
 			Height="12"
 			SpinDuration="1" />
-	
+
+	<ControlTemplate x:Key="IconTemplate" TargetType="fa:ImageAwesome">
+		<Border>
+			<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="{StaticResource Red}"></Setter>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<Style TargetType="fa:ImageAwesome">
+		<Setter Property="Foreground" Value="{StaticResource Cyan}"/>
+		<Setter Property="Height" Value="12"/>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="Foreground" Value="{StaticResource Red}"></Setter>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<fa:ImageAwesome x:Key="HomeIcon" Icon="Home"/>
+	<fa:ImageAwesome x:Key="ToggleOnIcon" Foreground="{StaticResource LightGreen}" Icon="ToggleOn"/>
+	<fa:ImageAwesome x:Key="ToggleOffIcon" Foreground="{StaticResource LightRed}" Icon="ToggleOff"/>
+	<fa:ImageAwesome x:Key="CogIcon" Icon="Cog"/>
+	<fa:ImageAwesome x:Key="QuestionIcon" Icon="Question"/>
+	<fa:ImageAwesome x:Key="PowerOffIcon" Icon="PowerOff" Foreground="{StaticResource LightOrange}" />
+
 </ResourceDictionary>

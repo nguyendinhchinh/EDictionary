@@ -35,6 +35,8 @@ namespace EDictionary.Core.Learner.ViewModels
 		private Status currentStatus;
 		private Status nextStatus;
 
+		private string statusIcon;
+
 		private TimeSpan spawnInterval;
 		private TimeSpan activeInterval;
 
@@ -69,6 +71,12 @@ namespace EDictionary.Core.Learner.ViewModels
 			private set
 			{
 				prevStatus = CurrentStatus;
+
+				if (value == Status.Run)
+					NextStatus = Status.Stop;
+				if (value == Status.Stop)
+					NextStatus = Status.Run;
+
 				SetProperty(ref currentStatus, value);
 			}
 		}
@@ -76,7 +84,22 @@ namespace EDictionary.Core.Learner.ViewModels
 		public Status NextStatus
 		{
 			get { return nextStatus; }
-			set { SetPropertyAndNotify(ref nextStatus, value); }
+
+			private set
+			{
+				if (value == Status.Run)
+					StatusIcon = "ToggleOnIcon";
+				else if (value == Status.Stop)
+					StatusIcon = "ToggleOffIcon";
+
+				SetPropertyAndNotify(ref nextStatus, value);
+			}
+		}
+
+		public string StatusIcon
+		{
+			get { return statusIcon; }
+			set { SetPropertyAndNotify(ref statusIcon, value); }
 		}
 
 		#endregion
@@ -157,6 +180,8 @@ namespace EDictionary.Core.Learner.ViewModels
 		private void ReloadSettings()
 		{
 			Settings settings = settingsLogic.LoadSettings();
+
+			CurrentStatus = settings.IsLearnerEnabled ? Status.Run : Status.Stop;
 
 			spawnInterval = TimeSpan.FromMinutes(settings.MinInterval);
 			spawnInterval = TimeSpan.FromSeconds(settings.SecInterval);
@@ -290,12 +315,10 @@ namespace EDictionary.Core.Learner.ViewModels
 			if (NextStatus == Status.Run)
 			{
 				CurrentStatus = Status.Run;
-				NextStatus = Status.Stop;
 			}
 			else
 			{
 				CurrentStatus = Status.Stop;
-				NextStatus = Status.Run;
 			}
 		}
 	}

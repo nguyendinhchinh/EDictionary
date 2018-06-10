@@ -17,6 +17,7 @@
 	</Style>
 
 	<Style TargetType="{x:Type CheckBox}">
+		<Setter Property="Foreground" Value="{StaticResource Silver}" />
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />
 		<Setter Property="Height" Value="19" />
