@@ -21,6 +21,7 @@ namespace EDictionary.Core.Behaviours
 			typeof(ScrollViewerBehavior),
 			new PropertyMetadata(false, (o, e) =>
 			{
+				// Default is false -> run tis when changed to tru
 				var scrollViewer = o as ScrollViewer;
 
 				if (scrollViewer == null)

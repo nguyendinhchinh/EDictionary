@@ -40,6 +40,18 @@ namespace EDictionary.Core.DataLogic
 			return History<T>.Default;
 		}
 
+		public List<T> GetCollection<T>()
+		{
+			var result = historyAccess.LoadHistory<T>();
+
+			if (result.Status == Status.Success)
+			{
+				return result.Data.Collection;
+			}
+
+			return new List<T>();
+		}
+
 		public async Task<History<T>> LoadHistoryAsync<T>()
 		{
 			return await Task.Run(() => this.LoadHistory<T>());

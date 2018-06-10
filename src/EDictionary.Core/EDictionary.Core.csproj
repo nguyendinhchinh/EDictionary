@@ -147,7 +147,7 @@
     <Compile Include="Data\SettingsAccess.cs" />
     <Compile Include="Data\SqliteAccess.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
-    <Compile Include="Extensions\FocusExtension.cs" />
+    <Compile Include="Behaviours\FocusBehavior.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\RTFBuilderExtensions.cs" />

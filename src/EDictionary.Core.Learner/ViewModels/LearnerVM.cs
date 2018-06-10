@@ -6,7 +6,7 @@ using EDictionary.Core.ViewModels;
 using EDictionary.Core.ViewModels.DefinitionViewModel;
 using System;
 using System.Collections.Generic;
-using System.Threading;
+using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -23,14 +23,17 @@ namespace EDictionary.Core.Learner.ViewModels
 	{
 		#region Fields
 
+		private Random random;
+
 		private SettingsLogic settingsLogic;
+		private HistoryLogic historyLogic;
 		private WordLogic wordLogic;
 
 		private DefinitionVM definitionVM;
 
-		private Status status;
+		private Status prevStatus;
+		private Status currentStatus;
 		private Status nextStatus;
-		private string definition;
 
 		private TimeSpan spawnInterval;
 		private TimeSpan activeInterval;
@@ -41,7 +44,13 @@ namespace EDictionary.Core.Learner.ViewModels
 		private DispatcherTimer spawnTimer;
 		private DispatcherTimer activeTimer;
 
+		private Option option;
+
+		private bool useCustomWordlist;
+		private bool useHistoryWordlist;
+
 		private List<string> wordList;
+		private List<string> historyWordlist;
 
 		#endregion
 
@@ -53,16 +62,21 @@ namespace EDictionary.Core.Learner.ViewModels
 			protected set { SetPropertyAndNotify(ref definitionVM, value); }
 		}
 
+		public Status CurrentStatus
+		{
+			get { return currentStatus; }
+
+			private set
+			{
+				prevStatus = CurrentStatus;
+				SetProperty(ref currentStatus, value);
+			}
+		}
+
 		public Status NextStatus
 		{
 			get { return nextStatus; }
 			set { SetPropertyAndNotify(ref nextStatus, value); }
-		}
-
-		public string Definition
-		{
-			get { return definition; }
-			set { SetPropertyAndNotify(ref definition, value); }
 		}
 
 		#endregion
@@ -92,39 +106,51 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		public LearnerVM()
 		{
+			random = new Random();
+
+			settingsLogic = new SettingsLogic();
+			historyLogic = new HistoryLogic();
+			wordLogic = new WordLogic();
+
 			wordList = new List<string>();
+			historyWordlist = new List<string>();
 
 			DefinitionVM = new DefinitionVM();
 
-			settingsLogic = new SettingsLogic();
-			wordLogic = new WordLogic();
-
 			spawnTimer = new DispatcherTimer();
 			spawnTimer.Tick += OnSpawnTimerTick;
-			spawnTimer.Interval = new TimeSpan(0, 0, 1);
+			spawnTimer.Interval = new TimeSpan(hours: 0, minutes: 0, seconds: 1);
 
 			activeTimer = new DispatcherTimer();
 			activeTimer.Tick += OnActiveTimerTick;
-			activeTimer.Interval = new TimeSpan(0, 0, 1);
+			activeTimer.Interval = new TimeSpan(hours: 0, minutes: 0, seconds: 1);
 
 			OpenMainDictionaryCommand = new DelegateCommand(OpenMainDictionary);
 			ToggleActiveCommand = new DelegateCommand(ToggleActive);
 			OpenSettingsCommand = new DelegateCommand(OpenSettings);
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
 			ExitAppCommand = new DelegateCommand(CloseApp);
+
 			OpenLearnerBalloonCommand = new DelegateCommand(OpenLearnerBalloon);
+			CloseLearnerBalloonCommand = new DelegateCommand(CloseLearnerBalloon);
+
+			PauseCommand = new DelegateCommand(() => CurrentStatus = Status.Pause);
+			ContinueCommand = new DelegateCommand(() => CurrentStatus = prevStatus);
 		}
 
 		#endregion
 
 		#region Commands
 
-		public DelegateCommand OpenMainDictionaryCommand { get; set; }
-		public DelegateCommand ToggleActiveCommand { get; set; }
-		public DelegateCommand OpenSettingsCommand { get; set; }
-		public DelegateCommand OpenAboutCommand { get; set; }
-		public DelegateCommand ExitAppCommand { get; set; }
-		public DelegateCommand OpenLearnerBalloonCommand { get; set; }
+		public DelegateCommand OpenMainDictionaryCommand { get; private set; }
+		public DelegateCommand ToggleActiveCommand { get; private set; }
+		public DelegateCommand OpenSettingsCommand { get; private set; }
+		public DelegateCommand OpenAboutCommand { get; private set; }
+		public DelegateCommand ExitAppCommand { get; private set; }
+		public DelegateCommand OpenLearnerBalloonCommand { get; private set; }
+		public DelegateCommand CloseLearnerBalloonCommand { get; private set; }
+		public DelegateCommand PauseCommand { get; private set; }
+		public DelegateCommand ContinueCommand { get; private set; }
 
 		#endregion
 
@@ -139,37 +165,91 @@ namespace EDictionary.Core.Learner.ViewModels
 			spawnCounter = (int)spawnInterval.TotalSeconds;
 			activeCounter = (int)activeInterval.TotalSeconds;
 
-			if (settings.Option == Option.Full)
+			useCustomWordlist = settings.UseCustomWordlist;
+			useHistoryWordlist = settings.UseHistoryWordlist;
+
+			option = settings.Option;
+
+			if (option == Option.Full)
 			{
 				wordList = wordLogic.WordList;
 			}
-			else if (settings.Option == Option.Custom)
+			else if (option == Option.Custom)
 			{
 				wordList = settings.CustomWordList;
+
+				if (useHistoryWordlist)
+				{
+					historyWordlist = historyLogic.GetCollection<string>();
+				}
 			}
 		}
 
-		private void SetRandomWord()
+		private string GetRandomWordFromWordLists(params List<string>[] wordListArray)
 		{
-			var randWord = wordList.PickRandom();
+			var wordLists = new List<List<string>>(wordListArray);
+
+			// Remove any empty wordlists
+			foreach (var list in wordLists.ToList())
+			{
+				if (!list.Any())
+					wordLists.Remove(list);
+			}
+
+			if (!wordLists.Any())
+				return string.Empty;
+
+			List<string> wordList = new List<List<string>>(wordLists).PickRandom();
+
+			return wordList.PickRandom();
+		}
+
+		/// <summary>
+		/// Return true on success, false on failure (Word list is empty)
+		/// </summary>
+		/// <returns></returns>
+		private bool SetRandomWord()
+		{
+			string randWord = string.Empty;
+
+			if (option == Option.Full)
+			{
+				randWord = GetRandomWordFromWordLists(wordList);
+			}
+			else if (option == Option.Custom)
+			{
+				if (useCustomWordlist && !useHistoryWordlist)
+					randWord = GetRandomWordFromWordLists(wordList);
+
+				else if (useHistoryWordlist && !useCustomWordlist)
+					randWord = GetRandomWordFromWordLists(historyWordlist);
+
+				else // (useCustomWordlist && useHistoryWordlist)
+					randWord = GetRandomWordFromWordLists(wordList, historyWordlist);
+			}
+
+			if (randWord == string.Empty)
+				return false;
 
 			Word word = wordLogic.Search(randWord);
 
 			DefinitionVM.Word = word;
 			DefinitionVM.Definition = word.ToDisplayedString();
+
+			return true;
 		}
 
 		private void OnSpawnTimerTick(object sender, EventArgs e)
 		{
-			if (status == Status.Stop)
+			if (CurrentStatus == Status.Stop)
 				return;
 
 			spawnCounter--;
 
 			if (spawnCounter <= 0)
 			{
-				SetRandomWord();
-				OpenLearnerBalloon();
+				if(SetRandomWord())
+					OpenLearnerBalloon();
 
 				spawnCounter = (int)spawnInterval.TotalSeconds;
 
@@ -180,7 +260,7 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		private void OnActiveTimerTick(object sender, EventArgs e)
 		{
-			if (status == Status.Stop)
+			if (CurrentStatus == Status.Pause)
 				return;
 
 			activeCounter--;
@@ -198,26 +278,23 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		public void Run()
 		{
-			status = Status.Run;
+			CurrentStatus = Status.Run;
 
 			ReloadSettings();
-
-			if (wordList.Count == 0)
-				return;
 
 			spawnTimer.Start();
 		}
 
 		private void ToggleActive()
 		{
-			if (status == Status.Stop)
+			if (NextStatus == Status.Run)
 			{
-				status = Status.Run;
+				CurrentStatus = Status.Run;
 				NextStatus = Status.Stop;
 			}
 			else
 			{
-				status = Status.Stop;
+				CurrentStatus = Status.Stop;
 				NextStatus = Status.Run;
 			}
 		}

@@ -12,10 +12,10 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Thumb}">
 					<Border x:Name="rectangle"
-										  SnapsToDevicePixels="True"
-										  Background="{StaticResource Gray}"
-										  Height="30"
-										  Width="{TemplateBinding Width}"/>
+						SnapsToDevicePixels="True"
+						Background="{StaticResource Black1}"
+						Height="30"
+						Width="{TemplateBinding Width}"/>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

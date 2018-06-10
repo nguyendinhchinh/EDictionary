@@ -15,7 +15,7 @@
 	<tb:TaskbarIcon x:Key="LearnerNotifyIcon"
 		IconSource="/Icons/E-Dictionary.ico"
 		ToolTipText="EDictionary Learner"
-		DoubleClickCommand="{Binding OpenLearnerBalloonCommand}"
+		LeftClickCommand="{Binding OpenLearnerBalloonCommand}"
 		ContextMenu="{StaticResource SysTrayMenu}" />
 
 </ResourceDictionary>

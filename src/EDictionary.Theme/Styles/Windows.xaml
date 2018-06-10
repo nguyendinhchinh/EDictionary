@@ -4,7 +4,6 @@
 						xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
 
 	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="Animations.xaml"/>
 		<ResourceDictionary Source="Buttons.xaml"/>
 		<ResourceDictionary Source="Colors.xaml"/>
 		<ResourceDictionary Source="Fonts.xaml"/>
@@ -172,11 +171,6 @@
 		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 
-		<Style.Triggers>
-			<EventTrigger RoutedEvent="Window.Loaded">
-				<BeginStoryboard Storyboard="{StaticResource FadeInAnimation}"/>
-			</EventTrigger>
-		</Style.Triggers>
 	</Style>
 
 	<Style TargetType="Window" x:Key="ParentWindow" BasedOn="{StaticResource WindowBaseStyle}">

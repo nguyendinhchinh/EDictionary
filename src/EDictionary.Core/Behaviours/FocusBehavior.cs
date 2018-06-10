@@ -4,9 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace EDictionary.Core.Extensions
+namespace EDictionary.Core.Behaviours
 {
-	public static class FocusExtension
+	public static class FocusBehavior
 	{
 		public static bool GetIsFocused(DependencyObject obj)
 		{
@@ -18,11 +18,10 @@ namespace EDictionary.Core.Extensions
 			obj.SetValue(IsFocusedProperty, value);
 		}
 
-		public static readonly DependencyProperty IsFocusedProperty =
-			 DependencyProperty.RegisterAttached(
-			  "IsFocused", typeof(bool),
-			  typeof(FocusExtension),
-			  new UIPropertyMetadata(false, null, OnCoerceValue));
+		public static readonly DependencyProperty IsFocusedProperty = DependencyProperty.RegisterAttached(
+			"IsFocused", typeof(bool),
+			typeof(FocusBehavior),
+			new UIPropertyMetadata(false, null, OnCoerceValue));
 
 		private static object OnCoerceValue(DependencyObject d, object baseValue)
 		{

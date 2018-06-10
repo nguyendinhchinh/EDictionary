@@ -63,7 +63,7 @@ namespace EDictionary.Core.Learner
 		{
 			LearnerBaloon balloon = new LearnerBaloon();
 
-			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.None, null);
+			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.None, timeout: null);
 		}
 
 		private void HideLearnerBalloon()

@@ -9,18 +9,21 @@ namespace EDictionary.Controls
 	public class ExtendedWindow : Window
 	{
 		private WindowState lastState = WindowState.Normal;
+
 		private DoubleAnimation openingAnimation;
 		private DoubleAnimation closingAnimation;
 
 		public ExtendedWindow()
 		{
-			this.Closing += OnWindowClosing;
-
 			openingAnimation = WindowAnimations.FadeInAnimation;
 			closingAnimation = WindowAnimations.FadeOutAnimation;
+
+			this.Loaded += FadeIn;
+			this.Closing += FadeOut;
+			this.StateChanged += FadeInOrOut;
 		}
 
-		protected override void OnStateChanged(EventArgs e)
+		private void FadeInOrOut(object sender, EventArgs e)
 		{
 			if (lastState == WindowState.Minimized && this.WindowState == WindowState.Normal)
 			{
@@ -28,14 +31,27 @@ namespace EDictionary.Controls
 			}
 
 			lastState = this.WindowState;
-
-			base.OnStateChanged(e);
 		}
 
-		private void OnWindowClosing(object sender, CancelEventArgs e)
+		/// <summary>
+		///
+		/// XAML alternative:
+		/// <Style.Triggers>
+		///	<EventTrigger RoutedEvent = "Window.Loaded" >
+		///		< BeginStoryboard Storyboard="{StaticResource FadeInAnimation}"/>
+		///	</EventTrigger>
+		/// </Style.Triggers>
+		/// 
+		/// </summary>
+		private void FadeIn(object sender, RoutedEventArgs e)
+		{
+			BeginAnimation(OpacityProperty, openingAnimation);
+		}
+
+		private void FadeOut(object sender, CancelEventArgs e)
 		{
 			e.Cancel = true;
-			this.Closing -= OnWindowClosing;
+			this.Closing -= FadeOut;
 
 			closingAnimation.Completed += (o, a) => this.Close();
 			BeginAnimation(OpacityProperty, closingAnimation);
@@ -52,14 +68,8 @@ namespace EDictionary.Controls
 
 		public bool CloseTrigger
 		{
-			get
-			{
-				return (bool)GetValue(CloseTriggerProperty);
-			}
-			set
-			{
-				SetValue(CloseTriggerProperty, value);
-			}
+			get { return (bool)GetValue(CloseTriggerProperty); }
+			set { SetValue(CloseTriggerProperty, value); }
 		}
 
 		private static void OnCloseTriggerChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)

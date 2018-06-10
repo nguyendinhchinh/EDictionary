@@ -5,51 +5,76 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:tb="http://www.hardcodet.net/taskbar"
 	xmlns:view="clr-namespace:EDictionary.Core.Views;assembly=EDictionary"
+	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	mc:Ignorable="d" 
-	Height="175"
+	Height="200"
 	Width="300">
 
-
+	<UserControl.Resources>
+		<Storyboard x:Key="FadeIn">
+			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+				Storyboard.TargetProperty="(UIElement.Opacity)">
+				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+				<SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="0.5" />
+				<SplineDoubleKeyFrame KeyTime="00:00:00.5" Value="1" />
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		 
+		<Storyboard x:Key="FadeOut">
+			<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+				Storyboard.TargetProperty="(UIElement.Opacity)">
+				<SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+				<SplineDoubleKeyFrame KeyTime="00:00:00.15" Value="0.75" />
+				<SplineDoubleKeyFrame KeyTime="00:00:00.5" Value="0" />
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+	
 	<UserControl.Triggers>
 
 		<EventTrigger RoutedEvent="tb:TaskbarIcon.BalloonShowing">
-			<BeginStoryboard Storyboard="{StaticResource FadeInAnimation}" />
+			<BeginStoryboard Storyboard="{StaticResource FadeIn}" />
 		</EventTrigger>
 
 		<EventTrigger RoutedEvent="tb:TaskbarIcon.BalloonClosing">
-			<BeginStoryboard Storyboard="{StaticResource FadeOutAnimation}" />
+			<BeginStoryboard Storyboard="{StaticResource FadeOut}" />
 		</EventTrigger>
 
-		<!--<EventTrigger RoutedEvent="Mouse.MouseEnter" SourceName="imgClose">
-				<BeginStoryboard Storyboard="{StaticResource HighlightCloseButton}"
-                             x:Name="HighlightCloseButton_BeginStoryboard" />
-			</EventTrigger>
-				
-			<EventTrigger RoutedEvent="Mouse.MouseLeave"
-                      SourceName="imgClose">
-				<BeginStoryboard Storyboard="{StaticResource FadeCloseButton}"
-                             x:Name="FadeCloseButton_BeginStoryboard" />
-			</EventTrigger>
-				
-			<EventTrigger RoutedEvent="Mouse.MouseEnter">
-				<StopStoryboard BeginStoryboardName="FadeIn_BeginStoryboard" />
-				<BeginStoryboard x:Name="FadeBack_BeginStoryboard1"
-                             Storyboard="{StaticResource FadeBack}" />
-			</EventTrigger>-->
-		 
 	</UserControl.Triggers>
 
-	<Grid Background="{StaticResource Black0}">
+	<Grid Background="{StaticResource Black1}">
 
-		<view:DefinitionTextbox
-			Padding="5"
-			DataContext="{Binding DefinitionVM}"
-			NameFontSize="15"
-			WordformFontSize="12"
-			AudioButtonSize="12"
-			PronunciationFontSize="12"
-			DefinitionFontSize="12"/>
-		 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="20"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<i:Interaction.Triggers>
+			<i:EventTrigger EventName="MouseEnter">
+				<i:InvokeCommandAction Command="{Binding PauseCommand}" />
+			</i:EventTrigger>
+
+			<i:EventTrigger EventName="MouseLeave">
+				<i:InvokeCommandAction Command="{Binding ContinueCommand}" />
+			</i:EventTrigger>
+		</i:Interaction.Triggers>
+
+		<Button Grid.Row="0" Margin="0,0,2,0"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Top"
+					Style="{StaticResource CloseButton}"
+					Command="{Binding CloseLearnerBalloonCommand}" >
+		</Button>
+
+		<view:DefinitionTextbox Grid.Row="1" 
+				Padding="5"
+				DataContext="{Binding DefinitionVM}"
+				NameFontSize="15"
+				WordformFontSize="12"
+				AudioButtonSize="12"
+				PronunciationFontSize="12"
+				DefinitionFontSize="12"/>
+
 	</Grid>
 
 </UserControl>

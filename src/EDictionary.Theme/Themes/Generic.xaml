@@ -10,8 +10,6 @@
 		<ResourceDictionary Source="../Styles/Icons.xaml" />
 		<ResourceDictionary Source="../Styles/Controls.xaml" />
 
-		<ResourceDictionary Source="../Styles/Animations.xaml" />
-
 		<ResourceDictionary Source="../Styles/Labels.xaml" />
 		<ResourceDictionary Source="../Styles/Buttons.xaml" />
 		<ResourceDictionary Source="../Styles/TextBoxs.xaml" />
