@@ -1,13 +1,11 @@
 ﻿using EDictionary.Controls;
-using EDictionary.Core.ViewModels.MainViewModel;
+using EDictionary.Core.ViewModels;
 using EDictionary.Theme.Utilities;
 using ICSharpCode.AvalonEdit.Highlighting;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows;
-using System.Windows.Media;
 using System.Xml;
 
 namespace EDictionary.Core.Views
@@ -17,14 +15,14 @@ namespace EDictionary.Core.Views
 	/// </summary>
 	public partial class MainWindow : ExtendedWindow
 	{
-		private MainVM viewModel;
+		private MainViewModel viewModel;
 
 		public MainWindow()
 		{
 			RegisterCustomHighlight();
 			InitializeComponent();
 
-			viewModel = new MainVM
+			viewModel = new MainViewModel
 			{
 				ShowSettingsWindowAction = new Action(this.ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(this.ShowAboutWindow),

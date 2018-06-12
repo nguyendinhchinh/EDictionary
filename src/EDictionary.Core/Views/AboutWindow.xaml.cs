@@ -1,5 +1,5 @@
 ﻿using EDictionary.Controls;
-using EDictionary.Core.ViewModels.AboutViewModel;
+using EDictionary.Core.ViewModels;
 
 namespace EDictionary.Core.Views
 {
@@ -8,13 +8,13 @@ namespace EDictionary.Core.Views
 	/// </summary>
 	public partial class AboutWindow : ExtendedWindow
 	{
-		private AboutVM viewModel;
+		private AboutViewModel viewModel;
 
 		public AboutWindow()
 		{
 			InitializeComponent();
 
-			viewModel = new AboutVM();
+			viewModel = new AboutViewModel();
 
 			DataContext = viewModel;
 		}

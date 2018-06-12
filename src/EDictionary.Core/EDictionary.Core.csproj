@@ -130,9 +130,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviours\IgnoreMouseWheelBehavior.cs" />
-    <Compile Include="Behaviours\ScrollViewerBehavior.cs" />
-    <Compile Include="Behaviours\SurpressBringIntoViewBehavior.cs" />
+    <Compile Include="Behaviors\IgnoreMouseWheelBehavior.cs" />
+    <Compile Include="Behaviors\ScrollViewerBehavior.cs" />
+    <Compile Include="Behaviors\SurpressBringIntoViewBehavior.cs" />
     <Compile Include="Converters\ListToStringConverter.cs" />
     <Compile Include="Converters\StringToResourceConverter.cs" />
     <Compile Include="Converters\OptionToRadioBoolConverter.cs" />
@@ -147,10 +147,9 @@
     <Compile Include="Data\SettingsAccess.cs" />
     <Compile Include="Data\SqliteAccess.cs" />
     <Compile Include="Extensions\EnumerableExtension.cs" />
-    <Compile Include="Behaviours\FocusBehavior.cs" />
+    <Compile Include="Behaviors\FocusBehavior.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
-    <Compile Include="Extensions\RTFBuilderExtensions.cs" />
     <Compile Include="Extensions\StringBuilderExtension.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\Settings.cs" />
@@ -170,20 +169,20 @@
     <Compile Include="Utilities\Stemmer.cs" />
     <Compile Include="Utilities\Watcher.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
-    <Compile Include="ViewModels\AboutViewModel\AboutVM.cs" />
-    <Compile Include="ViewModels\AboutViewModel\IAboutVM.cs" />
-    <Compile Include="ViewModels\DefinitionViewModel\DefinitionVM.cs" />
-    <Compile Include="ViewModels\DefinitionViewModel\IDefinitionVM.cs" />
-    <Compile Include="ViewModels\MainViewModel\IMainVM.cs" />
-    <Compile Include="ViewModels\MainViewModel\MainVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\DynamicSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\GeneralSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\IDynamicSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\IGeneralSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\ILearnerSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\LearnerSettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\SettingsVM.cs" />
-    <Compile Include="ViewModels\SettingsViewModel\ISettingsVM.cs" />
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IAboutViewModel.cs" />
+    <Compile Include="ViewModels\DefinitionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IDefinitionViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IMainViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\DynamicSettingsViewModel.cs" />
+    <Compile Include="ViewModels\GeneralSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IDynamicSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IGeneralSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ILearnerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\LearnerSettingsViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\ISettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
@@ -305,17 +304,6 @@
     <Resource Include="Resources\E-Dictionary.ico" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\EDictionary.Controls\EDictionary.Controls.csproj">
       <Project>{638f4620-a06a-4eba-966b-98dfdd30daa1}</Project>
       <Name>EDictionary.Controls</Name>
@@ -323,10 +311,6 @@
     <ProjectReference Include="..\EDictionary.Theme\EDictionary.Theme.csproj">
       <Project>{a481790b-1742-446c-bbf9-e41eaaa01c74}</Project>
       <Name>EDictionary.Theme</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EDictionary.Vendors\EDictionary.Vendors.csproj">
-      <Project>{587def9d-5d87-44bb-8db2-771ebefee97c}</Project>
-      <Name>EDictionary.Vendors</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

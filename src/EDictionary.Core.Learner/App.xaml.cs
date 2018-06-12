@@ -3,7 +3,6 @@ using EDictionary.Core.Learner.Views;
 using EDictionary.Core.Views;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
@@ -12,30 +11,29 @@ namespace EDictionary.Core.Learner
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : Application
+	public partial class App : System.Windows.Application
 	{
-		private TaskbarIcon learnerNotifyIcon;
-		private LearnerVM viewModel;
+		private TaskbarIcon taskbarIcon;
+		private LearnerViewModel learnerVM;
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
 
-			//create the notifyicon (it's a resource declared in LearnerNotifyIcon.xaml
-			learnerNotifyIcon = (TaskbarIcon)FindResource("LearnerNotifyIcon");
-
-			viewModel = new LearnerVM()
+			learnerVM = new LearnerViewModel()
 			{
 				ShowMainDictionaryAction = new Action(ShowMainDictionary),
 				ShowSettingsWindowAction = new Action(ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(ShowAboutWindow),
 				ShowLearnerBalloonAction = new Action(ShowLearnerBalloon),
 				HideLearnerBalloonAction = new Action(HideLearnerBalloon),
+				ShowDefinitionPopupAction = new Action(ShowDefinitionPopup),
 			};
 
-			learnerNotifyIcon.DataContext = viewModel;
+			taskbarIcon = (TaskbarIcon)FindResource("EDTaskbarIcon"); // See TaskbarIconView.xaml
+			taskbarIcon.DataContext = learnerVM;
 
-			Task.Run(() => viewModel.Run());
+			learnerVM.RunAsync();
 		}
 
 		private void ShowMainDictionary()
@@ -59,21 +57,30 @@ namespace EDictionary.Core.Learner
 			aboutWindow.ShowDialog();
 		}
 
+		private void ShowDefinitionPopup()
+		{
+			MessageBox.Show("Hello world");
+			//DefinitionPopup popup = new DefinitionPopup();
+
+			//popup.ShowDialog();
+		}
+
 		private void ShowLearnerBalloon()
 		{
-			LearnerBaloon balloon = new LearnerBaloon();
+			LearnerBalloon balloon = new LearnerBalloon();
 
-			learnerNotifyIcon.ShowCustomBalloon(balloon, PopupAnimation.None, timeout: null);
+			taskbarIcon.ShowCustomBalloon(balloon, PopupAnimation.None, timeout: null);
 		}
 
 		private void HideLearnerBalloon()
 		{
-			learnerNotifyIcon.CloseBalloon();
+			taskbarIcon.CloseBalloon();
 		}
 
 		protected override void OnExit(ExitEventArgs e)
 		{
-			learnerNotifyIcon.Dispose(); // the icon would clean up automatically, but this is cleaner
+			taskbarIcon.Dispose(); // the icon would clean up automatically, but this is cleaner
+
 			base.OnExit(e);
 		}
 	}

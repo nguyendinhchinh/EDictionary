@@ -1,7 +1,6 @@
 using EDictionary.Core.Extensions;
 using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
-using EDictionary.Vendors.RTF;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -53,56 +52,6 @@ namespace EDictionary.Core.Models
 			watch.Print("[C] Add String");
 
 			return builder.ToString();
-		}
-
-		[Obsolete]
-		public string ToRTFString(bool mini=false)
-		{
-			Watcher watch = new Watcher();
-
-			if (mini)
-			{
-				RTFBuilderExtensions.defaultFontSize = 18;
-				RTFBuilderExtensions.titleFontSize = 22;
-				RTFBuilderExtensions.headerFontSize = 20;
-			}
-			else
-			{
-				RTFBuilderExtensions.defaultFontSize = 25;
-				RTFBuilderExtensions.titleFontSize = 40;
-				RTFBuilderExtensions.headerFontSize = 28;
-			}
-
-			List<Task<string>> tasks = new List<Task<string>>();
-
-			watch.Print("[C] Init Build");
-
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendTitle(Name).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendWordform(Wordform).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendPronunciation(Pronunciations).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendReferences(References).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendDefinitionGroups(DefinitionsExamples).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendExtraExamples(ExtraExamples).ToString()));
-			tasks.Add(Task.Run(() => new RTFBuilder().AppendIdioms(Idioms).ToString()));
-
-			Task.WaitAll(tasks.ToArray());
-
-			watch.Print("[C] Build");
-
-			RTFBuilder builder = new RTFBuilder();
-
-			foreach (var task in tasks)
-			{
-				builder.AppendRTFDocument(task.Result);
-			}
-
-			watch.Print("[C] Add String");
-
-			string str = builder.ToString();
-
-			watch.Print("[C] ToString");
-
-			return str;
 		}
 
 		private string GetFilename(Dialect dialect)

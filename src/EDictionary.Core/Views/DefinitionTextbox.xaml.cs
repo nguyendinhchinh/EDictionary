@@ -1,7 +1,4 @@
-﻿using EDictionary.Core.Models;
-using EDictionary.Core.Utilities;
-using EDictionary.Core.ViewModels.DefinitionViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace EDictionary.Core.Views
