@@ -20,13 +20,13 @@
 		<StackPanel Orientation="Horizontal" Grid.Row="1"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
-			Margin="5">
+			Margin="10,0,0,0">
 
 			<CheckBox
 				IsChecked="{Binding RunAtStartup}"
 				VerticalAlignment="Center"
 				HorizontalAlignment="Left"
-				Margin="10,0,0,0"/>
+				Margin="0,0,0,0"/>
 
 			<Label
 				Style="{StaticResource SmallHeaderLabel}"
@@ -38,13 +38,12 @@
 		<StackPanel Orientation="Horizontal" Grid.Row="2"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
-			Margin="5">
+			Margin="10,0,0,0">
 
 			<CheckBox
 				IsChecked="{Binding IsLearnerEnabled, Mode=TwoWay}"
 				VerticalAlignment="Center"
-				HorizontalAlignment="Left"
-				Margin="10,0,0,0"/>
+				HorizontalAlignment="Left"/>
 				
 			<Label
 				Style="{StaticResource SmallHeaderLabel}"
@@ -56,13 +55,12 @@
 		<StackPanel Orientation="Horizontal" Grid.Row="3"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
-			Margin="5">
+			Margin="10,0,0,0">
 
 			<CheckBox
 				IsChecked="{Binding IsDynamicEnabled}"
 				VerticalAlignment="Center"
-				HorizontalAlignment="Left"
-				Margin="10,0,0,0"/>
+				HorizontalAlignment="Left"/>
 
 			<Label
 				Style="{StaticResource SmallHeaderLabel}"

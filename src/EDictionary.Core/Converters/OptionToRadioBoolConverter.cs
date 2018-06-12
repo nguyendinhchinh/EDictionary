@@ -9,7 +9,7 @@ namespace EDictionary.Core.Converters
 	{
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			Option option = (Option)value;
+			VocabularySource option = (VocabularySource)value;
 			
 			return option.Equals(parameter);
 		}

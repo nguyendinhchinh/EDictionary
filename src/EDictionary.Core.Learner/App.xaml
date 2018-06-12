@@ -14,7 +14,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/EDictionary.Theme;component/Themes/Generic.xaml"/>
-				<ResourceDictionary Source="LearnerNotifyIcon.xaml"/>
+				<ResourceDictionary Source="Views/TaskbarIconView.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 		 

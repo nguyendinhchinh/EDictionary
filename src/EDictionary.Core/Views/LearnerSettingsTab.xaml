@@ -108,13 +108,13 @@
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
 				Content="All"
-				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Full}}"
+				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:VocabularySource.Full}}"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
 				Margin="20,10,0,0"/>
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
-				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:Option.Custom}}"
+				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:VocabularySource.Custom}}"
 				Content="Custom"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"

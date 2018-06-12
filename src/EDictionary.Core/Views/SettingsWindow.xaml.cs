@@ -1,6 +1,5 @@
 ﻿using EDictionary.Controls;
-using EDictionary.Core.ViewModels.SettingsViewModel;
-using System;
+using EDictionary.Core.ViewModels;
 
 namespace EDictionary.Core.Views
 {
@@ -12,7 +11,7 @@ namespace EDictionary.Core.Views
 		public SettingsWindow()
 		{
 			InitializeComponent();
-			DataContext = new SettingsVM();
+			DataContext = new SettingsViewModel();
 		}
 	}
 }

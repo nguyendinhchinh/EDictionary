@@ -65,6 +65,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.108.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -102,12 +103,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\ILearnerVM.cs" />
-    <Compile Include="ViewModels\LearnerVM.cs" />
-    <Compile Include="Views\LearnerBaloon.xaml.cs">
-      <DependentUpon>LearnerBaloon.xaml</DependentUpon>
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Utilities\GlobalKeyBoardHook.cs" />
+    <Compile Include="Utilities\Modifiers.cs" />
+    <Compile Include="ViewModels\ILearnerViewModel.cs" />
+    <Compile Include="ViewModels\LearnerViewModel.cs" />
+    <Compile Include="Views\DefinitionPopup.xaml.cs">
+      <DependentUpon>DefinitionPopup.xaml</DependentUpon>
     </Compile>
-    <Page Include="LearnerNotifyIcon.xaml">
+    <Compile Include="Views\LearnerBalloon.xaml.cs">
+      <DependentUpon>LearnerBalloon.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Views\DefinitionPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskbarIconView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,7 +126,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\LearnerBaloon.xaml">
+    <Page Include="Views\LearnerBalloon.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

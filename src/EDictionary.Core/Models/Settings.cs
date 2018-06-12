@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
 {
-	public enum Option
+	public enum VocabularySource
 	{
 		Full,
 		Custom,
@@ -28,11 +28,14 @@ namespace EDictionary.Core.Models
 
 			MinInterval = 20,
 			SecInterval = 0,
-			Option = Option.Full,
+			VocabularySource = VocabularySource.Full,
 			CustomWordList = new List<string>(),
 			UseHistoryWordlist = true,
 			UseCustomWordlist = false,
 			Timeout = 12,
+
+			ModifierShortcut = "Control",
+			KeyShortcut = "K",
 		};
 
 		public bool RunAtStartup { get; set; }
@@ -40,10 +43,9 @@ namespace EDictionary.Core.Models
 		public bool IsDynamicEnabled { get; set; }
 
 		public int MinInterval { get; set; }
-
 		public int SecInterval { get; set; }
 
-		public Option Option { get; set; }
+		public VocabularySource VocabularySource { get; set; }
 
 		public List<string> CustomWordList { get; set; }
 
@@ -51,6 +53,9 @@ namespace EDictionary.Core.Models
 		public bool UseCustomWordlist { get; set; }
 
 		public int Timeout { get; set; }
+
+		public string KeyShortcut { get; set; } = "";
+		public string ModifierShortcut { get; set; } = "";
 
 		public Settings()
 		{

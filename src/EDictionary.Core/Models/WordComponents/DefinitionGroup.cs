@@ -1,6 +1,3 @@
-using EDictionary.Core.Extensions;
-using EDictionary.Vendors.RTF;
-
 namespace EDictionary.Core.Models.WordComponents
 {
 	public class DefinitionGroup
