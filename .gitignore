@@ -12,3 +12,6 @@ Release/
 packages/
 !packages/repositories.config
 StyleCop.Cache
+
+tool/cache/
+todo.txt
