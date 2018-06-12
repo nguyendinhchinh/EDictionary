@@ -17,18 +17,18 @@
 	</Style>
 
 	<Style TargetType="{x:Type CheckBox}">
-		<Setter Property="Foreground" Value="{StaticResource Silver}" />
 		<Setter Property="SnapsToDevicePixels" Value="true" />
 		<Setter Property="OverridesDefaultStyle" Value="true" />
-		<Setter Property="Height" Value="19" />
+		<Setter Property="Height" Value="18" />
+		<Setter Property="Width" Value="18" />
 		<Setter Property="FocusVisualStyle" Value="{DynamicResource MyFocusVisualStyte}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type CheckBox}">
 					<BulletDecorator>
 						<BulletDecorator.Bullet>
-							<Grid Height="{TemplateBinding Height}" Width="{Binding Height, RelativeSource={RelativeSource Self}, UpdateSourceTrigger=PropertyChanged}"
-									MinHeight="19" MinWidth="19" ShowGridLines="False">
+							<Grid Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"
+									MinHeight="18" MinWidth="18" ShowGridLines="False">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="4*" />
 									<ColumnDefinition Width="1*" />
@@ -61,14 +61,14 @@
 										Grid.Column="0" Grid.ColumnSpan="8"
 										Grid.Row="0" Grid.RowSpan="9"
 										BorderThickness="0"
-										BorderBrush="{StaticResource Black3}" Width="19" Height="19" />
+										BorderBrush="#808080" Width="19" Height="19" />
 
 								<Path x:Name="CheckMark" Grid.RowSpan="6"
 										Opacity="0"
-										Data="M 0 0 L 7 7 M 0 7 L 7 0"
-										Fill="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+										Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z"
+										Fill="{StaticResource ExtraLightCyan}"
 										Stretch="Fill"
-										Stroke="{StaticResource ExtraLightCyan}" Margin="-1.506,-0.44,0,-1.882" Grid.ColumnSpan="6" Grid.Row="2" Height="11.75" VerticalAlignment="Bottom" Width="12.509" HorizontalAlignment="Left" RenderTransformOrigin="0.504,0.39" StrokeThickness="2" Grid.Column="1" />
+										Stroke="{StaticResource ExtraLightCyan}" Margin="-1.294,0,0,-1.478" Grid.ColumnSpan="6" Grid.Row="2" Height="10.55" VerticalAlignment="Bottom" Width="11.709" HorizontalAlignment="Left" RenderTransformOrigin="0.504,0.39" StrokeThickness="0.5" Grid.Column="1" />
 
 								<Path x:Name="InderminateMark"
 										Grid.Column="3"
@@ -77,7 +77,7 @@
 										Opacity="0"
 										Stretch="Fill"
 										StrokeThickness="0"
-										Fill="#808080" />
+										Fill="{StaticResource Gray}" />
 							</Grid>
 						</BulletDecorator.Bullet>
 						<VisualStateManager.VisualStateGroups>
@@ -114,8 +114,9 @@
 						</Trigger>
 						<Trigger Property="IsEnabled" Value="False">
 							<Setter TargetName="CheckMark" Property="Fill" Value="{StaticResource Black3}" />
-						    <Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Black3}" />
-							<Setter TargetName="CheckMark" Property="Stroke" Value="{StaticResource Black3}" />
+							<Setter TargetName="MainBorder" Property="Background" Value="{StaticResource Black3}" />
+							<Setter TargetName="CheckMark" Property="Stroke" Value="{StaticResource Gray}" />
+							<Setter TargetName="CheckMark" Property="Fill" Value="{StaticResource Gray}" />
 							<Setter TargetName="InderminateMark" Property="Fill" Value="{StaticResource Black3}" />
 							<Setter TargetName="InnerBorder" Property="BorderBrush" Value="{StaticResource Black3}" />
 						</Trigger>
@@ -123,6 +124,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		</Style>
+	</Style>
 
 </ResourceDictionary>
