@@ -15,9 +15,9 @@
 	MinWidth="{Binding WindowMinimumWidth}"
 	Height="470"
 	Width="650"
-  Title="EDictionary"
-  Icon="../Resources/E-Dictionary.ico"
-  Style="{StaticResource ParentWindow}">
+	Title="EDictionary"
+	Icon="../Resources/E-Dictionary.ico"
+	Style="{StaticResource ParentWindow}">
 
 	<i:Interaction.Triggers>
 		<i:EventTrigger EventName="Closed">
@@ -42,7 +42,7 @@
 			<RowDefinition Height="40"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		 
+
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="145"/>
 			<ColumnDefinition Width="*"/>
