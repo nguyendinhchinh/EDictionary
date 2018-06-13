@@ -9,8 +9,7 @@
 		<Setter Property="Control.Template">
 			<Setter.Value>
 				<ControlTemplate>
-					<Rectangle x:Name="FocusStyle" StrokeDashArray="4 4" RadiusX="5" RadiusY="5" Fill="Transparent"
-						           Stroke="#81d2eb" StrokeThickness="1" />
+					<Rectangle x:Name="FocusStyle" StrokeThickness="0" />
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>

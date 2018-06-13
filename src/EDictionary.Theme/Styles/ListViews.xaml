@@ -6,17 +6,16 @@
 		<ResourceDictionary Source="Controls.xaml"/>
 		<ResourceDictionary Source="Colors.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
-	
-	<Style TargetType="ListView" BasedOn="{StaticResource BaseStyle}">
 
+	<Style TargetType="ListView" BasedOn="{StaticResource BaseStyle}">
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-
 		<Setter Property="Background" Value="{StaticResource Black2}"/>
 		<Setter Property="Foreground" Value="{StaticResource Silver}"/>
 
 		<Style.Resources>
 			<Style TargetType="ListViewItem">
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 				<Setter Property="Template">
 					<Setter.Value>
 
