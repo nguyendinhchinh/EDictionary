@@ -7,7 +7,7 @@
     <ResourceDictionary Source="Fonts.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
-	<Style  TargetType="{x:Type TabControl}">
+	<Style TargetType="{x:Type TabControl}">
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabControl}">
@@ -27,7 +27,7 @@
 	</Style>
 
 	<Style TargetType="{x:Type TabItem}">
-	  <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+		<Setter Property="FontFamily" Value="{StaticResource QuicksandMedium}"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type TabItem}">
@@ -39,25 +39,23 @@
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsMouseOver" Value="True">
 							<Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="{StaticResource LightCyan}" />
+							<Setter TargetName="Border" Property="Background" Value="{StaticResource Cyan}" />
+							<Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="{StaticResource White}" />
 						</Trigger>
 						<Trigger Property="IsMouseOver" Value="False">
-							<Setter Property="TextElement.Foreground" 
-                                        TargetName="ContentSite" Value="{StaticResource Cyan}" />
+							<Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="{StaticResource Cyan}" />
 						</Trigger>
 						<Trigger Property="IsSelected" Value="True">
-							<Setter Property="TextElement.FontWeight"
-                                           TargetName="ContentSite" Value="Bold"/>
-							<Setter Property="TextElement.Foreground" 
-                                            TargetName="ContentSite" Value="{StaticResource LightCyan}"/>
+							<Setter Property="TextElement.FontWeight" TargetName="ContentSite" Value="Bold"/>
+							<Setter Property="TextElement.Foreground" TargetName="ContentSite" Value="{StaticResource LightCyan}"/>
+							<Setter TargetName="Border" Property="Background" Value="{StaticResource Cyan}" />
 						</Trigger>
 						<Trigger Property="IsSelected" Value="False">
-							<Setter Property="TextElement.FontWeight" 
-                                             TargetName="ContentSite" Value="Normal"/>
+							<Setter Property="TextElement.FontWeight" TargetName="ContentSite" Value="Normal"/>
 						</Trigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
-
 </ResourceDictionary>
