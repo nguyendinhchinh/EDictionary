@@ -60,12 +60,20 @@
 					</Label>
 
 					<Label Grid.Column="1"
-            behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
-            behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
+                        behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+                        behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
 					</Label>
+
+				    <Label Grid.Column="2"
+				           behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+				           behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+				           behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+				           behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+				           behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
+				    </Label>
 
 					<StackPanel Grid.Column="2" Orientation="Horizontal">
 						<Button DockPanel.Dock="Right" VerticalAlignment="Center" Style="{StaticResource MaximizeButton}" Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
@@ -122,12 +130,21 @@
 					</Label>
 
 					<Label Grid.Column="1"
-            behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
-            behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-            behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
+                        behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+                        behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                        behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
 					</Label>
+
+					<Label Grid.Column="2"
+					       behaviors:WindowDragBehavior.LeftMouseButtonDrag="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					       behaviors:ControlDoubleClickBehavior.ExecuteCommand="{StaticResource MaximizeCommand}"
+					       behaviors:ControlDoubleClickBehavior.ExecuteCommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					       behaviors:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+					       behaviors:ShowSystemMenuBehavior.RightButtonShow="true">
+					</Label>
+
 
 					<Button Grid.Column="2"
 							HorizontalAlignment="Right"

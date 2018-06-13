@@ -23,6 +23,7 @@
 		<ResourceDictionary Source="../Styles/IntegerUpDown.xaml"/>
 		<ResourceDictionary Source="../Styles/Checkboxs.xaml"/>
 		<ResourceDictionary Source="../Styles/TabControl.xaml"/>
+	  <ResourceDictionary Source="../Styles/Combobox.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
