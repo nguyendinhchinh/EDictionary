@@ -7,6 +7,8 @@ using EDictionary.Core.Utilities;
 using EDictionary.Core.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,8 +18,13 @@ namespace EDictionary.Core.Learner.ViewModels
 {
 	public enum Status
 	{
+		// Stop spawning timer
 		Stop,
+
+		// Stop active timer
 		Pause,
+
+		// Else
 		Run,
 	}
 
@@ -78,12 +85,17 @@ namespace EDictionary.Core.Learner.ViewModels
 
 			private set
 			{
-				prevStatus = CurrentStatus;
+				if (prevStatus != CurrentStatus)
+					prevStatus = CurrentStatus;
 
 				if (value == Status.Run)
 					NextStatus = Status.Stop;
 				if (value == Status.Stop)
 					NextStatus = Status.Run;
+				if (value == Status.Pause)
+				{
+					// NEIN
+				}
 
 				SetProperty(ref currentStatus, value);
 			}
@@ -114,14 +126,13 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		#region Actions
 
-		public Action ShowMainDictionaryAction { get; set; }
 		public Action ShowSettingsWindowAction { get; set; }
 		public Action ShowAboutWindowAction { get; set; }
 		public Action ShowLearnerBalloonAction { get; set; }
 		public Action HideLearnerBalloonAction { get; set; }
 		public Action ShowDefinitionPopupAction { get; set; }
 
-		public void OpenMainDictionary() => ShowMainDictionaryAction.Invoke();
+		public void OpenMainDictionary() => Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EDictionary.exe"));
 		public void OpenSettings()
 		{
 			ShowSettingsWindowAction.Invoke();

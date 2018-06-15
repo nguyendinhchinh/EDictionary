@@ -1,12 +1,6 @@
 ﻿using EDictionary.Controls;
 using EDictionary.Core.ViewModels;
-using EDictionary.Theme.Utilities;
-using ICSharpCode.AvalonEdit.Highlighting;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Xml;
 
 namespace EDictionary.Core.Views
 {
@@ -19,7 +13,6 @@ namespace EDictionary.Core.Views
 
 		public MainWindow()
 		{
-			RegisterCustomHighlight();
 			InitializeComponent();
 
 			viewModel = new MainViewModel
@@ -29,42 +22,6 @@ namespace EDictionary.Core.Views
 			};
 
 			DataContext = viewModel;
-		}
-
-		private void RegisterCustomHighlight()
-		{
-			IHighlightingDefinition eDictionaryHighlighting;
-
-			// Remember to set Build Action to 'Embedded Resource'
-			using (Stream s = typeof(MainWindow).Assembly.GetManifestResourceStream("EDictionary.Core.Views.EDictionary.xshd"))
-			{
-				if (s == null)
-					throw new InvalidOperationException("Could not find embedded resource");
-
-				using (XmlReader reader = new XmlTextReader(s))
-				{
-					eDictionaryHighlighting = ICSharpCode.AvalonEdit.Highlighting.Xshd.
-						HighlightingLoader.Load(reader, HighlightingManager.Instance);
-				}
-			}
-
-			Dictionary<string, string> groupToColor = new Dictionary<string, string>()
-			{
-				{ "Header", "Yellow" },
-				{ "Label", "Gray" },
-				{ "Example", "LightBlue" },
-				{ "WrongWord", "LightRed" },
-			};
-
-			foreach (var item in groupToColor)
-			{
-				var highlightingColor = eDictionaryHighlighting.NamedHighlightingColors.First(c => c.Name == item.Key);
-
-				highlightingColor.Foreground = new SimpleHighlightingBrush(ColorPicker.GetMediaColor(item.Value));
-			}
-
-			// and register it in the HighlightingManager
-			HighlightingManager.Instance.RegisterHighlighting("EDictionary", new string[] { ".edic" }, eDictionaryHighlighting);
 		}
 
 		private void ShowSettingsWindow()

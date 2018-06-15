@@ -100,7 +100,7 @@
 				BindingText="{Binding Definition}"
 				SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 				ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-				SyntaxHighlighting="EDictionary" >
+				SyntaxHighlighting="EDictionary">
 
 				<i:Interaction.Behaviors>
 					<behaviors:SurpressBringIntoViewBehavior />

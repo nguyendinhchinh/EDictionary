@@ -34,8 +34,8 @@ namespace EDictionary.Core.Models
 			UseCustomWordlist = false,
 			Timeout = 12,
 
-			ModifierShortcut = "Control",
-			KeyShortcut = "K",
+			ModifierShortcut = "LControl",
+			KeyShortcut = "Z",
 		};
 
 		public bool RunAtStartup { get; set; }

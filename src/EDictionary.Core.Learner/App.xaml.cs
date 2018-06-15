@@ -3,6 +3,7 @@ using EDictionary.Core.Learner.Views;
 using EDictionary.Core.Views;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
@@ -11,8 +12,16 @@ namespace EDictionary.Core.Learner
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
-	public partial class App : System.Windows.Application
+	public partial class App : Application
 	{
+		/// <summary>
+		/// This is not a window class so we cannot use .OpenDialog() to make sure
+		/// only one instance of window is opened at a time, therefore we'll have
+		/// to keep track of the window manually
+		/// </summary>
+		private AboutWindow aboutWindow;
+		private SettingsWindow settingsWindow;
+
 		private TaskbarIcon taskbarIcon;
 		private LearnerViewModel learnerVM;
 
@@ -22,7 +31,6 @@ namespace EDictionary.Core.Learner
 
 			learnerVM = new LearnerViewModel()
 			{
-				ShowMainDictionaryAction = new Action(ShowMainDictionary),
 				ShowSettingsWindowAction = new Action(ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(ShowAboutWindow),
 				ShowLearnerBalloonAction = new Action(ShowLearnerBalloon),
@@ -36,33 +44,53 @@ namespace EDictionary.Core.Learner
 			learnerVM.RunAsync();
 		}
 
-		private void ShowMainDictionary()
+		private void ShowWindowInNewThread<T>() where T : Window, new()
 		{
-			var mainDictionary = new MainWindow();
+			Thread thread = new Thread(() =>
+			{
+				var window = new T();
 
-			mainDictionary.ShowDialog();
+				window.ShowDialog();
+				window.Closed += (sender, e) => window.Dispatcher.BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority.Background);
+				System.Windows.Threading.Dispatcher.Run();
+			});
+
+			thread.IsBackground = true;
+			thread.SetApartmentState(ApartmentState.STA);
+			thread.Start();
 		}
 
 		private void ShowSettingsWindow()
 		{
-			var settingsWindow = new SettingsWindow();
+			if (settingsWindow != null)
+			{
+				settingsWindow.Focus();
+				return;
+			}
 
+			settingsWindow = new SettingsWindow();
+			settingsWindow.Closed += (s, e) => settingsWindow = null;
 			settingsWindow.ShowDialog();
 		}
 
 		private void ShowAboutWindow()
-		{	
-			var aboutWindow = new AboutWindow();
+		{
+			if (aboutWindow != null)
+			{
+				aboutWindow.Focus();
+				return;
+			}
 
+			aboutWindow = new AboutWindow();
+			aboutWindow.Closed += (s, e) => aboutWindow = null;
 			aboutWindow.ShowDialog();
 		}
 
 		private void ShowDefinitionPopup()
 		{
-			MessageBox.Show("Hello world");
-			//DefinitionPopup popup = new DefinitionPopup();
+			DefinitionPopup popup = new DefinitionPopup();
 
-			//popup.ShowDialog();
+			popup.ShowDialog();
 		}
 
 		private void ShowLearnerBalloon()

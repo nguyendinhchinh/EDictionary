@@ -126,7 +126,7 @@ namespace EDictionary.Core.ViewModels
 
 			DefinitionVM = new DefinitionViewModel()
 			{
-				DoubleClickCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection),
+				DoubleClickCommand = new DelegateCommand(SearchFromSelection),
 			};
 
 			otherResultNameToID = new Dictionary<string, string>();
@@ -297,14 +297,6 @@ namespace EDictionary.Core.ViewModels
 				ShowDefinition(word);
 
 			UpdateHistory(word);
-		}
-
-		public bool CanSearchFromSelection()
-		{
-			if (DefinitionVM.Word == null)
-				return false;
-
-			return true;
 		}
 
 		#endregion
