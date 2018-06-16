@@ -9,6 +9,7 @@ namespace EDictionary.Core.Data.Factory
 		{
 			DatabaseInfo dbInfo = new DatabaseInfo();
 
+			//dbInfo.SaveDir = ApplicationPath.CommonApplicationData;
 			dbInfo.SaveDir = AppDomain.CurrentDomain.BaseDirectory;
 			dbInfo.SavePath = Path.Combine(dbInfo.SaveDir, "words.sqlite");
 			dbInfo.ConnectionString = $"Data Source={dbInfo.SavePath};Version=3;";

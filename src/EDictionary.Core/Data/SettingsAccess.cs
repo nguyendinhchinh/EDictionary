@@ -14,7 +14,7 @@ namespace EDictionary.Core.Data
 			{
 				Settings settings = new Settings();
 
-				using (FileStream stream = new FileStream(Settings.Path, FileMode.Open))
+				using (FileStream stream = new FileStream(Settings.FullPath, FileMode.Open))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(Settings));
 					settings = serializer.Deserialize(stream) as Settings;
@@ -35,7 +35,7 @@ namespace EDictionary.Core.Data
 				if (!Directory.Exists(Settings.Directory))
 					Directory.CreateDirectory(Settings.Directory);
 
-				using (FileStream stream = new FileStream(Settings.Path, FileMode.Create))
+				using (FileStream stream = new FileStream(Settings.FullPath, FileMode.Create))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(Settings));
 					serializer.Serialize(stream, settings);

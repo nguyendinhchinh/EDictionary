@@ -1,5 +1,7 @@
-﻿using System;
+﻿using EDictionary.Core.Utilities;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml.Serialization;
 
 namespace EDictionary.Core.Models
@@ -13,11 +15,12 @@ namespace EDictionary.Core.Models
 	[Serializable]
 	public class Settings
 	{
+		//Assembly.GetEntryAssembly().GetName().Name
 		[XmlIgnore]
-		public static readonly string Directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+		public static readonly string Directory = Path.Combine(ApplicationPath.ApplicationData, "data");
 
 		[XmlIgnore]
-		public static readonly string Path = System.IO.Path.Combine(Directory, "settings.xml");
+		public static readonly string FullPath = Path.Combine(Directory, "settings.xml");
 
 		[XmlIgnore]
 		public static Settings Default = new Settings()

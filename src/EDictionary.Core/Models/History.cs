@@ -1,6 +1,8 @@
 ﻿using EDictionary.Core.Extensions;
+using EDictionary.Core.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
@@ -10,9 +12,9 @@ namespace EDictionary.Core.Models
 	public class History<T>
 	{
 		[XmlIgnore]
-		public static readonly string Directory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data");
+		public static readonly string Directory = Path.Combine(ApplicationPath.ApplicationData, "data");
 		[XmlIgnore]
-		public static readonly string Path = System.IO.Path.Combine(Directory, "history.xml");
+		public static readonly string FullPath = Path.Combine(Directory, "history.xml");
 
 		[XmlIgnore]
 		public static History<T> Default = new History<T>()

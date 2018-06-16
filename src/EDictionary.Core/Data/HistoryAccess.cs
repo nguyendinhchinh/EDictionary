@@ -14,7 +14,7 @@ namespace EDictionary.Core.Data
 			{
 				History<T> history = new History<T>();
 
-				using (FileStream stream = new FileStream(History<T>.Path, FileMode.Open))
+				using (FileStream stream = new FileStream(History<T>.FullPath, FileMode.Open))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(History<T>));
 					history = serializer.Deserialize(stream) as History<T>;
@@ -35,7 +35,7 @@ namespace EDictionary.Core.Data
 				if (!Directory.Exists(History<T>.Directory))
 					Directory.CreateDirectory(History<T>.Directory);
 
-				using (FileStream stream = new FileStream(History<T>.Path, FileMode.Create))
+				using (FileStream stream = new FileStream(History<T>.FullPath, FileMode.Create))
 				{
 					XmlSerializer serializer = new XmlSerializer(typeof(History<T>));
 					serializer.Serialize(stream, history);

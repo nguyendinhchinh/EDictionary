@@ -4,3 +4,6 @@
 [submodule "tool/data"]
 	path = tool/data
 	url = https://github.com/haulinh/oxford-dictionary-data
+[submodule "src/EDictionary/Data"]
+	path = src/EDictionary/Data
+	url = https://github.com/NearHuscarl/dictionary-data

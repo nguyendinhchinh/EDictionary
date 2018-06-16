@@ -158,6 +158,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ApplicationPath.cs" />
     <Compile Include="Utilities\AudioManager.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Models\History.cs" />
