@@ -126,7 +126,7 @@ namespace EDictionary.Core.ViewModels
 
 			DefinitionVM = new DefinitionViewModel()
 			{
-				DoubleClickCommand = new DelegateCommand(SearchFromSelection),
+				DoubleClickCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection),
 			};
 
 			otherResultNameToID = new Dictionary<string, string>();
@@ -212,14 +212,13 @@ namespace EDictionary.Core.ViewModels
 
 		private void ShowDefinition(Word word)
 		{
-			DefinitionVM.Word = word;
-			DefinitionVM.Definition = word.ToDisplayedString();
+			DefinitionVM.SetContent(word);
 		}
 
-		private void CorrectWord(string word)
+		private void CorrectWord(string wrongWord)
 		{
-			DefinitionVM.Word = null; // Hide Header
-			DefinitionVM.Definition = wordLogic.GetSuggestions(word);
+			var suggestions = wordLogic.GetSuggestions(wrongWord);
+			DefinitionVM.SetContent(suggestions);
 		}
 
 		#endregion
@@ -297,6 +296,14 @@ namespace EDictionary.Core.ViewModels
 				ShowDefinition(word);
 
 			UpdateHistory(word);
+		}
+
+		public bool CanSearchFromSelection()
+		{
+			if (DefinitionVM.Word == null)
+				return false;
+
+			return true;
 		}
 
 		#endregion

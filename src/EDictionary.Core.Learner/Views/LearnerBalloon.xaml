@@ -69,7 +69,7 @@
 
 		<view:DefinitionTextbox Grid.Row="1" 
 				Padding="5"
-				DataContext="{Binding DefinitionVM}"
+				DataContext="{Binding LearnerVM}"
 				NameFontSize="15"
 				WordformFontSize="12"
 				AudioButtonSize="12"

@@ -1,9 +1,12 @@
-﻿using EDictionary.Core.Learner.ViewModels;
+﻿using EDictionary.Core.Learner.Utilities;
+using EDictionary.Core.Learner.ViewModels;
 using EDictionary.Core.Learner.Views;
 using EDictionary.Core.Views;
+using Gma.System.MouseKeyHook;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 
@@ -21,43 +24,28 @@ namespace EDictionary.Core.Learner
 		/// </summary>
 		private AboutWindow aboutWindow;
 		private SettingsWindow settingsWindow;
+		private DynamicPopup definitionPopup;
 
 		private TaskbarIcon taskbarIcon;
-		private LearnerViewModel learnerVM;
+		private TaskIconViewModel taskbarIconVM;
 
 		protected override void OnStartup(StartupEventArgs e)
 		{
 			base.OnStartup(e);
 
-			learnerVM = new LearnerViewModel()
+			taskbarIconVM = new TaskIconViewModel()
 			{
 				ShowSettingsWindowAction = new Action(ShowSettingsWindow),
 				ShowAboutWindowAction = new Action(ShowAboutWindow),
 				ShowLearnerBalloonAction = new Action(ShowLearnerBalloon),
 				HideLearnerBalloonAction = new Action(HideLearnerBalloon),
-				ShowDefinitionPopupAction = new Action(ShowDefinitionPopup),
+				ShowDynamicPopupAction = new Action(ShowDynamicPopup),
 			};
 
-			taskbarIcon = (TaskbarIcon)FindResource("EDTaskbarIcon"); // See TaskbarIconView.xaml
-			taskbarIcon.DataContext = learnerVM;
+			taskbarIcon = (TaskbarIcon)FindResource("EDTaskbarIcon");
+			taskbarIcon.DataContext = taskbarIconVM;
 
-			learnerVM.RunAsync();
-		}
-
-		private void ShowWindowInNewThread<T>() where T : Window, new()
-		{
-			Thread thread = new Thread(() =>
-			{
-				var window = new T();
-
-				window.ShowDialog();
-				window.Closed += (sender, e) => window.Dispatcher.BeginInvokeShutdown(System.Windows.Threading.DispatcherPriority.Background);
-				System.Windows.Threading.Dispatcher.Run();
-			});
-
-			thread.IsBackground = true;
-			thread.SetApartmentState(ApartmentState.STA);
-			thread.Start();
+			taskbarIconVM.RunAsync();
 		}
 
 		private void ShowSettingsWindow()
@@ -86,11 +74,11 @@ namespace EDictionary.Core.Learner
 			aboutWindow.ShowDialog();
 		}
 
-		private void ShowDefinitionPopup()
+		private void ShowDynamicPopup()
 		{
-			DefinitionPopup popup = new DefinitionPopup();
+			DynamicPopup popup = new DynamicPopup(taskbarIconVM.DynamicVM);
 
-			popup.ShowDialog();
+			popup.Show();
 		}
 
 		private void ShowLearnerBalloon()

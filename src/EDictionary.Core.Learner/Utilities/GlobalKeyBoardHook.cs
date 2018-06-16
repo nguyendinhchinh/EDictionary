@@ -1,134 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace EDictionary.Core.Learner.Utilities
 {
-	public struct KeyInfo
-	{
-		public Keys KeyData;
-		public List<Keys> KeysHold;
-
-		public KeyInfo(Keys keyData, List<Keys> keysHold)
-		{
-			KeyData = keyData;
-			KeysHold = keysHold;
-		}
-	}
-
 	public class GlobalKeyboardHook
 	{
-		[DllImport("user32.dll")]
-		static extern int CallNextHookEx(IntPtr hhk, int code, int wParam, ref KeyBoardHookStruct lParam);
+		private static GlobalKeyboardHookInternal keyboardHook = new GlobalKeyboardHookInternal();
 
-		[DllImport("user32.dll")]
-		static extern IntPtr SetWindowsHookEx(int idHook, LLKeyboardHook callback, IntPtr hInstance, uint theardID);
+		public event KeyEventHandler KeyDown
+		{
+			add { keyboardHook.KeyDown += value; }
+			remove { keyboardHook.KeyDown -= value; }
+		}
 
-		[DllImport("user32.dll")]
-		static extern bool UnhookWindowsHookEx(IntPtr hInstance);
+		public event KeyEventHandler KeyUp
+		{
+			add { keyboardHook.KeyUp += value; }
+			remove { keyboardHook.KeyUp -= value; }
+		}
 
-		[DllImport("kernel32.dll")]
-		static extern IntPtr LoadLibrary(string lpFileName);
+		public event KeyEventHandler KeyPressed
+		{
+			add { keyboardHook.KeyPressed += value; }
+			remove { keyboardHook.KeyPressed -= value; }
+		}
 
-		// This is the Constructor. This is the code that runs every time you create a new GlobalKeyboardHook object
 		public GlobalKeyboardHook()
 		{
-			llkh = new LLKeyboardHook(HookProc);
-			// This starts the hook. You can leave this as comment and you have to start it manually (the thing I do in the tutorial, with the button)
-			// Or delete the comment mark and your hook will start automatically when your program starts (because a new GlobalKeyboardHook object is created)
-			// That's why there are duplicates, because you start it twice! I'm sorry, I haven't noticed this...
-			// hook(); <-- Choose!
-		}
-
-		~GlobalKeyboardHook()
-		{
-			Unhook();
-		}
-
-		public delegate int LLKeyboardHook(int Code, int wParam, ref KeyBoardHookStruct lParam);
-
-		public struct KeyBoardHookStruct
-		{
-			public int vkCode;
-			public int scanCode;
-			public int flags;
-			public int time;
-			public int dwExtraInfo;
-		}
-
-		const int WH_KEYBOARD_LL = 13;
-		const int WM_KEYDOWN = 0x0100;
-		const int WM_KEYUP = 0x0101;
-		const int WM_SYSKEYDOWN = 0x0104;
-		const int WM_SYSKEYUP = 0x0105;
-
-		LLKeyboardHook llkh;
-		public List<Keys> hookedKeys = new List<Keys>();
-
-		IntPtr hook = IntPtr.Zero;
-
-		public event KeyEventHandler KeyDown;
-		public event KeyEventHandler KeyUp;
-		public Action<KeyInfo> KeyPressedCallback;
-
-		private List<Keys> keysHold = new List<Keys>();
-
-		public void Hook()
-		{
-			IntPtr hInstance = LoadLibrary("User32");
-			hook = SetWindowsHookEx(WH_KEYBOARD_LL, llkh, hInstance, 0);
-		}
-
-		public void Unhook()
-		{
-			UnhookWindowsHookEx(hook);
-		}
-
-		private bool IsModifiers(Keys key)
-		{
-			foreach (Modifiers modifier in Enum.GetValues(typeof(Modifiers)))
+			// Track all keys
+			foreach (Keys key in Enum.GetValues(typeof(Keys)))
 			{
-				if (key == (Keys)modifier)
-					return true;
+				keyboardHook.HookedKeys.Add(key);
 			}
-			return false;
+
+			keyboardHook.Start();
 		}
 
-		public int HookProc(int code, int wParam, ref KeyBoardHookStruct lParam)
+		public void Assign(KeyCombination combination, Action action)
 		{
-			if (code >= 0)
-			{
-				Keys key = (Keys)lParam.vkCode;
+			CreateHookIfNecessary(combination);
 
-				if (hookedKeys.Contains(key))
+			KeyPressed += (sender, e) =>
+			{
+				foreach (var modifier in combination.Modifiers)
 				{
-					KeyEventArgs kArg = new KeyEventArgs(key);
-
-					if (wParam == WM_KEYDOWN || wParam == WM_SYSKEYDOWN)
-					{
-						KeyDown?.Invoke(this, kArg);
-
-						if (IsModifiers(key))
-							keysHold.Add(key);
-					}
-					else if (wParam == WM_KEYUP || wParam == WM_SYSKEYUP)
-					{
-						KeyUp?.Invoke(this, kArg);
-
-						if (IsModifiers(key))
-							keysHold.Remove(key);
-
-						KeyPressedCallback.Invoke(new KeyInfo(key, keysHold));
-					}
-
-					if (kArg.Handled)
-					{
-						return 1;
-					}
+					if (!keyboardHook.KeysHold.Contains(modifier))
+						return;
 				}
+
+				if (combination.TriggerKey == e.KeyData)
+				{
+					action?.Invoke();
+				}
+			};
+		}
+
+		public void CreateHookIfNecessary(KeyCombination combination)
+		{
+			if (!keyboardHook.HookedKeys.Contains(combination.TriggerKey))
+				keyboardHook.HookedKeys.Add(combination.TriggerKey);
+
+			foreach (var modifier in combination.Modifiers)
+			{
+				if (!keyboardHook.HookedKeys.Contains(modifier))
+					keyboardHook.HookedKeys.Add(modifier);
 			}
-			return CallNextHookEx(hook, code, wParam, ref lParam);
 		}
 	}
 }

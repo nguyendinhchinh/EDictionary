@@ -78,8 +78,9 @@ namespace EDictionary.Core.ViewModels
 
 			DynamicSettingsVM = new DynamicSettingsViewModel()
 			{
-				ModifierShortcut = settings.ModifierShortcut,
-				KeyShortcut = settings.KeyShortcut,
+				AutoCopyToClipboard = settings.AutoCopyToClipboard,
+				UseTriggerKey = settings.UseTriggerKey,
+				SelectedKey = settings.TriggerKey,
 			};
 		}
 
@@ -112,8 +113,9 @@ namespace EDictionary.Core.ViewModels
 					UseCustomWordlist = LearnerSettingsVM.UseCustomWordlist,
 					Timeout = LearnerSettingsVM.Timeout,
 
-					ModifierShortcut = DynamicSettingsVM.ModifierShortcut,
-					KeyShortcut = DynamicSettingsVM.KeyShortcut,
+					AutoCopyToClipboard = DynamicSettingsVM.AutoCopyToClipboard,
+					UseTriggerKey = DynamicSettingsVM.UseTriggerKey,
+					TriggerKey = DynamicSettingsVM.SelectedKey,
 				};
 
 				settingsLogic.SaveSettings(settings);

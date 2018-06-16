@@ -34,8 +34,9 @@ namespace EDictionary.Core.Models
 			UseCustomWordlist = false,
 			Timeout = 12,
 
-			ModifierShortcut = "LControl",
-			KeyShortcut = "Z",
+			AutoCopyToClipboard = true,
+			UseTriggerKey = true,
+			TriggerKey = "LControl",
 		};
 
 		public bool RunAtStartup { get; set; }
@@ -54,8 +55,9 @@ namespace EDictionary.Core.Models
 
 		public int Timeout { get; set; }
 
-		public string KeyShortcut { get; set; } = "";
-		public string ModifierShortcut { get; set; } = "";
+		public bool AutoCopyToClipboard { get; set; }
+		public bool UseTriggerKey { get; set; }
+		public string TriggerKey { get; set; } = "";
 
 		public Settings()
 		{

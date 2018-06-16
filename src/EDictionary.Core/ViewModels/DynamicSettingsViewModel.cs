@@ -7,50 +7,52 @@ namespace EDictionary.Core.ViewModels
 {
 	public class DynamicSettingsViewModel : ViewModelBase, IDynamicSettingsViewModel
 	{
-		private List<string> modifierKeys;
-		private string modifierShortcut;
-		private string keyShortcut;
+		private bool canEditTriggerKey;
+		private bool autoCopyToClipboard;
+		private bool useTriggerKey;
+		private List<string> triggerKeys;
+		private string selectedKey;
 
-		public List<string> ModifierKeys
+		public bool CanEditTriggerKey
 		{
-			get { return modifierKeys; }
+			get { return canEditTriggerKey; }
+			set { SetPropertyAndNotify(ref canEditTriggerKey, value); }
 		}
 
-		public string ModifierShortcut
+		public bool AutoCopyToClipboard
 		{
-			get { return modifierShortcut; }
-			set { SetPropertyAndNotify(ref modifierShortcut, value); }
+			get { return autoCopyToClipboard; }
+			set { SetPropertyAndNotify(ref autoCopyToClipboard, value); }
 		}
 
-		public string KeyShortcut
+		public bool UseTriggerKey
 		{
-			get { return keyShortcut; }
-
-			/// <summary>
-			/// Limit to only one character (the newest). Cannot use property MaxLength = 1
-			/// in Textbox because we want the user to update the key without having to press
-			/// backspace
-			/// </summary>
+			get { return useTriggerKey; }
 			set
 			{
-				string key = value;
+				if (value)
+					CanEditTriggerKey = true;
+				else
+					CanEditTriggerKey = false;
 
-				if (value.Length > 1)
-				{
-					key = key.ToCharArray()
-						.Where(chr => chr != KeyShortcut.First())
-						.Select(x => x)
-						.First()
-						.ToString();
-				}
-
-				SetPropertyAndNotify(ref keyShortcut, key.ToUpper());
+				SetPropertyAndNotify(ref useTriggerKey, value);
 			}
+		}
+
+		public List<string> TriggerKeys
+		{
+			get { return triggerKeys; }
+		}
+
+		public string SelectedKey
+		{
+			get { return selectedKey; }
+			set { SetPropertyAndNotify(ref selectedKey, value); }
 		}
 
 		public DynamicSettingsViewModel()
 		{
-			modifierKeys = new List<string>()
+			triggerKeys = new List<string>()
 			{
 				"LControl",
 				"RControl",

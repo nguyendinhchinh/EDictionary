@@ -11,54 +11,58 @@
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30"/>
+			<RowDefinition Height="90"/>
 			<RowDefinition Height="110"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<Label Grid.Row="1" Margin="10,0,0,0"
+		<StackPanel Orientation="Vertical" Grid.Row="1"
+			Margin="10,0,0,0">
+
+			<Label
+				Style="{StaticResource SmallHeaderLabel}"
+				Content="Behavior"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"/>
+			
+			<CheckBox Grid.Row="1" Grid.Column="0"
+				IsChecked="{Binding AutoCopyToClipboard}"
+				Content="Auto copy to clipboard"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="10,5,0,0"/>
+			
+			<CheckBox Grid.Row="1" Grid.Column="0"
+				IsChecked="{Binding UseTriggerKey}"
+				Content="Use trigger key"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				Margin="10,5,0,0"/>
+
+		</StackPanel>
+
+
+		<StackPanel Orientation="Vertical" Grid.Row="2"
+			Margin="10,0,0,0">
+
+			<Label
 				Style="{StaticResource SmallHeaderLabel}"
 				Content="Shortcut"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"/>
 
-		<StackPanel Orientation="Horizontal" Grid.Row="1"
-			Margin="20,30,0,0">
-			<StackPanel Orientation="Vertical" Margin="0,0,10,0">
-
-				<Label
+			<Label Margin="10,0,0,0"
 					Style="{StaticResource NormalLabel}"
-					Content="Modifier"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"/>
+					Content="Trigger Key"/>
 
-				<ComboBox ItemsSource="{Binding ModifierKeys}"
-					SelectedItem="{Binding ModifierShortcut}"
-					Width="80">
-				</ComboBox>
+			<ComboBox Margin="10,0,0,0"
+				ItemsSource="{Binding TriggerKeys}"
+				SelectedItem="{Binding SelectedKey}"
+				IsEnabled="{Binding CanEditTriggerKey}"
+				HorizontalAlignment="Left"
+				Width="80">
+			</ComboBox>
 
-			</StackPanel>
-			<StackPanel Orientation="Vertical">
-
-				<Label
-					Style="{StaticResource NormalLabel}"
-					Content="Key"
-					VerticalAlignment="Center"
-					HorizontalAlignment="Center"/>
-
-				<TextBox Width="40"
-					Style="{StaticResource TextBoxBase}"
-					Text="{Binding KeyShortcut, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-					VerticalAlignment="Center"
-					TextAlignment="Center">
-							
-					<!--<i:Interaction.Triggers>
-						<i:EventTrigger EventName="KeyUp">
-							<i:InvokeCommandAction Command="{Binding UpdateKeyCommand}" />
-						</i:EventTrigger>
-					</i:Interaction.Triggers>-->
-				</TextBox>
-
-			</StackPanel>
 		</StackPanel>
 
 	</Grid>

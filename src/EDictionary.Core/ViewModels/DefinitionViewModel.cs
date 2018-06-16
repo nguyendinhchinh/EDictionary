@@ -1,7 +1,9 @@
-﻿using EDictionary.Core.Models;
+﻿using System;
+using EDictionary.Core.Models;
 using EDictionary.Core.Models.WordComponents;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.ViewModels.Interfaces;
+using EDictionary.Core.DataLogic;
 
 namespace EDictionary.Core.ViewModels
 {
@@ -66,7 +68,7 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
-		public DefinitionViewModel()
+		public DefinitionViewModel(WordLogic wordLogic = null)
 		{
 			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
 			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);
@@ -76,7 +78,19 @@ namespace EDictionary.Core.ViewModels
 		public DelegateCommand PlayBrEAudioCommand { get; private set; }
 		public DelegateCommand DoubleClickCommand { get; set; }
 
-		#region PlayAudio
+		#region Methods
+
+		public void SetContent(Word word)
+		{
+			Word = word;
+			Definition = word.ToDisplayedString();
+		}
+
+		public void SetContent(string text)
+		{
+			Word = null; // Hide Header
+			Definition = text;
+		}
 
 		public void PlayBrEAudio()
 		{
