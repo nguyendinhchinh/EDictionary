@@ -28,7 +28,7 @@
 			</ContextMenu>
 
 			<tb:TaskbarIcon x:Key="EDTaskbarIcon"
-				IconSource="/Icons/E-Dictionary.ico"
+				IconSource="/EDictionary.ico"
 				ToolTipText="EDictionary Learner"
 				LeftClickCommand="{Binding OpenLearnerBalloonCommand}"
 				ContextMenu="{StaticResource SysTrayMenu}" />

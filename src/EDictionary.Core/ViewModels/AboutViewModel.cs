@@ -46,7 +46,7 @@ namespace EDictionary.Core.ViewModels
 
 			builder.AppendLine("Nguyễn Khánh Nguyên");
 			builder.AppendLine("Lê Khắc Hậu Linh");
-			builder.AppendLine("Đỗ Thành Lộc");
+			builder.Append("Đỗ Thành Lộc");
 
 			return builder.ToString();
 		}

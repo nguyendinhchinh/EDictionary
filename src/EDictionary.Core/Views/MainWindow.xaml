@@ -16,7 +16,7 @@
 	Height="470"
 	Width="650"
 	Title="EDictionary"
-	Icon="../Resources/E-Dictionary.ico"
+	Icon="../EDictionary.ico"
 	Style="{StaticResource ParentWindow}">
 
 	<i:Interaction.Triggers>

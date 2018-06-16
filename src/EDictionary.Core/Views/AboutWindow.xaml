@@ -12,14 +12,14 @@
 	ResizeMode="NoResize"
 	Height="300"
 	Width="400"
-  Style="{StaticResource ChildWindow}">
-	
+	Style="{StaticResource ChildWindow}">
+
 	<Grid>
 
 		<Grid.RowDefinitions>
-			<RowDefinition Height="100"/>
+			<RowDefinition Height="120"/>
 			<RowDefinition Height="30"/>
-			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="30"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
@@ -30,14 +30,18 @@
 		</Grid.ColumnDefinitions>
 
 		<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-
+			
+			<Image Source="../Resources/EDictionary.png"
+				RenderOptions.BitmapScalingMode="HighQuality"
+				Height="90"/>
+			
 			<Label
-			Style="{StaticResource SmallHeaderLabel}"
-			Content="Free Dictionary English"
-		  Foreground="{StaticResource White}"
-			HorizontalAlignment="Center"
-			Margin="0,0,0,0"
-			VerticalAlignment="Bottom"/>
+				Style="{StaticResource SmallHeaderLabel}"
+				Content="EDictionary"
+				Foreground="{StaticResource White}"
+				HorizontalAlignment="Center"
+				Margin="0,0,0,0"
+				VerticalAlignment="Bottom"/>
 
 		</Grid>
 
@@ -76,7 +80,7 @@
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top">
 			<Hyperlink
-					 Command="{Binding OpenLicense}">
+				Command="{Binding OpenLicenseCommand}">
 				<Hyperlink.Inlines>
 					<Run Text="{Binding License, Mode=OneWay}"/>
 				</Hyperlink.Inlines>
@@ -86,22 +90,24 @@
 		<Grid Grid.Row="4" Grid.ColumnSpan="2">
 
 			<Label Grid.Column="0" Margin="2"
-			HorizontalAlignment="Left"
-			VerticalAlignment="Bottom">
+				HorizontalAlignment="Left"
+				VerticalAlignment="Bottom">
 				<Hyperlink
-					 Command="{Binding OpenSourceCodeCommand}">
+					Command="{Binding OpenSourceCodeCommand}">
 					<Hyperlink.Inlines>
-						<fa:FontAwesome Icon="Github" FontSize="14" />
+						<fa:FontAwesome Icon="Github"
+							RenderOptions.BitmapScalingMode="HighQuality"
+							FontSize="14" />
 						<Run Text="Source Code"/>
 					</Hyperlink.Inlines>
 				</Hyperlink>
 			</Label>
 
 			<Label Grid.Column="1" Margin="2"
-			HorizontalAlignment="Right"
-			VerticalAlignment="Bottom">
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom">
 				<Hyperlink
-					 Command="{Binding OpenBugReportCommand}">
+					Command="{Binding OpenBugReportCommand}">
 					<Hyperlink.Inlines>
 						<Run Text="Bug" FontFamily="{StaticResource FontAwesome}"/>
 						<Run Text="Report Bug?"/>
