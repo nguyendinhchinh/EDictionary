@@ -1,6 +1,7 @@
 ﻿using EDictionary.Core.ViewModels;
 using System;
 using System.Windows;
+using System.Windows.Input;
 
 namespace EDictionary.Core.Learner.Views
 {
@@ -9,38 +10,106 @@ namespace EDictionary.Core.Learner.Views
 	/// </summary>
 	public partial class DynamicPopup : Window
 	{
+		private enum WindowPositionToCursor
+		{
+			Top,
+			Bottom,
+			Left,
+			Right,
+		}
+
+		private bool mouseEnter = false;
+
 		public DynamicPopup(ViewModelBase viewModel)
 		{
 			InitializeComponent();
 
-			Deactivated += DynamicPopup_Deactivated;
-
 			DataContext = viewModel;
+
+			//MouseEnter += (sender, e) => mouseEnter = true;
+			//MouseLeave += (sender, e) => mouseEnter = false;
+
+			Activated += (s, e) =>
+			{
+				Popup();
+				Focus();
+			};
 		}
 
-		private void DynamicPopup_Deactivated(object sender, EventArgs e)
+		protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
 		{
-			//var popup = (DynamicPopup)sender;
+			if (!mouseEnter && !(bool)e.NewValue)
+				Visibility = Visibility.Hidden;
 
-			//App.Current.Dispatcher.Invoke(() =>
-			//{
-			//	popup.Close();
-			//});
+			base.OnIsKeyboardFocusWithinChanged(e);
 		}
 
-		protected override void OnContentRendered(EventArgs e)
+		protected override void OnSourceInitialized(EventArgs e)
 		{
-			MoveBottomLeftEdgeOfWindowToMousePosition();
+			Popup();
 
-			base.OnContentRendered(e);
+			base.OnSourceInitialized(e);
 		}
 
-		private void MoveBottomLeftEdgeOfWindowToMousePosition()
+		public void Popup()
+		{
+			int offset = 25;
+			Point mouse = GetGlobalMousePosition();
+
+			bool isOffTop = mouse.Y - ActualHeight - offset < 0;
+			bool isOffBottom = mouse.Y + offset > SystemParameters.WorkArea.Height;
+			bool isOffLeft = mouse.X - ActualWidth - offset < 0;
+			bool isOffRight = mouse.X + offset > SystemParameters.WorkArea.Width - 140;
+
+			if (isOffTop && !isOffBottom && !isOffLeft && !isOffRight)
+				MoveWindow(WindowPositionToCursor.Bottom, offset);
+
+			else if (!isOffTop && isOffBottom && !isOffLeft && !isOffRight)
+				MoveWindow(WindowPositionToCursor.Top, offset);
+
+			else if (!isOffTop && !isOffBottom && isOffLeft && !isOffRight)
+				MoveWindow(WindowPositionToCursor.Right, offset);
+
+			else if (!isOffTop && !isOffBottom && !isOffLeft && isOffRight)
+				MoveWindow(WindowPositionToCursor.Left, offset);
+
+			else
+				MoveWindow(WindowPositionToCursor.Top, offset);
+		}
+
+		private void MoveWindow(WindowPositionToCursor windowPositionToCursor, int offset=0)
+		{
+			Point mouse = GetGlobalMousePosition();
+
+			switch (windowPositionToCursor)
+			{
+				case WindowPositionToCursor.Top:
+					Left = mouse.X - ActualWidth / 2;
+					Top = mouse.Y - ActualHeight - offset;
+					break;
+
+				case WindowPositionToCursor.Bottom:
+					Left = mouse.X - ActualWidth / 2;
+					Top = mouse.Y + offset;
+					break;
+
+				case WindowPositionToCursor.Left:
+					Left = mouse.X - ActualWidth - offset;
+					Top = mouse.Y - ActualHeight / 2;
+					break;
+
+				case WindowPositionToCursor.Right:
+					Left = mouse.X + offset;
+					Top = mouse.Y - ActualHeight / 2;
+					break;
+			}
+		}
+
+		private Point GetGlobalMousePosition()
 		{
 			var transform = PresentationSource.FromVisual(this).CompositionTarget.TransformFromDevice;
-			var mouse = transform.Transform(GetMousePosition());
-			Left = mouse.X;
-			Top = mouse.Y - ActualHeight;
+			var mousePosition = transform.Transform(GetMousePosition());
+			return mousePosition;
 		}
 
 		public Point GetMousePosition()

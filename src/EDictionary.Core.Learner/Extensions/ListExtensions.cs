@@ -2,7 +2,7 @@
 
 namespace EDictionary.Core.Learner.Extensions
 {
-	static class ListExtension
+	public static class ListExtensions
 	{
 		public static T Pop<T>(this List<T> list)
 		{

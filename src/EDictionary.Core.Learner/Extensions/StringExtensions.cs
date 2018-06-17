@@ -10,7 +10,6 @@ namespace EDictionary.Core.Learner.Extensions
 	{
 		private static Dictionary<string, Keys> keysDict = new Dictionary<string, Keys>()
 		{
-
 			{ "LControl", Keys.LControlKey },
 			{ "RControl", Keys.RControlKey },
 			{ "LAlt", Keys.LMenu },

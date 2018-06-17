@@ -24,7 +24,7 @@ namespace EDictionary.Core.Learner
 		/// </summary>
 		private AboutWindow aboutWindow;
 		private SettingsWindow settingsWindow;
-		private DynamicPopup definitionPopup;
+		private DynamicPopup dynamicPopup;
 
 		private TaskbarIcon taskbarIcon;
 		private TaskIconViewModel taskbarIconVM;
@@ -44,6 +44,8 @@ namespace EDictionary.Core.Learner
 
 			taskbarIcon = (TaskbarIcon)FindResource("EDTaskbarIcon");
 			taskbarIcon.DataContext = taskbarIconVM;
+
+			dynamicPopup = new DynamicPopup(taskbarIconVM.DynamicVM);
 
 			taskbarIconVM.RunAsync();
 		}
@@ -76,9 +78,7 @@ namespace EDictionary.Core.Learner
 
 		private void ShowDynamicPopup()
 		{
-			DynamicPopup popup = new DynamicPopup(taskbarIconVM.DynamicVM);
-
-			popup.Show();
+			dynamicPopup.Show();
 		}
 
 		private void ShowLearnerBalloon()

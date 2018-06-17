@@ -15,7 +15,6 @@ namespace EDictionary.Core.Models
 	[Serializable]
 	public class Settings
 	{
-		//Assembly.GetEntryAssembly().GetName().Name
 		[XmlIgnore]
 		public static readonly string Directory = Path.Combine(ApplicationPath.ApplicationData, "data");
 
