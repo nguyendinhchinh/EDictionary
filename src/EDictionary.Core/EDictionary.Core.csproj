@@ -59,6 +59,10 @@
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
+    <Reference Include="LemmaSharp, Version=4.12.5287.29676, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LemmaGenerator.1.1.0\lib\net20\LemmaSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Windows.Shell, Version=3.0.50506.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\FlatWindow.1.0.2\lib\Microsoft.Windows.Shell.dll</HintPath>
@@ -167,7 +171,7 @@
     <Compile Include="Utilities\Result.cs" />
     <Compile Include="Utilities\Search.cs" />
     <Compile Include="Utilities\SpellCheck.cs" />
-    <Compile Include="Utilities\Stemmer.cs" />
+    <Compile Include="Utilities\WordNormalizer.cs" />
     <Compile Include="Utilities\Watcher.cs" />
     <Compile Include="Utilities\WordContractResolver.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
@@ -255,6 +259,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="lemmatizer-en.lem">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Resource Include="Resources\EDictionary.png" />
     <Resource Include="Resources\EDictionary.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

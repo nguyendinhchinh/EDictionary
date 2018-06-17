@@ -27,11 +27,7 @@ namespace EDictionary.Core.Models
 
 		public string ToDisplayedString()
 		{
-			Watcher watch = new Watcher();
-
 			List<Task<string>> tasks = new List<Task<string>>();
-
-			watch.Print("[C] Init Build");
 
 			tasks.Add(Task.Run(() => new StringBuilder().AppendReferences(References).ToString()));
 			tasks.Add(Task.Run(() => new StringBuilder().AppendDefinitionGroups(DefinitionsExamples).ToString()));
@@ -40,16 +36,12 @@ namespace EDictionary.Core.Models
 
 			Task.WaitAll(tasks.ToArray());
 
-			watch.Print("[C] Build");
-
 			StringBuilder builder = new StringBuilder();
 
 			foreach (var task in tasks)
 			{
 				builder.Append(task.Result);
 			}
-
-			watch.Print("[C] Add String");
 
 			return builder.ToString();
 		}

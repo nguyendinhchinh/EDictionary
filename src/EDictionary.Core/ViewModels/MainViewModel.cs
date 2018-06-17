@@ -122,8 +122,6 @@ namespace EDictionary.Core.ViewModels
 
 		public MainViewModel()
 		{
-			var watch = new Watcher();
-
 			DefinitionVM = new DefinitionViewModel()
 			{
 				DoubleClickCommand = new DelegateCommand(SearchFromSelection, CanSearchFromSelection),
@@ -135,8 +133,6 @@ namespace EDictionary.Core.ViewModels
 			LoadWordlistAndHistory();
 
 			SearchIcon = "SearchIcon";
-
-			watch.Print("init viewmodel");
 		}
 
 		private void LoadCommands()
@@ -233,35 +229,23 @@ namespace EDictionary.Core.ViewModels
 		{
 			//SearchIcon = "SpinnerIcon";
 			//NotifyPropertyChanged("SearchIcon");
-			System.Diagnostics.Debug.WriteLine("");
-			System.Diagnostics.Debug.WriteLine(">>> " + SearchedWord);
-			Watcher watch = new Watcher();
 
 			Word word = wordLogic.Search(SearchedWord);
 
-			watch.Print("Search");
-
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(SearchedWord);
+				var newWord = wordLogic.Normalize(SearchedWord);
 
-				if (SearchedWord != stemmedWord)
-					word = wordLogic.Search(stemmedWord);
+				if (newWord != null)
+					word = wordLogic.Search(newWord);
 			}
-			watch.Print("Stem");
 
 			if (word != null)
-			{
 				ShowDefinition(word);
-
-				watch.Print("Update Definition");
-			}
 			else
 				CorrectWord(SearchedWord);
 
 			UpdateHistory(word);
-
-			watch.Print("Update History - Finish");
 		}
 
 		public bool CanSearchFromInput()
@@ -286,10 +270,10 @@ namespace EDictionary.Core.ViewModels
 
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(DefinitionVM.SelectedWord);
+				var newWord = wordLogic.Normalize(DefinitionVM.SelectedWord);
 
-				if (DefinitionVM.SelectedWord != stemmedWord)
-					word = wordLogic.Search(stemmedWord);
+				if (newWord != null)
+					word = wordLogic.Search(newWord);
 			}
 
 			if (word != null)

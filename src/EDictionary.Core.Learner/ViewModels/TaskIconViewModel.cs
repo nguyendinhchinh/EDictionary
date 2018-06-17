@@ -172,7 +172,9 @@ namespace EDictionary.Core.Learner.ViewModels
 			}
 			else if (option == VocabularySource.Custom)
 			{
-				wordList = settings.CustomWordList.Distinct().ToList();
+				wordList = settings.CustomWordList
+					.Where(word => wordLogic.NameToIDs.ContainsKey(word))
+					.ToList();
 
 				if (useHistoryWordlist)
 				{

@@ -16,6 +16,7 @@ namespace EDictionary.Core.DataLogic
    {
 		private DataAccess dataAccess;
 		private SpellCheck spellCheck;
+		private WordNormalizer wordNormalizer;
 
 		public Dictionary<string, List<string>> NameToIDs { get; set; }
 		public List<string> WordList
@@ -35,6 +36,7 @@ namespace EDictionary.Core.DataLogic
 
 			InitWordList();
 			spellCheck = new SpellCheck(WordList);
+			wordNormalizer = new WordNormalizer();
 		}
 
 		private void InitWordList()
@@ -138,6 +140,25 @@ namespace EDictionary.Core.DataLogic
 			}
 
 			return builder.ToString();
+		}
+
+		/// <summary>
+		/// Attempt to reduce the input word to a basic form
+		/// If no word found after normalizing, return null
+		/// </summary>
+		public string Normalize(string word)
+		{
+			var normalizedWord = wordNormalizer.Stem(word);
+
+			if (NameToIDs.ContainsKey(normalizedWord))
+				return normalizedWord;
+
+			normalizedWord = wordNormalizer.Lemmatize(word);
+
+			if (NameToIDs.ContainsKey(normalizedWord))
+				return normalizedWord;
+
+			return null;
 		}
 	}
 }

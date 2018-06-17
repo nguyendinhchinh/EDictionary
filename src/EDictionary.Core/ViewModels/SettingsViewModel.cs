@@ -3,6 +3,7 @@ using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
 using EDictionary.Core.ViewModels.Interfaces;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace EDictionary.Core.ViewModels
@@ -108,7 +109,7 @@ namespace EDictionary.Core.ViewModels
 					SecInterval = LearnerSettingsVM.SecInterval,
 					MinInterval = LearnerSettingsVM.MinInterval,
 					VocabularySource = LearnerSettingsVM.Option,
-					CustomWordList = LearnerSettingsVM.CustomWordList,
+					CustomWordList = LearnerSettingsVM.CustomWordList.Select(word => word.ToLower()).Distinct().ToList(),
 					UseHistoryWordlist = LearnerSettingsVM.UseHistoryWordlist,
 					UseCustomWordlist = LearnerSettingsVM.UseCustomWordlist,
 					Timeout = LearnerSettingsVM.Timeout,
@@ -121,7 +122,6 @@ namespace EDictionary.Core.ViewModels
 				settingsLogic.SaveSettings(settings);
 
 				LogWriter.Instance.WriteLine("Saving Settings ends");
-
 			}
 			catch (Exception ex)
 			{

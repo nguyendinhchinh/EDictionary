@@ -87,15 +87,11 @@ namespace EDictionary.Core.Data
 					command.Parameters.Add(new SQLiteParameter() { ParameterName = "@id", Value = wordID});
 					using (SQLiteCommand fmd = dbConnection.CreateCommand())
 					{
-						watch.Print("Read db");
-
 						command.CommandType = CommandType.Text;
 						SQLiteDataReader reader = command.ExecuteReader();
 
 						reader.Read();
 						string definitionStr = Convert.ToString(reader["Definition"]);
-
-						watch.Print("Execute query");
 
 						return new Result<string>(data:definitionStr, message:"", status:Status.Success);
 					}

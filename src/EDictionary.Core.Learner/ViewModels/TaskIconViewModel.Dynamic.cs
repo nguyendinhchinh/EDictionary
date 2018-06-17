@@ -135,10 +135,10 @@ namespace EDictionary.Core.Learner.ViewModels
 
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(wordName);
+				var newWord = wordLogic.Normalize(wordName);
 
-				if (wordName != stemmedWord)
-					word = wordLogic.Search(stemmedWord);
+				if (newWord != null)
+					word = wordLogic.Search(newWord);
 			}
 
 			if (word != null)
