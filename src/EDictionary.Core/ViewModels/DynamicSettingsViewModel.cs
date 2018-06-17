@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace EDictionary.Core.ViewModels
 {
-	public class DynamicSettingsViewModel : ViewModelBase, IDynamicSettingsViewModel
+	public class DynamicSettingsViewModel : SettingsViewModelBase, IDynamicSettingsViewModel
 	{
 		private bool canEditTriggerKey;
 		private bool autoCopyToClipboard;
@@ -16,13 +16,21 @@ namespace EDictionary.Core.ViewModels
 		public bool CanEditTriggerKey
 		{
 			get { return canEditTriggerKey; }
-			set { SetPropertyAndNotify(ref canEditTriggerKey, value); }
+			set
+			{
+				SetPropertyAndNotify(ref canEditTriggerKey, value);
+				OnSettingsChanged();
+			}
 		}
 
 		public bool AutoCopyToClipboard
 		{
 			get { return autoCopyToClipboard; }
-			set { SetPropertyAndNotify(ref autoCopyToClipboard, value); }
+			set
+			{
+				SetPropertyAndNotify(ref autoCopyToClipboard, value);
+				OnSettingsChanged();
+			}
 		}
 
 		public bool UseTriggerKey
@@ -36,6 +44,7 @@ namespace EDictionary.Core.ViewModels
 					CanEditTriggerKey = false;
 
 				SetPropertyAndNotify(ref useTriggerKey, value);
+				OnSettingsChanged();
 			}
 		}
 
@@ -47,7 +56,11 @@ namespace EDictionary.Core.ViewModels
 		public string SelectedKey
 		{
 			get { return selectedKey; }
-			set { SetPropertyAndNotify(ref selectedKey, value); }
+			set
+			{
+				SetPropertyAndNotify(ref selectedKey, value);
+				OnSettingsChanged();
+			}
 		}
 
 		public DynamicSettingsViewModel()
@@ -58,8 +71,6 @@ namespace EDictionary.Core.ViewModels
 				"RControl",
 				"LAlt",
 				"RAlt",
-				"LWin",
-				"RWin",
 				"LShift",
 				"RShift",
 			};

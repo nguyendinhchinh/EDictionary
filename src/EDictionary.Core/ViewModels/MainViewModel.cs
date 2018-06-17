@@ -34,6 +34,8 @@ namespace EDictionary.Core.ViewModels
 
 		#region Properties
 
+		public int QueryMaxLength { get; set; } = 30;
+
 		public double WindowMinimumHeight { get; set; } = 350;
 
 		public double WindowMinimumWidth { get; set; } = 450;
@@ -64,6 +66,8 @@ namespace EDictionary.Core.ViewModels
 
 			set
 			{
+				searchedWord = searchedWord.Substring(0, QueryMaxLength);
+
 				if (SetPropertyAndNotify(ref searchedWord, value))
 				{
 					SearchFromInputCommand.RaiseCanExecuteChanged();

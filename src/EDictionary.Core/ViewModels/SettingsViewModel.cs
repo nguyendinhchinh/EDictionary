@@ -17,11 +17,18 @@ namespace EDictionary.Core.ViewModels
 		private DynamicSettingsViewModel dynamicSettingsVM;
 
 		private bool isClose = false;
+		private bool canApply = false;
 
 		public bool IsClose
 		{
 			get { return isClose; }
 			set { SetPropertyAndNotify(ref isClose, value); }
+		}
+
+		public bool CanApply
+		{
+			get { return canApply; }
+			set { SetPropertyAndNotify(ref canApply, value); }
 		}
 
 		public GeneralSettingsViewModel GeneralSettingsVM
@@ -83,6 +90,15 @@ namespace EDictionary.Core.ViewModels
 				UseTriggerKey = settings.UseTriggerKey,
 				SelectedKey = settings.TriggerKey,
 			};
+
+			generalSettingsVM.SettingsChanged += OnSettingsChanged;
+			learnerSettingsVM.SettingsChanged += OnSettingsChanged;
+			dynamicSettingsVM.SettingsChanged += OnSettingsChanged;
+		}
+
+		private void OnSettingsChanged()
+		{
+			CanApply = true;
 		}
 
 		#endregion
@@ -120,6 +136,7 @@ namespace EDictionary.Core.ViewModels
 				};
 
 				settingsLogic.SaveSettings(settings);
+				CanApply = false;
 
 				LogWriter.Instance.WriteLine("Saving Settings ends");
 			}

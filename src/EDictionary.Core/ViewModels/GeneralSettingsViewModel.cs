@@ -2,7 +2,7 @@
 
 namespace EDictionary.Core.ViewModels
 {
-	public class GeneralSettingsViewModel : ViewModelBase, IGeneralSettingsViewModel
+	public class GeneralSettingsViewModel : SettingsViewModelBase, IGeneralSettingsViewModel
 	{
 		private bool runAtStartup;
 		private bool isLearnerEnabled;
@@ -11,19 +11,31 @@ namespace EDictionary.Core.ViewModels
 		public bool RunAtStartup
 		{
 			get { return runAtStartup; }
-			set { SetPropertyAndNotify(ref runAtStartup, value); }
+			set
+			{
+				SetPropertyAndNotify(ref runAtStartup, value);
+				OnSettingsChanged();
+			}
 		}
 
 		public bool IsLearnerEnabled
 		{
 			get { return isLearnerEnabled; }
-			set { SetPropertyAndNotify(ref isLearnerEnabled, value); }
+			set
+			{
+				SetPropertyAndNotify(ref isLearnerEnabled, value);
+				OnSettingsChanged();
+			}
 		}
 
 		public bool IsDynamicEnabled
 		{
 			get { return isDynamicEnabled; }
-			set { SetPropertyAndNotify(ref isDynamicEnabled, value); }
+			set
+			{
+				SetPropertyAndNotify(ref isDynamicEnabled, value);
+				OnSettingsChanged();
+			}
 		}
 	}
 }

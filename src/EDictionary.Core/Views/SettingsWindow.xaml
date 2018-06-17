@@ -38,6 +38,7 @@
 		<Grid Grid.Row="2">
 
 			<Button
+				IsEnabled="{Binding CanApply}"
 				Style="{StaticResource TextButton}"
 				VerticalAlignment="Center"
 				HorizontalAlignment="Center"
