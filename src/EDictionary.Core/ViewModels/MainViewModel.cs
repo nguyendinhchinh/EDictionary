@@ -18,6 +18,7 @@ namespace EDictionary.Core.ViewModels
 		private WordLogic wordLogic;
 		private HistoryLogic historyLogic;
 		private History<string> history;
+		private SettingsLogic settingsLogic;
 
 		private DefinitionViewModel definitionVM;
 
@@ -66,7 +67,8 @@ namespace EDictionary.Core.ViewModels
 
 			set
 			{
-				searchedWord = searchedWord.Substring(0, QueryMaxLength);
+				if (searchedWord.Length > 30)
+					searchedWord = searchedWord.Substring(0, QueryMaxLength);
 
 				if (SetPropertyAndNotify(ref searchedWord, value))
 				{
@@ -134,7 +136,7 @@ namespace EDictionary.Core.ViewModels
 			otherResultNameToID = new Dictionary<string, string>();
 
 			LoadCommands();
-			LoadWordlistAndHistory();
+			LoadLogic();
 
 			SearchIcon = "SearchIcon";
 		}
@@ -148,16 +150,19 @@ namespace EDictionary.Core.ViewModels
 			NextHistoryCommand = new DelegateCommand(NextHistory, CanGoToNextHistory);
 			PreviousHistoryCommand = new DelegateCommand(PreviousHistory, CanGoToPreviousHistory);
 
-			SearchHighlightedOtherResultCommand = new DelegateCommand(SearchHighlightedOtherResult, CanSearchHighlightedOtherResult);
+			AddToWordlistCommand = new DelegateCommand(AddToWordlist);
 
 			OpenSettingCommand = new DelegateCommand(OpenSettings);
 			OpenAboutCommand = new DelegateCommand(OpenAbout);
 
+			SearchHighlightedOtherResultCommand = new DelegateCommand(SearchHighlightedOtherResult, CanSearchHighlightedOtherResult);
 			CloseCommand = new DelegateCommand(OnCloseWindow);
 		}
 
-		private void LoadWordlistAndHistory()
+		private void LoadLogic()
 		{
+			settingsLogic = new SettingsLogic();
+
 			wordLogic = new WordLogic();
 			WordList = wordLogic.WordList;
 
@@ -185,10 +190,11 @@ namespace EDictionary.Core.ViewModels
 		public DelegateCommand SearchFromHighlightCommand { get; private set; }
 		public DelegateCommand UpdateWordlistTopIndexCommand { get; private set; }
 		public DelegateCommand NextHistoryCommand { get; private set; }
-		public DelegateCommand SearchHighlightedOtherResultCommand { get; private set; }
 		public DelegateCommand PreviousHistoryCommand { get; private set; }
+		public DelegateCommand AddToWordlistCommand { get; private set; }
 		public DelegateCommand OpenSettingCommand { get; private set; }
 		public DelegateCommand OpenAboutCommand { get; private set; }
+		public DelegateCommand SearchHighlightedOtherResultCommand { get; private set; }
 		public DelegateCommand CloseCommand { get; private set; }
 
 		private void OpenSettings()
@@ -368,6 +374,18 @@ namespace EDictionary.Core.ViewModels
 				return false;
 
 			return !history.IsFirst;
+		}
+
+		#endregion
+
+		#region AddToWordlist
+
+		private async void AddToWordlist()
+		{
+			await Task.Run(() =>
+			{
+				settingsLogic.AddToWordlist(history.Current);
+			});
 		}
 
 		#endregion

@@ -31,7 +31,8 @@
 				Content="Auto copy to clipboard"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="10,5,0,0"/>
+				Margin="10,5,0,0"
+				ToolTip="If checked, it will auto copy the selected word after every double click"/>
 			
 			<CheckBox Grid.Row="1" Grid.Column="0"
 				Style="{StaticResource CheckboxBase}"
@@ -39,7 +40,8 @@
 				Content="Use trigger key"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="10,5,0,0"/>
+				Margin="10,5,0,0"
+				ToolTip="Whether to use a modified key to open dynamic popup or not"/>
 
 		</StackPanel>
 

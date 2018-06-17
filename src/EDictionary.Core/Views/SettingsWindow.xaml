@@ -23,13 +23,16 @@
 
 		<TabControl SelectedIndex="0">
 
-			<TabItem Header="General">
+			<TabItem Header="General"
+				ToolTip="General settings">
 				<vw:GeneralSettingsTab DataContext="{Binding GeneralSettingsVM}"/>
 			</TabItem>
-			<TabItem Header="Learner">
+			<TabItem Header="Learner"
+				ToolTip="Periodically show a notification about a definition of a random &#x0a;word in a specified word list to help learning vocabulary">
 				<vw:LearnerSettingsTab DataContext="{Binding LearnerSettingsVM}"/>
 			</TabItem>
-			<TabItem Header="Dynamic">
+			<TabItem Header="Dynamic"
+				ToolTip="Dynamically search for selected word on any currently active &#x0a;window and show a popup with translated result (or not)">
 				<vw:DynamicSettingsTab DataContext="{Binding DynamicSettingsVM}"/>
 			</TabItem>
 

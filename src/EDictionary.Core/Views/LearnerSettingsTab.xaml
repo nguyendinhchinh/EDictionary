@@ -34,7 +34,8 @@
 				Content="Interval"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="10,10,0,0"/>
+				Margin="10,10,0,0"
+				ToolTip="The time delay before learner balloon showing up a random word"/>
 
 			<Label Grid.Column="0"
 				Style="{StaticResource NormalLabel}"
@@ -69,7 +70,8 @@
 				Content="Timeout"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="10,10,0,0"/>
+				Margin="10,10,0,0"
+				ToolTip="The time the balloon will be active after showing up"/>
 
 			<Label Grid.Column="1"
 				Style="{StaticResource NormalLabel}"
@@ -111,7 +113,8 @@
 				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:VocabularySource.Full}}"
 				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="20,10,0,0"/>
+				Margin="20,10,0,0"
+				ToolTip="Get all words currently available in the dictionary"/>
 
 			<RadioButton Grid.Row="1" Grid.Column="0"
 				IsChecked="{Binding Option, Converter={StaticResource RadioConverter}, ConverterParameter={x:Static model:VocabularySource.Custom}}"

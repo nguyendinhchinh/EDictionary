@@ -25,6 +25,7 @@
 		<ResourceDictionary Source="../Styles/Checkboxs.xaml"/>
 		<ResourceDictionary Source="../Styles/TabControl.xaml"/>
 		<ResourceDictionary Source="../Styles/Combobox.xaml"/>
+		<ResourceDictionary Source="../Styles/Popup.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

@@ -1,6 +1,7 @@
 ﻿using EDictionary.Core.Data;
 using EDictionary.Core.Models;
 using EDictionary.Core.Utilities;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EDictionary.Core.DataLogic
@@ -16,6 +17,12 @@ namespace EDictionary.Core.DataLogic
 
 		public void SaveSettings(Settings settings)
 		{
+			settings.CustomWordList = settings.CustomWordList
+				.Select(word => word.ToLower())
+				.Where(word => word != "")
+				.Distinct()
+				.ToList();
+
 			settingsAccess.SaveSettings(settings);
 		}
 
@@ -29,6 +36,16 @@ namespace EDictionary.Core.DataLogic
 			}
 
 			return Settings.Default;
+		}
+
+		public void AddToWordlist(string word)
+		{
+			Settings settings = LoadSettings();
+
+			if (!settings.CustomWordList.Contains(word))
+				settings.CustomWordList.Add(word);
+
+			SaveSettings(settings);
 		}
 
 		public async Task<Settings> LoadSettingsAsync()

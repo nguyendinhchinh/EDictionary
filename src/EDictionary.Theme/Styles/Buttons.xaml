@@ -34,6 +34,7 @@
 		<Setter Property="Width" Value="24"/>
 		<Setter Property="Height" Value="24"/>
 		<Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+		<Setter Property="FontSize" Value="12"/>
 
 		<Style.Triggers>
 			<EventTrigger RoutedEvent="MouseEnter">
@@ -218,7 +219,6 @@
 
 	<Style TargetType="Button" x:Key="SearchButton" BasedOn="{StaticResource IconButton}">
 
-		<Setter Property="FontSize" Value="12"/>
 		<Setter Property="Background" Value="{StaticResource LightCyan}"/>
 		<Setter Property="Foreground" Value="{StaticResource Cyan}"/>
 		<Setter Property="Content" Value="{StaticResource SearchIcon}"/>
@@ -242,20 +242,34 @@
 				</BeginStoryboard>
 			</EventTrigger>
 		</Style.Triggers>
-		 
-	</Style>
-
-	<Style TargetType="Button" x:Key="SettingButton" BasedOn="{StaticResource IconButton}">
-
-		<Setter Property="FontSize" Value="12"/>
-		<Setter Property="Content" Value="{DynamicResource CogIcon}"/>
 
 	</Style>
-	
-	<Style TargetType="Button" x:Key="HelpButton" BasedOn="{StaticResource IconButton}">
 
-		<Setter Property="FontSize" Value="12"/>
-		<Setter Property="Content" Value="{DynamicResource QuestionIcon}"/>
+	<Style TargetType="Button" x:Key="PlusButton" BasedOn="{StaticResource IconButton}">
+
+		<Setter Property="Background" Value="{StaticResource Yellow}"/>
+		<Setter Property="Foreground" Value="{StaticResource ExtraLightYellow}"/>
+		<Setter Property="Content" Value="{DynamicResource PlusIcon}"/>
+
+		<Style.Triggers>
+			<EventTrigger RoutedEvent="MouseEnter">
+				<BeginStoryboard>
+					<Storyboard>
+						<ColorAnimation To="{StaticResource LightYellowColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color" />
+						<ColorAnimation To="{StaticResource WhiteColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
+					</Storyboard>
+				</BeginStoryboard>
+			</EventTrigger>
+
+			<EventTrigger RoutedEvent="MouseLeave">
+				<BeginStoryboard>
+					<Storyboard>
+						<ColorAnimation To="{StaticResource YellowColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Background.Color" />
+						<ColorAnimation To="{StaticResource ExtraLightYellowColor}" Duration="0:0:0.15" Storyboard.TargetProperty="Foreground.Color" />
+					</Storyboard>
+				</BeginStoryboard>
+			</EventTrigger>
+		</Style.Triggers>
 
 	</Style>
 

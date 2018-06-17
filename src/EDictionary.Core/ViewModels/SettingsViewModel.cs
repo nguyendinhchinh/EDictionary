@@ -125,7 +125,7 @@ namespace EDictionary.Core.ViewModels
 					SecInterval = LearnerSettingsVM.SecInterval,
 					MinInterval = LearnerSettingsVM.MinInterval,
 					VocabularySource = LearnerSettingsVM.Option,
-					CustomWordList = LearnerSettingsVM.CustomWordList.Select(word => word.ToLower()).Distinct().ToList(),
+					CustomWordList = LearnerSettingsVM.CustomWordList,
 					UseHistoryWordlist = LearnerSettingsVM.UseHistoryWordlist,
 					UseCustomWordlist = LearnerSettingsVM.UseCustomWordlist,
 					Timeout = LearnerSettingsVM.Timeout,

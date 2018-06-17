@@ -10,7 +10,7 @@ namespace EDictionary.Core.Converters
    {
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			return String.Join(Environment.NewLine, ((List<string>)value).ToArray());
+			return string.Join(Environment.NewLine, ((List<string>)value).ToArray());
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
