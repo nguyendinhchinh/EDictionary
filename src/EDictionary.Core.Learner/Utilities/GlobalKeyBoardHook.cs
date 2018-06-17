@@ -5,7 +5,7 @@ namespace EDictionary.Core.Learner.Utilities
 {
 	public class GlobalKeyboardHook
 	{
-		private static GlobalKeyboardHookInternal keyboardHook = new GlobalKeyboardHookInternal();
+		private GlobalKeyboardHookInternal keyboardHook = new GlobalKeyboardHookInternal();
 
 		public event KeyEventHandler KeyDown
 		{
@@ -27,13 +27,30 @@ namespace EDictionary.Core.Learner.Utilities
 
 		public GlobalKeyboardHook()
 		{
+			SetupHooks();
+		}
+
+		private void SetupHooks()
+		{
 			// Track all keys
 			foreach (Keys key in Enum.GetValues(typeof(Keys)))
 			{
 				keyboardHook.HookedKeys.Add(key);
 			}
+		}
 
+		private void RemoveHooks() => keyboardHook.HookedKeys.Clear();
+
+		public void StartHook()
+		{
+			SetupHooks();
 			keyboardHook.Start();
+		}
+
+		public void StopHook()
+		{
+			RemoveHooks();
+			keyboardHook.Stop();
 		}
 
 		public void Assign(KeyCombination combination, Action action)

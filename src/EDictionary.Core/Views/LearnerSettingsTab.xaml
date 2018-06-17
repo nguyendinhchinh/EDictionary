@@ -121,6 +121,7 @@
 				Margin="20,40,0,0"/>
 
 			<CheckBox Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource CheckboxBase}"
 				IsChecked="{Binding UseHistoryWordlist}"
 				Content="History"
 				VerticalAlignment="Top"
@@ -129,6 +130,7 @@
 				Margin="40,70,0,0"/>
 
 			<CheckBox Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource CheckboxBase}"
 				IsChecked="{Binding UseCustomWordlist}"
 				Content="Word List"
 				VerticalAlignment="Top"

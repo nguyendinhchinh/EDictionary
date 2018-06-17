@@ -68,7 +68,7 @@ namespace EDictionary.Core.ViewModels
 			}
 		}
 
-		public DefinitionViewModel(WordLogic wordLogic = null)
+		public DefinitionViewModel()
 		{
 			PlayNAmEAudioCommand = new DelegateCommand(PlayNAmEAudio, CanPlayAudio);
 			PlayBrEAudioCommand = new DelegateCommand(PlayBrEAudio, CanPlayAudio);

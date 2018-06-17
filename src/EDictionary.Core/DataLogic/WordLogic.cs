@@ -128,7 +128,7 @@ namespace EDictionary.Core.DataLogic
 			builder.AppendLine($"No match for \"{wrongWord}\" in the dictionary");
 			builder.AppendLine();
 
-			if (candidates.Count() == 1)
+			if (candidates.FirstOrDefault() == wrongWord)
 				return builder.ToString();
 
 			builder.AppendLine("Did you mean:");

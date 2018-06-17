@@ -49,7 +49,7 @@ namespace EDictionary.Core.Learner.ViewModels
 			wordList = new List<string>();
 			historyWordlist = new List<string>();
 
-			LearnerVM = new DefinitionViewModel(wordLogic);
+			LearnerVM = new DefinitionViewModel();
 
 			spawnTimer = new DispatcherTimer();
 			spawnTimer.Tick += OnSpawnTimerTick;

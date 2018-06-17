@@ -7,7 +7,7 @@
 	xmlns:view="clr-namespace:EDictionary.Core.Views;assembly=EDictionary"
 	mc:Ignorable="d"
 	WindowStyle="None"
-	BorderThickness="0"
+	AllowsTransparency="True"
 	Width="300"
 	Height="220"
 	Topmost="True"

@@ -26,6 +26,7 @@
 				HorizontalAlignment="Left"/>
 			
 			<CheckBox Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource CheckboxBase}"
 				IsChecked="{Binding AutoCopyToClipboard}"
 				Content="Auto copy to clipboard"
 				VerticalAlignment="Top"
@@ -33,6 +34,7 @@
 				Margin="10,5,0,0"/>
 			
 			<CheckBox Grid.Row="1" Grid.Column="0"
+				Style="{StaticResource CheckboxBase}"
 				IsChecked="{Binding UseTriggerKey}"
 				Content="Use trigger key"
 				VerticalAlignment="Top"

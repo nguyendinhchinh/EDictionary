@@ -18,16 +18,12 @@ namespace EDictionary.Core.Learner.Views
 			Right,
 		}
 
-		private bool mouseEnter = false;
 
 		public DynamicPopup(ViewModelBase viewModel)
 		{
 			InitializeComponent();
 
 			DataContext = viewModel;
-
-			//MouseEnter += (sender, e) => mouseEnter = true;
-			//MouseLeave += (sender, e) => mouseEnter = false;
 
 			Activated += (s, e) =>
 			{
@@ -38,7 +34,7 @@ namespace EDictionary.Core.Learner.Views
 
 		protected override void OnIsKeyboardFocusWithinChanged(DependencyPropertyChangedEventArgs e)
 		{
-			if (!mouseEnter && !(bool)e.NewValue)
+			if (!(bool)e.NewValue)
 				Visibility = Visibility.Hidden;
 
 			base.OnIsKeyboardFocusWithinChanged(e);
@@ -58,7 +54,7 @@ namespace EDictionary.Core.Learner.Views
 
 			bool isOffTop = mouse.Y - ActualHeight - offset < 0;
 			bool isOffBottom = mouse.Y + offset > SystemParameters.WorkArea.Height;
-			bool isOffLeft = mouse.X - ActualWidth - offset < 0;
+			bool isOffLeft = mouse.X - ActualWidth - offset < 0 - 140;
 			bool isOffRight = mouse.X + offset > SystemParameters.WorkArea.Width - 140;
 
 			if (isOffTop && !isOffBottom && !isOffLeft && !isOffRight)

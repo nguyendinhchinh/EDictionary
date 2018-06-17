@@ -6,67 +6,50 @@
              xmlns:local="clr-namespace:EDictionary.Core.Views"
              mc:Ignorable="d" 
              d:DesignHeight="280" d:DesignWidth="350">
+
+	<UserControl.Resources>
+		<Style x:Key="BoldCheckbox" TargetType="CheckBox" BasedOn="{StaticResource CheckboxBase}">
+			<Setter Property="Foreground"	Value="{StaticResource White}"/>
+			<Setter Property="FontFamily" Value="{StaticResource QuicksandMedium}"/>
+		</Style>
+	</UserControl.Resources>
 	
 	<Grid Background="{StaticResource Black1}">
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="30"/>
-			<RowDefinition Height="40"/>
-			<RowDefinition Height="40"/>
-			<RowDefinition Height="40"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
-		<StackPanel Orientation="Horizontal" Grid.Row="1"
+		<StackPanel Orientation="Vertical" Grid.Row="1"
 			VerticalAlignment="Top"
 			HorizontalAlignment="Left"
-			Margin="10,0,0,0">
+			Margin="15,0,0,0">
 
 			<CheckBox
+				Style="{StaticResource BoldCheckbox}"
 				IsChecked="{Binding RunAtStartup}"
-				VerticalAlignment="Center"
+				VerticalAlignment="Top"
 				HorizontalAlignment="Left"
-				Margin="0,0,0,0"/>
-
-			<Label
-				Style="{StaticResource SmallHeaderLabel}"
 				Content="Run At Startup"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"/>
-		</StackPanel>
-		 
-		<StackPanel Orientation="Horizontal" Grid.Row="2"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Margin="10,0,0,0">
+				Margin="0,20,0,0"/>
 
 			<CheckBox
+				Style="{StaticResource BoldCheckbox}"
 				IsChecked="{Binding IsLearnerEnabled, Mode=TwoWay}"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"/>
-				
-			<Label
-				Style="{StaticResource SmallHeaderLabel}"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
 				Content="Enable EDictionary Learner"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"/>
-		</StackPanel>
-
-		<StackPanel Orientation="Horizontal" Grid.Row="3"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Margin="10,0,0,0">
+				Margin="0,20,0,0"/>
 
 			<CheckBox
+				Style="{StaticResource BoldCheckbox}"
 				IsChecked="{Binding IsDynamicEnabled}"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"/>
-
-			<Label
-				Style="{StaticResource SmallHeaderLabel}"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
 				Content="Enable EDictionary Dynamic"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Left"/>
+				Margin="0,20,0,0"/>
+			
 		</StackPanel>
 
 	</Grid>

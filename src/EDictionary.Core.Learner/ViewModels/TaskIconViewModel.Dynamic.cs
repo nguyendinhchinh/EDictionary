@@ -36,15 +36,34 @@ namespace EDictionary.Core.Learner.ViewModels
 
 		private void InitDynamic()
 		{
-			DynamicVM = new DefinitionViewModel(wordLogic);
+			DynamicVM = new DefinitionViewModel();
 			DynamicVM.DoubleClickCommand = new DelegateCommand(SearchFromSelection);
 
 			keyboardHook = new GlobalKeyboardHook();
 
-			mouseHook = new GlobalMouseHook();
-			mouseHook.DoubleClick += OnMouseDoubleClicked;
-
 			clipboardManager = new ClipboardManager();
+		}
+
+		private void EnableDynamic()
+		{
+			App.Current.Dispatcher.Invoke(() =>
+			{
+				keyboardHook.StartHook();
+				mouseHook = new GlobalMouseHook();
+				mouseHook.DoubleClick += OnMouseDoubleClicked;
+				SendKeys.Flush();
+			});
+		}
+
+		private void DisableDynamic()
+		{
+			App.Current.Dispatcher.Invoke(() =>
+			{
+				keyboardHook.StopHook();
+				mouseHook.DoubleClick -= OnMouseDoubleClicked;
+				mouseHook.Dispose();
+				Task.Run(() => SendKeys.Flush());
+			});
 		}
 
 		private async void OnMouseDoubleClicked(object sender, MouseEventArgs e)
@@ -79,13 +98,7 @@ namespace EDictionary.Core.Learner.ViewModels
 				if (selectedText.Split(' ').Length > 1)
 					return;
 
-				var word = wordLogic.Search(selectedText);
-
-				if (word == null)
-					return;
-
-				DynamicVM.Word = word;
-				DynamicVM.Definition = word.ToDisplayedString();
+				SearchDefinition(selectedText);
 
 				OpenDynamicPopup();
 
@@ -113,20 +126,25 @@ namespace EDictionary.Core.Learner.ViewModels
 		/// </summary>
 		public void SearchFromSelection()
 		{
-			Word word = wordLogic.Search(DynamicVM.SelectedWord);
+			SearchDefinition(DynamicVM.SelectedWord);
+		}
+
+		private void SearchDefinition(string wordName)
+		{
+			Word word = wordLogic.Search(wordName);
 
 			if (word == null)
 			{
-				var stemmedWord = Stemmer.Stem(DynamicVM.SelectedWord);
+				var stemmedWord = Stemmer.Stem(wordName);
 
-				if (DynamicVM.SelectedWord != stemmedWord)
+				if (wordName != stemmedWord)
 					word = wordLogic.Search(stemmedWord);
 			}
 
 			if (word != null)
 				DynamicVM.SetContent(word);
 			else
-				DynamicVM.SetContent(wordLogic.GetSuggestions(DynamicVM.SelectedWord));
+				DynamicVM.SetContent(wordLogic.GetSuggestions(wordName));
 		}
 	}
 }

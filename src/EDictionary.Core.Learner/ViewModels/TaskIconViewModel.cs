@@ -180,6 +180,11 @@ namespace EDictionary.Core.Learner.ViewModels
 				}
 			}
 
+			if (settings.IsDynamicEnabled)
+				EnableDynamic();
+			else
+				DisableDynamic();
+
 			autoCopyToClipboard = settings.AutoCopyToClipboard;
 			useTriggerKey = settings.UseTriggerKey;
 			triggerKey = settings.TriggerKey.ToKey();

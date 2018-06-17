@@ -14,7 +14,7 @@ namespace EDictionary.Core.Learner.Utilities
 		/// so we will only use MouseDown and MouseUp event to make our own improvised
 		/// DoubleClick event (or we'll miss the deadline)
 		/// </summary>
-		private static IKeyboardMouseEvents mouseHook;
+		private IKeyboardMouseEvents mouseHook;
 
 		private static float doubleClickInterval = 0.5f; // in seconds
 
@@ -83,6 +83,11 @@ namespace EDictionary.Core.Learner.Utilities
 			}
 
 			lastMouseDownTime = mouseDownTime;
+		}
+
+		public void Dispose()
+		{
+			mouseHook.Dispose();
 		}
 	}
 }
