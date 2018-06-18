@@ -41,6 +41,7 @@ The project is written in .NET Framework 4.6 and C# 6.0. Compiled using Visual S
 * [LemmaGenerator](https://github.com/AlexPoint/LemmaGenerator)
 
 # Related Work
+* [oxford-dictionary-api](https://github.com/NearHuscarl/oxford-dictionary-api)
 * [DynamicTranslator](https://github.com/DynamicTranslator/DynamicTranslator)
 * [SmartVocabulary](https://github.com/al-develop/SmartVocabulary)
 
