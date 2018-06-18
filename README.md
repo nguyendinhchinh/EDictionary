@@ -9,7 +9,7 @@
 
 EDitionary is a desktop application project for uni assignment written in WPF. It has basic feature (english translator) along with some add-ons to make learning English more convenient. Note: Some of the features is still in proof-of-concept state 
 
-# Main Features
+## Main Features
 
 * Search 40k English words for definition
 * Autocomplete when searching
@@ -19,13 +19,22 @@ EDitionary is a desktop application project for uni assignment written in WPF. I
 * EDictionary Learner: Periodically popup of a random word definition to help learning vocabulary
 * EDictionary Dynamic: Search the currently selected text (by double click and press a trigger key)
 
-# Screenshots
+## Screenshots
 
 ![Main window](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Main.png)
 ![Learner](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Learner.png)
 ![Dynamic](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Dynamic.png)
 
-# Development Environment
+## Download
+
+#### Using git
+```bash
+$ git clone --recursive https://github.com/NearHuscarl/EDictionary
+```
+
+#### Or using an [installer](https://github.com/NearHuscarl/EDictionary/releases) 
+
+## Development Environment
 
 The project is written in .NET Framework 4.6 and C# 6.0. Compiled using Visual Studio 14
 
@@ -40,10 +49,10 @@ The project is written in .NET Framework 4.6 and C# 6.0. Compiled using Visual S
 * [MouseKeyHook](https://github.com/gmamaladze/globalmousekeyhook)
 * [LemmaGenerator](https://github.com/AlexPoint/LemmaGenerator)
 
-# Related Work
+## Related Work
 * [oxford-dictionary-api](https://github.com/NearHuscarl/oxford-dictionary-api)
 * [DynamicTranslator](https://github.com/DynamicTranslator/DynamicTranslator)
 * [SmartVocabulary](https://github.com/al-develop/SmartVocabulary)
 
-# License
+## License
 **[BSD 3 Clauses](https://github.com/NearHuscarl/i3-quake/blob/master/LICENSE.md)**
