@@ -25,7 +25,7 @@ EDitionary is a desktop application project for uni assignment written in WPF. I
 ![Learner](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Learner.png)
 ![Dynamic](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Dynamic.png)
 
-# Development Environemnt
+# Development Environment
 
 The project is written in .NET Framework 4.6 and C# 6.0. Compiled using Visual Studio 14
 
@@ -39,3 +39,10 @@ The project is written in .NET Framework 4.6 and C# 6.0. Compiled using Visual S
 * [avalonedit](http://avalonedit.net/)
 * [MouseKeyHook](https://github.com/gmamaladze/globalmousekeyhook)
 * [LemmaGenerator](https://github.com/AlexPoint/LemmaGenerator)
+
+# Related Work
+* [DynamicTranslator](https://github.com/DynamicTranslator/DynamicTranslator)
+* [SmartVocabulary](https://github.com/al-develop/SmartVocabulary)
+
+# License
+**[BSD 3 Clauses](https://github.com/NearHuscarl/i3-quake/blob/master/LICENSE.md)**
