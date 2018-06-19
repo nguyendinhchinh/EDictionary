@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Logo.png"/>
+  <img src="https://github.com/NearHuscarl/EDictionary/blob/master/demo/Logo.png"/>
 </p>
 
 <p align="center">
