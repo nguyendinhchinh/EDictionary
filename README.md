@@ -25,14 +25,14 @@ EDitionary is a desktop application project for uni assignment written in WPF. I
 ![Learner](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Learner.png)
 ![Dynamic](https://github.com/NearHuscarl/EDictionary/blob/master/screenshots/Dynamic.png)
 
-## Download
+## Installation
 
-#### Using git
+#### Build from source
 ```bash
 $ git clone --recursive https://github.com/NearHuscarl/EDictionary
 ```
 
-#### Or using an [installer](https://github.com/NearHuscarl/EDictionary/releases) 
+#### Or download an [installer](https://github.com/NearHuscarl/EDictionary/releases) 
 
 ## Development Environment
 
