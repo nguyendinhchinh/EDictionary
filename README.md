@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/NearHuscarl/E-Dictionary/blob/master/LICENSE.md"><img src="https://img.shields.io/badge/License-BSD_3--Clauses-blue.svg?longCache=true" alt="BSD 3-Clause License"></a>
-  <a href="https://github.com/NearHuscarl/E-Dictionary/releases"><img src="https://img.shields.io/badge/Version-2.0.1-green.svg?longCache=true" alt="Version"></a>
+  <a href="https://github.com/NearHuscarl/E-Dictionary/releases"><img src="https://img.shields.io/badge/Version-2.0.2-green.svg?longCache=true" alt="Version"></a>
 </p>
 
 EDitionary is a desktop application project for uni assignment written in WPF. It has basic feature (english translator) along with some add-ons to make learning English more convenient. Note: Some of the features is still in proof-of-concept state 

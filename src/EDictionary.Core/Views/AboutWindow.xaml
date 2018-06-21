@@ -10,38 +10,40 @@
 	Title="About"
 	WindowStartupLocation="CenterScreen"
 	ResizeMode="NoResize"
-	Height="300"
+	WindowStyle="None"
+	Height="280"
 	Width="400"
 	Style="{StaticResource ChildWindow}">
 
 	<Grid>
 
 		<Grid.RowDefinitions>
-			<RowDefinition Height="120"/>
-			<RowDefinition Height="30"/>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="30"/>
+			<RowDefinition Height="130"/>
+			<RowDefinition Height="25"/>
+			<RowDefinition Height="25"/>
+			<RowDefinition Height="25"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="160"/>
+			<ColumnDefinition Width="190"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
 
 		<Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-			
-			<Image Source="../Resources/EDictionary.png"
+
+			<StackPanel Orientation="Vertical">
+
+				<Image Source="../Resources/EDictionary.png"
 				RenderOptions.BitmapScalingMode="HighQuality"
-				Height="90"/>
-			
-			<Label
+				Height="90" Margin="5"/>
+
+				<Label
 				Style="{StaticResource SmallHeaderLabel}"
 				Content="EDictionary"
 				Foreground="{StaticResource White}"
-				HorizontalAlignment="Center"
-				Margin="0,0,0,0"
-				VerticalAlignment="Bottom"/>
+				HorizontalAlignment="Center"/>
+			</StackPanel>
 
 		</Grid>
 
@@ -53,7 +55,7 @@
 
 		<Label Grid.Row="1" Grid.Column="1"
 			Style="{StaticResource NormalLabel}"
-			Content="{Binding Version}"
+			Content="{Binding Version, FallbackValue=x.x.x}"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"/>
 
@@ -65,7 +67,7 @@
 
 		<Label Grid.Row="2" Grid.Column="1"
 			Style="{StaticResource NormalLabel}"
-			Content="{Binding Authors}"
+			Content="{Binding Authors, FallbackValue=Near Huscarl}"
 			HorizontalAlignment="Left"
 			VerticalAlignment="Top"/>
 
@@ -82,7 +84,7 @@
 			<Hyperlink
 				Command="{Binding OpenLicenseCommand}">
 				<Hyperlink.Inlines>
-					<Run Text="{Binding License, Mode=OneWay}"/>
+					<Run Text="{Binding License, Mode=OneWay, FallbackValue=BSD 3-Clauses}"/>
 				</Hyperlink.Inlines>
 			</Hyperlink>
 		</Label>

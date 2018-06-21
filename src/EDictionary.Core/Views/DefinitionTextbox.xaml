@@ -45,11 +45,11 @@
 						FontSize="{Binding NameFontSize, ElementName=DefinitionView}"
 						FontWeight="Bold"
 						Foreground="{StaticResource LightCyan}"
-						Text="{Binding Word.Name}"/>
+						Text="{Binding Word.Name, FallbackValue=Time}"/>
 					<TextBlock
 						FontSize="{Binding WordformFontSize, ElementName=DefinitionView}"
 						Foreground="{StaticResource Cyan}"
-						Text="{Binding Word.Wordform}"/>
+						Text="{Binding Word.Wordform, FallbackValue=noun}"/>
 				</TextBlock>
 
 				<!-- Pronunciation -->
@@ -62,11 +62,11 @@
 							FontStyle="Italic"
 							Foreground="{StaticResource LightMagenta}"
 							Style="{StaticResource TextBlockBase}"
-							Text="{Binding Word.Pronunciations[0].Prefix}"/>
+							Text="{Binding Word.Pronunciations[0].Prefix, FallbackValue=BrE}"/>
 						<TextBlock
 							FontSize="{Binding PronunciationFontSize, ElementName=DefinitionView}"
 							Style="{StaticResource TextBlockBase}"
-							Text="{Binding Word.Pronunciations[0].IpaText}"/>
+							Text="{Binding Word.Pronunciations[0].IpaText, FallbackValue=/taɪm/}"/>
 						<Button
 							FontSize="{Binding AudioButtonSize, ElementName=DefinitionView}"
 							Command="{Binding PlayBrEAudioCommand}"
@@ -80,11 +80,11 @@
 							FontStyle="Italic"
 							Foreground="{StaticResource LightMagenta}"
 							Style="{StaticResource TextBlockBase}"
-							Text="{Binding Word.Pronunciations[1].Prefix}"/>
+							Text="{Binding Word.Pronunciations[1].Prefix,FallbackValue=NAmE}"/>
 						<TextBlock
 							FontSize="{Binding PronunciationFontSize, ElementName=DefinitionView}"
 							Style="{StaticResource TextBlockBase}"
-							Text="{Binding Word.Pronunciations[1].IpaText}"/>
+							Text="{Binding Word.Pronunciations[1].IpaText, FallbackValue=/taɪm/}"/>
 						<Button
 							FontSize="{Binding AudioButtonSize, ElementName=DefinitionView}"
 							Command="{Binding PlayNAmEAudioCommand}"
@@ -97,7 +97,7 @@
 
 			<controls:ExtendedAvalonEdit Grid.Row="1"
 				FontSize="{Binding DefinitionFontSize, ElementName=DefinitionView}"
-				BindingText="{Binding Definition}"
+				BindingText="{Binding Definition, FallbackValue=Definition}"
 				SelectedWord="{Binding SelectedWord, Mode=OneWayToSource}"
 				ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 				SyntaxHighlighting="EDictionary">

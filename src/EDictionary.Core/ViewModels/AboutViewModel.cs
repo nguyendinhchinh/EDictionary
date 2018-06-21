@@ -27,7 +27,7 @@ namespace EDictionary.Core.ViewModels
 
 		public AboutViewModel()
 		{
-			Authors = GetAuthors();
+			Authors = "Near Huscarl";
 
 			License = "BSD 3-Clauses";
 
@@ -38,17 +38,6 @@ namespace EDictionary.Core.ViewModels
 			OpenSourceCodeCommand = new DelegateCommand(OpenSourceCode);
 			OpenBugReportCommand = new DelegateCommand(OpenBugReport);
 			OpenLicenseCommand = new DelegateCommand(OpenLicense);
-		}
-
-		private string GetAuthors()
-		{
-			StringBuilder builder = new StringBuilder();
-
-			builder.AppendLine("Nguyễn Khánh Nguyên");
-			builder.AppendLine("Lê Khắc Hậu Linh");
-			builder.Append("Đỗ Thành Lộc");
-
-			return builder.ToString();
 		}
 
 		public DelegateCommand OpenSourceCodeCommand { get; private set; }
